@@ -4,6 +4,7 @@ import Presentation from './components/Presentation'
 import Adhesion from './components/Adhesion'
 import Outings from './components/Outings'
 import Partners from './components/Partners'
+import Footer from './components/Footer'
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
       <Adhesion />
       <Outings />
       <Partners />
+      <Footer />
     </div>
   )
 }
