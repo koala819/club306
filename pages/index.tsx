@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
-import Header from './components/Header';
-import Presentation from './components/Presentation';
-import Adhesion from './components/Adhesion';
+import Header from './components/Header'
+import Presentation from './components/Presentation'
+import Adhesion from './components/Adhesion'
+import Outings from './components/Outings'
 
 const Home: NextPage = () => {
   return (
@@ -9,6 +10,7 @@ const Home: NextPage = () => {
       <Header />
       <Presentation />
       <Adhesion />
+      <Outings />
     </div>
   )
 }

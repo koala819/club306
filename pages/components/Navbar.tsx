@@ -291,14 +291,6 @@ export default function Navbar() {
         align-items: center;
       }
     `}</style>
-
-      {/* </div>
-                <a className="mr-5 hover:text-gray-900">Accueil</a>
-                <a className="mr-5 hover:text-gray-900">Le Club</a>
-                <a className="mr-5 hover:text-gray-900">Evenements</a>
-                <a className="mr-5 hover:text-gray-900">Membres</a>
-                <a className="mr-5 hover:text-gray-900">Contact</a>
-            </nav>*/}
     </div>
   )
 }
