@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Presentation from './components/Presentation'
 import Adhesion from './components/Adhesion'
 import Outings from './components/Outings'
+import Partners from './components/Partners'
 
 const Home: NextPage = () => {
   return (
@@ -11,6 +12,7 @@ const Home: NextPage = () => {
       <Presentation />
       <Adhesion />
       <Outings />
+      <Partners />
     </div>
   )
 }
