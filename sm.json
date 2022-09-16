@@ -1,0 +1,8 @@
+{
+  "apiEndpoint": "https://club306.prismic.io/api/v2",
+  "libraries": [
+    "@/slices"
+  ],
+  "_latest": "0.4.2",
+  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+}

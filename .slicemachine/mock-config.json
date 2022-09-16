@@ -1,0 +1,19 @@
+{
+  "_cts": {
+    "page": {}
+  },
+  "slices": {
+    "CallToAction": {
+      "default": {
+        "primary": {
+          "title": {
+            "config": {
+              "patternType": "PARAGRAPH",
+              "blocks": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}
