@@ -1,24 +1,21 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import Adhesion from "./Adhesion";
-import Presentation from "./Presentation";
+import Body from "./Body";
+import PropTypes from "prop-types";
 
-const Layout = ({content} : LayoutProps) => {
+
+const Layout = ({content}: any) => {
 console.log(content)
     return (
         <div>
             <Header />
-            <Presentation title={content.presentationTitle} txt={content.presentationTxt} txtButton={content.presentationTxtBtn} />
-            <Adhesion title={content.adhesionTitle} txtBtn={content.adhesionTxtBtn} />
-
-
-
+            <Body content={content} />
             <Footer />
         </div>
     )
 
 }
-export interface LayoutProps {
-    content: any;
+Layout.propTypes = {
+    content: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 export default Layout;
