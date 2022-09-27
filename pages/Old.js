@@ -1,6 +1,5 @@
 import Prismic from 'prismic-javascript';
 import {RichText} from 'prismic-reactjs';
-import Link from 'next/link';
 import Head from 'next/head';
 import { Client } from '../prismic-configuration';
 import React from 'react';
@@ -11,7 +10,7 @@ export default function Home(articles) {
       <Head>
         <title>Blog</title>
       </Head>
-	  {articles.result.map( (article, index) => {
+	  {articles.result.map( (article) => {
 <h1>
 	{RichText.render (article.data.title)}
 </h1>
