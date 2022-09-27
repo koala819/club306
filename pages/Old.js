@@ -10,10 +10,12 @@ export default function Home(articles) {
       <Head>
         <title>Blog</title>
       </Head>
+      {/* eslint-disable-next-line no-mixed-spaces-and-tabs */}
 	  {articles.result.map( (article) => {
-<h1>
-	{RichText.render (article.data.title)}
-</h1>
+        <h1>
+            {RichText.render (article.data.title)}
+        </h1>
+        // eslint-disable-next-line no-mixed-spaces-and-tabs
 	  })}
     </div>
   );
