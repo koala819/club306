@@ -1,0 +1,39 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "articles",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "title": [
+      {
+        "type": "paragraph",
+        "text": "In sunt tempor aliquip mollit deserunt ullamco eu Lorem. Incididunt reprehenderit ea reprehenderit excepteur elit pariatur Lorem nisi dolor quis laboris.",
+        "spans": []
+      }
+    ],
+    "dateevent": "2019-01-28",
+    "picture": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1589321578146-4c1ba445cc88"
+    },
+    "description": [
+      {
+        "type": "paragraph",
+        "text": "In cillum consectetur in anim reprehenderit ea laborum Lorem voluptate cillum dolore est nisi. Mollit tempor velit velit cillum.",
+        "spans": []
+      }
+    ]
+  }
+}

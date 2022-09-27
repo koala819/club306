@@ -4,7 +4,7 @@ import { PrismicProvider } from '@prismicio/react';
 import { PrismicPreview } from '@prismicio/next';
 import { linkResolver, repositoryName } from '../prismicio';
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: any) {
   return (
     <PrismicProvider
       linkResolver={linkResolver}
