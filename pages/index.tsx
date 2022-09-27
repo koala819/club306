@@ -1,20 +1,20 @@
 import type { NextPage } from 'next'
-import Header from './components/Header'
-import Presentation from './components/Presentation'
-import Adhesion from './components/Adhesion'
-import Outings from './components/Outings'
-import Partners from './components/Partners'
-import Footer from './components/Footer'
+import Layout from './components/Layout'
 
 const Home: NextPage = () => {
+    const content =
+        {
+            adhesionTitle : 'Rejoignez nous en 30 secondes',
+            adhesionTxtBtn: 'Adhérer'
+        }
   return (
     <div>
-      <Header />
-      <Presentation />
+
+      {/*<Presentation />
       <Adhesion />
       <Outings />
-      <Partners />
-      <Footer />
+      <Partners />*/}
+      <Layout content={content} />
     </div>
   )
 }
