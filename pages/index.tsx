@@ -16,7 +16,7 @@ const Home: NextPage = () => {
             presentationTxt: 'Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.',
             presentationTxtBtn: 'En savoir plus ...'
         }
-        
+
     return (
         <div>
         <Header />

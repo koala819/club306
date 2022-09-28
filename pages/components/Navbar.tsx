@@ -74,7 +74,7 @@ export default function Navbar() {
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <a href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
                       le Staff
                     </a>
                   </li>
@@ -180,7 +180,7 @@ export default function Navbar() {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <a href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
                   le Staff
                 </a>
               </li>
