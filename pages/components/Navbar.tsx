@@ -69,7 +69,7 @@ export default function Navbar() {
                 </a>
                 <ul className={isLeClubOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <a href="Adhesion" className="flex px-4 py-3 hover:bg-gray-50">
                       Adhésion
                     </a>
                   </li>
@@ -175,7 +175,7 @@ export default function Navbar() {
             </a>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <a href="Adhesion" className="flex px-4 py-3 hover:bg-gray-50">
                   Adhésion
                 </a>
               </li>

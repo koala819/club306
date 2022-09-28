@@ -10,8 +10,8 @@ const Home: NextPage = () => {
 
     const content =
         {
-            adhesionTitle : 'Rejoignez nous en 30 secondes',
-            adhesionTxtBtn: 'Adhérer',
+            adhesionTitle : '',
+            adhesionTxtBtn: '',
             presentationTitle: 'Le Premier et Unique Club en France dédié à la Peugeot 306',
             presentationTxt: 'Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.',
             presentationTxtBtn: 'En savoir plus ...'
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <div>
         <Header />
         <Presentation title={content.presentationTitle} txt={content.presentationTxt} txtButton={content.presentationTxtBtn} />
-        <Adhesion title={content.adhesionTitle} txtBtn={content.adhesionTxtBtn} />
+        <Adhesion />
         <Outings />
         <Partners />
         <Footer />
