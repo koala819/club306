@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import picture306 from '../../public/images/logoClub306.jpg'
+import Link from "next/link";
 
 export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false)
@@ -9,7 +10,7 @@ export default function Navbar() {
   const [isMemberOpen, setMemberOpen] = useState(false)
 
   return (
-    <div className="relative">
+      <div className="relative">
       <nav className="flex px-4 border-b md:shadow-lg items-center px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 ">
         <Image
           src={picture306}
@@ -18,7 +19,7 @@ export default function Navbar() {
           height={46}
           className="mr-3 h-6 sm:h-10"
         />
-
+        {/*SECTION MOBILE*/}
         <section className="MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0 ">
           <div
             className="HAMBURGER-ICON space-y-2"
@@ -49,7 +50,7 @@ export default function Navbar() {
             </div>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
               <li className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase">
-                <a href="#">Accueil</a>
+                <Link href="#">Accueil</Link>
               </li>
 
               <li onClick={() => setLeClubOpen((prev) => !prev)}>
@@ -142,16 +143,17 @@ export default function Navbar() {
               </li>
 
               <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/contact">Contact</a>
+                <Link href="/contact">Contact</Link>
               </li>
             </ul>
           </div>
         </section>
 
+        {/*SECTION NORMALE*/}
         <ul className="md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 DESKTOP-MENU hidden space-x-8">
           <li>
             <a
-              href="#"
+              href="/"
               className="flex md:inline-flex p-4 items-center hover:bg-gray-50"
             >
               <span>Accueil</span>
@@ -250,7 +252,7 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="#"
+                href="/Contact"
               className="flex md:inline-flex p-4 items-center hover:bg-gray-50"
             >
               <span>Contact</span>
