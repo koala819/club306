@@ -78,7 +78,7 @@ export default function PageName() {
 }
 
 async function _handleGoogleSignin() {
-    signIn('google',{callbackUrl:'http://localhost:3000'})
+    signIn('google',{callbackUrl:'https://pascal306.vercel.app'})
 }
 /*
 <div className="relative py-3 sm:max-w-xl sm:mx-auto">
