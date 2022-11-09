@@ -9,7 +9,7 @@ export default function PageName() {
                     <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
                     <div className="w-full px-24 z-10">
                         <h1 className="text-5xl font-bold text-left tracking-wide">Club 306</h1>
-                        <p className="text-3xl my-4">Rejoins nous dans l'aventure Peugeot 306</p>
+                        <p className="text-3xl my-4">Rejoins nous dans l&apos;aventure Peugeot 306</p>
                     </div>
                 </div>
                 <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
@@ -38,7 +38,7 @@ export default function PageName() {
                             </div>
                             <div className="px-4 pb-2 pt-4">
                                 <button
-                                    className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">S'enregistrer
+                                    className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">S&apos;enregistrer
                                 </button>
                             </div>
 
