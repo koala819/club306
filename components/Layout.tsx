@@ -9,7 +9,7 @@ export function Layout({children, title}: LayoutProps) {
             <Header/>
             <title>{title}</title>
             <link rel="icon" href="/public/favicon.ico"/>
-            <div className="center">
+            <div className="min-h-screen bg-blue-200">
                 <main>{children}</main>
             </div>
             <Footer/>
