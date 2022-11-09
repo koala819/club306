@@ -6,6 +6,7 @@ import {Loading} from './Loading'
 
 export function Shield({children}: Children) {
     const router = useRouter()
+    /*const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],*/
     const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],
         ['/','Membership','Rules','Press','Event','Blog','Login','Partners','Contact']> =
         {
@@ -19,5 +20,5 @@ export function Shield({children}: Children) {
             LoadingComponent: <Loading/>,
         }
 
-    return <>{children}</>
+    return <NextShield {...shieldProps}>{children}</NextShield>
 }
