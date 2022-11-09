@@ -2,35 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  padding: 0;
-  margin: 0;
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+   /* background-color: black;
+    color: white;*/
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+   /* color: white;*/
+    padding: 1rem;
+    transition: all ease-in-out 0.3s;
 }
 
-* {
-  box-sizing: border-box;
+a:hover {
+    color: black;
+    background-color: #e0852c;
 }
 
+button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all ease-in-out 0.3s;
+}
 
+button:hover {
+    background-color: #00d1ff;
+    color: white;
+}
 
-    @media only screen and (min-width: 768px){
-        .parent:hover .child {
-            opacity:1;
-            height:auto;
-            overflow:none;
-            transform: translateY(0);
-        }
-        .child {
-            opacity:0;
-            height:0;
-            overflow:hidden;
-            transform: translateY(-10%);
-        }
+.center {
+    height: 40vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .center {
+        height: 90vh;
     }
-    
+}
+
+.loading {
+    margin: 40vh auto;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .parent:hover .child {
+        opacity: 1;
+        height: auto;
+        overflow: none;
+        transform: translateY(0);
+    }
+
+    .child {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transform: translateY(-10%);
+    }
+}
+
+.hideMenuNav {
+    display: none;
+}
+.showMenuNav {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.showSubMenu {
+    display: block;
+    width: 100%;
+    height: 20vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
