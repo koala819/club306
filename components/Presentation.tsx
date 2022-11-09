@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import presentationPicture from "../../public/images/presentationPicture.jpg";
+import presentationPicture from "../public/images/presentationPicture.jpg";
 
 const Presentation = ({title, txt, txtButton}: PresentationProps) => {
     return (

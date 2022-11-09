@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-import picturePartenaire1 from '../../public/images/partenairesAutoDistribution.jpg'
-import picturePartenaire2 from '../../public/images/partenairesArtMotoren.jpg'
-import picturePartenaire3 from '../../public/images/partenairesOscaro.jpg'
-import picturePartenaire4 from '../../public/images/partenairesAventurePeugeot.jpg'
+import picturePartenaire1 from '../public/images/partenairesAutoDistribution.jpg'
+import picturePartenaire2 from '../public/images/partenairesArtMotoren.jpg'
+import picturePartenaire3 from '../public/images/partenairesOscaro.jpg'
+import picturePartenaire4 from '../public/images/partenairesAventurePeugeot.jpg'
 
 export default function Partners() {
   return (

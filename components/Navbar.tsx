@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import picture306 from '../../public/images/logoClub306.jpg'
+import picture306 from '../public/images/logoClub306.jpg'
 import Link from "next/link";
 
 export default function Navbar() {
@@ -50,12 +50,11 @@ export default function Navbar() {
             </div>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
               <li className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase">
-                <Link href="#">Accueil</Link>
+                <Link href="/">Accueil</Link>
               </li>
 
               <li onClick={() => setLeClubOpen((prev) => !prev)}>
-                <a
-                  href="#"
+                <div
                   className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase"
                 >
                   <span>le Club</span>
@@ -66,35 +65,34 @@ export default function Navbar() {
                   >
                     <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
                   </svg>
-                </a>
+                </div>
                 <ul className={isLeClubOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <a href="Adhesion" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Membership" className="flex px-4 py-3 hover:bg-gray-50">
                       Adhésion
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
                       le Staff
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Rules" className="flex px-4 py-3 hover:bg-gray-50">
                       Règlement du Club
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Press" className="flex px-4 py-3 hover:bg-gray-50">
                       Revue de presse
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
 
               <li onClick={() => setEventOpen((prev) => !prev)}>
-                <a
-                  href="#"
-                  className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase"
+                <div
+                    className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase"
                 >
                   <span>Evènements</span>
                   <svg
@@ -104,24 +102,23 @@ export default function Navbar() {
                   >
                     <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
                   </svg>
-                </a>
+                </div>
                 <ul className={isEventOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Event" className="flex px-4 py-3 hover:bg-gray-50">
                       Evènements à venir
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Blog" className="flex px-4 py-3 hover:bg-gray-50">
                       Blog : évènements passés
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
 
               <li onClick={() => setMemberOpen((prev) => !prev)}>
-                <a
-                  href="#"
+                <div
                   className="flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase"
                 >
                   <span>Membres</span>
@@ -132,18 +129,23 @@ export default function Navbar() {
                   >
                     <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
                   </svg>
-                </a>
+                </div>
                 <ul className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="Login">
                       Se Connecter
-                    </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="Partners">
+                      Partenariats
+                    </Link>
                   </li>
                 </ul>
               </li>
 
               <li className="border-b border-gray-400 my-8 uppercase">
-                <Link href="/contact">Contact</Link>
+                <Link href="Contact">Contact</Link>
               </li>
             </ul>
           </div>
@@ -152,18 +154,12 @@ export default function Navbar() {
         {/*SECTION NORMALE*/}
         <ul className="md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 DESKTOP-MENU hidden space-x-8">
           <li>
-            <a
-              href="/"
-              className="flex md:inline-flex p-4 items-center hover:bg-gray-50"
-            >
-              <span>Accueil</span>
-            </a>
+            <Link href="/">
+              <a>Accueil</a>
+            </Link>
           </li>
           <li className="relative parent">
-            <a
-              href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-50 space-x-2"
-            >
+            <div className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-50 space-x-2">
               <span>le Club</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,35 +168,32 @@ export default function Navbar() {
               >
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
-            </a>
+            </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <a href="Adhesion" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Membership">
                   Adhésion
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Staff">
                   le Staff
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Rules">
                   Règlement du Club
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Press">
                   Revue de presse
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li className="relative parent">
-            <a
-              href="#"
-              className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-50 space-x-2"
-            >
+            <div className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-50 space-x-2">
               <span>Evènements</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -209,23 +202,22 @@ export default function Navbar() {
               >
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
-            </a>
+            </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Event">
                   Evènements à venir
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Blog">
                   Blog : évènements passés
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li className="relative parent">
-            <a
-              href="#"
+            <div
               className="flex justify-between md:inline-flex p-4 items-center hover:bg-gray-50 space-x-2"
             >
               <span>Membres</span>
@@ -236,27 +228,24 @@ export default function Navbar() {
               >
                 <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
               </svg>
-            </a>
+            </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Login">
                   Se Connecter
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="flex px-4 py-3 hover:bg-gray-50">
+                <Link href="Partners">
                   Partenariats
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li>
-            <a
-                href="/Contact"
-              className="flex md:inline-flex p-4 items-center hover:bg-gray-50"
-            >
-              <span>Contact</span>
-            </a>
+            <Link href="Contact">
+              <a>Contact</a>
+            </Link>
           </li>
         </ul>
         {/* <div className="ml-auto md:hidden text-gray-500 cursor-pointer">
@@ -265,33 +254,7 @@ export default function Navbar() {
       </nav>
 
       <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background: white;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-      .showSubMenu {
-        display: block;
-        width: 100%;
-        height: 20vh;
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-      }
+      
     `}</style>
     </div>
   )

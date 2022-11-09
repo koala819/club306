@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import pictureArticle1 from '../../public/images/homePageArticle1.jpg'
-import pictureArticle2 from '../../public/images/homePageArticle2.jpg'
-import pictureArticle3 from '../../public/images/homePageArticle3.jpg'
+import pictureArticle1 from '../public/images/homePageArticle1.jpg'
+import pictureArticle2 from '../public/images/homePageArticle2.jpg'
+import pictureArticle3 from '../public/images/homePageArticle3.jpg'
 
 export default function Outings() {
   return (

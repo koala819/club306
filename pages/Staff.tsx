@@ -1,8 +1,8 @@
 import {NextPage} from "next";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import React from "react";
-import CardStaff from "./components/CardStaff";
+import CardStaff from "../components/CardStaff";
 
 
 const Staff: NextPage = () => {

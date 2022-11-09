@@ -1,14 +1,14 @@
 import type { NextPage } from 'next';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import AdhesionComponent from "./components/Adhesion";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import AdhesionComponent from "../components/Adhesion";
 import pictureCircuit from "../public/images/LGHA-Juin2019.jpg";
 import pictureField from "../public/images/rassemblement306.jpg";
 import pictureYellow from "../public/images/306Jaune.jpg";
 import Image from "next/image";
 
 
-const Adhesion : NextPage = () => {
+const Membership : NextPage = () => {
 
     return (
         <div>
@@ -127,4 +127,4 @@ const Adhesion : NextPage = () => {
     )
 }
 
-export default Adhesion
+export default Membership

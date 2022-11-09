@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import headerBackground from '../../public/images/fondHeader.jpg';
+import headerBackground from '../public/images/fondHeader.jpg';
 
 export default function Picture306() {
     return(
