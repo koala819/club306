@@ -2,7 +2,7 @@ import {Layout} from '../components/Layout'
 import Link from "next/link"
 import {HiAtSymbol, HiFingerPrint } from 'react-icons/hi'
 import {FcGoogle } from 'react-icons/fc'
-import { signIn, signOut } from "next-auth/react"
+import { signIn } from "next-auth/react"
 
 export default function PageName() {
     return (
