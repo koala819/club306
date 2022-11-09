@@ -1,5 +1,5 @@
 import {Layout} from '../components/Layout'
 
 export default function PageName() {
-    return (<Layout title="Créer votre compte"><h1>Creation compte</h1></Layout>)
+    return (<Layout title="Oubli Mot de Passe"><h1>Allons chercher un nouveau mdp</h1></Layout>)
 }
