@@ -8,7 +8,7 @@ import pictureYellow from "../public/images/306Jaune.jpg";
 import Image from "next/image";
 
 
-const Membership : NextPage = () => {
+const Presentation : NextPage = () => {
 
     return (
         <div>
@@ -127,4 +127,4 @@ const Membership : NextPage = () => {
     )
 }
 
-export default Membership
+export default Presentation

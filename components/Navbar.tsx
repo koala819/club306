@@ -68,22 +68,22 @@ export default function Navbar() {
                 </div>
                 <ul className={isLeClubOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <Link href="Membership" className="flex px-4 py-3 hover:bg-gray-50">
-                      Adhésion
+                    <Link href="presentation" className="flex px-4 py-3 hover:bg-gray-50">
+                      Présentation
                     </Link>
                   </li>
                   <li>
-                    <Link href="Staff" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="staff" className="flex px-4 py-3 hover:bg-gray-50">
                       le Staff
                     </Link>
                   </li>
                   <li>
-                    <Link href="Rules" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="rules" className="flex px-4 py-3 hover:bg-gray-50">
                       Règlement du Club
                     </Link>
                   </li>
                   <li>
-                    <Link href="Press" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="press" className="flex px-4 py-3 hover:bg-gray-50">
                       Revue de presse
                     </Link>
                   </li>
@@ -110,7 +110,7 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="Blog" className="flex px-4 py-3 hover:bg-gray-50">
+                    <Link href="blog" className="flex px-4 py-3 hover:bg-gray-50">
                       Blog : évènements passés
                     </Link>
                   </li>
@@ -132,12 +132,12 @@ export default function Navbar() {
                 </div>
                 <ul className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <Link href="Login">
+                    <Link href="login">
                       Se Connecter
                     </Link>
                   </li>
                   <li>
-                    <Link href="Partners">
+                    <Link href="partners">
                       Partenariats
                     </Link>
                   </li>
@@ -145,7 +145,7 @@ export default function Navbar() {
               </li>
 
               <li className="border-b border-gray-400 my-8 uppercase">
-                <Link href="Contact">Contact</Link>
+                <Link href="contact">Contact</Link>
               </li>
             </ul>
           </div>
@@ -171,22 +171,22 @@ export default function Navbar() {
             </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <Link href="Membership">
-                  Adhésion
+                <Link href="presentation">
+                  Présentation
                 </Link>
               </li>
               <li>
-                <Link href="Staff">
+                <Link href="staff">
                   le Staff
                 </Link>
               </li>
               <li>
-                <Link href="Rules">
+                <Link href="rules">
                   Règlement du Club
                 </Link>
               </li>
               <li>
-                <Link href="Press">
+                <Link href="press">
                   Revue de presse
                 </Link>
               </li>
@@ -205,12 +205,12 @@ export default function Navbar() {
             </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <Link href="Event">
+                <Link href="event">
                   Evènements à venir
                 </Link>
               </li>
               <li>
-                <Link href="Blog">
+                <Link href="blog">
                   Blog : évènements passés
                 </Link>
               </li>
@@ -231,19 +231,19 @@ export default function Navbar() {
             </div>
             <ul className="child transition duration-300 md:absolute top-full right-0 md:w-48 bg-white md:shadow-lg md:rounded-b ">
               <li>
-                <Link href="Login">
+                <Link href="login">
                   Se Connecter
                 </Link>
               </li>
               <li>
-                <Link href="Partners">
+                <Link href="partners">
                   Partenariats
                 </Link>
               </li>
             </ul>
           </li>
           <li>
-            <Link href="Contact">
+            <Link href="contact">
               <a>Contact</a>
             </Link>
           </li>

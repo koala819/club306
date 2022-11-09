@@ -6,18 +6,18 @@ import {Loading} from './Loading'
 
 export function Shield({children}: Children) {
     const router = useRouter()
-    const shieldProps: NextShieldProps<['/profile', '/dashboard', '/users', '/users/[id]'],
-        ['/']> = {
-        router,
-        isAuth: false,
-        isLoading: false,
-        privateRoutes: ['/profile', '/dashboard', '/users', '/users/[id]'],
-        publicRoutes: ['/'],
-        hybridRoutes: ['/pricing'],
-        loginRoute: '/login',
-        accessRoute: '/profile',
-        LoadingComponent: <Loading/>,
-    }
+    const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],
+        ['/','Membership','Rules','Press','Event','Blog','Login','Partners','Contact']> =
+        {
+            router,
+            isAuth: false,
+            isLoading: false,
+            privateRoutes: ['Dashboard', 'Users', 'Users/[id]','Profile'],
+            publicRoutes: ['/','Membership','Rules','Press','Event','Blog','Login','Partners','Contact'],
+            loginRoute: 'Login',
+            accessRoute: 'Profile',
+            LoadingComponent: <Loading/>,
+        }
 
     return <>{children}</>
 }
