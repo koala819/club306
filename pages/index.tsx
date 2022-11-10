@@ -5,8 +5,7 @@ import Footer from '../components/Footer'
 import Header from "../components/Header";
 import Presentation from "../components/Presentation";
 import {NextPage} from "next";
-import {useSession} from "next-auth/react"
-
+import {signOut, useSession} from "next-auth/react"
 
 const Home: NextPage = () => {
     const {data: session} = useSession()
@@ -54,6 +53,14 @@ function _User() {
     return (
         <main className="container mx-auto text-center py-20">
             <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
+            <div className="text-right text-gray-400" onClick={()=> _handleGoogleSignout()}>
+                Se déconnecter
+
+            </div>
         </main>
     )
+}
+
+async function _handleGoogleSignout() {
+    await signOut({callbackUrl: 'https://pascal306.vercel.app'})
 }
