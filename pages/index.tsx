@@ -5,10 +5,9 @@ import Footer from '../components/Footer'
 import Header from "../components/Header";
 import Presentation from "../components/Presentation";
 import {NextPage} from "next";
-import {signOut, useSession} from "next-auth/react"
 
 const Home: NextPage = () => {
-    const {data: session} = useSession()
+    /*const {data: session} = useSession()*/
     const content =
         {
             adhesionTitle: '',
@@ -21,18 +20,7 @@ const Home: NextPage = () => {
     return (
         <div>
             <Header/>
-            {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-            {session ? _User() : _Guest(content)}
-        </div>
-    )
-}
-
-export default Home
-
-//Guest
-function _Guest(content: { adhesionTitle?: string; adhesionTxtBtn?: string; presentationTitle: any; presentationTxt: any; presentationTxtBtn: any; }) {
-    return (
-        <div>
+            {/*session ? _User() : _Guest(content)*/}
             <Presentation title={content.presentationTitle} txt={content.presentationTxt}
                           txtButton={content.presentationTxtBtn}/>
             <iframe
@@ -48,19 +36,4 @@ function _Guest(content: { adhesionTitle?: string; adhesionTxtBtn?: string; pres
     )
 }
 
-//User
-function _User() {
-    return (
-        <main className="container mx-auto text-center py-20">
-            <h3 className="text-4xl font-bold">Authorize User Homepage</h3>
-            <div className="text-right text-gray-400" onClick={()=> _handleGoogleSignout()}>
-                Se déconnecter
-
-            </div>
-        </main>
-    )
-}
-
-async function _handleGoogleSignout() {
-    await signOut({callbackUrl: 'https://pascal306.vercel.app'})
-}
+export default Home
