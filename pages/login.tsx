@@ -3,8 +3,20 @@ import Link from "next/link"
 import {HiAtSymbol, HiFingerPrint } from 'react-icons/hi'
 import {FcGoogle } from 'react-icons/fc'
 import { signIn } from "next-auth/react"
+import {useFormik} from "formik";
+import {NextPage} from "next";
+import login_validate from "../lib/validate";
 
-export default function PageName() {
+const Login: NextPage = () => {
+    const formik = useFormik({
+        initialValues:{
+            email:'',
+            password:''
+        },
+        validate: login_validate,
+        onSubmit
+    })
+
     return (
         <Layout title="Ecran Connexion">
             <section className="min-h-screen flex items-stretch text-white ">
@@ -24,28 +36,40 @@ export default function PageName() {
                         <div className="py-6 space-x-2 text-gray-100">
                             Connecte toi
                         </div>
-                        <form action="" className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                        <form action=""
+                              className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
+                              onSubmit={formik.handleSubmit}
+                        >
                             <div className="flex border rounded-xl relative">
-                                <input type="email" name="email" id="email" placeholder="Email"
-                                className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                <input type="email"
+                                       placeholder="Email"
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('email')}
+                                />
                                 <span className="icon flex items-center px-4">
                                     <HiAtSymbol size={25} />
                                 </span>
                             </div>
+                            {formik.errors.email && formik.touched.email ?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
 
                             <div className="my-3 flex border rounded-xl relative">
-                                <input type="password" name="password" id="password" placeholder="Mot de Passe"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                <input type="password"
+                                       placeholder="Mot de Passe"
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('password')}
+                                />
                                 <span className="icon flex items-center px-4">
                                     <HiFingerPrint size={25} />
                                 </span>
                             </div>
+                            {formik.errors.password && formik.touched.password ?<span className='text-rose-500'>{formik.errors.password}</span>:<></>}
 
                             <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
                                 <Link href="findPwd">Mot de passe oublié ?</Link>
                             </div>
                             <div className="px-4 pb-2 pt-4">
                                 <button
+                                    type="submit"
                                     className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">Se Connecter
                                 </button>
                             </div>
@@ -80,3 +104,9 @@ export default function PageName() {
 async function _handleGoogleSignin() {
     await signIn('google', {callbackUrl: 'https://pascal306.vercel.app'})
 }
+
+async function onSubmit(values: any) {
+    console.log(values)
+}
+
+export default Login

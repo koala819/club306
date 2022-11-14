@@ -2,9 +2,23 @@ import {Layout} from '../components/Layout'
 import {HiAtSymbol, HiFingerPrint, HiOutlineUser} from "react-icons/hi";
 import { useState} from 'react';
 import Link from "next/link";
+import {useFormik} from "formik";
+import registerValidate from "../lib/validate";
+import {NextPage} from "next";
 
-export default function PageName() {
+const Register: NextPage = () => {
     const [show,setShow]=useState({password:false, cpassword:false})
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+            cpassword:''
+        },
+        validate: registerValidate,
+        onSubmit
+    })
+
     return (
         <Layout title="Créer votre compte">
             <section className="min-h-screen flex items-stretch text-white ">
@@ -24,45 +38,65 @@ export default function PageName() {
                         <div className="py-6 space-x-2 text-gray-100">
                             Création de votre compte
                         </div>
-                        <form action="" className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                        <form action=""
+                              className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
+                              onSubmit={e => {
+                                  console.log('isValid', isValid)
+                                  isValid
+                                  ? formik.handleSubmit(e)
+                                  : alert ('handle ')
+                              }}>
                             <div className="flex border rounded-xl relative">
-                                <input type="text" name="Username" id="Username" placeholder="Nom d'utilisateur"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                <input type="text"
+                                       placeholder="Nom d'utilisateur"
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('username')}
+
+                                />
                                 <span className="icon flex items-center px-4">
                                     <HiOutlineUser size={25} />
                                 </span>
                             </div>
+                            {formik.errors.username && formik.touched.username ?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
                             <div className="my-3 flex border rounded-xl relative">
-                                <input type="email" name="email" id="email" placeholder="Email"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                <input type="email"
+                                       placeholder="Email"
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('email')}
+
+                                />
                                 <span className="icon flex items-center px-4">
                                     <HiAtSymbol size={25} />
                                 </span>
                             </div>
-
+                            {formik.errors.email && formik.touched.email ?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
                             <div className="my-3 flex border rounded-xl relative">
                                 <input type={`${show.password ? "text": "password"}`}
-                                       name="password"
-                                       id="password"
                                        placeholder="Mot de Passe"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('password')}
+
+                                />
                                 <span className="icon flex items-center px-4" onClick={() => setShow({...show,password:!show.password})}>
                                     <HiFingerPrint size={25} />
                                 </span>
                             </div>
+                            {formik.errors.password && formik.touched.password ?<span className='text-rose-500'>{formik.errors.password}</span>:<></>}
                             <div className="my-3 flex border rounded-xl relative">
                                 <input type={`${show.cpassword ? "text": "password"}`}
-                                       name="cpassword"
-                                       id="cpassword"
                                        placeholder="Confirmer le mot de passe"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"/>
+                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                                       {...formik.getFieldProps('cpassword')}
+
+                                />
                                 <span className="icon flex items-center px-4" onClick={() => setShow({...show,cpassword:!show.cpassword})}>
                                     <HiFingerPrint size={25} />
                                 </span>
                             </div>
-
+                            {formik.errors.cpassword && formik.touched.cpassword ?<span className='text-rose-500'>{formik.errors.cpassword}</span>:<></>}
                             <div className="px-4 pb-2 pt-4">
                                 <button
+                                    type="submit"
                                     className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">S&apos;enregistrer
                                 </button>
                             </div>
@@ -72,11 +106,14 @@ export default function PageName() {
                                     <Link href="login">Connectez vous</Link>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>
             </section>
         </Layout>)
 }
+
+async function onSubmit(values: any) {
+    console.log('hello',values)
+}
+export default Register
