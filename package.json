@@ -16,6 +16,7 @@
     "@prismicio/next": "^0.1.5",
     "@prismicio/react": "^2.5.0",
     "@prismicio/slice-simulator-react": "^0.2.2",
+    "bcryptjs": "^2.4.3",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.1.11",
     "formik": "^2.2.9",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.3.1",
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "18.7.17",
     "@types/react": "18.0.19",
     "@types/react-dom": "18.0.6",

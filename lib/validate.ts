@@ -19,13 +19,6 @@ export default function login_validate(values: any) {
     return errors
 }
 
-interface FormValues {
-    username: string,
-    email: string,
-    password: string,
-    cpassword: string
-}
-
 export function register_validate(values: any) {
     const errors: FormikErrors<FormValues> = {}
 
@@ -58,4 +51,11 @@ export function register_validate(values: any) {
     }
 
     return errors
+}
+
+interface FormValues {
+    username: string,
+    email: string,
+    password: string,
+    cpassword: string
 }

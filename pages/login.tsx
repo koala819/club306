@@ -6,8 +6,11 @@ import { signIn } from "next-auth/react"
 import {useFormik} from "formik";
 import {NextPage} from "next";
 import login_validate from "../lib/validate";
+import {useRouter} from 'next/router'
 
 const Login: NextPage = () => {
+    const router = useRouter()
+    
     const formik = useFormik({
         initialValues:{
             email:'',
@@ -16,6 +19,16 @@ const Login: NextPage = () => {
         validate: login_validate,
         onSubmit
     })
+
+    async function onSubmit(values: any) {
+        const status = await signIn('credentials', {
+            redirect: false,
+            email: values.email,
+            password: values.password,
+            callbackUrl: '/user'
+        })
+        if (status.ok) await router.push(status.url)
+    }
 
     return (
         <Layout title="Ecran Connexion">
@@ -103,10 +116,6 @@ const Login: NextPage = () => {
 
 async function _handleGoogleSignin() {
     await signIn('google', {callbackUrl: 'https://pascal306.vercel.app'})
-}
-
-async function onSubmit(values: any) {
-    console.log(values)
 }
 
 export default Login
