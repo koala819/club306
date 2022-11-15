@@ -27,7 +27,13 @@ const Login: NextPage = () => {
             password: values.password,
             callbackUrl: '/user'
         })
-        if (status.ok) await router.push(status.url)
+
+        if (status !== undefined) {
+            console.log('status', status)
+            if (status.ok) { // @ts-ignore
+                await router.push(status.url)
+            }
+        }
     }
 
     return (
