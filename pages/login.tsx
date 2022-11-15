@@ -40,7 +40,7 @@ const Login: NextPage = () => {
                               className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
                               onSubmit={formik.handleSubmit}
                         >
-                            <div className="flex border rounded-xl relative">
+                            <div className={`${"flex border rounded-xl relative"} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                                 <input type="email"
                                        placeholder="Email"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
@@ -52,7 +52,7 @@ const Login: NextPage = () => {
                             </div>
                             {formik.errors.email && formik.touched.email ?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
 
-                            <div className="my-3 flex border rounded-xl relative">
+                            <div  className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                                 <input type="password"
                                        placeholder="Mot de Passe"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
