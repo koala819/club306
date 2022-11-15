@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-export default async  function connectMongo() {
+export async function connectMongo() {
     try {
         // @ts-ignore
         const {connection}: any = await mongoose.connect(process.env.MONGO_URL)
