@@ -3,10 +3,11 @@ import {HiAtSymbol, HiFingerPrint, HiOutlineUser} from "react-icons/hi";
 import { useState} from 'react';
 import Link from "next/link";
 import {useFormik} from "formik";
-import registerValidate from "../lib/validate";
-import {NextPage} from "next";
+import {register_validate} from "../lib/validate";
 
-const Register: NextPage = () => {
+export default function Register()  {
+
+
     const [show,setShow]=useState({password:false, cpassword:false})
     const formik = useFormik({
         initialValues: {
@@ -15,9 +16,12 @@ const Register: NextPage = () => {
             password: '',
             cpassword:''
         },
-        validate: registerValidate,
-        onSubmit
+        onSubmit,
+        validate: register_validate
     })
+    async function onSubmit(values: any) {
+        console.log('hello',values)
+    }
 
     return (
         <Layout title="Créer votre compte">
@@ -97,7 +101,9 @@ const Register: NextPage = () => {
                             <div className="px-4 pb-2 pt-4">
                                 <button
                                     type="submit"
-                                    className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">S&apos;enregistrer
+                                    className="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
+                                >
+                                    Inscrivez-vous
                                 </button>
                             </div>
                             <div className="text-right text-gray-400">
@@ -113,7 +119,4 @@ const Register: NextPage = () => {
         </Layout>)
 }
 
-async function onSubmit(values: any) {
-    console.log('hello',values)
-}
-export default Register
+

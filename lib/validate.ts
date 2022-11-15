@@ -1,8 +1,7 @@
-export default function login_validate(values) {
-    const errors = {
-        email: '',
-        password: ''
-    }
+import {FormikErrors} from 'formik'
+
+export default function login_validate(values: any) {
+    const errors: FormikErrors<FormValues> = {}
 
     if (!values.email) {
         errors.email = 'Obligatoire'
@@ -17,12 +16,18 @@ export default function login_validate(values) {
     } else if (values.password.includes(' ')) {
         errors.password = 'Mot de passe invalide'
     }
-console.log('errors in validate',errors)
     return errors
 }
 
-export function register_validate(values) {
-    const errors = {}
+interface FormValues {
+    username: string,
+    email: string,
+    password: string,
+    cpassword: string
+}
+
+export function register_validate(values: any) {
+    const errors: FormikErrors<FormValues> = {}
 
     if (!values.username) {
         errors.username = 'Obligatoire'
