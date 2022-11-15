@@ -1,4 +1,4 @@
-export default function login_validate(values: any) {
+export default function login_validate(values) {
     const errors = {
         email: '',
         password: ''
@@ -17,17 +17,12 @@ export default function login_validate(values: any) {
     } else if (values.password.includes(' ')) {
         errors.password = 'Mot de passe invalide'
     }
-
+console.log('errors in validate',errors)
     return errors
 }
 
-export function registerValidate(values: any) {
-    const errors = {
-        username: '',
-        email: '',
-        password: '',
-        cpassword: ''
-    }
+export function register_validate(values) {
+    const errors = {}
 
     if (!values.username) {
         errors.username = 'Obligatoire'
