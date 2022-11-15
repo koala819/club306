@@ -14,10 +14,10 @@ export default NextAuth({
         }),
         CredentialsProvider({
             name: 'Credentials',
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 try {
                     connectMongo().catch(() => {
-                        error: 'Connection Failed...!'
+                        'Connection Failed...!'
                     })
 
                     //check user existance
