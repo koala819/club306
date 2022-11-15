@@ -36,33 +36,26 @@ export default function Register()  {
                 </div>
                 <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
                      style={{backgroundColor: '#161616'}}>
-
                     <div className="w-full py-6 z-20">
-
                         <div className="py-6 space-x-2 text-gray-100">
                             Création de votre compte
                         </div>
-                        <form action=""
-                              className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
-                              onSubmit={e => {
-                                  console.log('isValid', isValid)
-                                  isValid
-                                  ? formik.handleSubmit(e)
-                                  : alert ('handle ')
-                              }}>
-                            <div className="flex border rounded-xl relative">
+                        <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
+                              onSubmit={formik.handleSubmit}
+                        >
+                            <div className={`${"flex border rounded-xl relative"} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
                                 <input type="text"
+                                       id="username"
                                        placeholder="Nom d'utilisateur"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
                                        {...formik.getFieldProps('username')}
-
                                 />
                                 <span className="icon flex items-center px-4">
                                     <HiOutlineUser size={25} />
                                 </span>
                             </div>
                             {formik.errors.username && formik.touched.username ?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
-                            <div className="my-3 flex border rounded-xl relative">
+                            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                                 <input type="email"
                                        placeholder="Email"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
@@ -74,7 +67,7 @@ export default function Register()  {
                                 </span>
                             </div>
                             {formik.errors.email && formik.touched.email ?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
-                            <div className="my-3 flex border rounded-xl relative">
+                            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                                 <input type={`${show.password ? "text": "password"}`}
                                        placeholder="Mot de Passe"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
@@ -86,7 +79,7 @@ export default function Register()  {
                                 </span>
                             </div>
                             {formik.errors.password && formik.touched.password ?<span className='text-rose-500'>{formik.errors.password}</span>:<></>}
-                            <div className="my-3 flex border rounded-xl relative">
+                            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                                 <input type={`${show.cpassword ? "text": "password"}`}
                                        placeholder="Confirmer le mot de passe"
                                        className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
