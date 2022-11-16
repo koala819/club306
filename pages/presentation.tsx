@@ -33,10 +33,10 @@ const Presentation : NextPage = () => {
                                 <p className="mt-3 leading-relaxed text-base">Son bureau se compose de personnes venant principalement
                                     d’<a
                                         href="https://fr-fr.facebook.com/Original306/"
-                                        className="text-blue-500 inline-flex items-center">Original306</a>,
+                                        className="text-blue-500 inline-flex items-center">Original306</a>,&nbsp;
                                     <a
                                         href="http://www.306inside.com/"
-                                        className="text-blue-500 inline-flex items-center">306inside</a> et de
+                                        className="text-blue-500 inline-flex items-center"> 306inside</a> et de
                                     <a
                                         href="https://www.facebook.com/groups/204058419941566/"
                                         className="text-blue-500 inline-flex items-center">&nbsp;l’Amicale Peugeot 306</a>.</p>
@@ -51,7 +51,7 @@ const Presentation : NextPage = () => {
                                 <h2 className="text-gray-900 text-lg title-font font-medium mb-2">Philosophie</h2>
                                 <p className="leading-relaxed text-base">La vision du club est de fédérer un maximum de passionné(e)s
                                     de tout âge, toute origine, et tout horizon. Grâce à cette combinaison unique, le Club306
-                                    a su grandir et devient un acteur incontournable sur le web concernant
+                                    a su grandir et devient un acteur incontournable sur le web concernant&nbsp;
                                     <a
                                         href="https://fr.wikipedia.org/wiki/Peugeot_306"
                                         className="text-blue-500 inline-flex items-center">la Peugeot 306</a>.
@@ -66,7 +66,7 @@ const Presentation : NextPage = () => {
                                     a créé son rassemblement annuel, et est affilié à de nombreux partenaires.</p>
                                 <p className="mt-3 leading-relaxed text-base">Notre but est d’offrir a chaque membre une expérience
                                     unique au travers des avantages du Club. En 2019, Le club continue de s’agrandir ce qui
-                                    nous permet de rechercher des partenaires pour refabriquer des pieces d’origines.
+                                    nous permet de rechercher des partenaires pour refabriquer des pieces d’origines.&nbsp;
                                     <a
                                         href="https://www.boutique-laventure-association.com/fr/33-306"
                                         className="text-blue-500 inline-flex items-center">L’Aventure Peugeot</a> en propose certaines déja.</p>
