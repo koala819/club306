@@ -18,6 +18,7 @@ export default function Membership() {
             postal_code:'',
             town:'',
             phone:'',
+            matriculation:'',
         },
         onSubmit,
         validate: membership_validate
