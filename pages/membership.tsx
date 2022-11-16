@@ -2,30 +2,52 @@ import {Layout} from '../components/Layout'
 import {useFormik} from "formik";
 import {membership_validate} from "../lib/validate";
 import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {useState} from 'react';
+import {signIn} from "next-auth/react";
+import {useRouter} from 'next/router'
 
 export default function Membership() {
     const [value, setValue] = useState(null);
+    const router = useRouter()
+
     const formik = useFormik({
         initialValues: {
             discoverClub306: '',
             first_name: '',
             last_name: '',
             address: '',
-            postal_code:'',
-            town:'',
-            phone:'',
-            matriculation:'',
+            postal_code: '',
+            town: '',
+            phone: '',
+            matriculation: '',
         },
         onSubmit,
         validate: membership_validate
     })
 
     async function onSubmit(values: any) {
-        console.log('hello', values)
+        const status = await signIn('credentials', {
+            redirect: false,
+            discoverClub306: values.discoverClub306,
+            first_name: values.first_name,
+            last_name: values.last_name,
+            address: values.address,
+            postal_code: values.postal_code,
+            town: values.town,
+            phone: values.phone,
+            matriculation: values.matriculation,
+            callbackUrl: '/user'
+        })
+
+        if (status !== undefined) {
+            console.log('status', status)
+            if (status.ok) { // @ts-ignore
+                await router.push(status.url)
+            }
+        }
     }
 
     return (
@@ -69,7 +91,8 @@ export default function Membership() {
                                     >
                                         Nom
                                     </label>
-                                    {formik.errors.first_name && formik.touched.first_name ?<span className='text-rose-500'>{formik.errors.first_name}</span>:<></>}
+                                    {formik.errors.first_name && formik.touched.first_name ?
+                                        <span className='text-rose-500'>{formik.errors.first_name}</span> : <></>}
                                 </div>
 
                                 {/*Last Name*/}
@@ -90,7 +113,8 @@ export default function Membership() {
                                     >
                                         Prénom
                                     </label>
-                                    {formik.errors.last_name && formik.touched.last_name ?<span className='text-red-500'>{formik.errors.last_name}</span>:<></>}
+                                    {formik.errors.last_name && formik.touched.last_name ?
+                                        <span className='text-red-500'>{formik.errors.last_name}</span> : <></>}
                                 </div>
 
                                 {/*Address*/}
@@ -111,7 +135,8 @@ export default function Membership() {
                                     >
                                         Adresse
                                     </label>
-                                    {formik.errors.address && formik.touched.address ?<span className='text-red-500'>{formik.errors.address}</span>:<></>}
+                                    {formik.errors.address && formik.touched.address ?
+                                        <span className='text-red-500'>{formik.errors.address}</span> : <></>}
                                 </div>
 
                                 {/*Postal code*/}
@@ -132,7 +157,8 @@ export default function Membership() {
                                     >
                                         Code Postal
                                     </label>
-                                    {formik.errors.postal_code && formik.touched.postal_code ?<span className='text-red-500'>{formik.errors.postal_code}</span>:<></>}
+                                    {formik.errors.postal_code && formik.touched.postal_code ?
+                                        <span className='text-red-500'>{formik.errors.postal_code}</span> : <></>}
                                 </div>
 
                                 {/*Town*/}
@@ -153,7 +179,8 @@ export default function Membership() {
                                     >
                                         Ville
                                     </label>
-                                    {formik.errors.town && formik.touched.town ?<span className='text-red-500'>{formik.errors.town}</span>:<></>}
+                                    {formik.errors.town && formik.touched.town ?
+                                        <span className='text-red-500'>{formik.errors.town}</span> : <></>}
                                 </div>
 
                                 {/*Phone*/}
@@ -174,7 +201,8 @@ export default function Membership() {
                                     >
                                         Numéro de Téléphone
                                     </label>
-                                    {formik.errors.phone && formik.touched.phone ?<span className='text-red-500'>{formik.errors.phone}</span>:<></>}
+                                    {formik.errors.phone && formik.touched.phone ?
+                                        <span className='text-red-500'>{formik.errors.phone}</span> : <></>}
                                 </div>
 
                                 {/*Immatriculation*/}
@@ -195,40 +223,38 @@ export default function Membership() {
                                     >
                                         Immatriculation de la 306
                                     </label>
-                                    {formik.errors.matriculation && formik.touched.matriculation ?<span className='text-red-500'>{formik.errors.matriculation}</span>:<></>}
+                                    {formik.errors.matriculation && formik.touched.matriculation ?
+                                        <span className='text-red-500'>{formik.errors.matriculation}</span> : <></>}
                                 </div>
 
                                 {/*Birthday*/}
                                 <div className="relative z-0 mb-6 w-full group">
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        label="Date de Naissance"
-                                        value={value}
-                                        inputFormat='DD/MM/YYYY'
-                                        onChange={(newValue) => {
-                                            setValue(newValue);
-                                        }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} helperText={params?.inputProps?.placeholder} />
-                                        )}
-                                    />
-                                </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DatePicker
+                                            label="Date de Naissance"
+                                            value={value}
+                                            inputFormat='DD/MM/YYYY'
+                                            onChange={(newValue) => {
+                                                setValue(newValue);
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField {...params} helperText={params?.inputProps?.placeholder}/>
+                                            )}
+                                        />
+                                    </LocalizationProvider>
                                 </div>
                             </div>
-
-
-                            <div className="grid md:grid-cols-2 md:gap-6">
-
-                            </div>
-
-
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <label htmlFor="color"
                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     De quelle couleur est votre 306 ?
                                 </label>
                                 <select id="color"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+                                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                        dark:focus:border-blue-500"
+                                >
                                     <option>Blanc</option>
                                     <option>Bleu</option>
                                     <option>Gris</option>
@@ -243,7 +269,11 @@ export default function Membership() {
                                     Quelle est le modèle de votre 306 ?
                                 </label>
                                 <select id="model"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+                                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                           dark:focus:border-blue-500"
+                                >
                                     <option>3 Portes</option>
                                     <option>5 Portes</option>
                                     <option>Break</option>
@@ -251,83 +281,104 @@ export default function Membership() {
                                 </select>
                                 <label htmlFor="registrationDocument"
                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    La carte grise est-elle à votre nom  ?
+                                    La carte grise est-elle à votre nom ?
                                 </label>
                                 <select id="registrationDocument"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+                                        dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                                        dark:focus:border-blue-500"
+                                >
                                     <option>Oui</option>
                                     <option>Non</option>
                                 </select>
                             </div>
 
                             <fieldset>
-                                <legend className="sr-only">Checkbox variants</legend>
-
                                 <div className="flex items-center mb-4">
-                                    <input checked id="checkbox-1" type="checkbox" value=""
-                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    <input id="checkbox-1" type="checkbox" value=""
+                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                     />
-                                        <label htmlFor="checkbox-1"
-                                               className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
+                                    <label htmlFor="checkbox-1"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
+                                    >
+                                        Cotisation
+                                        <p id="helper-checkbox-text"
+                                           className="text-xs font-normal text-gray-500 dark:text-gray-400"
                                         >
-                                            Cotisation
-                                            <p id="helper-checkbox-text"
-                                               className="text-xs font-normal text-gray-500 dark:text-gray-400"
-                                            >
-                                                Je comprends que la cotisation annuelle au Club306 est fixée à 20 euros pour une année pleine en adhésion (01/01 au 31/12).
-                                            </p>
-                                        </label>
+                                            Je comprends que la cotisation annuelle au Club306 est fixée à 20 euros pour
+                                            une année pleine en adhésion (01/01 au 31/12).
+                                        </p>
+                                    </label>
                                 </div>
 
                                 <div className="flex items-center mb-4">
-                                    <input id="checkbox-2" type="checkbox" value=""
-                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    <input id="checkbox-2"
+                                           type="checkbox"
+                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                     />
-                                        <label htmlFor="checkbox-2"
-                                               className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
-                                        >
-                                            J’atteste sur l’honneur que je suis bien le (la) propriétaire de chaque véhicule déclaré, que les caractéristiques communiquées sont conformes à la réalité et que le véhicule est à jour de son assurance et du contrôle technique.
-                                        </label>
+                                    <label htmlFor="checkbox-2"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
+                                    >
+                                        J’atteste sur l’honneur que je suis bien le (la) propriétaire de chaque véhicule
+                                        déclaré,
+                                        que les caractéristiques communiquées sont conformes à la réalité et que le
+                                        véhicule est
+                                        à jour de son assurance et du contrôle technique.
+                                    </label>
                                 </div>
 
                                 <div className="flex items-center mb-4">
-                                    <input id="checkbox-3" type="checkbox" value=""
-                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    <input id="checkbox-3"
+                                           type="checkbox"
+                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                     />
-                                        <label htmlFor="checkbox-3"
-                                               className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >
-                                            Je transmets, au minimum, 1 photos (numérique ou sur papier) de mon véhicule via mon adresse mail ou dans mon dossier d&apos;adhésion.
-                                        </label>
+                                    <label htmlFor="checkbox-3"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >
+                                        Je transmets, au minimum, 1 photos (numérique ou sur papier) de mon véhicule
+                                        via mon adresse mail ou dans mon dossier d&apos;adhésion.
+                                    </label>
                                 </div>
 
                                 <div className="flex mb-4">
                                     <div className="flex items-center h-5">
-                                        <input id="helper-checkbox" aria-describedby="helper-checkbox-text"
-                                               type="checkbox" value=""
-                                               className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        <input id="helper-checkbox"
+                                               type="checkbox"
+                                               value=""
+                                               className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                         />
                                     </div>
                                     <div className="ml-2 text-sm">
                                         <label htmlFor="helper-checkbox"
                                                className="font-medium text-gray-900 dark:text-gray-300"
                                         >
-                                            Je m&apos;engage, en adhérant au Club à respecter les termes de ses statuts et de son règlement.
+                                            Je m&apos;engage, en adhérant au Club à respecter les termes de ses statuts
+                                            et de son règlement.
                                         </label>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center">
-                                    <input id="international-shipping-disabled" type="checkbox" value=""
-                                           className="w-4 h-4 bg-gray-50 rounded border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                                           disabled
+                                    <input id="international-shipping-disabled"
+                                           type="checkbox"
+                                           value=""
+                                           className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                                     />
-                                        <label htmlFor="international-shipping-disabled"
-                                               className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
-                                        >
-                                            En soumettant ce formulaire, je confirme avoir pris connaissant de <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">la politique de confidentialite</a> du Club306.
-                                            Des lors, j&apos;autorise Club306 à exploiter les informations saisies dans le cadre de la relation commerciale qui peut en découler.
-                                        </label>
+                                    <label htmlFor="international-shipping-disabled"
+                                           className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-left"
+                                    >
+                                        En soumettant ce formulaire, je confirme avoir pris connaissant de <a href="#"
+                                                                                                              className="text-blue-600 hover:underline dark:text-blue-500">la
+                                        politique de confidentialite</a> du Club306.
+                                        Des lors, j&apos;autorise Club306 à exploiter les informations saisies dans le
+                                        cadre de la relation commerciale qui peut en découler.
+                                    </label>
                                 </div>
                             </fieldset>
 

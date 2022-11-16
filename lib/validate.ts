@@ -79,13 +79,17 @@ export function membership_validate(values: any) {
     if (!values.town) {
         errors.town = 'Obligatoire'
     }
-console.log(typeof values.postal_code)
+
     if (!values.phone) {
         errors.phone =  'Obligatoire'
     } else if (values.phone.length !== 10 ) {
         errors.phone = 'Doit contenir 10 chiffres'
     }  else if (values.phone.includes(' ')) {
         errors.password = 'Pas d\'espace svp ^^'
+    }
+
+    if (!values.matriculation) {
+        errors.matriculation = 'Obligatoire'
     }
 
 
@@ -103,4 +107,5 @@ interface FormValues {
     postal_code: string,
     town: string,
     phone: string,
+    matriculation: string,
 }
