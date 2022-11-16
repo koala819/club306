@@ -1,16 +1,23 @@
 import {Layout} from '../components/Layout'
 import {useFormik} from "formik";
 import {membership_validate} from "../lib/validate";
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {useState} from 'react';
 
 export default function Membership() {
-
-
+    const [value, setValue] = useState(null);
     const formik = useFormik({
         initialValues: {
             discoverClub306: '',
             first_name: '',
             last_name: '',
-            cpassword: ''
+            address: '',
+            postal_code:'',
+            town:'',
+            phone:'',
         },
         onSubmit,
         validate: membership_validate
@@ -61,7 +68,9 @@ export default function Membership() {
                                     >
                                         Nom
                                     </label>
+                                    {formik.errors.first_name && formik.touched.first_name ?<span className='text-rose-500'>{formik.errors.first_name}</span>:<></>}
                                 </div>
+
                                 {/*Last Name*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
@@ -80,91 +89,129 @@ export default function Membership() {
                                     >
                                         Prénom
                                     </label>
+                                    {formik.errors.last_name && formik.touched.last_name ?<span className='text-red-500'>{formik.errors.last_name}</span>:<></>}
                                 </div>
+
                                 {/*Address*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
-                                           name="address"
                                            id="address"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
+                                           className={`${"block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent " +
+                                           "border-0 border-b-2 border-gray-300 appearance-none dark:text-white " +
+                                           "dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 " +
+                                           "focus:border-blue-600 peer"} ${formik.errors.address && formik.touched.address ? 'border-red-600' : ''}`}
+                                           {...formik.getFieldProps('address')}
+                                    />
                                     <label htmlFor="address"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                     >
                                         Adresse
                                     </label>
+                                    {formik.errors.address && formik.touched.address ?<span className='text-red-500'>{formik.errors.address}</span>:<></>}
                                 </div>
+
+                                {/*Postal code*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
-                                           name="floating_mail"
-                                           id="floating_CP"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_CP"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                           id="postal_code"
+                                           className={`${"block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent " +
+                                           "border-0 border-b-2 border-gray-300 appearance-none dark:text-white " +
+                                           "dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 " +
+                                           "focus:border-blue-600 peer"} ${formik.errors.postal_code && formik.touched.postal_code ? 'border-red-600' : ''}`}
+                                           {...formik.getFieldProps('postal_code')}
+                                    />
+                                    <label htmlFor="postal_code"
+                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                     >
                                         Code Postal
                                     </label>
+                                    {formik.errors.postal_code && formik.touched.postal_code ?<span className='text-red-500'>{formik.errors.postal_code}</span>:<></>}
                                 </div>
+
+                                {/*Town*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
-                                           name="floating_town"
-                                           id="floating_town"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_town"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                           id="town"
+                                           className={`${"block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent " +
+                                           "border-0 border-b-2 border-gray-300 appearance-none dark:text-white " +
+                                           "dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 " +
+                                           "focus:border-blue-600 peer"} ${formik.errors.town && formik.touched.town ? 'border-red-600' : ''}`}
+                                           {...formik.getFieldProps('town')}
+                                    />
+                                    <label htmlFor="town"
+                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                     >
                                         Ville
                                     </label>
+                                    {formik.errors.town && formik.touched.town ?<span className='text-red-500'>{formik.errors.town}</span>:<></>}
                                 </div>
+
+                                {/*Phone*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
-                                           name="floating_mail"
-                                           id="floating_mail"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_mail"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                           id="phone"
+                                           className={`${"block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent " +
+                                           "border-0 border-b-2 border-gray-300 appearance-none dark:text-white " +
+                                           "dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 " +
+                                           "focus:border-blue-600 peer"} ${formik.errors.phone && formik.touched.phone ? 'border-red-600' : ''}`}
+                                           {...formik.getFieldProps('phone')}
+                                    />
+                                    <label htmlFor="phone"
+                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                     >
-                                        E-mail
+                                        Numéro de Téléphone
                                     </label>
+                                    {formik.errors.phone && formik.touched.phone ?<span className='text-red-500'>{formik.errors.phone}</span>:<></>}
                                 </div>
+
+                                {/*Immatriculation*/}
                                 <div className="relative z-0 mb-6 w-full group">
                                     <input type="text"
-                                           name="floating_tel"
-                                           id="floating_tel"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_tel"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                           id="matriculation"
+                                           className={`${"block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent " +
+                                           "border-0 border-b-2 border-gray-300 appearance-none dark:text-white " +
+                                           "dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 " +
+                                           "focus:border-blue-600 peer"} ${formik.errors.matriculation && formik.touched.matriculation ? 'border-red-600' : ''}`}
+                                           {...formik.getFieldProps('matriculation')}
+                                    />
+                                    <label htmlFor="matriculation"
+                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                     >
-                                        Numéro de téléphone
+                                        Immatriculation de la 306
                                     </label>
+                                    {formik.errors.matriculation && formik.touched.matriculation ?<span className='text-red-500'>{formik.errors.matriculation}</span>:<></>}
                                 </div>
+
+                                {/*Birthday*/}
                                 <div className="relative z-0 mb-6 w-full group">
-                                    <input type="text"
-                                           name="floating_birthday"
-                                           id="floating_birthday"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_birthday"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >
-                                        Date de Naissance
-                                    </label>
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <input type="text"
-                                           name="floating_immatriculation"
-                                           id="floating_immatriculation"
-                                           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                           placeholder=" " required/>
-                                    <label htmlFor="floating_immatriculation"
-                                           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                    >
-                                        Immatriculation de votre 306
-                                    </label>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        label="Date de Naissance"
+                                        value={value}
+                                        inputFormat='DD/MM/YYYY'
+                                        onChange={(newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} helperText={params?.inputProps?.placeholder} />
+                                        )}
+                                    />
+                                </LocalizationProvider>
                                 </div>
                             </div>
 
@@ -177,7 +224,7 @@ export default function Membership() {
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <label htmlFor="color"
                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Quelle est la couleur de votre 306 ?
+                                    De quelle couleur est votre 306 ?
                                 </label>
                                 <select id="color"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -203,7 +250,7 @@ export default function Membership() {
                                 </select>
                                 <label htmlFor="registrationDocument"
                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Est-ce que la carte grise est à votre nom  ?
+                                    La carte grise est-elle à votre nom  ?
                                 </label>
                                 <select id="registrationDocument"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -290,11 +337,8 @@ export default function Membership() {
                                 Submit
                             </button>
                         </form>
-
                     </div>
                 </div>
             </section>
         </Layout>)
 }
-
-
