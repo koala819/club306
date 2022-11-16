@@ -121,7 +121,7 @@ const Login: NextPage = () => {
 }
 
 async function _handleGoogleSignin() {
-    await signIn('google', {callbackUrl: 'https://pascal306.vercel.app'})
+    await signIn('google', {callbackUrl: 'https://pascal306.vercel.app/user'})
 }
 
 export default Login
