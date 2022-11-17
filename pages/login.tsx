@@ -25,7 +25,7 @@ const Login: NextPage = () => {
             redirect: false,
             email: values.email,
             password: values.password,
-            callbackUrl: '/user'
+            callbackUrl: '/membership'
         })
 
         if (status !== undefined) {
