@@ -13,9 +13,11 @@ export default NextAuth({
             clientSecret: process.env.GOOGLE_SECRET
         }),
         CredentialsProvider({
-            name: 'Credentials',
+            id: 'login',
+            name: 'my-project',
             async authorize(credentials) {
                 try {
+
                     connectMongo().catch(() => {
                         'Connection Failed...!'
                     })
@@ -32,6 +34,32 @@ export default NextAuth({
                     //incorrect pwd
                     if (!checkPwd || result.email !== credentials.email) {
                         throw new Error('Username or Password doesn\'t match')
+                    }
+
+                    return result
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+        }),
+        CredentialsProvider({
+            id: 'register',
+            name: 'my-project',
+            async authorize(credentials) {
+                try {
+
+                    connectMongo().catch(() => {
+                        'Connection Failed...!'
+                    })
+                    //create user
+                    console.log('mail input',credentials.email)
+                    console.log('pwd input',credentials.password)
+                    const result = await Users.create({email: credentials.email, password: credentials.password})
+                    //const result = await Users.findOne({email: credentials.email})
+                    console.log('find what ?',result)
+                    if (result!== null) {
+                        console.log('find ONE',result)
+                        throw new Error('User already exist...!')
                     }
 
                     return result

@@ -1,11 +1,10 @@
 import {Layout} from '../components/Layout'
-import {HiAtSymbol, HiFingerPrint, HiOutlineUser} from "react-icons/hi";
+import {HiAtSymbol, HiFingerPrint} from "react-icons/hi";
 import { useState} from 'react';
 import Link from "next/link";
 import {useFormik} from "formik";
 import {register_validate} from "../lib/validate";
 import {useRouter} from 'next/router'
-
 
 export default function Register()  {
     const [show,setShow]=useState({password:false, cpassword:false})
@@ -21,17 +20,23 @@ export default function Register()  {
         validate: register_validate
     })
     async function onSubmit(values: any) {
-        const options = {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body:JSON.stringify(values)
-        }
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      }
 
-        await fetch('http://localhost:3000/api/auth/signup', options)
-            .then(res => res.json())
-            .then((data)=> {
-                if(data) router.push('/membership')
-            })
+      await fetch('http://localhost:3000/api/auth/signup', options)
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === 422) {
+            alert('Un compte avec cette adresse mail existe déjà... !');
+            throw new Error('User already exist...!')
+          }
+        })
+        .then((data) => {
+          if (data !== null) router.push('/membership')
+        })
     }
 
     return (
@@ -54,18 +59,6 @@ export default function Register()  {
                         <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
                               onSubmit={formik.handleSubmit}
                         >
-                            <div className={`${"flex border rounded-xl relative"} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
-                                <input type="text"
-                                       id="username"
-                                       placeholder="Nom d'utilisateur"
-                                       className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
-                                       {...formik.getFieldProps('username')}
-                                />
-                                <span className="icon flex items-center px-4">
-                                    <HiOutlineUser size={25} />
-                                </span>
-                            </div>
-                            {formik.errors.username && formik.touched.username ?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
                             <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                                 <input type="email"
                                        placeholder="Email"
