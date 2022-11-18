@@ -5,10 +5,12 @@ import {hash} from 'bcryptjs'
 export default async function handler(req, res) {
     try {
         connectMongo().catch(() => res.json({error: 'Connection Failed...!'}))
-
         if (req.method === 'POST') {
+
             if (!req.body) return res.status(400).json({message: 'Don\'t have form data...!'})
-            const {email, password} = req.body
+            const {discoverClub306, first_name, last_name, address, postal_code, town, phone, matriculation} = req.body
+
+            console.log('in record Member Info with', {discoverClub306, first_name, last_name, address, postal_code, town, phone, matriculation})
 
             //check duplicate users
             const checkExisting = await Users.findOne({email})

@@ -25,31 +25,29 @@ export default function Membership() {
             matriculation: '',
         },
         onSubmit,
-        validate: membership_validate
+        validate: membership_validate,
     })
 
     async function onSubmit(values: any) {
-        const status = await signIn('credentials', {
-            redirect: false,
-            discoverClub306: values.discoverClub306,
-            first_name: values.first_name,
-            last_name: values.last_name,
-            address: values.address,
-            postal_code: values.postal_code,
-            town: values.town,
-            phone: values.phone,
-            matriculation: values.matriculation,
-            callbackUrl: '/user'
-        })
-
-        if (status !== undefined) {
-            console.log('status', status)
-            if (status.ok) { // @ts-ignore
-                await router.push(status.url)
-            }
+        console.log('choix decouvert',values)
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
         }
-    }
 
+        await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
+          .then(res => res.json())
+          .then(res => {
+              if (res.status === 422) {
+                  alert('Un compte avec cette adresse mail existe déjà... !');
+                  throw new Error('User already exist...!')
+              }
+          })
+          .then((data) => {
+              /*if (data !== null) router.push('/user')*/
+          })
+    }
     return (
         <Layout title="Adhesion Membre">
             <section className="min-h-screen flex items-stretch text-black ">
@@ -65,13 +63,25 @@ export default function Membership() {
                                     Comment avez-vous connu le Club 306 ?
                                 </label>
                                 <select id="discoverClub306"
+                                        onChange={event => {
+                                            console.log('verif event',event)
+                                            formik.setFieldValue('discoverClub306', event.target.value);
+                                        }}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
                                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
                                         dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option>Relation</option>
-                                    <option>Internet</option>
-                                    <option>Facebook</option>
-                                    <option>Autre</option>
+                                    <option value="Relation" label="Relation">
+                                        Relation
+                                    </option>
+                                    <option value="Internet" label="Internet">
+                                        Internet
+                                    </option>
+                                    <option value="Facebook" label="Facebook">
+                                        Facebook
+                                    </option>
+                                    <option value="Autre" label="Autre">
+                                        Autre
+                                    </option>
                                 </select>
                                 {/*First Name*/}
                                 <div className="relative z-0 mb-6 w-full group">
