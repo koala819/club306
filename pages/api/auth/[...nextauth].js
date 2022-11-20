@@ -17,7 +17,6 @@ export default NextAuth({
             name: 'my-project',
             async authorize(credentials) {
                 try {
-
                     connectMongo().catch(() => {
                         'Connection Failed...!'
                     })
@@ -38,7 +37,7 @@ export default NextAuth({
 
                     return result
                 } catch (error) {
-                    console.log(error)
+                    console.log('Error Sir',error)
                 }
             }
         }),
@@ -52,11 +51,8 @@ export default NextAuth({
                         'Connection Failed...!'
                     })
                     //create user
-                    console.log('mail input',credentials.email)
-                    console.log('pwd input',credentials.password)
                     const result = await Users.create({email: credentials.email, password: credentials.password})
                     //const result = await Users.findOne({email: credentials.email})
-                    console.log('find what ?',result)
                     if (result!== null) {
                         console.log('find ONE',result)
                         throw new Error('User already exist...!')
