@@ -46,6 +46,9 @@ nav {
     margin: 40vh auto;
 }
 
+.btn {
+    @apply bg-gray-800 hover:bg-gray-700 text-gray-100 font-medium px-7 py-1.5 rounded;
+}
 
 @media only screen and (min-width: 768px) {
     .parent:hover .child {

@@ -26,7 +26,7 @@ export default function Register()  {
         body: JSON.stringify(values)
       }
 
-      await fetch('http://localhost:3000/api/auth/signup', options)
+      fetch('http://localhost:3000/api/auth/signup', options)
         .then(res => res.json())
         .then(res => {
           if (res.status === 422) {
