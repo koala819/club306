@@ -1,42 +1,41 @@
 import styles from '../styles/stepper.module.css';
 import { useState } from 'react';
-import { TiTick} from 'react-icons/ti';
+import { TiTick } from 'react-icons/ti';
+import MembershipContent1 from './MembershipContent1';
+import MembershipContent2 from './MembershipContent2';
 
 export default function Stepper() {
   const steps = ['Vos Informations', 'Creation du Compte', 'Paiement', 'Récapitulatif'];
   const [currentStep, setCurrentStep] = useState(1);
-  const [complete, setComplete] = useState(false)
+  const [numberStep, setNumberStep] = useState(1)
 
+  function nextStep () {
+    setCurrentStep((prev) => prev + 1)
+  }
+console.log('Stepper numberStep',numberStep)
+console.log('Stepper setNumberStep',setNumberStep)
   return (
     <>
       <div className='flex justify-between'>
         {
           steps.map((step, i) => (
             <div key={i}
-                 className={`${styles.stepItem } 
+                 className={`${styles.stepItem} 
             ${currentStep === i + 1 && styles.active}
-            ${(i + 1 < currentStep || complete) && styles.complete}`}
+            ${i + 1 < currentStep && styles.complete}`}
             >
               <div className={styles.step}>
-                {i + 1 < currentStep || complete ? <TiTick size={24} /> : i + 1 }
+                {i + 1 < currentStep  ? <TiTick size={24} /> : i + 1}
               </div>
               <p className='text-gray-500'>{step}</p>
             </div>
           ))
         }
       </div>
-      {
-        !complete && <button
-          className="btn"
-          onClick={() => {
-            currentStep === steps.length
-              ? setComplete(true)
-              : setCurrentStep((prev) => prev + 1)
-          }}
-        >
-          {currentStep === steps.length ? 'Terminer' : 'Suivant'}
-        </button>
-      }
+
+      {numberStep === 1 && <MembershipContent1 onClick={nextStep} updateNumberStep={setNumberStep} />}
+      {numberStep === 2 && <MembershipContent2 onClick={nextStep} updateNumberStep={setNumberStep} />}
+      {numberStep === 3 && console.log("Faux")}
     </>
   );
 }
