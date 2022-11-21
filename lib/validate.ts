@@ -70,10 +70,10 @@ export function membership_validate(values: any) {
         errors.address = 'Pas assez de caractères'
     }
 
-    if (!values.postal_code) {
-        errors.postal_code =  'Obligatoire'
-    } else if (values.postal_code.length !== 5 ) {
-        errors.postal_code = 'Trop ou Pas assez de caractères'
+    if (!values.zip_code) {
+        errors.zip_code =  'Obligatoire'
+    } else if (values.zip_code.length !== 5 ) {
+        errors.zip_code = 'Trop ou Pas assez de caractères'
     }
 
     if (!values.town) {
@@ -92,6 +92,40 @@ export function membership_validate(values: any) {
         errors.matriculation = 'Obligatoire'
     }
 
+    if (!values.birthDate || values.birthDate === 'Invalid Date') {
+        errors.birthDate = 'Obligatoire'
+    }
+
+    if (!values.model) {
+        errors.model = 'Obligatoire'
+    }
+
+    if (!values.color) {
+        errors.color = 'Obligatoire'
+    }
+
+    if (!values.registrationDocument) {
+        errors.registrationDocument = 'Obligatoire'
+    }
+
+    if (values.checkCotisation === false) {
+        errors.checkCotisation = ' Veuillez valider...!'
+    }
+
+    if (values.checkCertificateHonour === false) {
+        errors.checkCertificateHonour = ' Veuillez valider...!'
+    }
+
+    if (values.checkEngagementClub === false) {
+        errors.checkEngagementClub = ' Veuillez valider...!'
+    }
+
+    if (values.checkPrivacyPolicy === false) {
+        errors.checkPrivacyPolicy = ' Veuillez valider...!'
+    }
+
+
+
 
     return errors
 }
@@ -104,8 +138,16 @@ interface FormValues {
     first_name: string,
     last_name: string,
     address: string,
-    postal_code: string,
+    zip_code: string,
     town: string,
     phone: string,
+    birthDate: string,
     matriculation: string,
+    model: string,
+    color: string,
+    registrationDocument: string,
+    checkCotisation: boolean,
+    checkCertificateHonour: boolean,
+    checkEngagementClub: boolean,
+    checkPrivacyPolicy: boolean,
 }

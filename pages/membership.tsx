@@ -8,5 +8,5 @@ export default function Membership() {
         <Stepper />
       </div>
     </Layout>
-)
+  )
 }
