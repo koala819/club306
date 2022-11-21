@@ -34,7 +34,7 @@ console.log('Stepper setNumberStep',setNumberStep)
       </div>
 
       {numberStep === 1 && <MembershipContent1 onClick={nextStep} updateNumberStep={setNumberStep} />}
-      {numberStep === 2 && <MembershipContent2 onClick={nextStep} updateNumberStep={setNumberStep} />}
+      {numberStep === 2 && <MembershipContent2  />}
       {numberStep === 3 && console.log("Faux")}
     </>
   );

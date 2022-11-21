@@ -5,10 +5,9 @@ import { useRouter } from 'next/router';
 import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
 import { signIn } from 'next-auth/react';
-import Login from '../pages/login';
 
 
-export default function MembershipContent2(props: any) {
+export default function MembershipContent2() {
   const [show,setShow]=useState({password:false, cpassword:false})
   const router = useRouter()
   const formik = useFormik({
