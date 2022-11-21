@@ -1,7 +1,6 @@
 import { Layout } from '../components/Layout';
 import Link from 'next/link';
 import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
-import { FcGoogle } from 'react-icons/fc';
 import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import { NextPage } from 'next';
@@ -9,7 +8,6 @@ import login_validate from '../lib/validate';
 import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
-  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -101,16 +99,7 @@ const Login: NextPage = () => {
                   Connecter
                 </button>
               </div>
-              <div className='my-7 flex border rounded-xl relative hover:bg-indigo-600'>
-                <button type='button'
-                        onClick={_handleGoogleSignin}
-                        className='w-full m-1 flex justify-center gap-2 '>
-                  Se connecter avec un compte Google
-                </button>
-                <span className='icon flex items-center px-4'>
-                                    <FcGoogle size={25} />
-                                </span>
-              </div>
+
 
 
               <div className='text-right text-gray-400'>
@@ -129,8 +118,5 @@ const Login: NextPage = () => {
   );
 };
 
-async function _handleGoogleSignin() {
-  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });
-}
 
 export default Login;
