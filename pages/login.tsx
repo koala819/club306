@@ -5,7 +5,6 @@ import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import { NextPage } from 'next';
 import login_validate from '../lib/validate';
-import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
 
