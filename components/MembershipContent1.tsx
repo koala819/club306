@@ -9,7 +9,6 @@ import dayjs from 'dayjs';
 
 
 export default function MembershipContent1(nextStep: any) {
-console.log('updateNumberStep',nextStep)
   const [value, setValue] = useState(null);
   const formik = useFormik({
     initialValues: {
@@ -20,6 +19,7 @@ console.log('updateNumberStep',nextStep)
       town: '',
       phone: '',
       matriculation: '',
+      mail: '',
       birthDate: null,
       color: '',
       model: '',
@@ -44,7 +44,8 @@ useEffect(() => {
       body: JSON.stringify(values)
     };
 
-    await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)
+    /*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
+    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
       .then(res => res.json())
       .then(res => {
         if (res.status === 422) {
@@ -54,7 +55,9 @@ useEffect(() => {
         if (res._id) {
           nextStep.onClick(2)
           nextStep.updateNumberStep(2)
+
           console.log('finish with success');
+          nextStep.member(res)
         }
       })
   }
@@ -224,6 +227,28 @@ useEffect(() => {
                   <span className='text-red-500'>{formik.errors.matriculation}</span> : <></>}
               </div>
 
+              {/*Mail*/}
+              <div className='relative z-0 mb-6 w-full group'>
+                <input type='text'
+                       id='mail'
+                       className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent ' +
+                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
+                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
+                       'focus:border-blue-600 peer'} ${formik.errors.mail && formik.touched.mail ? 'border-red-600' : ''}`}
+                       {...formik.getFieldProps('mail')}
+                />
+                <label htmlFor='mail'
+                       className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400
+                                           duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0
+                                           peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100
+                                           peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+                >
+                  E-mail
+                </label>
+                {formik.errors.mail && formik.touched.mail ?
+                  <span className='text-red-500'>{formik.errors.mail}</span> : <></>}
+              </div>
+
               {/*Birth Date*/}
               <div className='relative z-0 mb-6 w-full group'>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -390,15 +415,7 @@ useEffect(() => {
               </div>
             </fieldset>
 
-            <button type='submit'
-                    className='btn'
-                    /*onClick={(e) => {
-                     console.log('check mem',e)
-                      console.log('check mem target',e?.target)
-                      formik.handleChange
-                      //handleChange(e)
-                    }}*/
-            >
+            <button type='submit' className='btn'>
               Suivant
             </button>
           </form>

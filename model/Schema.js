@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose'
 
 const userSchema = new Schema( {
+    username: String,
     first_name: String,
     last_name: String,
     address: String,
@@ -8,11 +9,11 @@ const userSchema = new Schema( {
     town: String,
     phone: String,
     matriculation: String,
+    mail: String,
     birthDate: String,
     color: String,
     model: String,
     registrationDocument: String,
-    username: String,
     email: String,
     password: String
 })
