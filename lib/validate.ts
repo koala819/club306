@@ -88,6 +88,12 @@ export function membership_validate(values: any) {
         errors.password = 'Pas d\'espace svp ^^'
     }
 
+    if (!values.mail) {
+        errors.mail = 'Obligatoire'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.mail)) {
+        errors.mail = 'Adresse mail incorrecte';
+    }
+
     if (!values.matriculation) {
         errors.matriculation = 'Obligatoire'
     }
@@ -133,6 +139,7 @@ export function membership_validate(values: any) {
 interface FormValues {
     username: string,
     email: string,
+    mail: string,
     password: string,
     cpassword: string,
     first_name: string,

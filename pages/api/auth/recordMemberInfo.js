@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
             if (!req.body) return res.status(400).json({message: 'Don\'t have form data...!'})
             const {first_name, last_name, address, zip_code, town, phone, matriculation,
-                birthDate, color, model, registrationDocument} = req.body
+                birthDate, color, model, registrationDocument, mail} = req.body
 
             /*console.log('in record Member Info with', {first_name, last_name, address, zip_code, town, phone, matriculation,
                 birthDateFormatted, color, model, registrationDocument})*/
@@ -22,7 +22,7 @@ console.log('check in recordMember Info', typeof birthDate)
             //hash pwd
             const response =  await Users.create({
                 first_name, last_name, address, zip_code, town, phone, matriculation,
-                birthDate, color, model, registrationDocument, function(err, data) {
+                birthDate, color, model, registrationDocument, mail, function(err, data) {
                     console.log('in createUser with',data)
                     if (err) return res.status(404).json({err})
                     res.status(201).json({status: true, user: data})
