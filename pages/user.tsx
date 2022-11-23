@@ -1,12 +1,12 @@
-import {getSession, signOut, useSession} from "next-auth/react";
-import {NextPage} from "next";
+import {signOut, signIn, useSession} from "next-auth/react";
 
-const User: NextPage = () => {
+export default function User() {
     const {data: session} = useSession()
 
     return (
         <div>
-            {session && _User({session})}
+            {/*{session && _User({session})}*/}
+            {session ? _User({ session }): _Guest()}
         </div>
     )
 }
@@ -30,11 +30,20 @@ function _User({session}: any) {
     )
 }
 
+function _Guest() {
+    return (
+      <div>
+        <p>Hello Guest, you are not signed in.</p>
+        <button onClick={() => signIn()}>Sign in</button>
+      </div>
+    )
+}
+
 async function _handleGoogleSignout() {
     await signOut({callbackUrl: 'https://pascal306.vercel.app'})
 }
 
-export async function getServerSideProps({req}:any) {
+/*export async function getServerSideProps({req}:any) {
     const session = await getSession({req})
 
     if (!session) {
@@ -49,7 +58,6 @@ export async function getServerSideProps({req}:any) {
     return {
         props: {session}
     }
-}
+}*/
 
 
-export default User

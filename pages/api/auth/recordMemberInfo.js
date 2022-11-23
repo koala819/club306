@@ -13,8 +13,8 @@ export default async function handler(req, res) {
 
             /*console.log('in record Member Info with', {first_name, last_name, address, zip_code, town, phone, matriculation,
                 birthDateFormatted, color, model, registrationDocument})*/
-console.log('check in recordMember Info',birthDate)
-console.log('check in recordMember Info', typeof birthDate)
+/*console.log('check in recordMember Info',birthDate)
+console.log('check in recordMember Info', typeof birthDate)*/
             //check duplicate users
            /* const checkExisting = await Users.findOne({matriculation})
             if (checkExisting) return res.status(422).json({message: 'User Already Exists...!', status: 422})*/
@@ -28,7 +28,7 @@ console.log('check in recordMember Info', typeof birthDate)
                     res.status(201).json({status: true, user: data})
                 }
             })
-            console.log('response',response)
+            /*console.log('response',response)*/
             res.send(response);
 
 

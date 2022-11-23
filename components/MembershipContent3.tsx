@@ -11,7 +11,6 @@ const MembershipContent3 = function (nextStep: any) {
   const formik = useFormik({
     initialValues: {
       username: '',
-      email: '',
       password: '',
       cpassword:''
     },
@@ -99,18 +98,16 @@ const xx = {
             {formik.errors.username && formik.touched.username ?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
 
             {/*Email*/}
-            {console.log('mail:',nextStep.member.mail)}
             <div className="my-3 flex border rounded-xl relative">
               <input type="email"
                      placeholder={nextStep.member.mail}
                      className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
-                     readOnly="readOnly"
+                     readOnly
               />
               <span className="icon flex items-center px-4">
                 <HiAtSymbol size={25} />
               </span>
             </div>
-            {formik.errors.email && formik.touched.email ?<span className='text-rose-500'>{formik.errors.email}</span>:<></>}
 
             {/*Password*/}
             <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
@@ -158,5 +155,13 @@ const xx = {
 export default MembershipContent3
 
 async function _handleGoogleSignin() {
-  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });
+  /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });*/
+  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user', redirect: false })
+    .then(({ profile, error }:any) => {
+      if (profile) {
+        console.log('email_account', profile);
+      } else {
+        console.log('an error Sir',error)
+      }
+    });
 }
