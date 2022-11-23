@@ -101,10 +101,11 @@ const MembershipContent2 = function (nextStep: any) {
                           });
                         }}
                         onCancel={data => console.log('commande annulée', data)}
-                        onApprove={(data, actions) => {
-                          return actions.order?.capture().then(() => {
-                            //const name = details.payer.name?.given_name;
-                            finish();
+                        onApprove={async (data, actions) => {
+                          return actions.order?.capture()
+                            .then( () => {
+                            /*const name = details.payer.name?.given_name;*/
+                              finish();
                           });
                         }}
                         style={{ layout: 'vertical', color: 'blue' }} />
