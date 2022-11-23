@@ -1,9 +1,10 @@
-import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import {connectMongo} from '../../../database/conn'
-import Users from '../../../model/Schema'
-import {compare} from 'bcryptjs'
+const NextAuth = require('next-auth')
+const GoogleProvider = require('next-auth/providers/google')
+const CredentialsProvider = require('next-auth/providers/credentials')
+const {connectMongo} = require('../../../database/conn')
+const Users = require('../../../model/Schema')
+const {compare} = require('bcryptjs')
+
 
 
 export default NextAuth({
@@ -65,9 +66,10 @@ export default NextAuth({
             }
         })
     ],
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXT_PUBLIC_SECRET,
 
-    pages: {
-        signIn: '../register',
-    },
+    /*pages: {
+        signIn: '/user',
+        error: '/api/auth/error',
+    },*/
 })

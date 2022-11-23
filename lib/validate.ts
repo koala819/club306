@@ -28,11 +28,11 @@ export function register_validate(values: any) {
         errors.username = 'Nom d\'utilisateur invalide'
     }
 
-    if (!values.email) {
+    /*if (!values.email) {
         errors.email = 'Obligatoire'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Adresse mail incorrecte';
-    }
+    }*/
 
     if (!values.password) {
         errors.password = 'Obligatoire';

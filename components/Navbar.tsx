@@ -17,8 +17,7 @@ export default function Navbar() {
                 <Image
                     src={picture306}
                     alt="logo club 306"
-                    width={240}
-                    height={46}
+
                     className="mr-3 h-6 sm:h-10"
                 />
                 {/*SECTION MOBILE*/}

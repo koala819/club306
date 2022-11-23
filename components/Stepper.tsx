@@ -10,15 +10,15 @@ export default function Stepper() {
   /* currentStep : display the number of the step */
   const [currentStep, setCurrentStep] = useState(1);
   /* numberStep : display the MembershipContent */
-  const [numberStep, setNumberStep] = useState(1);
+  const [numberStep, setNumberStep] = useState(3);
   const [member, setMember] = useState({});
 
   function nextStep() {
     setCurrentStep((prev) => prev + 1);
   }
 
-  console.log('Stepper numberStep', numberStep);
-  console.log('Stepper setNumberStep', setNumberStep);
+  /*console.log('Stepper numberStep', numberStep);
+  console.log('Stepper setNumberStep', setNumberStep);*/
   return (
     <>
       <div className='flex justify-between'>
