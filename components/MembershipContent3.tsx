@@ -45,11 +45,11 @@ const xx = {
       })
   }
 
-  function finish() {
+ /* function finish() {
     console.log('in finish')
     nextStep.onClick(3)
     nextStep.updateNumberStep(3)
-  }
+  }*/
 
   return (
     <section className="min-h-screen flex items-stretch text-white ">
