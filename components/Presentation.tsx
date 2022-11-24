@@ -28,6 +28,7 @@ const Presentation = ({title, txt, txtButton}: PresentationProps) => {
                             width={720}
                             height={600}
                             className='mr-3 h-6 sm:h-10'
+                            layout='responsive'
                         />
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import picture306 from '../public/images/logoClub306.jpg'
+import picture306 from '../public/images/logoClub306.png'
 import CC from '../public/images/Cc-by_new.svg.png'
 
 export default function Footer() {

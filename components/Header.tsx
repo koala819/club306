@@ -1,10 +1,8 @@
 import Navbar from './Navbar';
-import Picture306 from './Picture306';
 
 export default function header (){
     return (
-    <div className="relative h-80">
-        <Picture306 />
+    <div className="fixed w-full  inset-x-0 top-0 z-50">
         <Navbar />
         {/*  */}
     </div>
