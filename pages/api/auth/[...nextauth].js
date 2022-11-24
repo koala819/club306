@@ -1,19 +1,19 @@
-const NextAuth = require('next-auth')
-const GoogleProvider = require('next-auth/providers/google')
-const CredentialsProvider = require('next-auth/providers/credentials')
-const {connectMongo} = require('../../../database/conn')
-const Users = require('../../../model/Schema')
-const {compare} = require('bcryptjs')
+import Nextauth from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
+/*import CredentialsProvider from 'next-auth/providers/credentials'
+import {connectMongo} from '../../../database/conn'
+import Users from '../../../model/Schema'
+import {compare} from 'bcryptjs'*/
 
 
 
-export default NextAuth({
+export default Nextauth({
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET
         }),
-        CredentialsProvider({
+       /* CredentialsProvider({
             id: 'login',
             name: 'my-project',
             async authorize(credentials) {
@@ -53,7 +53,7 @@ export default NextAuth({
                     })
                     //create user
                     const result = await Users.create({email: credentials.email, password: credentials.password})
-                    //const result = await Users.findOne({email: credentials.email})
+                    //import result = await Users.findOne({email: credentials.email})
                     if (result!== null) {
                         console.log('find ONE',result)
                         throw new Error('User already exist...!')
@@ -64,7 +64,7 @@ export default NextAuth({
                     console.log(error)
                 }
             }
-        })
+        })*/
     ],
     secret: process.env.NEXT_PUBLIC_SECRET,
 

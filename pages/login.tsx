@@ -1,6 +1,7 @@
 import { Layout } from '../components/Layout';
 import Link from 'next/link';
 import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
+import { FcGoogle } from 'react-icons/fc';
 import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import { NextPage } from 'next';
@@ -109,6 +110,17 @@ const Login: NextPage = () => {
               </div>
 
             </form>
+
+            <div className='my-7 flex border rounded-xl relative hover:bg-indigo-600'>
+              <button type='button'
+                      onClick={_handleGoogleSignin}
+                      className='w-full m-1 flex justify-center gap-2 '>
+                Se connecter avec un compte Google
+              </button>
+              <span className='icon flex items-center px-4'>
+                                    <FcGoogle size={25} />
+                                </span>
+            </div>
           </div>
         </div>
       </section>
@@ -119,3 +131,8 @@ const Login: NextPage = () => {
 
 
 export default Login;
+
+
+async function _handleGoogleSignin() {
+  await signIn('google', { callbackUrl: 'http://localhost:3000' });
+}
