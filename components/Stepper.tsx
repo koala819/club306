@@ -21,7 +21,7 @@ export default function Stepper() {
   console.log('Stepper setNumberStep', setNumberStep);*/
   return (
     <>
-      <div className='flex justify-between'>
+      <div className='h-screen overflow-hidden'>      <div className='flex justify-between'>
         {
           steps.map((step, i) => (
             <div key={i}
@@ -41,6 +41,8 @@ export default function Stepper() {
       {numberStep === 1 && <MembershipContent1 onClick={nextStep} updateNumberStep={setNumberStep} member={setMember} />}
       {numberStep === 2 && <MembershipContent2 onClick={nextStep} updateNumberStep={setNumberStep} member={member} />}
       {numberStep === 3 && <MembershipContent3 onClick={nextStep} updateNumberStep={setNumberStep} member={member} />}
+      </div>
+
     </>
   );
 }

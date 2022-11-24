@@ -61,10 +61,10 @@ const xx = {
           <p className="text-3xl my-4">Rejoins nous dans l&apos;aventure Peugeot 306</p>
         </div>
       </div>
-      <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
-           style={{backgroundColor: '#161616'}}>
+      <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-gray-700"
+           >
         <div className="w-full py-6 z-20">
-          <div className='my-7 flex border rounded-xl relative hover:bg-indigo-600'>
+          <div className='my-7 flex border rounded-xl relative hover:bg-gray-900'>
             <button type='button'
                     onClick={_handleGoogleSignin}
                     className='w-full m-1 flex justify-center gap-2 '>
@@ -84,24 +84,23 @@ const xx = {
                 onSubmit={formik.handleSubmit}
           >
             {/*Username*/}
-            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
+            <div className={`${"my-3 flex border rounded-xl relative hover:bg-gray-900"} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
               <input type="username"
                      placeholder="Nom Utilisateur"
-                     className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                     className="w-full py-4 px-6 border rounded-xl bg-transparent focus:outline-none border-none"
                      {...formik.getFieldProps('username')}
 
               />
-              <span className="icon flex items-center px-4">
-                                    <CiUser size={25} />
-                                </span>
+              <span className="icon flex items-center px-4 text-amber-300">
+                <CiUser size={25} />
+              </span>
             </div>
-            {formik.errors.username && formik.touched.username ?<span className='text-rose-500'>{formik.errors.username}</span>:<></>}
 
             {/*Email*/}
-            <div className="my-3 flex border rounded-xl relative">
+            <div className="my-3 flex relative">
               <input type="email"
                      placeholder={nextStep.member.mail}
-                     className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                     className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none"
                      readOnly
               />
               <span className="icon flex items-center px-4">
@@ -110,32 +109,32 @@ const xx = {
             </div>
 
             {/*Password*/}
-            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
+            <div className={`${"my-3 flex border rounded-xl relative hover:bg-gray-900"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
               <input type={`${show.password ? "text": "password"}`}
                      placeholder="Mot de Passe"
-                     className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
+                     className="w-full py-4 px-6 border rounded-xl bg-transparent focus:outline-none border-none"
                      {...formik.getFieldProps('password')}
 
               />
-              <span className="icon flex items-center px-4" onClick={() => setShow({...show,password:!show.password})}>
-                                    <HiFingerPrint size={25} />
-                                </span>
-            </div>
-            {formik.errors.password && formik.touched.password ?<span className='text-rose-500'>{formik.errors.password}</span>:<></>}
-
-            {/*Confirm Password*/}
-            <div className={`${"my-3 flex border rounded-xl relative"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
-              <input type={`${show.cpassword ? "text": "password"}`}
-                     placeholder="Confirmer le mot de passe"
-                     className="w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none"
-                     {...formik.getFieldProps('cpassword')}
-
-              />
-              <span className="icon flex items-center px-4" onClick={() => setShow({...show,cpassword:!show.cpassword})}>
+              <span className="icon flex items-center px-4 text-amber-300 hover:text-rose-500 active:text-green-600"
+                    onClick={() => setShow({...show,password:!show.password})}>
                 <HiFingerPrint size={25} />
               </span>
             </div>
-            {formik.errors.cpassword && formik.touched.cpassword ?<span className='text-rose-500'>{formik.errors.cpassword}</span>:<></>}
+
+            {/*Confirm Password*/}
+            <div className={`${"my-3 flex border rounded-xl relative hover:bg-gray-900"} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
+              <input type={`${show.cpassword ? "text": "password"}`}
+                     placeholder="Confirmer le mot de passe"
+                     className="w-full py-4 px-6 border rounded-xl bg-transparent focus:outline-none border-none"
+                     {...formik.getFieldProps('cpassword')}
+
+              />
+              <span className="icon flex items-center px-4 text-amber-300 hover:text-rose-500 active:text-green-600"
+                    onClick={() => setShow({...show,cpassword:!show.cpassword})}>
+                <HiFingerPrint size={25} />
+              </span>
+            </div>
 
             <div className="px-4 pb-2 pt-4">
               <button
@@ -156,7 +155,7 @@ export default MembershipContent3
 
 async function _handleGoogleSignin() {
   /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });*/
-  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user', redirect: false })
+  await signIn('google', { callbackUrl: 'http://localhost:3000' })
     .then(({ profile, error }:any) => {
       if (profile) {
         console.log('email_account', profile);
