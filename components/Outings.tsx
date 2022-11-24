@@ -222,7 +222,7 @@ export default function Outings() {
         </div>
       </section>
 
-      <section className="text-center py-6 ">
+      <section className="text-center">
         <button className="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">
           Nos autres sorties
         </button>

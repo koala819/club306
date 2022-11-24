@@ -27,6 +27,7 @@
     "@prismicio/next": "^0.1.5",
     "@prismicio/react": "^2.5.0",
     "@prismicio/slice-simulator-react": "^0.2.2",
+    "@rivercode/facebook-conversion-api-nextjs": "^4.0.2",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.6",
     "express": "^4.18.2",
