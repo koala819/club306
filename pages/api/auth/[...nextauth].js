@@ -5,7 +5,8 @@ import {connectMongo} from '../../../database/conn'
 import Users from '../../../model/Schema'
 import {compare} from 'bcryptjs'*/
 
-
+/*console.log ('check in ...nextauth Google client ID',process.env.GOOGLE_ID)
+console.log ('check in ...nextauth Google client secret',process.env.GOOGLE_SECRET)*/
 
 export default Nextauth({
     providers: [
@@ -68,8 +69,8 @@ export default Nextauth({
     ],
     secret: process.env.NEXT_PUBLIC_SECRET,
 
-    /*pages: {
+    pages: {
         signIn: '/user',
         error: '/api/auth/error',
-    },*/
+    },
 })
