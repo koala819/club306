@@ -51,8 +51,8 @@ useEffect(() => {
       body: JSON.stringify(values)
     };
 
-    /*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
-    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
+    await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)
+    /*await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
       .then(res => res.json())
       .then(res => {
         if (res.status === 422) {

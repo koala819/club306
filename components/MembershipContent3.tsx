@@ -143,8 +143,8 @@ const MembershipContent3 = function (nextStep: any) {
 }
 
 async function _handleGoogleSignin() {
-  /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });*/
-  await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })
+  /*await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })*/
+  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })
     .then(({ profile, error }:any) => {
       if (profile) {
         console.log('email_account', profile);
