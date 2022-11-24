@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
 
 const MembershipContent3 = function (nextStep: any) {
+
   const [show,setShow]=useState({password:false, cpassword:false})
   const formik = useFormik({
     initialValues: {
@@ -20,10 +21,10 @@ const MembershipContent3 = function (nextStep: any) {
   async function onSubmit(values: any) {
     console.log('verif values on Step 3',values)
     console.log('with little present',nextStep.member.phone)
-const xx = {
+    const xx = {
       ...values,
       ...nextStep.member
-}
+    }
     console.log('with little present',xx)
     const options = {
       method: 'POST',
@@ -33,23 +34,12 @@ const xx = {
 
     fetch('http://localhost:3000/api/auth/signup', options)
       .then(res => res.json())
-      .then(res => {
-        if (res.status === 422) {
-          alert('Un compte avec cette adresse mail existe déjà... !');
-          throw new Error('User already exist...!')
-        }
-      })
-      .then((data) => {
-        console.log('finish with',data)
-        //if (data !== null) router.push('/membership')
+      .then(() => {
+        nextStep.onClick(4)
+        nextStep.updateNumberStep(4)
+
       })
   }
-
- /* function finish() {
-    console.log('in finish')
-    nextStep.onClick(3)
-    nextStep.updateNumberStep(3)
-  }*/
 
   return (
     <section className="min-h-screen flex items-stretch text-white ">
@@ -62,7 +52,7 @@ const xx = {
         </div>
       </div>
       <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-gray-700"
-           >
+      >
         <div className="w-full py-6 z-20">
           <div className='my-7 flex border rounded-xl relative hover:bg-gray-900'>
             <button type='button'
@@ -75,7 +65,7 @@ const xx = {
                                 </span>
           </div>
           <div className="py-6 space-x-2 text-gray-100">
-           OU
+            OU
           </div>
           <div className="space-x-2 text-gray-100">
             SVP créez votre compte &nbsp;{nextStep.member.first_name}&nbsp;{nextStep.member.last_name}
@@ -97,10 +87,10 @@ const xx = {
             </div>
 
             {/*Email*/}
-            <div className="my-3 flex relative">
+            <div className="my-3 flex relative ">
               <input type="email"
                      placeholder={nextStep.member.mail}
-                     className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none"
+                     className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none "
                      readOnly
               />
               <span className="icon flex items-center px-4">
@@ -149,13 +139,12 @@ const xx = {
         </div>
       </div>
     </section>
-  );
+  )
 }
-export default MembershipContent3
 
 async function _handleGoogleSignin() {
   /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' });*/
-  await signIn('google', { callbackUrl: 'http://localhost:3000' })
+  await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })
     .then(({ profile, error }:any) => {
       if (profile) {
         console.log('email_account', profile);
@@ -164,3 +153,7 @@ async function _handleGoogleSignin() {
       }
     });
 }
+
+
+
+export default MembershipContent3

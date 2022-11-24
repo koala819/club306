@@ -6,9 +6,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import { useSession } from 'next-auth/react';
 
 
 export default function MembershipContent1(nextStep: any) {
+  const { data: session } = useSession()
+
+  if (session?.user?.name !== undefined) {
+    nextStep.onClick(4)
+    nextStep.updateNumberStep(4)
+  }
   const [value, setValue] = useState(null);
   const formik = useFormik({
     initialValues: {

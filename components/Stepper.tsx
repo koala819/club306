@@ -4,21 +4,22 @@ import { TiTick } from 'react-icons/ti';
 import MembershipContent1 from './MembershipContent1';
 import MembershipContent2 from './MembershipContent2';
 import MembershipContent3 from './MembershipContent3';
+import MembershipContent4 from './MembershipContent4';
 
 export default function Stepper() {
   const steps = ['Vos Informations', 'Paiement', 'Creation du Compte', 'Récapitulatif'];
   /* currentStep : display the number of the step */
   const [currentStep, setCurrentStep] = useState(1);
   /* numberStep : display the MembershipContent */
-  const [numberStep, setNumberStep] = useState(3);
+  const [numberStep, setNumberStep] = useState(1);
   const [member, setMember] = useState({});
 
-  function nextStep() {
-    setCurrentStep((prev) => prev + 1);
+  function nextStep(nb:number) {
+    setCurrentStep(nb);
   }
 
-  /*console.log('Stepper numberStep', numberStep);
-  console.log('Stepper setNumberStep', setNumberStep);*/
+  console.log('Stepper numberStep', numberStep);
+  console.log('Stepper currentStep', currentStep);
   return (
     <>
       <div className='h-screen overflow-hidden'>      <div className='flex justify-between'>
@@ -41,6 +42,7 @@ export default function Stepper() {
       {numberStep === 1 && <MembershipContent1 onClick={nextStep} updateNumberStep={setNumberStep} member={setMember} />}
       {numberStep === 2 && <MembershipContent2 onClick={nextStep} updateNumberStep={setNumberStep} member={member} />}
       {numberStep === 3 && <MembershipContent3 onClick={nextStep} updateNumberStep={setNumberStep} member={member} />}
+      {numberStep === 4 && <MembershipContent4  member={member} />}
       </div>
 
     </>
