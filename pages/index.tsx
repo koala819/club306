@@ -1,4 +1,3 @@
-import Adhesion from '../components/Adhesion';
 import Outings from '../components/Outings';
 import Partners from '../components/Partners';
 import Footer from '../components/Footer';
