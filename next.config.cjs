@@ -9,5 +9,6 @@ module.exports = {
   env: {
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
     PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   }
 };
