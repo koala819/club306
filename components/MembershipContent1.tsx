@@ -405,11 +405,9 @@ export default function MembershipContent1(nextStep: any) {
                 </label>
               </div>
             </fieldset>
-<div className='pb-64'>
             <button type='submit' className='btn'>
               Suivant
             </button>
-</div>
           </form>
         </div>
       </div>

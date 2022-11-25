@@ -22,7 +22,8 @@ export default function Stepper() {
   console.log('Stepper currentStep', currentStep);
   return (
     <>
-      <div className='h-screen overflow-hidden'>      <div className='flex justify-between'>
+      <div className=''>
+        <div className='flex justify-between'>
         {
           steps.map((step, i) => (
             <div key={i}
