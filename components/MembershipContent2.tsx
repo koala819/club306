@@ -20,8 +20,8 @@ const MembershipContent2 = function (nextStep: any) {
             <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
           </div>
         </div>
-        <div className='lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0'
-             style={{ backgroundColor: '#161616' }}>
+        <div className='lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-gray-700'>
+
 
           {/*<div className='w-full py-6 z-20'>*/}
           <div className='w-full z-20'>

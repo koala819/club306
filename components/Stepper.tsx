@@ -33,7 +33,7 @@ export default function Stepper() {
               <div className={styles.step}>
                 {i + 1 < currentStep ? <TiTick size={24} /> : i + 1}
               </div>
-              <p className='text-gray-500'>{step}</p>
+              <p className='text-white'>{step}</p>
             </div>
           ))
         }

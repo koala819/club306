@@ -47,7 +47,7 @@ nav {
 }
 
 .btn {
-    @apply bg-gray-800 hover:bg-gray-700 text-gray-100 font-medium px-7 py-1.5 rounded;
+    @apply bg-gray-800 hover:bg-gray-900 active:bg-green-600 text-gray-100 font-medium px-7 py-1.5 rounded;
 }
 
 @media only screen and (min-width: 768px) {
