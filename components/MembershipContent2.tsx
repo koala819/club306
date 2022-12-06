@@ -2,11 +2,9 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 /*import { createOrder, capturePayment} from "../pages/api/paypal-api.js";*/
 
 const MembershipContent2 = function (nextStep: any) {
-
+  console.log('nextStep',nextStep)
   function finish() {
-    console.log('in finish')
     nextStep.onClick(3)
-    nextStep.updateNumberStep(3)
   }
 
   return (
