@@ -1,11 +1,13 @@
 import { useSession } from 'next-auth/react';
 import { BsCaretRightFill } from 'react-icons/bs';
+import { RxAvatar } from 'react-icons/rx';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import ClipLoader from "react-spinners/ClipLoader";
 
-
-const MembershipContent4 = function (lastStep: any) {
+const MembershipContent4 = function () {
   const { data: session } = useSession()
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   useEffect(() => {
     const storedData = localStorage.getItem('mySession');
 
@@ -19,13 +21,11 @@ const MembershipContent4 = function (lastStep: any) {
   }, [data]);
 
 
-//console.log('session last step ',session)
 console.log('session',data)
-//console.log('data last step ',lastStep)
 
   return (
     <div>
-    <section className="min-h-screen flex items-stretch text-white ">
+    <section className="min-h-screen flex items-stretch text-white pt-8">
       <div className="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
            style={{backgroundImage: `url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2662&q=80)`}}>
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -36,26 +36,40 @@ console.log('session',data)
       </div>
       <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-gray-700"
       >
-        <div className="w-full py-6 z-20">
-          <div className='my-7 flex border rounded-xl relative'>
+        <div className="w-full ">
+          <div className='flex border rounded-xl relative'>
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-24 mx-auto">
-                <div className="flex flex-wrap -m-2">
-                  <div className="p-2 lg:w-1/2 md:w-1/2 w-full">
-                    <div className="h-full flex items-center  p-4 rounded-lg">
-                      <img alt="team"
-                           className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                           src={(session?.user?.image !== undefined) ? `${session?.user?.image}` : 'w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/80x80'} />
-                      <div className="flex-grow">
-                        <h2 className="text-white title-font font-medium">{session?.user?.name || lastStep.member.username}</h2>
-                        <p className="text-white">{session?.user?.email || lastStep.member.mail}</p>
-                      </div>
+
+                <div className="flex flex-col text-center w-full mb-20">
+                  <div><ClipLoader
+                    color={'#FFF'}
+                    loading={true}
+                    size={50}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                    <p className="text-white">Enregistrement des informations dans notre base de données</p>
+                    <p className="text-white">Veuillez patienter</p>
+
+                  </div>
+                  <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Merci</h1>
+                  <div className="">
+                    {session?.user?.image !== undefined
+                      ? <Image alt="picture user"
+                               height={100}
+                               width={100}
+                               className="rounded-full"
+                               src={`${session?.user?.image}`}
+                      />
+                      : <span className='icon flex items-center px-4'><RxAvatar size={50} /></span>
+                    }
+                    <div className="flex-grow">
+                      <h2 className="text-white title-font font-medium">{session?.user?.name ||  data?.last_name + ' '+ data?.first_name }</h2>
+                      <p className="text-white ml-4">{session?.user?.email || data?.mail}</p>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col text-center w-full mb-20">
-                  <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Merci</h1>
-                  <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-50">De ta participation à cette
+                  <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-gray-50 mt-8">pour ta participation à cette
                     grande et belle aventure mécanique autour de la merveilleuse 306.</p>
 
                   <div>
