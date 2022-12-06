@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
 
 const MembershipContent3 = function (nextStep: any) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   useEffect(() => {
     const storedData = localStorage.getItem('mySession');
 
@@ -16,9 +16,9 @@ const MembershipContent3 = function (nextStep: any) {
     }
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     localStorage.setItem('mySession', JSON.stringify(data));
-  }, [data]);
+  }, [data]);*/
 
 
   const [show,setShow]=useState({password:false, cpassword:false})
@@ -32,8 +32,14 @@ const MembershipContent3 = function (nextStep: any) {
     validate: register_validate
   })
   async function onSubmit(values: any) {
-
     const memberInfos = {
+      ...values,
+      ...data
+    }
+    console.log('check data',memberInfos)
+    localStorage.setItem('mySession', JSON.stringify(memberInfos));
+    nextStep.onClick(4)
+   /* const memberInfos = {
       ...values,
       ...nextStep.member
     }
@@ -49,7 +55,7 @@ const MembershipContent3 = function (nextStep: any) {
       .then(() => {
         localStorage.setItem('mySession', JSON.stringify(memberInfos));
         nextStep.onClick(4)
-      })
+      })*/
   }
 
   return (
@@ -67,7 +73,7 @@ const MembershipContent3 = function (nextStep: any) {
         <div className="w-full py-6 z-20">
           <div className='my-7 flex border rounded-xl relative hover:bg-gray-900'>
             <button type='button'
-                    onClick={() =>_handleGoogleSignin(nextStep.member)}
+                    onClick={() =>_handleGoogleSignin()}
                     className='w-full m-1 flex justify-center gap-2 '>
               Se connecter avec un compte Google
             </button>
@@ -79,7 +85,7 @@ const MembershipContent3 = function (nextStep: any) {
             OU
           </div>
           <div className="space-x-2 text-gray-100">
-            SVP créez votre compte &nbsp;{nextStep.member.first_name}&nbsp;{nextStep.member.last_name}
+            SVP créez votre compte &nbsp;{data?.first_name}&nbsp;{data?.last_name}
           </div>
           <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
                 onSubmit={formik.handleSubmit}
@@ -100,7 +106,7 @@ const MembershipContent3 = function (nextStep: any) {
             {/*Email*/}
             <div className="my-3 flex relative ">
               <input type="email"
-                     placeholder={nextStep.member.mail}
+                     placeholder={data?.mail}
                      className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none "
                      readOnly
               />
@@ -153,11 +159,10 @@ const MembershipContent3 = function (nextStep: any) {
   )
 }
 
-async function _handleGoogleSignin(memberInfos: any) {
+async function _handleGoogleSignin() {
   await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })
   /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })*/
   console.log('in press Google Account')
-  localStorage.setItem('mySession', JSON.stringify(memberInfos));
 }
 
 

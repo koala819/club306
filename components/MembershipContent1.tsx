@@ -19,13 +19,6 @@ export default function MembershipContent1(nextStep: any) {
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('mySession', JSON.stringify(data));
-  }, [data]);
-
-
-
-
   const { data: session } = useSession();
 
   if (session?.user?.name !== undefined) {
@@ -77,8 +70,6 @@ export default function MembershipContent1(nextStep: any) {
         if (res._id) {
           nextStep.onClick(2);
           localStorage.setItem('mySession', JSON.stringify(values));
-
-          nextStep.member(res);
         }
       });
   }
@@ -262,7 +253,9 @@ export default function MembershipContent1(nextStep: any) {
               </div>
 
               {/*Birth Date*/}
-              <div className='relative z-0 mb-6 w-full group'>
+              <div className='relative z-0 mb-6 w-full group'
+                   id='birthDate'
+              >
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     label='Date de Naissance'

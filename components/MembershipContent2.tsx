@@ -1,8 +1,15 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-/*import { createOrder, capturePayment} from "../pages/api/paypal-api.js";*/
+import { useState, useEffect } from 'react';
 
 const MembershipContent2 = function (nextStep: any) {
-  console.log('nextStep',nextStep)
+  const [data, setData] = useState<any>(null);
+  useEffect(() => {
+    const storedData = localStorage.getItem('mySession');
+
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
   function finish() {
     nextStep.onClick(3)
   }
@@ -25,7 +32,7 @@ const MembershipContent2 = function (nextStep: any) {
                 <h1 className='sm:text-4xl text-3xl font-medium title-font mb-2 text-white'>
                   Tarif
                 </h1>
-                <p className='mt-4'>Bonjour {nextStep.member.first_name}&nbsp;{nextStep.member.last_name}, pour continuer de l&#39;aventure avec l&#39;association
+                <p className='mt-4'>Bonjour {data?.first_name}&nbsp;{data?.last_name}, pour continuer de l&#39;aventure avec l&#39;association
                   Club 306, il est indispensable d&#39;y hadhérer ^_^</p>
               </div>
               <div className='flex justify-center -m-4'>
