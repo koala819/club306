@@ -1,4 +1,4 @@
-import {useRouter} from 'next/router'
+/*import {useRouter} from 'next/router'
 import {NextShield, NextShieldProps} from 'next-shield'
 
 import {Children} from '../../types/Components'
@@ -6,7 +6,7 @@ import {Loading} from './Loading'
 
 export function Shield({children}: Children) {
     const router = useRouter()
-    /*const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],*/
+    //const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],
     const shieldProps: NextShieldProps<['Dashboard', 'Users', 'Users/[id]', 'Profile'],
         ['/','Membership','Rules','Press','Event','Blog','Login','Partners','Contact']> =
         {
@@ -21,4 +21,4 @@ export function Shield({children}: Children) {
         }
 
     return <NextShield {...shieldProps}>{children}</NextShield>
-}
+}*/

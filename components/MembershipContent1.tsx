@@ -10,11 +10,26 @@ import { useSession } from 'next-auth/react';
 
 
 export default function MembershipContent1(nextStep: any) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const storedData = localStorage.getItem('mySession');
+
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('mySession', JSON.stringify(data));
+  }, [data]);
+
+
+
+
   const { data: session } = useSession();
 
   if (session?.user?.name !== undefined) {
     nextStep.onClick(4);
-    nextStep.updateNumberStep(4);
   }
   const [value, setValue] = useState(null);
   const formik = useFormik({
@@ -51,8 +66,8 @@ export default function MembershipContent1(nextStep: any) {
       body: JSON.stringify(values)
     };
 
-    await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)
-    /*await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
+    /*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
+    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
       .then(res => res.json())
       .then(res => {
         if (res.status === 422) {
@@ -61,9 +76,8 @@ export default function MembershipContent1(nextStep: any) {
         }
         if (res._id) {
           nextStep.onClick(2);
-          nextStep.updateNumberStep(2);
+          localStorage.setItem('mySession', JSON.stringify(values));
 
-          console.log('finish with success');
           nextStep.member(res);
         }
       });
@@ -252,6 +266,7 @@ export default function MembershipContent1(nextStep: any) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     label='Date de Naissance'
+                    className={`${formik.errors.birthDate && formik.touched.birthDate ? 'border-red-600 border-b-3 text-red-600' : ''}`}
                     onChange={(date) => {
                       const birthDateFormatted = dayjs(date).format('DD/MM/YYYY');
                       setValue(date);
@@ -264,10 +279,11 @@ export default function MembershipContent1(nextStep: any) {
                                  id='birthDate'
                                  name='birthDate'
                                  error={Boolean(formik.errors['birthDate'])}
+
+
                         /*helperText={formik.errors['birthDate'] ?? params.helperText}*/
                       />
                     )}
-                    className={`${formik.errors.birthDate && formik.touched.birthDate ? 'border-red-600 border-b-3 text-red-600' : ''}`}
                   />
                 </LocalizationProvider>
               </div>

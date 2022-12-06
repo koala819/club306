@@ -2,11 +2,24 @@ import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
 import { CiUser } from 'react-icons/ci';
 import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
 
 const MembershipContent3 = function (nextStep: any) {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const storedData = localStorage.getItem('mySession');
+
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('mySession', JSON.stringify(data));
+  }, [data]);
+
 
   const [show,setShow]=useState({password:false, cpassword:false})
   const formik = useFormik({
@@ -19,25 +32,23 @@ const MembershipContent3 = function (nextStep: any) {
     validate: register_validate
   })
   async function onSubmit(values: any) {
-    console.log('verif values on Step 3',values)
-    console.log('with little present',nextStep.member.phone)
-    const xx = {
+
+    const memberInfos = {
       ...values,
       ...nextStep.member
     }
-    console.log('with little present',xx)
+    console.log('with little present',memberInfos)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(xx)
+      body: JSON.stringify(memberInfos)
     }
 
     fetch('http://localhost:3000/api/auth/signup', options)
       .then(res => res.json())
       .then(() => {
+        localStorage.setItem('mySession', JSON.stringify(memberInfos));
         nextStep.onClick(4)
-        nextStep.updateNumberStep(4)
-
       })
   }
 
@@ -56,7 +67,7 @@ const MembershipContent3 = function (nextStep: any) {
         <div className="w-full py-6 z-20">
           <div className='my-7 flex border rounded-xl relative hover:bg-gray-900'>
             <button type='button'
-                    onClick={_handleGoogleSignin}
+                    onClick={() =>_handleGoogleSignin(nextStep.member)}
                     className='w-full m-1 flex justify-center gap-2 '>
               Se connecter avec un compte Google
             </button>
@@ -142,16 +153,11 @@ const MembershipContent3 = function (nextStep: any) {
   )
 }
 
-async function _handleGoogleSignin() {
-  /*await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })*/
-  await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })
-    .then(({ profile, error }:any) => {
-      if (profile) {
-        console.log('email_account', profile);
-      } else {
-        console.log('an error Sir',error)
-      }
-    });
+async function _handleGoogleSignin(memberInfos: any) {
+  await signIn('google', { callbackUrl: 'http://localhost:3000/membership' })
+  /*await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })*/
+  console.log('in press Google Account')
+  localStorage.setItem('mySession', JSON.stringify(memberInfos));
 }
 
 

@@ -1,11 +1,27 @@
 import { useSession } from 'next-auth/react';
 import { BsCaretRightFill } from 'react-icons/bs';
+import { useState, useEffect } from 'react';
 
 
 const MembershipContent4 = function (lastStep: any) {
   const { data: session } = useSession()
-console.log('session last step ',session)
-console.log('data last step ',lastStep)
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const storedData = localStorage.getItem('mySession');
+
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('mySession', JSON.stringify(data));
+  }, [data]);
+
+
+//console.log('session last step ',session)
+console.log('session',data)
+//console.log('data last step ',lastStep)
 
   return (
     <div>
