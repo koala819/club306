@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             zip_code
           }
         ]);
-
+console.log('error',error)
       if (data === null) {
         console.log('Great Job !!! User has created successfully :)');
         return res.status(208).json({ message : 'Great Job !!! User has created successfully :)'})

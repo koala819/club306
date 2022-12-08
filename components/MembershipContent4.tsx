@@ -24,7 +24,7 @@ const MembershipContent4 = function(nextStep: any) {
 
   
   useEffect( ()=> {
-    console.log('in MembershipContent 4')
+    console.log('We are in useEffet in MembershipContent4')
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,7 +32,7 @@ const MembershipContent4 = function(nextStep: any) {
     };
      fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
     .then((response) => {
-      console.log('We are in useEffet in MembershipContent4',response);
+      console.log('API call successfully completed',response);
       setIsVisible(true)
     });},[data])
 
@@ -80,7 +80,7 @@ const MembershipContent4 = function(nextStep: any) {
                                  className='rounded-full'
                                  src={`${session?.user?.image}`}
                         />
-                        : <span className='icon flex items-center px-4'><RxAvatar size={50} /></span>
+                        : <span className='flex justify-center '><RxAvatar size={100} /></span>
                       }
                       <div className='flex-grow'>
                         <h2
