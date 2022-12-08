@@ -23,6 +23,14 @@ const MembershipContent4 = function () {
 
 console.log('session',data)
 
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }
+
+  fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
+
   return (
     <div>
     <section className="min-h-screen flex items-stretch text-white pt-8">
@@ -40,7 +48,7 @@ console.log('session',data)
           <div className='flex border rounded-xl relative'>
             <section className="text-gray-600 body-font">
               <div className="container px-5 py-24 mx-auto">
-
+{}
                 <div className="flex flex-col text-center w-full mb-20">
                   <div><ClipLoader
                     color={'#FFF'}
