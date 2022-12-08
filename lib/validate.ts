@@ -88,18 +88,18 @@ export function membership_validate(values: any) {
         errors.password = 'Pas d\'espace svp ^^'
     }
 
-    if (!values.mail) {
-        errors.mail = 'Obligatoire'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.mail)) {
-        errors.mail = 'Adresse mail incorrecte';
+    if (!values.email) {
+        errors.email = 'Obligatoire'
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Adresse email incorrecte';
     }
 
-    if (!values.matriculation) {
-        errors.matriculation = 'Obligatoire'
+    if (!values.immatriculation) {
+        errors.immatriculation = 'Obligatoire'
     }
 
-    if (!values.birthDate || values.birthDate === 'Invalid Date') {
-        errors.birthDate = 'Obligatoire'
+    if (!values.birth_date || values.birth_date === 'Invalid Date') {
+        errors.birth_date = 'Obligatoire'
     }
 
     if (!values.model) {
@@ -139,7 +139,6 @@ export function membership_validate(values: any) {
 interface FormValues {
     username: string,
     email: string,
-    mail: string,
     password: string,
     cpassword: string,
     first_name: string,
@@ -148,8 +147,8 @@ interface FormValues {
     zip_code: string,
     town: string,
     phone: string,
-    birthDate: string,
-    matriculation: string,
+    birth_date: string,
+    immatriculation: string,
     model: string,
     color: string,
     registrationDocument: string,

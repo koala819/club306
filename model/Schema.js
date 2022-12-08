@@ -1,21 +1,19 @@
 import { Schema, model, models } from 'mongoose'
 
 const userSchema = new Schema( {
-    username: String,
-    first_name: String,
-    last_name: String,
     address: String,
-    zip_code: String,
-    town: String,
-    phone: String,
-    matriculation: String,
-    mail: String,
-    birthDate: String,
+    birth_date: String,
     color: String,
-    model: String,
-    registrationDocument: String,
     email: String,
-    password: String
+    first_name: String,
+    immatriculation: String,
+    last_name: String,
+    model: String,
+    password: String,
+    phone: String,
+    town: String,
+    username: String,
+    zip_code: String
 })
 
 const Users = models.user || model('user',userSchema)

@@ -106,7 +106,7 @@ const MembershipContent3 = function (nextStep: any) {
             {/*Email*/}
             <div className="my-3 flex relative ">
               <input type="email"
-                     placeholder={data?.mail}
+                     placeholder={data?.email}
                      className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none "
                      readOnly
               />

@@ -33,9 +33,9 @@ export default function MembershipContent1(nextStep: any) {
       zip_code: '',
       town: '',
       phone: '',
-      matriculation: '',
-      mail: '',
-      birthDate: null,
+      immatriculation: '',
+      email: '',
+      birth_date: null,
       color: '',
       model: '',
       submitEvent: '',
@@ -57,9 +57,20 @@ export default function MembershipContent1(nextStep: any) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
+    }
+
+    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
+      .then ( () => {
+        nextStep.onClick(2);
+        localStorage.setItem('mySession', JSON.stringify(values));
+      })
+    /*const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
     };
 
-    /*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
+    /!*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*!/
     await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
       .then(res => res.json())
       .then(res => {
@@ -71,7 +82,7 @@ export default function MembershipContent1(nextStep: any) {
           nextStep.onClick(2);
           localStorage.setItem('mySession', JSON.stringify(values));
         }
-      });
+      });*/
   }
 
   return (
@@ -213,19 +224,19 @@ export default function MembershipContent1(nextStep: any) {
               {/*Immatriculation*/}
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
-                       id='matriculation'
+                       id='immatriculation'
                        className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
                        'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
                        'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer font-sans'} ${formik.errors.matriculation && formik.touched.matriculation ? 'border-red-600 text-red-600' : ''}`}
-                       {...formik.getFieldProps('matriculation')}
+                       'focus:border-blue-600 peer font-sans'} ${formik.errors.immatriculation && formik.touched.immatriculation ? 'border-red-600 text-red-600' : ''}`}
+                       {...formik.getFieldProps('immatriculation')}
                 />
-                <label htmlFor='matriculation'
+                <label htmlFor='immatriculation'
                        className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                       ${formik.errors.matriculation && formik.touched.matriculation ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.immatriculation && formik.touched.immatriculation ? 'border-red-600 text-red-600 font-mono' : ''}`}
                 >
                   Immatriculation de la 306
                 </label>
@@ -234,19 +245,19 @@ export default function MembershipContent1(nextStep: any) {
               {/*Mail*/}
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
-                       id='mail'
+                       id='email'
                        className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
                        'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
                        'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.mail && formik.touched.mail ? 'border-red-600 text-red-600' : ''}`}
-                       {...formik.getFieldProps('mail')}
+                       'focus:border-blue-600 peer'} ${formik.errors.email && formik.touched.email ? 'border-red-600 text-red-600' : ''}`}
+                       {...formik.getFieldProps('email')}
                 />
-                <label htmlFor='mail'
+                <label htmlFor='email'
                        className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                       ${formik.errors.mail && formik.touched.mail ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.email && formik.touched.email ? 'border-red-600 text-red-600 font-mono' : ''}`}
                 >
                   E-mail
                 </label>
@@ -254,27 +265,27 @@ export default function MembershipContent1(nextStep: any) {
 
               {/*Birth Date*/}
               <div className='relative z-0 mb-6 w-full group'
-                   id='birthDate'
+                   id='birth_date'
               >
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     label='Date de Naissance'
-                    className={`${formik.errors.birthDate && formik.touched.birthDate ? 'border-red-600 border-b-3 text-red-600' : ''}`}
+                    className={`${formik.errors.birth_date && formik.touched.birth_date ? 'border-red-600 border-b-3 text-red-600' : ''}`}
                     onChange={(date) => {
                       const birthDateFormatted = dayjs(date).format('DD/MM/YYYY');
                       setValue(date);
-                      formik.setFieldValue('birthDate', birthDateFormatted, false);
+                      formik.setFieldValue('birth_date', birthDateFormatted, false);
                     }}
                     inputFormat='DD/MM/YYYY'
                     value={value}
                     renderInput={(params) => (
                       <TextField {...params}
-                                 id='birthDate'
-                                 name='birthDate'
-                                 error={Boolean(formik.errors['birthDate'])}
+                                 id='birth_date'
+                                 name='birth_date'
+                                 error={Boolean(formik.errors['birth_date'])}
 
 
-                        /*helperText={formik.errors['birthDate'] ?? params.helperText}*/
+                        /*helperText={formik.errors['birth_date'] ?? params.helperText}*/
                       />
                     )}
                   />
