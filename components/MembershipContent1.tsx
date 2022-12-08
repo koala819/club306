@@ -7,16 +7,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
-
+import styles from '../styles/MemberShip.module.css'
 
 export default function MembershipContent1(nextStep: any) {
-  const [data, setData] = useState(null);
+  /*const [data, setData] = useState(null);*/
   useEffect(() => {
-    const storedData = localStorage.getItem('mySession');
+    localStorage.getItem('mySession');
 
-    if (storedData) {
+    /*if (storedData) {
       setData(JSON.parse(storedData));
-    }
+    }*/
   }, []);
 
   const { data: session } = useSession();
@@ -53,7 +53,10 @@ export default function MembershipContent1(nextStep: any) {
   }, []);
 
   async function onSubmit(values: any) {
-    const options = {
+    nextStep.onClick(2);
+    localStorage.setItem('mySession', JSON.stringify(values));
+
+    /*const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
@@ -63,7 +66,7 @@ export default function MembershipContent1(nextStep: any) {
       .then ( () => {
         nextStep.onClick(2);
         localStorage.setItem('mySession', JSON.stringify(values));
-      })
+      })*/
     /*const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -84,9 +87,10 @@ export default function MembershipContent1(nextStep: any) {
         }
       });*/
   }
+const optionInputTextItem = 'peer border-gray-300'
 
   return (
-    <section className='flex items-stretch text-black mt-12'>
+    <section className='flex items-stretch mt-12'>
       <div className='w-full flex items-center justify-center text-center md:px-16 px-0 z-0'>
         <div className='w-full z-20'>
           <form action=''
@@ -98,11 +102,10 @@ export default function MembershipContent1(nextStep: any) {
               {/*First Name*/}
               <div className='relative z-0 mb-6 w-full group'>
                 <input type='text'
+                       autoComplete={'on'}
                        id='first_name'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.first_name && formik.touched.first_name ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.first_name && formik.touched.first_name && 'border-red-600'}` }
                        {...formik.getFieldProps('first_name')}
                 />
                 <label htmlFor='first_name'
@@ -110,7 +113,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                        ${formik.errors.first_name && formik.touched.first_name ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                        ${formik.errors.first_name && formik.touched.first_name && 'text-red-600 font-mono'}`}
                 >
                   Nom
                 </label>
@@ -120,10 +123,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group'>
                 <input type='text'
                        id='last_name'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.last_name && formik.touched.last_name ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.last_name && formik.touched.last_name && 'border-red-600'}` }
                        {...formik.getFieldProps('last_name')}
                 />
                 <label htmlFor='last_name'
@@ -131,7 +132,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                        ${formik.errors.last_name && formik.touched.last_name ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                        ${formik.errors.last_name && formik.touched.last_name && 'text-red-600 font-mono'}`}
                 >
                   Prénom
                 </label>
@@ -141,10 +142,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='address'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.address && formik.touched.address ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.address && formik.touched.address && 'border-red-600'}`}
                        {...formik.getFieldProps('address')}
                 />
                 <label htmlFor='address'
@@ -152,7 +151,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                        ${formik.errors.address && formik.touched.address ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                        ${formik.errors.address && formik.touched.address ? 'text-red-600 font-mono' : ''}`}
                 >
                   Adresse
                 </label>
@@ -162,10 +161,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='zip_code'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.zip_code && formik.touched.zip_code ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.zip_code && formik.touched.zip_code && 'border-red-600'}`}
                        {...formik.getFieldProps('zip_code')}
                 />
                 <label htmlFor='zip_code'
@@ -173,7 +170,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'} 
-                       ${formik.errors.zip_code && formik.touched.zip_code ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.zip_code && formik.touched.zip_code ? 'text-red-600 font-mono' : ''}`}
                 >
                   Code Postal
                 </label>
@@ -183,10 +180,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='town'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.town && formik.touched.town ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.town && formik.touched.town && 'border-red-600'}`}
                        {...formik.getFieldProps('town')}
                 />
                 <label htmlFor='town'
@@ -194,7 +189,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                        ${formik.errors.town && formik.touched.town ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                        ${formik.errors.town && formik.touched.town && 'text-red-600 font-mono'}`}
                 >
                   Ville
                 </label>
@@ -204,10 +199,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='phone'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.phone && formik.touched.phone ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.phone && formik.touched.phone && 'border-red-600'}`}
                        {...formik.getFieldProps('phone')}
                 />
                 <label htmlFor='phone'
@@ -215,7 +208,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'} 
-                       ${formik.errors.phone && formik.touched.phone ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.phone && formik.touched.phone && 'text-red-600 font-mono'}`}
                 >
                   Numéro de Téléphone
                 </label>
@@ -225,10 +218,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='immatriculation'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer font-sans'} ${formik.errors.immatriculation && formik.touched.immatriculation ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.immatriculation && formik.touched.immatriculation && 'border-red-600'}`}
                        {...formik.getFieldProps('immatriculation')}
                 />
                 <label htmlFor='immatriculation'
@@ -236,7 +227,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                       ${formik.errors.immatriculation && formik.touched.immatriculation ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.immatriculation && formik.touched.immatriculation && 'text-red-600'}`}
                 >
                   Immatriculation de la 306
                 </label>
@@ -246,10 +237,8 @@ export default function MembershipContent1(nextStep: any) {
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='email'
-                       className={`${'block py-2.5 px-0 w-full text-sm text-white bg-transparent ' +
-                       'border-0 border-b-2 border-gray-300 appearance-none dark:text-white ' +
-                       'dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ' +
-                       'focus:border-blue-600 peer'} ${formik.errors.email && formik.touched.email ? 'border-red-600 text-red-600' : ''}`}
+                       className={`${styles.inputTextItem} ${optionInputTextItem}
+                                  ${formik.errors.email && formik.touched.email && 'border-red-600'}`}
                        {...formik.getFieldProps('email')}
                 />
                 <label htmlFor='email'
@@ -257,7 +246,7 @@ export default function MembershipContent1(nextStep: any) {
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
-                       ${formik.errors.email && formik.touched.email ? 'border-red-600 text-red-600 font-mono' : ''}`}
+                       ${formik.errors.email && formik.touched.email && 'text-red-600 font-mono'}`}
                 >
                   E-mail
                 </label>

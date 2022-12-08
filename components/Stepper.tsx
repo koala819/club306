@@ -8,9 +8,6 @@ import MembershipContent4 from './MembershipContent4';
 
 export default function Stepper() {
   const steps = ['Vos Informations', 'Paiement', 'Creation du Compte', 'Récapitulatif'];
-  /* currentStep : display the number of the step
-  const [currentStep, setCurrentStep] = useState(1); */
-  /* numberStep : display the MembershipContent */
   const [numberStep, setNumberStep] = useState(1);
   const [member, setMember] = useState({});
 
@@ -42,7 +39,7 @@ export default function Stepper() {
       {numberStep === 1 && <MembershipContent1 onClick={nextStep} member={setMember} />}
       {numberStep === 2 && <MembershipContent2 onClick={nextStep} member={member} />}
       {numberStep === 3 && <MembershipContent3 onClick={nextStep} member={member} />}
-      {numberStep === 4 && <MembershipContent4  member={member} />}
+      {numberStep >= 4 && <MembershipContent4 onClick={nextStep} member={member} />}
       </div>
 
     </>

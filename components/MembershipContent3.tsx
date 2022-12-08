@@ -7,18 +7,18 @@ import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
 
 const MembershipContent3 = function (nextStep: any) {
-  const [data, setData] = useState<any>(null);
+  const [dataSession, setDataSession] = useState<any>(null);
   useEffect(() => {
     const storedData = localStorage.getItem('mySession');
 
     if (storedData) {
-      setData(JSON.parse(storedData));
+      setDataSession(JSON.parse(storedData));
     }
   }, []);
 
   /*useEffect(() => {
-    localStorage.setItem('mySession', JSON.stringify(data));
-  }, [data]);*/
+    localStorage.setItem('mySession', JSON.stringify(dataSession));
+  }, [dataSession]);*/
 
 
   const [show,setShow]=useState({password:false, cpassword:false})
@@ -34,28 +34,11 @@ const MembershipContent3 = function (nextStep: any) {
   async function onSubmit(values: any) {
     const memberInfos = {
       ...values,
-      ...data
+      ...dataSession
     }
-    console.log('check data',memberInfos)
+    console.log('check dataSession',memberInfos)
     localStorage.setItem('mySession', JSON.stringify(memberInfos));
     nextStep.onClick(4)
-   /* const memberInfos = {
-      ...values,
-      ...nextStep.member
-    }
-    console.log('with little present',memberInfos)
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(memberInfos)
-    }
-
-    fetch('http://localhost:3000/api/auth/signup', options)
-      .then(res => res.json())
-      .then(() => {
-        localStorage.setItem('mySession', JSON.stringify(memberInfos));
-        nextStep.onClick(4)
-      })*/
   }
 
   return (
@@ -85,7 +68,7 @@ const MembershipContent3 = function (nextStep: any) {
             OU
           </div>
           <div className="space-x-2 text-gray-100">
-            SVP créez votre compte &nbsp;{data?.first_name}&nbsp;{data?.last_name}
+            SVP créez votre compte &nbsp;{dataSession?.first_name}&nbsp;{dataSession?.last_name}
           </div>
           <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
                 onSubmit={formik.handleSubmit}
@@ -106,7 +89,7 @@ const MembershipContent3 = function (nextStep: any) {
             {/*Email*/}
             <div className="my-3 flex relative ">
               <input type="email"
-                     placeholder={data?.email}
+                     placeholder={dataSession?.email}
                      className="w-full py-4 px-6 bg-gray-700 rounded-xl  border-none "
                      readOnly
               />
