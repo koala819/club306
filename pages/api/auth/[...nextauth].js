@@ -79,7 +79,7 @@ export default Nextauth({
     }
   },*/
   pages: {
-    signIn: '/user',
-    error: '/api/auth/error'
+    signIn: '/membership',
+    error: '/404'
   }
 });
