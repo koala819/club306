@@ -1,40 +1,67 @@
-import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
+import Image from 'next/image';
 import { BsCaretRightFill } from 'react-icons/bs';
 import { RxAvatar } from 'react-icons/rx';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const MembershipContent4 = function(nextStep: any) {
-  const { data: session } = useSession();
-  const [data, setData] = useState<any>(null);
+  const [dataSession, setDataSession] = useState<any>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [googleName, setGoogleName] = useState('');
+  const [googleEmail, setGoogleEmail] = useState('');
+  const [googlePicture, setGooglePicture] = useState('');
+
+  useEffect(() => {
+    getSession()
+      .then(session => {
+        if (session) {
+          session.user?.name && setGoogleName(session.user.name);
+          session.user?.email && setGoogleEmail(session.user.email);
+          session.user?.image && setGooglePicture(session.user.image);
+        } else {
+          console.log('Aucune identification avec un compte Google trouvé !');
+        }
+      });
+  }, []);
+
   useEffect(() => {
     const storedData = localStorage.getItem('mySession');
 
     if (storedData) {
-      setData(JSON.parse(storedData));
+      setDataSession(JSON.parse(storedData));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('mySession', JSON.stringify(data));
-  }, [data]);
+    localStorage.setItem('mySession', JSON.stringify(dataSession));
+  }, [dataSession]);
 
+  useEffect(() => {
+    const updatedDataSession = googleEmail && {
+      ...dataSession,
+      email: googleEmail,
+      username: googleName,
+      password: ''
+    };
 
-  
-  useEffect( ()=> {
-    console.log('We are in useEffet in MembershipContent4')
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(dataSession)
     };
-     fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
-    .then((response) => {
-      console.log('API call successfully completed',response);
-      setIsVisible(true)
-    });},[data])
+
+    fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
+      .then((response) => {
+        (response.status === 200) &&
+        console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+        setIsVisible(true);
+      })
+      .catch((error) => {
+        console.log('ERROR Sir in _MembershipContent4_ ',error);
+
+      });
+  }, [dataSession, googleEmail]);
 
   return (
     <div>
@@ -56,47 +83,51 @@ const MembershipContent4 = function(nextStep: any) {
                   {}
                   <div className='flex flex-col text-center w-full mb-20'>
                     {!isVisible && (
-                    <div>
-                      <ClipLoader
-                        color={'#FFF'}
-                        loading={true}
-                        size={50}
-                        aria-label='Loading Spinner'
-                        data-testid='loader'
-                      />
-                      <p className='text-white'>Enregistrement des informations dans notre base de données</p>
-                      <p className='text-white'>Veuillez patienter</p>
-                    </div>
+                      <div>
+                        <ClipLoader
+                          color={'#FFF'}
+                          loading={true}
+                          size={50}
+                          aria-label='Loading Spinner'
+                          data-testid='loader'
+                        />
+                        <p className='text-white'>Enregistrement des informations dans notre base de données</p>
+                        <p className='text-white'>Veuillez patienter</p>
+                      </div>
                     )}
 
                     {isVisible && (
-                    <div>
-                      {nextStep.onClick(5)}
-                      <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-white'>Merci</h1>
-                      {session?.user?.image !== undefined
-                        ? <Image alt='picture user'
-                                 height={100}
-                                 width={100}
-                                 className='rounded-full'
-                                 src={`${session?.user?.image}`}
-                        />
-                        : <span className='flex justify-center '><RxAvatar size={100} /></span>
-                      }
-                      <div className='flex-grow'>
-                        <h2
-                          className='text-white title-font font-medium'>{session?.user?.name || data?.last_name + ' ' + data?.first_name}</h2>
-                        <p className='text-white ml-4'>{session?.user?.email || data?.mail}</p>
+                      <div>
+                        {nextStep.onClick(5)}
+                        <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-white'>Merci</h1>
+                        {googlePicture
+                          ? <Image alt='picture user'
+                                   height={100}
+                                   width={100}
+                                   className='rounded-full'
+                                   src={`${googlePicture}`}
+                          />
+                          : <span className='flex justify-center '><RxAvatar size={100} /></span>
+                        }
+                        <div className='flex-grow'>
+                          <h2 className='text-white title-font font-medium'>
+                            {googleName || dataSession?.last_name + ' ' + dataSession?.first_name}
+                          </h2>
+                          <p className='text-white ml-4'>
+                            {googleEmail || dataSession?.email}
+                          </p>
+                        </div>
+                        <p className='lg:w-2/3 mx-auto leading-relaxed text-base text-gray-50 mt-8'>pour ta
+                          participation à
+                          cette
+                          grande et belle aventure mécanique autour de la merveilleuse 306.</p>
+                        <button
+                          className='bg-green-600 hover:bg-green-400 active:bg-green-800 text-black font-bold py-2 px-4 rounded inline-flex items-center mt-8'>
+                          <BsCaretRightFill size={23} />
+                          <span>Terminer</span>
+                        </button>
                       </div>
-                      <p className='lg:w-2/3 mx-auto leading-relaxed text-base text-gray-50 mt-8'>pour ta participation à
-                        cette
-                        grande et belle aventure mécanique autour de la merveilleuse 306.</p>
-                      <button
-                        className='bg-green-600 hover:bg-green-400 active:bg-green-800 text-black font-bold py-2 px-4 rounded inline-flex items-center mt-8'>
-                        <BsCaretRightFill size={23} />
-                        <span>Terminer</span>
-                      </button>
-                    </div>
-                      )}
+                    )}
                   </div>
                 </div>
               </section>
@@ -109,7 +140,12 @@ const MembershipContent4 = function(nextStep: any) {
   );
 };
 
-
+/*async function _findGoogleInfos() {
+  return await getSession()
+    .then((session) => {
+      return session?.user
+    });
+}*/
 /*function _Guest(nextStep: any) {
 
 }

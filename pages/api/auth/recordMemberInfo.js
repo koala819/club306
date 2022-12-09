@@ -13,37 +13,72 @@ export default async function handler(req, res) {
         address, birth_date, color, email, first_name, immatriculation, last_name, model, password, phone,
         town, username, zip_code
       } = req.body;
-      console.log('in recordMemberInfo with\n', req.body);
 
-      //check duplicate users
-      const { data, error } = await supabase
-        .from('members')
-        .insert([
-          {
-            address,
-            birth_date: dayjs(birth_date).format('YYYY/MM/DD'),
-            car_color: color,
-            email,
-            first_name,
-            immatriculation,
-            last_name,
-            car_model: model,
-            password: await hash(password, 12),
-            phone,
-            town,
-            username,
-            zip_code
-          }
-        ]);
-console.log('error',error)
-      if (data === null) {
-        console.log('Great Job !!! User has created successfully :)');
-        return res.status(208).json({ message : 'Great Job !!! User has created successfully :)'})
+      //check date is good formatted => to deleted
+      const yy = {
+        ...req.body,
+        birth_date: dayjs(birth_date).format('YYYY/MM/DD')
+      };
+      console.log('in recordMemberInfo.js with\n', yy);
+
+
+      /*const { dataGoogle, errorGoogle }= supabase.auth.onAuthStateChange(
+        (event, session) => {
+          console.log('event\n',event,'\n session\n',session)
+        })
+        async (user) => {
+        if (user) {
+          // The user has signed in
+          // Record the sign-in event in the database
+          console.log('user',user)
+          await supabase.from('members').insert({
+            first_name: 'google'
+          });
+        } else {
+          console.log('no user',user)
+          // The user has signed out
+          // Do nothing
+        }
+      });
+      console.log('dataGoogle',dataGoogle)
+      console.log('errorGoogle',errorGoogle)*/
+
+      //@todo : check duplicate users
+      try {
+        const { data, error } = await supabase
+          .from('members')
+          .insert([
+            {
+              address,
+              birth_date: dayjs(birth_date).format('YYYY/MM/DD'),
+              car_color: color,
+              email,
+              first_name,
+              immatriculation,
+              last_name,
+              car_model: model,
+              password: await hash(password, 12),
+              phone,
+              town,
+              username,
+              zip_code
+            }
+          ])
+
+        if (data === null) {
+          console.log('Great Job !!! User has created successfully :)');
+          return res.status(208).json({ message: 'Great Job !!! User has created successfully :)' });
+        }
+        if (error !== null) {
+          console.log('An error Sir !!! :(', error);
+          return res.status(408).json({ message: 'Bad news !!!' });
+        }
       }
-      if (error !== null) {
-        console.log('An error Sir !!! :(',error);
-        return res.status(2408).json({ message : 'Bad news !!!'})
+      catch (error){
+        console.log('Sir we\'ve got an ERROR\n', error);
+
       }
+
     } else {
       res.status(500).json({ message: 'HTTP method not valid only POST Accepted' });
     }
