@@ -102,7 +102,6 @@ const optionInputTextItem = 'peer border-gray-300'
               {/*First Name*/}
               <div className='relative z-0 mb-6 w-full group'>
                 <input type='text'
-                       autoComplete={'on'}
                        id='first_name'
                        className={`${styles.inputTextItem} ${optionInputTextItem}
                                   ${formik.errors.first_name && formik.touched.first_name && 'border-red-600'}` }

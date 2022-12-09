@@ -12,7 +12,13 @@ const MembershipContent4 = function(nextStep: any) {
   const [googleEmail, setGoogleEmail] = useState('');
   const [googlePicture, setGooglePicture] = useState('');
 
+
   useEffect(() => {
+    const storedData = localStorage.getItem('mySession');
+
+    if (storedData) {
+      setDataSession(JSON.parse(storedData));
+    }
     getSession()
       .then(session => {
         if (session) {
@@ -22,22 +28,12 @@ const MembershipContent4 = function(nextStep: any) {
         } else {
           console.log('Aucune identification avec un compte Google trouvé !');
         }
-      });
-  }, []);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem('mySession');
-
-    if (storedData) {
-      setDataSession(JSON.parse(storedData));
-    }
+      })
   }, []);
 
   useEffect(() => {
     localStorage.setItem('mySession', JSON.stringify(dataSession));
-  }, [dataSession]);
 
-  useEffect(() => {
     const updatedDataSession = googleEmail && {
       ...dataSession,
       email: googleEmail,
@@ -56,12 +52,14 @@ const MembershipContent4 = function(nextStep: any) {
         (response.status === 200) &&
         console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
         setIsVisible(true);
+        nextStep.onClick(5)
       })
       .catch((error) => {
         console.log('ERROR Sir in _MembershipContent4_ ',error);
 
       });
   }, [dataSession, googleEmail]);
+
 
   return (
     <div>
@@ -98,7 +96,6 @@ const MembershipContent4 = function(nextStep: any) {
 
                     {isVisible && (
                       <div>
-                        {nextStep.onClick(5)}
                         <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-white'>Merci</h1>
                         {googlePicture
                           ? <Image alt='picture user'

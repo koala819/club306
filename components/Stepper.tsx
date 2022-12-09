@@ -14,7 +14,6 @@ export default function Stepper() {
   function nextStep(nb:number) {
     setNumberStep(nb);
   }
-
   console.log('Stepper numberStep', numberStep);
   return (
     <>
