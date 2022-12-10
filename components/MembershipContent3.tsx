@@ -141,10 +141,8 @@ const MembershipContent3 = function(nextStep: any) {
 };
 
 async function _handleGoogleSignin() {
-  /*const user =  await signIn('google')*/
-    const user = await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })
-
-  console.log('user',user)
+  await signIn('google')
+    /*const user = await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })*/
 }
 
 
