@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import picture306 from '../public/images/logoClub306.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
 
-export default function Navbar() {
+export default function Navbar(props: any) {
+
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);
@@ -13,7 +14,9 @@ export default function Navbar() {
   return (
     <div className='relative'>
       <nav className='flex px-4 border-b md:shadow-lg items-center px-2
-            bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 '>
+            bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 '
+           style={{ backgroundColor: props.bgColor.bgColor }}
+      >
         <Link href='/'>
           <a>
             <Image
