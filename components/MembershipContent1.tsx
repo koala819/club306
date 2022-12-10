@@ -56,36 +56,6 @@ export default function MembershipContent1(nextStep: any) {
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
 
-    /*const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
-    }
-
-    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
-      .then ( () => {
-        nextStep.onClick(2);
-        localStorage.setItem('mySession', JSON.stringify(values));
-      })*/
-    /*const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
-    };
-
-    /!*await fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*!/
-    await fetch('http://localhost:3000/api/auth/recordMemberInfo', options)
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 422) {
-          alert('Un compte avec cette immatriculation existe déjà... !');
-          throw new Error('User already exist...!');
-        }
-        if (res._id) {
-          nextStep.onClick(2);
-          localStorage.setItem('mySession', JSON.stringify(values));
-        }
-      });*/
   }
 const optionInputTextItem = 'peer border-gray-300'
 

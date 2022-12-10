@@ -46,8 +46,9 @@ const MembershipContent4 = function(nextStep: any) {
       headers: { 'Content-Type': 'application/json' },
       body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(dataSession)
     };
-    fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)
-    /*fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
+    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
+      /*fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
+      /*fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
       .then((response) => {
         (response.status === 200) &&
         console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
@@ -58,7 +59,7 @@ const MembershipContent4 = function(nextStep: any) {
         console.log('ERROR Sir in _MembershipContent4_ ', error);
 
       });
-  }, [dataSession, googleEmail]);
+  }, [dataSession, googleEmail, googleName, nextStep]);
 
 
   return (
@@ -133,22 +134,5 @@ const MembershipContent4 = function(nextStep: any) {
     </div>
   );
 };
-
-/*async function _findGoogleInfos() {
-  return await getSession()
-    .then((session) => {
-      return session?.user
-    });
-}*/
-/*function _Guest(nextStep: any) {
-
-}
-
-function _User({nextStep}: any) {
-  console.log('in finish',nextStep)
-  nextStep.onClick(3)
-  nextStep.updateNumberStep(3)
-return(<></>)
-}*/
 
 export default MembershipContent4;
