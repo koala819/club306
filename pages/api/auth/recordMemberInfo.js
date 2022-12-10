@@ -16,7 +16,8 @@ export default async function handler(req, res) {
         address, birth_date, color, email, first_name, immatriculation, last_name, model, password, phone,
         town, username, zip_code
       } = req.body;
-
+console.log('date saisie\n',birth_date)
+console.log('date formatée\n',dayjs(birth_date).format('YYYY/MM/DD'))
       //view date to check  is good formatted => to deleted
       const yy = {
         ...req.body,
