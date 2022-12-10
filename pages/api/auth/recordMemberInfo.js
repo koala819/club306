@@ -8,18 +8,21 @@ export default async function handler(req, res) {
     /*connectPostgreSQL().catch(() => res.json({error: 'Connection Failed...!'}))*/
     if (req.method === 'POST') {
       if (!req.body) return res.status(400).json({ message: 'Don\'t have form data...!' });
-      const supabase = createClient('https://jrebzbunwzmevgctyblb.supabase.co', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
+      );
       const {
         address, birth_date, color, email, first_name, immatriculation, last_name, model, password, phone,
         town, username, zip_code
       } = req.body;
 
-      //check date is good formatted => to deleted
+      //view date to check  is good formatted => to deleted
       const yy = {
         ...req.body,
         birth_date: dayjs(birth_date).format('YYYY/MM/DD')
       };
-      console.log('in recordMemberInfo.js with\n', yy);
+      console.log('in recordMemberInfo.js with a godd date :)\n', yy);
 
 
       /*const { dataGoogle, errorGoogle }= supabase.auth.onAuthStateChange(

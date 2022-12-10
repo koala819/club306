@@ -105,7 +105,7 @@ const Login: NextPage = () => {
               <div className='text-right text-gray-400'>
                 Vous n&apos;avez pas encore de compte ?
                 <div className='hover:underline hover:text-gray-100'>
-                  <Link href='register'>Créez en un</Link>
+                  <Link href='membership'>Créez en un</Link>
                 </div>
               </div>
 
@@ -134,5 +134,5 @@ export default Login;
 
 
 async function _handleGoogleSignin() {
-  await signIn('google', { callbackUrl: 'http://localhost:3000' });
+  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
 }
