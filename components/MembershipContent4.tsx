@@ -4,6 +4,7 @@ import { BsCaretRightFill } from 'react-icons/bs';
 import { RxAvatar } from 'react-icons/rx';
 import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
+import Link from 'next/link';
 
 const MembershipContent4 = function(nextStep: any) {
   const [dataSession, setDataSession] = useState<any>(null);
@@ -82,14 +83,14 @@ const MembershipContent4 = function(nextStep: any) {
 
             {!isRegistered && (
               <div className='text-white flex flex-col text-center space-y-8 m-x-4 px-5'>
-                  <ClipLoader
-                    className='mx-auto'
-                    color={'#FFF'}
-                    loading={true}
-                    size={50}
-                    aria-label='Loading Spinner'
-                    data-testid='loader'
-                  />
+                <ClipLoader
+                  className='mx-auto'
+                  color={'#FFF'}
+                  loading={true}
+                  size={50}
+                  aria-label='Loading Spinner'
+                  data-testid='loader'
+                />
                 <p>Enregistrement des informations dans notre base de données</p>
                 <p>Veuillez patienter</p>
               </div>
@@ -119,11 +120,20 @@ const MembershipContent4 = function(nextStep: any) {
                   participation à
                   cette
                   grande et belle aventure mécanique autour de la merveilleuse 306.</p>
-                <button
-                  className='bg-green-600 hover:bg-green-400 active:bg-green-800 text-black font-bold py-2 px-4 rounded inline-flex items-center mt-8'>
-                  <BsCaretRightFill size={23} />
-                  <span>Terminer</span>
-                </button>
+                {googleEmail ? <Link href='/'>
+                  <button
+                    className='bg-green-600 hover:bg-green-400 active:bg-green-800 text-black font-bold py-2 px-4 rounded inline-flex items-center mt-8'>
+                    <BsCaretRightFill size={23} />
+                    <span>Terminer</span>
+                  </button>
+                </Link>
+                : <Link href='login'>
+                    <button
+                      className='bg-green-600 hover:bg-green-400 active:bg-green-800 text-black font-bold py-2 px-4 rounded inline-flex items-center mt-8'>
+                      <BsCaretRightFill size={23} />
+                      <span>Terminer</span>
+                    </button>
+                  </Link>}
               </div>
             )}
           </div>
