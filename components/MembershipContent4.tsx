@@ -46,9 +46,10 @@ const MembershipContent4 = function(nextStep: any) {
       headers: { 'Content-Type': 'application/json' },
       body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(dataSession)
     };
+
     fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
-      /*fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)*/
-      /*fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
+      /*fetch('https://pascal306.vercel.app/api/auth/recordMemberInfo', options)
+      fetch('http://localhost:3000/api/auth/recordMemberInfo', options)*/
       .then((response) => {
         (response.status === 200) &&
         console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
