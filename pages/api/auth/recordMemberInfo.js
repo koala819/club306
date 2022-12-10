@@ -1,7 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 /*import {connectPostgreSQL} from '../../../database/conn'*/
 import { hash } from 'bcryptjs';
-import dayjs from 'dayjs';
 
 export default async function handler(req, res) {
   try {
@@ -17,24 +16,27 @@ export default async function handler(req, res) {
         town, username, zip_code
       } = req.body;
 
+      const dateParts = birth_date.split('/');
+      const rearrangedDate = dateParts.reverse().join('/');
+
       //view date to check  is good formatted => to deleted
       console.log('date saisie\n', birth_date);
-      console.log('date formatée\n', dayjs(birth_date).format('YYYY/MM/DD'));
+      console.log('date formatée\n', rearrangedDate);
       const yy = {
         ...req.body,
-        birth_date: dayjs(birth_date).format('YYYY/MM/DD')
+        birth_date: rearrangedDate
       };
-      console.log('in recordMemberInfo.js with a godd date :)\n', yy);
+      console.log('in recordMemberInfo.js with a good date :)\n', yy);
 
 
       //@todo : check duplicate users
       try {
         const { data, error } = await supabase
           .from('members')
-          .insert([
+          .upsert(
             {
               address,
-              birth_date: dayjs(birth_date).format('YYYY/MM/DD'),
+              birth_date: rearrangedDate,
               car_color: color,
               email,
               first_name,
@@ -46,8 +48,10 @@ export default async function handler(req, res) {
               town,
               username,
               zip_code
-            }
-          ], { upsert: true  });
+            },
+            { onConflict: 'id' },
+            /*{ignoreDuplicates: false}*/
+          )
 
         if (data === null) {
           console.log('Great Job !!! User has created successfully :)');
