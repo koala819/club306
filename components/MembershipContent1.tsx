@@ -7,26 +7,18 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
-import styles from '../styles/MemberShip.module.css'
+import styles from '../styles/MemberShip.module.css';
 
 export default function MembershipContent1(nextStep: any) {
-  /*const [data, setData] = useState(null);*/
-  useEffect(() => {
-    localStorage.getItem('mySession');
-
-    /*if (storedData) {
-      setData(JSON.parse(storedData));
-    }*/
-  }, []);
-
   const { data: session } = useSession();
-
-  if (session?.user?.name !== undefined) {
+  if (session?.user !== undefined) {
     nextStep.onClick(4);
   }
   const [value, setValue] = useState(null);
   const formik = useFormik({
     initialValues: {
+      textInput: '',
+      checkboxInput: false,
       first_name: '',
       last_name: '',
       address: '',
@@ -48,25 +40,26 @@ export default function MembershipContent1(nextStep: any) {
     validate: membership_validate,
     onSubmit
   });
+
   useEffect(() => {
-    console.log({ formik });
+    localStorage.getItem('mySession');
   }, []);
 
   async function onSubmit(values: any) {
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
-
   }
-const optionInputTextItem = 'peer border-gray-300'
+
+  const optionInputTextItem = 'peer border-gray-300';
 
   return (
-    <section className='flex items-stretch mt-12'>
-      <div className='w-full flex items-center justify-center text-center md:px-16 px-0 z-0'>
-        <div className='w-full z-20'>
-          <form action=''
-                name='myForm'
-                onSubmit={formik.handleSubmit}
-          >
+    <form action=''
+          name='myForm'
+          onSubmit={formik.handleSubmit}
+    >
+      <section className='flex items-stretch mt-12'>
+        <div className='w-full flex items-center justify-center text-center md:px-16 px-0 z-0'>
+          <div className='w-full z-20'>
             <div className='grid md:grid-cols-2 md:gap-6'>
 
               {/*First Name*/}
@@ -74,7 +67,7 @@ const optionInputTextItem = 'peer border-gray-300'
                 <input type='text'
                        id='first_name'
                        className={`${styles.inputTextItem} ${optionInputTextItem}
-                                  ${formik.errors.first_name && formik.touched.first_name && 'border-red-600'}` }
+                                  ${formik.errors.first_name && formik.touched.first_name && 'border-red-600'}`}
                        {...formik.getFieldProps('first_name')}
                 />
                 <label htmlFor='first_name'
@@ -93,7 +86,7 @@ const optionInputTextItem = 'peer border-gray-300'
                 <input type='text'
                        id='last_name'
                        className={`${styles.inputTextItem} ${optionInputTextItem}
-                                  ${formik.errors.last_name && formik.touched.last_name && 'border-red-600'}` }
+                                  ${formik.errors.last_name && formik.touched.last_name && 'border-red-600'}`}
                        {...formik.getFieldProps('last_name')}
                 />
                 <label htmlFor='last_name'
@@ -357,6 +350,11 @@ const optionInputTextItem = 'peer border-gray-300'
 
               </div>
 
+
+              {/*<Field type="checkbox" name="checkbox">
+                My Field
+              </Field>*/}
+
               {/*Check Privacy Policy*/}
               <div className='flex items-center mb-4'>
                 <input type='checkbox'
@@ -386,9 +384,9 @@ const optionInputTextItem = 'peer border-gray-300'
             <button type='submit' className='btn'>
               Suivant
             </button>
-          </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </form>
   );
 }
