@@ -16,36 +16,16 @@ export default async function handler(req, res) {
         address, birth_date, color, email, first_name, immatriculation, last_name, model, password, phone,
         town, username, zip_code
       } = req.body;
-console.log('date saisie\n',birth_date)
-console.log('date formatée\n',dayjs(birth_date).format('YYYY/MM/DD'))
+
       //view date to check  is good formatted => to deleted
+      console.log('date saisie\n', birth_date);
+      console.log('date formatée\n', dayjs(birth_date).format('YYYY/MM/DD'));
       const yy = {
         ...req.body,
         birth_date: dayjs(birth_date).format('YYYY/MM/DD')
       };
       console.log('in recordMemberInfo.js with a godd date :)\n', yy);
 
-
-      /*const { dataGoogle, errorGoogle }= supabase.auth.onAuthStateChange(
-        (event, session) => {
-          console.log('event\n',event,'\n session\n',session)
-        })
-        async (user) => {
-        if (user) {
-          // The user has signed in
-          // Record the sign-in event in the database
-          console.log('user',user)
-          await supabase.from('members').insert({
-            first_name: 'google'
-          });
-        } else {
-          console.log('no user',user)
-          // The user has signed out
-          // Do nothing
-        }
-      });
-      console.log('dataGoogle',dataGoogle)
-      console.log('errorGoogle',errorGoogle)*/
 
       //@todo : check duplicate users
       try {
@@ -67,7 +47,7 @@ console.log('date formatée\n',dayjs(birth_date).format('YYYY/MM/DD'))
               username,
               zip_code
             }
-          ])
+          ], { upsert: true  });
 
         if (data === null) {
           console.log('Great Job !!! User has created successfully :)');
@@ -77,8 +57,7 @@ console.log('date formatée\n',dayjs(birth_date).format('YYYY/MM/DD'))
           console.log('An error Sir !!! :(', error);
           return res.status(408).json({ message: 'Bad news !!!' });
         }
-      }
-      catch (error){
+      } catch (error) {
         console.log('Sir we\'ve got an ERROR\n', error);
 
       }
