@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import { NextPage } from 'next';
 import login_validate from '../lib/validate';
+import { useState } from 'react';
 
 const Login: NextPage = () => {
 
@@ -17,6 +18,7 @@ const Login: NextPage = () => {
     validate: login_validate,
     onSubmit
   });
+  const [show, setShow] = useState({ password: false, cpassword: false });
 
   async function onSubmit(values: any) {
     const status = await signIn('login', {
@@ -26,7 +28,7 @@ const Login: NextPage = () => {
       callbackUrl: '/user'
     });
 
-
+console.log('mail ::',values.email)
     if (status !== undefined) {
       console.log('status', status);
       if (status.status === 401) {
@@ -54,8 +56,18 @@ const Login: NextPage = () => {
 
           <div className='w-full py-6 z-20'>
 
-            <div className='py-6 space-x-2 text-gray-100'>
+            <span className='py-6 space-x-2 text-gray-100'>
               Connecte toi
+            </span>
+            <div className='mt-12 mb-12 flex border rounded-xl relative hover:bg-indigo-600'>
+              <button type='button'
+                      onClick={_handleGoogleSignin}
+                      className='w-full m-1 flex justify-center gap-2 '>
+                Se connecter avec un compte Google
+              </button>
+              <span className='icon flex items-center px-4'>
+                <FcGoogle size={25} />
+              </span>
             </div>
             <form action=''
                   className='sm:w-2/3 w-full px-4 lg:px-0 mx-auto'
@@ -68,59 +80,45 @@ const Login: NextPage = () => {
                        className='w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none'
                        {...formik.getFieldProps('email')}
                 />
-                <span className='icon flex items-center px-4'>
-                                    <HiAtSymbol size={25} />
-                                </span>
+                <span className='icon flex items-center px-4 text-amber-300 '>
+                  <HiAtSymbol size={25} />
+                </span>
               </div>
               {formik.errors.email && formik.touched.email ?
                 <span className='text-rose-500'>{formik.errors.email}</span> : <></>}
 
               <div
-                className={`${'my-3 flex border rounded-xl relative'} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
-                <input type='password'
+                className={`${'my-3 flex border rounded-xl relative hover:bg-gray-900'} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
+                <input type={`${show.password ? 'text' : 'password'}`}
                        placeholder='Mot de Passe'
                        className='w-full py-4 px-6 border rounded-xl bg-black focus:outline-none border-none'
                        {...formik.getFieldProps('password')}
                 />
-                <span className='icon flex items-center px-4'>
-                                    <HiFingerPrint size={25} />
-                                </span>
+                <span className='icon flex items-center px-4 text-amber-300 hover:text-rose-500 active:text-green-600'
+                      onClick={() => setShow({ ...show, password: !show.password })}>
+                  <HiFingerPrint size={25} />
+                </span>
               </div>
               {formik.errors.password && formik.touched.password ?
                 <span className='text-rose-500'>{formik.errors.password}</span> : <></>}
 
-              <div className='text-right text-gray-400 hover:underline hover:text-gray-100'>
+              {/*<div className='text-right text-gray-400 hover:underline hover:text-gray-100'>
                 <Link href='findPwd'>Mot de passe oublié ?</Link>
-              </div>
-              <div className='px-4 pb-2 pt-4'>
+              </div>*/}
+              <div className='px-4 pb-2 pt-12'>
                 <button
                   type='submit'
-                  className='uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none'>Se
-                  Connecter
+                  className='uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none'>
+                  Se Connecter
                 </button>
               </div>
-
-
-
-              <div className='text-right text-gray-400'>
-                Vous n&apos;avez pas encore de compte ?
+              <div className='text-right text-gray-400 mt-4'>
+                Pas encore de compte ?
                 <div className='hover:underline hover:text-gray-100'>
                   <Link href='membership'>Créez en un</Link>
                 </div>
               </div>
-
             </form>
-
-            <div className='my-7 flex border rounded-xl relative hover:bg-indigo-600'>
-              <button type='button'
-                      onClick={_handleGoogleSignin}
-                      className='w-full m-1 flex justify-center gap-2 '>
-                Se connecter avec un compte Google
-              </button>
-              <span className='icon flex items-center px-4'>
-                                    <FcGoogle size={25} />
-                                </span>
-            </div>
           </div>
         </div>
       </section>
@@ -131,7 +129,6 @@ const Login: NextPage = () => {
 
 
 export default Login;
-
 
 async function _handleGoogleSignin() {
   await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
