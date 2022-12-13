@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import styles from '../styles/MemberShip.module.css';
+import Link from 'next/link';
+
 
 export default function MembershipContent1(nextStep: any) {
   const { data: session } = useSession();
@@ -369,11 +371,11 @@ export default function MembershipContent1(nextStep: any) {
                 >
                   <p id='check-checkPrivacyPolicy'>
                     En soumettant ce formulaire, je confirme avoir pris connaissant de
-                    <a href='#'
+                    <Link href='#'
                        className='text-blue-600 hover:underline dark:text-blue-500'
                     >
                       &nbsp;la politique de confidentialité
-                    </a>
+                    </Link>
                     &nbsp;du Club306. Des lors, j&apos;autorise Club306 à exploiter les
                     informations saisies dans le cadre de la relation commerciale
                     qui peut en découler.
