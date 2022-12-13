@@ -20,7 +20,6 @@ export default function Navbar(props: any) {
              color: '#3B578E'}}
       >
         <Link href='/'>
-          <a>
             <Image
               src={picture306}
               alt='logo club 306'
@@ -28,7 +27,6 @@ export default function Navbar(props: any) {
               height={46}
               className='mr-3 h-6 sm:h-10'
             />
-          </a>
         </Link>
         {/*SECTION MOBILE*/}
         <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0 '>
@@ -167,8 +165,10 @@ export default function Navbar(props: any) {
         <ul
           className='md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 DESKTOP-MENU hidden space-x-8'>
           <li>
-            <Link href='/'>
-              <a className={styles.a}>Accueil</a>
+            <Link href='/'
+                  className={styles.a}
+            >
+              Accueil
             </Link>
           </li>
           <li className='relative parent'>
@@ -187,23 +187,25 @@ export default function Navbar(props: any) {
               className='bg-[#F7F9FF] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b'
             >
               <li>
-                <Link href='presentation'>
-                  <a className={styles.a}>Présentation</a>
+                <Link href='presentation'
+                      className={styles.a}
+                >
+                  Présentation
                 </Link>
               </li>
               <li>
-                <Link href='staff'>
-                  <a className={styles.a}>le Staff</a>
+                <Link href='staff' className={styles.a}>
+                  le Staff
                 </Link>
               </li>
               <li>
-                <Link href='rules'>
-                  <a className={styles.a}>Règlement du Club</a>
+                <Link href='rules' className={styles.a}>
+                  Règlement du Club
                 </Link>
               </li>
               <li>
-                <Link href='press'>
-                  <a className={styles.a}>Revue de presse</a>
+                <Link href='press' className={styles.a}>
+                  Revue de presse
                 </Link>
               </li>
             </ul>
@@ -223,13 +225,13 @@ export default function Navbar(props: any) {
             <ul
               className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#F7F9FF]'>
               <li>
-                <Link href='event'>
-                  <a className={styles.a}>Evènements à venir</a>
+                <Link href='event' className={styles.a}>
+                  Evènements à venir
                 </Link>
               </li>
               <li>
-                <Link href='blog'>
-                  <a className={styles.a}>Blog : évènements passés</a>
+                <Link href='blog' className={styles.a}>
+                  Blog : évènements passés
                 </Link>
               </li>
             </ul>
@@ -250,20 +252,24 @@ export default function Navbar(props: any) {
             <ul
               className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'>
               <li>
-                <Link href='login'>
-                  <a className={styles.a}>Se Connecter</a>
+                <Link href='login'
+                      className={styles.a}>
+                  Se Connecter
                 </Link>
               </li>
               <li>
-                <Link href='partners'>
-                  <a className={styles.a}>Partenariats</a>
+                <Link href='partners'
+                      className={styles.a}
+                >
+                  Partenariats
                 </Link>
               </li>
             </ul>
           </li>
           <li>
-            <Link href='contact'>
-              <a className={styles.a}>Contact</a>
+            <Link href='contact'
+                  className={styles.a}>
+              Contact
             </Link>
           </li>
         </ul>

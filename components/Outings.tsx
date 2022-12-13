@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import pictureArticle1 from '../public/images/homePageArticle1.jpg';
 import pictureArticle2 from '../public/images/homePageArticle2.jpg';
 import pictureArticle3 from '../public/images/homePageArticle3.jpg';
@@ -36,7 +37,9 @@ export default function Outings() {
                   Lors de cet événement, nous avons pu[…]
                 </p>
                 <div className='flex items-center flex-wrap '>
-                  <a className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'>
+                  <Link className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'
+                        href='#'
+                  >
                     Lire Plus
                     <svg
                       className='w-4 h-4 ml-2'
@@ -50,7 +53,7 @@ export default function Outings() {
                       <path d='M5 12h14'></path>
                       <path d='M12 5l7 7-7 7'></path>
                     </svg>
-                  </a>
+                  </Link>
                   <span
                     className='text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200'>
                       <svg
@@ -109,7 +112,9 @@ export default function Outings() {
                   programme, un moment de convivialité[…]
                 </p>
                 <div className='flex items-center flex-wrap'>
-                  <a className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'>
+                  <Link className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'
+                      href='#'
+                  >
                     Lire Plus
                     <svg
                       className='w-4 h-4 ml-2'
@@ -123,7 +128,7 @@ export default function Outings() {
                       <path d='M5 12h14'></path>
                       <path d='M12 5l7 7-7 7'></path>
                     </svg>
-                  </a>
+                  </Link>
                   <span
                     className='text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200'>
                       <svg
@@ -180,7 +185,9 @@ export default function Outings() {
                   programme: 8h40: arrivee sur les[…]
                 </p>
                 <div className='flex items-center flex-wrap '>
-                  <a className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'>
+                  <Link className='text-blue-500 inline-flex items-center md:mb-2 lg:mb-0'
+                        href='#'
+                  >
                     Lire Plus
                     <svg
                       className='w-4 h-4 ml-2'
@@ -194,7 +201,7 @@ export default function Outings() {
                       <path d='M5 12h14'></path>
                       <path d='M12 5l7 7-7 7'></path>
                     </svg>
-                  </a>
+                  </Link>
                   <span
                     className='text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200'>
                       <svg

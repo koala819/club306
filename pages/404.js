@@ -1,4 +1,4 @@
-
+import Link from 'next/link';
 import styles from '../styles/404.module.css';
 
 
@@ -30,8 +30,8 @@ export default function main() {
                 <ul className='list-disc text-left'>
                   <li>Rester ici et recharger la page de temps en temps en gardant espoir</li>
                   <li>Aller sur
-                    <a href='#' className={styles.a}> club306</a> pour découvrir qui nous sommes</li>
-                  <li>Envoyer un email à <a href='mailto:contact@club306' className={styles.a}>contact@club306</a> pour râler un bon coup
+                    <Link href='#' className={styles.a}> club306</Link> pour découvrir qui nous sommes</li>
+                  <li>Envoyer un email à <Link href='mailto:contact@club306' className={styles.a}>contact@club306</Link> pour râler un bon coup
                   </li>
                   <li>Redemander l’adresse à votre correspondant</li>
                   <li>Essayer toutes les combinaisons d’url possible jusqu’à ce que ça marche</li>
