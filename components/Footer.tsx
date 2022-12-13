@@ -7,8 +7,8 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <div>
-      <footer className='text-gray-600 body-font'>
-        <div className='bg-gray-100'>
+      <footer className='bg-[#3B578E] text-white'>
+
           <div className='px-4 py-6 flex items-center sm:flex-row'>
             <Image
               src={picture306}
@@ -21,7 +21,7 @@ export default function Footer() {
               href='https://www.economie.gouv.fr/apie/propriete-intellectuelle-publications/contenus-sous-licences-libres'
               className='flex'
             >
-              <p className='text-sm text-black font-bold mx-2 sm:mt-0 mt-4'>
+              <p className='text-sm font-bold mx-2 sm:mt-0 mt-4'>
                 BY
               </p>
               <Image
@@ -32,7 +32,7 @@ export default function Footer() {
                 className='mr-3 h-6 sm:h-10'
               />
             </a>
-            <p className='text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4'>
+            <p className='text-sm sm:ml-6 sm:mt-0 mt-4'>
               2022 Tno306
             </p>
 
@@ -41,7 +41,7 @@ export default function Footer() {
 
               {/*Facebook*/}
               <Link href='https://www.facebook.com/club306france/'>
-                <a className='text-gray-500'>
+                <a>
                 <svg
                   fill='currentColor'
                   strokeLinecap='round'
@@ -57,7 +57,7 @@ export default function Footer() {
 
               {/*Instagram*/}
               <Link href='https://www.instagram.com/club306officielfrance/'>
-              <a className='ml-3 text-gray-500'>
+              <a className='ml-3'>
                 <svg
                   fill='none'
                   stroke='currentColor'
@@ -74,7 +74,7 @@ export default function Footer() {
               </Link>
             </span>
           </div>
-        </div>
+
       </footer>
     </div>
   );
