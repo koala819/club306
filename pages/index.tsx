@@ -122,29 +122,24 @@ function _User({ session }: any) {
 function _Guest() {
   return (
     <div>
+
       <div className="fixed w-full  inset-x-0 top-0 z-50">
        <Navbar />
       </div>
 
-      {/*Section 01*/}
       <Picture306 />
 
-      {/*Section 02*/}
       <Presentation />
 
-
-      {/*Section 03*/}
       <section className='w-full h-5/6'>
-       <Adhesion />
+        <Adhesion />
       </section>
 
       <section className='w-full h-screen'>
         <Outings />
       </section>
 
-      <section className='w-full mb-4 mt-4'>
-        <Partners />
-      </section>
+      <Partners />
 
       <Footer />
     </div>
