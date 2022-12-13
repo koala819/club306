@@ -10,14 +10,14 @@ export default function Navbar(props: any) {
   const [isEventOpen, setEventOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
   return (
-    <div className='relative'
-    /*style={{ backgroundColor: '#3B578E'}}*/
-    >
+    <div className='relative'>
       <nav className='flex px-4 md:shadow-lg items-center px-2
             dark:bg-gray-900 dark:border-gray-700 '
            style={{
-             backgroundColor: props.bgColor || '#3B578E',
-             color: '#F7F9FF'}}
+             /*backgroundColor: props.bgColor || '#3B578E',
+             color: '#F7F9FF'}}*/
+             backgroundColor: props.bgColor || '#F7F9FF',
+             color: '#3B578E'}}
       >
         <Link href='/'>
           <a>
@@ -173,7 +173,7 @@ export default function Navbar(props: any) {
           </li>
           <li className='relative parent'>
             <div
-              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#201C44] space-x-2'>
+              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'>
               <span>le Club</span>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -184,7 +184,7 @@ export default function Navbar(props: any) {
               </svg>
             </div>
             <ul
-              className='bg-[#3B578E] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b'
+              className='bg-[#F7F9FF] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b'
             >
               <li>
                 <Link href='presentation'>
@@ -210,7 +210,7 @@ export default function Navbar(props: any) {
           </li>
           <li className='relative parent'>
             <div
-              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#201C44] space-x-2'>
+              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'>
               <span>Evènements</span>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -221,7 +221,7 @@ export default function Navbar(props: any) {
               </svg>
             </div>
             <ul
-              className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#3B578E]'>
+              className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#F7F9FF]'>
               <li>
                 <Link href='event'>
                   <a className={styles.a}>Evènements à venir</a>
@@ -236,7 +236,7 @@ export default function Navbar(props: any) {
           </li>
           <li className='relative parent'>
             <div
-              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#201C44] space-x-2'
+              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'
             >
               <span>Membres</span>
               <svg
@@ -248,7 +248,7 @@ export default function Navbar(props: any) {
               </svg>
             </div>
             <ul
-              className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#3B578E] md:shadow-lg md:rounded-b'>
+              className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'>
               <li>
                 <Link href='login'>
                   <a className={styles.a}>Se Connecter</a>

@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
-import Adhesion from '../components/Adhesion';
 
 export default function Index() {
   const { data: session } = useSession();
@@ -130,10 +129,6 @@ function _Guest() {
       <Picture306 />
 
       <Presentation />
-
-      <section className='w-full h-5/6'>
-        <Adhesion />
-      </section>
 
       <section className='w-full h-screen'>
         <Outings />
