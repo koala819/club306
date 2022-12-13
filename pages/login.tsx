@@ -28,7 +28,7 @@ const Login: NextPage = () => {
       callbackUrl: '/user'
     });
 
-console.log('mail ::',values.email)
+    console.log('mail ::', values.email);
     if (status !== undefined) {
       console.log('status', status);
       if (status.status === 401) {
@@ -42,7 +42,8 @@ console.log('mail ::',values.email)
 
   return (
     <Layout title='Ecran Connexion'>
-      <section className='min-h-screen flex items-stretch text-white '>
+
+      <section className='flex items-stretch text-white'>
         <div className='lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center'
              style={{ backgroundImage: `url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2662&q=80)` }}>
           <div className='absolute bg-black opacity-60 inset-0 z-0'></div>
