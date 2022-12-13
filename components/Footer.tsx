@@ -10,17 +10,16 @@ export default function Footer() {
       <footer className='bg-[#3B578E] text-white'>
 
           <div className='px-4 py-6 flex items-center sm:flex-row'>
+            <div className='block sm:hidden'>
             <Image
               src={picture306}
               alt='logo club 306'
               width={240}
               height={46}
-              className='mr-3 h-6 sm:h-10'
+              className='mr-3 h-6 sm:h-10 block sm:hidden'
             />
-            <a
-              href='https://www.economie.gouv.fr/apie/propriete-intellectuelle-publications/contenus-sous-licences-libres'
-              className='flex'
-            >
+            </div>
+            <div className='flex mr-2'>
               <p className='text-sm font-bold mx-2 sm:mt-0 mt-4'>
                 BY
               </p>
@@ -31,10 +30,9 @@ export default function Footer() {
                 height={20}
                 className='mr-3 h-6 sm:h-10'
               />
-            </a>
-            <p className='text-sm sm:ml-6 sm:mt-0 mt-4'>
-              2022 Tno306
-            </p>
+            </div>
+            <Link href='https://github.com/koala819/'>Xavier</Link>
+
 
 
             <span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
