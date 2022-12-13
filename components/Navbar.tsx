@@ -17,7 +17,7 @@ export default function Navbar(props: any) {
       <nav className='flex px-4 md:shadow-lg items-center px-2
             dark:bg-gray-900 dark:border-gray-700 '
            style={{
-             backgroundColor: '#3B578E' || props.bgColor.bgColor,
+             backgroundColor: props.bgColor || '#3B578E',
              color: '#F7F9FF'}}
       >
         <Link href='/'>
