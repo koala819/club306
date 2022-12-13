@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Presentation from '../components/Presentation';
 import headerBackground from '../public/images/fondHeader.jpg';
+import presentationPicture from "../public/images/presentationPicture.jpg";
 import Image from 'next/image';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
@@ -41,7 +42,7 @@ export default function Index() {
     <div>
       {session && registered ?
         _User({ session, content, setRegistered })
-        : _Guest({ content, MouseScrollDown })}
+        : _Guest({ MouseScrollDown })}
     </div>
   );
 };
@@ -137,7 +138,7 @@ function _User({ session, content }: any) {
   );
 }
 
-function _Guest({ content, MouseScrollDown }: any) {
+function _Guest({ MouseScrollDown }: any) {
   return (
     <div>
        <Header />
@@ -164,9 +165,10 @@ function _Guest({ content, MouseScrollDown }: any) {
 
       {/*Section 02*/}
       <section className='w-full h-5/6'>
-        <Presentation title={content.presentationTitle}
-                      txt={content.presentationTxt}
-                      txtButton={content.presentationTxtBtn}
+        <Presentation
+          imageSrc={presentationPicture}
+          title='Le Premier et Unique Club en France dédié à la Peugeot 306'
+          subtitle='Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.'
         />
       </section>
 
