@@ -3,42 +3,15 @@ import Partners from '../components/Partners';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Presentation from '../components/Presentation';
-import { NextPage } from 'next';
 import headerBackground from '../public/images/fondHeader.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
+import styles from '../styles/index.module.css';
 
-
-async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-      process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
-    );
-    let { data: members2 } = await supabase
-      .from('members')
-      .select('*')
-      .filter('email', 'eq', googleUser);
-    if (members2?.length !== 0) {
-      return setRegistered(true);
-    } else {
-      console.log('no record');
-    }
-
-  } catch (error) {
-    console.log('Erreur lors de la vérif de l\'email');
-  }
-}
-
-const Home: NextPage = () => {
-  const { data: session } = useSession();
-  const [registered, setRegistered] = useState(false);
-  console.log('utilisateur enregistré ?', registered);
-  checkAuthWithEmail(session?.user?.email, setRegistered)
-
+export default function Index() {
   const content =
     {
       adhesionTitle: '',
@@ -47,20 +20,33 @@ const Home: NextPage = () => {
       presentationTxt: 'Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.',
       presentationTxtBtn: 'En savoir plus ...'
     };
+  const MouseScrollDown = () => {
+    return (
+      <div className={styles.mouse_scroll}>
+        <div>
+          <span className={`${styles.m_scroll_arrows} ${styles.unu} `}></span>
+          <span className={`${styles.m_scroll_arrows} ${styles.doi} `}></span>
+          <span className={`${styles.m_scroll_arrows} ${styles.trei} `}></span>
+        </div>
+      </div>
+    );
+  };
+  const { data: session } = useSession();
+  const [registered, setRegistered] = useState(false);
+  console.log('utilisateur enregistré ?', registered);
+  checkAuthWithEmail(session?.user?.email, setRegistered);
+
 
   return (
     <div>
       {session && registered ?
         _User({ session, content, setRegistered })
-        : _Guest({ content })}
+        : _Guest({ content, MouseScrollDown })}
     </div>
   );
 };
 
 function _User({ session, content }: any) {
-
-
-
   return (
     <div>
       <main className='container mx-auto text-center py-20'>
@@ -151,23 +137,33 @@ function _User({ session, content }: any) {
   );
 }
 
-function _Guest({ content }: any) {
+function _Guest({ content, MouseScrollDown }: any) {
   return (
     <div>
-      <Header bgColor={'white'} />
+       <Header />
 
       {/*Section 01*/}
-      <section className='lg:h-screen'>
-        <div className='lg:h-5/6 overflow-hidden sm:h-1/2'>
+      <div className='relative h-full w-full'>
+        <div className='lg:h-screen overflow-hidden sm:h-1/2 bg-green-600' >
           <Image
             alt='306 cars'
             src={headerBackground}
+            layout='fill'
+            objectFit='cover'
+            objectPosition='center'
           />
+          <div className='absolute inset-x-0 bottom-0'>
+            <MouseScrollDown />
+          </div>
         </div>
-      </section>
+
+      </div>
+
+
+
 
       {/*Section 02*/}
-      <section className='w-full h-5/6 lg:-mt-36'>
+      <section className='w-full h-5/6'>
         <Presentation title={content.presentationTitle}
                       txt={content.presentationTxt}
                       txtButton={content.presentationTxtBtn}
@@ -224,4 +220,23 @@ async function _handleGoogleSignout() {
   await signOut({ callbackUrl: `${process.env.CLIENT_URL}` });
 }
 
-export default Home;
+async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
+    );
+    let { data: members2 } = await supabase
+      .from('members')
+      .select('*')
+      .filter('email', 'eq', googleUser);
+    if (members2?.length !== 0) {
+      return setRegistered(true);
+    } else {
+      console.log('no record');
+    }
+
+  } catch (error) {
+    console.log('Erreur lors de la vérif de l\'email');
+  }
+}

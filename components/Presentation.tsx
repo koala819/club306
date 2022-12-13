@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import presentationPicture from "../public/images/presentationPicture.jpg";
 import Link from "next/link";
+/*import { useInView } from "react-intersection-observer";*/
+
+/*const Slider = ({ imageSrc, title, subtitle, flipped }) => {
+    const { ref, inView } = useInView({
+        /!* Optional options *!/
+        threshold: 0.4,
+    });*/
 
 const Presentation = ({title, txt, txtButton}: PresentationProps) => {
     return (
