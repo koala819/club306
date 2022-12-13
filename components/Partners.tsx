@@ -14,7 +14,7 @@ export default function Partners() {
   });
   const renderContent = () => {
   return (
-    <div className='flex justify-center items-center h-screen bg-[#D7DEED]'>
+    <div className='flex justify-center items-center h-screen'>
       <div className='w-full flex flex-col justify-center items-center'>
         <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-center pt-6'>
           Nos Partenaires

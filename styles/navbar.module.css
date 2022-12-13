@@ -2,28 +2,29 @@
     display: block;
     text-align: center;
     text-decoration: none;
-    /* color: white;*/
     padding: 1rem;
     transition: all ease-in-out 0.3s;
 }
 
 .a:hover {
-    color: #D7DEED;
-    background-color: #201C44;
+    /*color: #D7DEED;*/
+    color: #201C44;
+    /*background-color: #201C44;*/
+    background-color: #D7DEED;
 }
 
 .button {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: #201C44;
+    background-color: #D7DEED;
     color: black;
     border: none;
     font-weight: 700;
     font-size: 1.2rem;
     transition: all ease-in-out 0.3s;
 }
-
+/*
 .button:hover {
-    background-color: #201C44;
-    color: #D7DEED;
-}
+    background-color: #FFF;
+    color: #201C44;
+}*/

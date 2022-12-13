@@ -13,7 +13,7 @@ export default function Outings() {
   });
   const renderContent = () => {
   return (
-    <section className='h-screen'>
+    <section className='h-screen bg-[#D7DEED] '>
       <div className='container px-5 py-24 mx-auto'>
         <div className='flex flex-wrap -m-4'>
           <div className='p-4 md:w-1/3'>
