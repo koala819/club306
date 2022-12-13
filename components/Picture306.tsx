@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import headerBackground from '../public/images/fondHeader.jpg';
 import { useInView } from 'react-intersection-observer';
-import styles from '../styles/Presentation.module.css';
+import styles from '../styles/reactIntersectionObserver.module.css';
 
 export default function Picture306() {
   const MouseScrollDown = () => {

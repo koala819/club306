@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../styles/Presentation.module.css';
+import styles from '../styles/reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';
 import presentationPicture from '../public/images/presentationPicture.jpg';
 
