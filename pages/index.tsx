@@ -3,8 +3,8 @@ import Partners from '../components/Partners';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Presentation from '../components/Presentation';
+import Picture306 from '../components/Picture306';
 import headerBackground from '../public/images/fondHeader.jpg';
-import presentationPicture from "../public/images/presentationPicture.jpg";
 import Image from 'next/image';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
@@ -21,17 +21,7 @@ export default function Index() {
       presentationTxt: 'Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.',
       presentationTxtBtn: 'En savoir plus ...'
     };
-  const MouseScrollDown = () => {
-    return (
-      <div className={styles.mouse_scroll}>
-        <div>
-          <span className={`${styles.m_scroll_arrows} ${styles.unu} `}></span>
-          <span className={`${styles.m_scroll_arrows} ${styles.doi} `}></span>
-          <span className={`${styles.m_scroll_arrows} ${styles.trei} `}></span>
-        </div>
-      </div>
-    );
-  };
+
   const { data: session } = useSession();
   const [registered, setRegistered] = useState(false);
   console.log('utilisateur enregistré ?', registered);
@@ -42,7 +32,8 @@ export default function Index() {
     <div>
       {session && registered ?
         _User({ session, content, setRegistered })
-        : _Guest({ MouseScrollDown })}
+        : _Guest()
+      }
     </div>
   );
 };
@@ -138,14 +129,14 @@ function _User({ session, content }: any) {
   );
 }
 
-function _Guest({ MouseScrollDown }: any) {
+function _Guest() {
   return (
     <div>
        <Header />
 
       {/*Section 01*/}
-      <div className='relative h-full w-full'>
-        <div className='lg:h-screen overflow-hidden sm:h-1/2 bg-green-600' >
+      {/*<div className='relative h-full w-full'>
+        <div className='lg:h-screen overflow-hidden sm:h-1/2' >
           <Image
             alt='306 cars'
             src={headerBackground}
@@ -157,20 +148,12 @@ function _Guest({ MouseScrollDown }: any) {
             <MouseScrollDown />
           </div>
         </div>
-
-      </div>
-
-
-
+      </div>*/}
+      <Picture306 />
 
       {/*Section 02*/}
-      <section className='w-full h-5/6'>
-        <Presentation
-          imageSrc={presentationPicture}
-          title='Le Premier et Unique Club en France dédié à la Peugeot 306'
-          subtitle='Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.'
-        />
-      </section>
+      <Presentation />
+
 
       {/*Section 03*/}
       <section className='w-full h-5/6'>
