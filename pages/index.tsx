@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 
 export default function Index() {
   const { data: session } = useSession();
@@ -119,6 +119,7 @@ function _User({ session }: any) {
 }
 
 function _Guest() {
+
   return (
     <div>
 
@@ -126,7 +127,10 @@ function _Guest() {
        <Navbar />
       </div>
 
-      <Picture306 />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Picture306 />
+        <Presentation />
+      </Suspense>
 
       <Presentation />
 
