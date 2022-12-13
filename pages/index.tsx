@@ -1,7 +1,7 @@
 import Outings from '../components/Outings';
 import Partners from '../components/Partners';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import headerBackground from '../public/images/fondHeader.jpg';
@@ -10,18 +10,8 @@ import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
 import { useState } from 'react';
-import styles from '../styles/index.module.css';
 
 export default function Index() {
-  const content =
-    {
-      adhesionTitle: '',
-      adhesionTxtBtn: '',
-      presentationTitle: 'Le Premier et Unique Club en France dédié à la Peugeot 306',
-      presentationTxt: 'Le club a été crée suite à un besoin exprimé par de nombreuses personnes qui sont membres de forums ou de groupes.',
-      presentationTxtBtn: 'En savoir plus ...'
-    };
-
   const { data: session } = useSession();
   const [registered, setRegistered] = useState(false);
   console.log('utilisateur enregistré ?', registered);
@@ -31,14 +21,14 @@ export default function Index() {
   return (
     <div>
       {session && registered ?
-        _User({ session, content, setRegistered })
+        _User({ session, setRegistered })
         : _Guest()
       }
     </div>
   );
-};
+}
 
-function _User({ session, content }: any) {
+function _User({ session }: any) {
   return (
     <div>
       <main className='container mx-auto text-center py-20'>
@@ -54,7 +44,9 @@ function _User({ session, content }: any) {
           </button>
         </div>
       </main>
-      <Header bgColor={'yellow'} />
+      <div className="fixed w-full  inset-x-0 top-0 z-50">
+        <Navbar bgColor={'#ADA075'} />
+      </div>
 
 
       {/*Section 01*/}
@@ -69,10 +61,7 @@ function _User({ session, content }: any) {
 
       {/*Section 02*/}
       <section className='w-full h-5/6 lg:-mt-36'>
-        <Presentation title={content.presentationTitle}
-                      txt={content.presentationTxt}
-                      txtButton={content.presentationTxtBtn}
-        />
+        <Presentation />
       </section>
 
       {/*Section 03*/}
@@ -132,23 +121,11 @@ function _User({ session, content }: any) {
 function _Guest() {
   return (
     <div>
-       <Header />
+      <div className="fixed w-full  inset-x-0 top-0 z-50">
+       <Navbar />
+      </div>
 
       {/*Section 01*/}
-      {/*<div className='relative h-full w-full'>
-        <div className='lg:h-screen overflow-hidden sm:h-1/2' >
-          <Image
-            alt='306 cars'
-            src={headerBackground}
-            layout='fill'
-            objectFit='cover'
-            objectPosition='center'
-          />
-          <div className='absolute inset-x-0 bottom-0'>
-            <MouseScrollDown />
-          </div>
-        </div>
-      </div>*/}
       <Picture306 />
 
       {/*Section 02*/}
