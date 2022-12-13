@@ -5,7 +5,6 @@ import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
 
 export default function Navbar(props: any) {
-
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);

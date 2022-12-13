@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import styles from '../styles/Presentation.module.css';
+import styles from '../styles/reactIntersectionObserver.module.css';
 
 export default function Adhesion() {
   const { ref, inView } = useInView({
