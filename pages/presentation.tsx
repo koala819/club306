@@ -5,7 +5,7 @@ import AdhesionComponent from "../components/Adhesion";
 import pictureCircuit from "../public/images/LGHA-Juin2019.jpg";
 import pictureField from "../public/images/rassemblement306.jpg";
 import pictureYellow from "../public/images/306Jaune.jpg";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from 'next/link';
 
 
@@ -23,7 +23,10 @@ const Presentation : NextPage = () => {
                             <Image
                                 src={pictureCircuit}
                                 alt="306 sur circuit"
-                            />
+                                style={{
+                                    maxWidth: "100%",
+                                    height: "auto"
+                                }} />
                         </div>
                         <div className="basis-2/3 sm:pl-4 pl-0 ">
                             <div className="flex flex-col justify-center h-full">
@@ -79,7 +82,10 @@ const Presentation : NextPage = () => {
                                 alt="306 in field"
                                 width={720}
                                 height={600}
-                            />
+                                style={{
+                                    maxWidth: "100%",
+                                    height: "auto"
+                                }} />
                         </div>
                     </div>
                     {/*THIRD BLOC*/}
@@ -89,7 +95,10 @@ const Presentation : NextPage = () => {
                             <Image
                                 src={pictureYellow}
                                 alt="Door Yellow 306"
-                            />
+                                style={{
+                                    maxWidth: "100%",
+                                    height: "auto"
+                                }} />
                         </div>
                         <div className="basis-2/3 sm:pl-4 pl-0 ">
                             <div className="flex flex-col justify-center h-full">
@@ -125,7 +134,7 @@ const Presentation : NextPage = () => {
             <AdhesionComponent />
             <Footer />
         </div>
-    )
+    );
 }
 
 export default Presentation

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import picture306 from '../public/images/logoClub306.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
@@ -26,7 +26,10 @@ export default function Navbar(props: any) {
               width={240}
               height={46}
               className='mr-3 h-6 sm:h-10'
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
         </Link>
         {/*SECTION MOBILE*/}
         <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0 '>
@@ -278,7 +281,6 @@ export default function Navbar(props: any) {
         </div> */}
       </nav>
     </div>
-)
-  ;
+  );
 }
 

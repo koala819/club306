@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import headerBackground from '../public/images/fondHeader.jpg';
 import { useInView } from 'react-intersection-observer';
 import styles from '../styles/reactIntersectionObserver.module.css';
@@ -25,12 +25,16 @@ export default function Picture306() {
     return (
       <div className='relative h-full w-full'>
         <div className='lg:h-screen overflow-hidden sm:h-1/2'>
-          <Image src={headerBackground}
-                 alt='306 car'
-                 loading='lazy'
-                 layout='fill'
-                 objectFit='cover'
-                 objectPosition='center' />
+          <Image
+            src={headerBackground}
+            alt='306 car'
+            loading='lazy'
+            fill
+            sizes="100vw"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center"
+            }} />
           <div className='absolute inset-x-0 bottom-0'>
             <IconScrollDown />
           </div>
