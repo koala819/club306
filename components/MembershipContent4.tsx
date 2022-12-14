@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { BsCaretRightFill } from 'react-icons/bs';
 import { RxAvatar } from 'react-icons/rx';
 import { useEffect, useState } from 'react';
