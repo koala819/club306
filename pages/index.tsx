@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import headerBackground from '../public/images/fondHeader.jpg';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';

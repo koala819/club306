@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import Link from 'next/link';
 import styles from '../styles/reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import picture306 from '../public/images/logoClub306.png';
 import CC from '../public/images/Cc-by_new.svg.png';
 import Link from 'next/link';

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import headerBackground from '../public/images/fondHeader.jpg';
 import { useInView } from 'react-intersection-observer';
 import styles from '../styles/reactIntersectionObserver.module.css';
