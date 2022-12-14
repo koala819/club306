@@ -26,6 +26,7 @@ export default function Partners() {
                 src={picturePartenaire1}
                 alt='partenaire Auto Distribution'
                 className='w-12 h-12 mb-3 inline-block'
+                loading="lazy"
                 style={{
                   maxWidth: "100%",
                   height: "auto"
@@ -38,6 +39,7 @@ export default function Partners() {
                 src={picturePartenaire2}
                 alt='partenaire ART Motoren'
                 className='w-12 h-12 mb-3 inline-block'
+                loading="lazy"
                 style={{
                   maxWidth: "100%",
                   height: "auto"
@@ -50,6 +52,7 @@ export default function Partners() {
                 src={picturePartenaire3}
                 alt='partenaire Oscaro'
                 className='w-12 h-12 mb-3 inline-block'
+                loading="lazy"
                 style={{
                   maxWidth: "100%",
                   height: "auto"
@@ -62,6 +65,7 @@ export default function Partners() {
                 src={picturePartenaire4}
                 alt='partenaire Aventure Peugeot'
                 className='w-12 h-12 mb-3 inline-block'
+                loading="lazy"
                 style={{
                   maxWidth: "100%",
                   height: "auto"

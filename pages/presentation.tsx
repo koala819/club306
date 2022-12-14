@@ -80,6 +80,7 @@ const Presentation : NextPage = () => {
                             <Image
                                 src={pictureField}
                                 alt="306 in field"
+                                loading="lazy"
                                 width={720}
                                 height={600}
                                 style={{

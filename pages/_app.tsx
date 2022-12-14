@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {PrismicProvider} from '@prismicio/react';
 import {PrismicPreview} from '@prismicio/next';
 import {linkResolver, repositoryName} from '../prismicio';
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 
 export default function App({Component, pageProps}: any) {
     return (

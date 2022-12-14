@@ -50,17 +50,7 @@ function _User({ session }: any) {
 
 
       {/*Section 01*/}
-      <section className='lg:h-screen'>
-        <div className='lg:h-5/6 overflow-hidden sm:h-1/2'>
-          <Image
-            alt='306 cars'
-            src={headerBackground}
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} />
-        </div>
-      </section>
+      <Picture306 />
 
       {/*Section 02*/}
       <section className='w-full h-5/6 lg:-mt-36'>
@@ -130,9 +120,9 @@ function _Guest() {
        <Navbar />
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <Picture306 />
-      </Suspense>
+
+      <Picture306 />
+
 
       <Presentation />
 
