@@ -25,7 +25,19 @@ export default function Picture306() {
     return (
       <div className='relative h-full w-full'>
         <div className='lg:h-screen overflow-hidden sm:h-1/2'>
-          <Image
+          {/*<Suspense fallback={'Waiting Please...'}>*/}
+            <Image
+              alt='306 car'
+              src={headerBackground}
+              fill
+              sizes='100vw'
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center'
+              }} />
+         {/* </Suspense>*/}
+
+          {/* <Image
             src={headerBackground}
             alt='306 car'
             loading='lazy'
@@ -34,7 +46,7 @@ export default function Picture306() {
             style={{
               objectFit: "cover",
               objectPosition: "center"
-            }} />
+            }} />*/}
           <div className='absolute inset-x-0 bottom-0'>
             <IconScrollDown />
           </div>
