@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import picture306 from '../public/images/logoClub306.png';
 import CC from '../public/images/Cc-by_new.svg.png';
 import Link from 'next/link';
@@ -17,7 +17,10 @@ export default function Footer() {
               width={240}
               height={46}
               className='mr-3 h-6 sm:h-10 block sm:hidden'
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           </div>
           <div className='flex mr-2'>
             <p className='text-sm font-bold mx-2 sm:mt-0 mt-4'>
@@ -29,7 +32,10 @@ export default function Footer() {
               width={20}
               height={20}
               className='mr-3 h-6 sm:h-10'
-            />
+              style={{
+                maxWidth: "100%",
+                height: "auto"
+              }} />
           </div>
           <Link href='https://github.com/koala819/'>Xavier</Link>
 

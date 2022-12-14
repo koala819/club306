@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { BsCaretRightFill } from 'react-icons/bs';
 import { RxAvatar } from 'react-icons/rx';
 import { useEffect, useState } from 'react';
@@ -98,12 +98,16 @@ const MembershipContent4 = function(nextStep: any) {
               <div>
                 <h1 className='sm:text-3xl text-2xl font-medium title-font mb-4 text-white'>Merci</h1>
                 {googlePicture
-                  ? <Image alt='picture user'
-                           height={100}
-                           width={100}
-                           className='rounded-full'
-                           src={`${googlePicture}`}
-                  />
+                  ? <Image
+                  alt='picture user'
+                  height={100}
+                  width={100}
+                  className='rounded-full'
+                  src={`${googlePicture}`}
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
                   : <span className='flex justify-center '><RxAvatar size={100} /></span>
                 }
                 <div className='flex-grow'>

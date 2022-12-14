@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from 'next/link';
 
 
@@ -15,9 +15,9 @@ const CardStaff = ({picture, name, role, content, car, localisation, facebook, i
                                         <Image
                                             src={picture}
                                             alt="photo membre club306"
-                                            layout="fill"
                                             className="rounded-full mx-auto shadow-lg"
-                                        />
+                                            fill
+                                            sizes="100vw" />
                                     </div>
                                 </div>
                                 <div className="p-6">
@@ -75,7 +75,7 @@ const CardStaff = ({picture, name, role, content, car, localisation, facebook, i
 
 
         </div>
-    )
+    );
 }
 export interface CardStaffProps {
     picture: string

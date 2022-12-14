@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from 'next/link';
 import pictureArticle1 from '../public/images/homePageArticle1.jpg';
 import pictureArticle2 from '../public/images/homePageArticle2.jpg';
@@ -23,7 +23,10 @@ export default function Outings() {
                 src={pictureArticle1}
                 alt='image article 1'
                 className='lg:h-48 md:h-36 w-full object-cover object-center'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
               <div className='p-6'>
                 <h2 className='tracking-widest text-xs title-font font-medium text-gray-400 mb-1'>
                   Nos dernières sorties
@@ -95,7 +98,10 @@ export default function Outings() {
                 src={pictureArticle2}
                 alt='image article 2'
                 className='lg:h-48 md:h-36 w-full object-cover object-center'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
               <div className='p-6'>
                 <h2 className='tracking-widest text-xs title-font font-medium text-gray-400 mb-1'>
                   Nos dernières sorties
@@ -170,7 +176,10 @@ export default function Outings() {
                 src={pictureArticle3}
                 alt='image article 3'
                 className='lg:h-48 md:h-36 w-full object-cover object-center'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
               <div className='p-6'>
                 <h2 className='tracking-widest text-xs title-font font-medium text-gray-400 mb-1'>
                   Nos dernières sorties

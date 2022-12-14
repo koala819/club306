@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import headerBackground from '../public/images/fondHeader.jpg';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
@@ -55,7 +55,10 @@ function _User({ session }: any) {
           <Image
             alt='306 cars'
             src={headerBackground}
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </div>
       </section>
 
@@ -129,7 +132,6 @@ function _Guest() {
 
       <Suspense fallback={<div>Loading...</div>}>
         <Picture306 />
-        <Presentation />
       </Suspense>
 
       <Presentation />

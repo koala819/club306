@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import picturePartenaire1 from '../public/images/partenairesAutoDistribution.jpg';
 import picturePartenaire2 from '../public/images/partenairesArtMotoren.jpg';
 import picturePartenaire3 from '../public/images/partenairesOscaro.jpg';
@@ -26,7 +26,10 @@ export default function Partners() {
                 src={picturePartenaire1}
                 alt='partenaire Auto Distribution'
                 className='w-12 h-12 mb-3 inline-block'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
           </div>
           <div className='p-4 md:w-1/4 sm:w-1/2 w-full'>
@@ -35,7 +38,10 @@ export default function Partners() {
                 src={picturePartenaire2}
                 alt='partenaire ART Motoren'
                 className='w-12 h-12 mb-3 inline-block'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
           </div>
           <div className='p-4 md:w-1/4 sm:w-1/2 w-full'>
@@ -44,7 +50,10 @@ export default function Partners() {
                 src={picturePartenaire3}
                 alt='partenaire Oscaro'
                 className='w-12 h-12 mb-3 inline-block'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
           </div>
           <div className='p-4 md:w-1/4 sm:w-1/2 w-full'>
@@ -53,7 +62,10 @@ export default function Partners() {
                 src={picturePartenaire4}
                 alt='partenaire Aventure Peugeot'
                 className='w-12 h-12 mb-3 inline-block'
-              />
+                style={{
+                  maxWidth: "100%",
+                  height: "auto"
+                }} />
             </div>
           </div>
         </div>
