@@ -4,12 +4,10 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
-import headerBackground from '../public/images/fondHeader.jpg';
-import Image from "next/image";
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { createClient } from '@supabase/supabase-js';
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 
 export default function Index() {
   const { data: session } = useSession();
