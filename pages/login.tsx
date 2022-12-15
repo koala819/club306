@@ -92,9 +92,11 @@ const Login: NextPage = () => {
                   Continuer avec Google
               </span>
             </div>
-            <p className='flex justify-center mb-8'>
-              OU
-            </p>
+            <div className="relative flex py-5 items-center mx-4 mb-8">
+              <div className="flex-grow border-t border-gray-400 "></div>
+              <span className="flex-shrink mx-4 ">OU</span>
+              <div className="flex-grow border-t border-gray-400"></div>
+            </div>
             <form action=''
                   className='sm:w-2/3 w-full px-4 lg:px-0 mx-auto'
                   onSubmit={formik.handleSubmit}
