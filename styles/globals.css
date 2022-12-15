@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
     box-sizing: border-box;
 }
@@ -13,8 +12,6 @@ html, body {
     background-color: #F7F9FF;
     color: rgb(75 85 99);
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-   /* background-color: black;
-    color: white;*/
 }
 
 nav {
@@ -49,7 +46,7 @@ nav {
 }
 
 .btn {
-    @apply bg-gray-800 hover:bg-gray-900 active:bg-green-600 text-gray-100 font-medium px-7 py-1.5 rounded;
+    @apply bg-gray-800 hover:bg-gray-900 active:bg-green-600 text-gray-100 px-7 py-1.5 rounded;
 }
 
 @media only screen and (min-width: 768px) {
