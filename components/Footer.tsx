@@ -9,38 +9,31 @@ export default function Footer() {
     <div>
       <footer className='bg-[#3B578E] text-white'>
 
-        <div className='px-4 py-6 flex items-center sm:flex-row'>
-          <div className='block sm:hidden'>
+        <div className='px-4 py-6 flex w-full items-center sm:flex-row justify-between'>
+          <div className='lg:w-1/3 '>
             <Image
               src={picture306}
               alt='logo club 306'
-              width={240}
-              height={46}
-              className='mr-3 h-6 sm:h-10 block sm:hidden'
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+              className='mr-3 lg:h-10 h-6 bg-cover w-1/3 '
+            />
           </div>
-          <div className='flex mr-2'>
-            <p className='text-sm font-bold mx-2 sm:mt-0 mt-4'>
+
+          <div className='flex lg:w-1/3 sm:w-1/2 text-sm font-bold mx-2 h-6 sm:mt-0 '>
+            <p className='mr-2'>
               BY
             </p>
-            <Image
+            {/*<Image
               src={CC}
-              alt='logo club 306'
-              width={20}
-              height={20}
-              className='mr-3 h-6 sm:h-10'
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+              alt='logo CC'
+              className=''
+              style={{objectFit: 'contain'}}
+            />*/}
+            <Link href='https://github.com/koala819/' className='hover:text-[#DB2323]'>Xavier</Link>
           </div>
-          <Link href='https://github.com/koala819/'>Xavier</Link>
 
 
-          <span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
+<div className='flex w-1/3'>
+          <span className='inline-flex sm:ml-auto'>
 
               {/*Facebook*/}
             <Link href='https://www.facebook.com/club306france/'>
@@ -49,7 +42,7 @@ export default function Footer() {
                   strokeLinecap='round'
                   strokeLinejoin='round'
                   strokeWidth='2'
-                  className='w-5 h-5'
+                  className='h-6 hover:text-[#DB2323]'
                   viewBox='0 0 24 24'
                 >
                   <path d='M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'></path>
@@ -65,7 +58,7 @@ export default function Footer() {
                   strokeLinecap='round'
                   strokeLinejoin='round'
                   strokeWidth='2'
-                  className='w-5 h-5'
+                  className='h-6 hover:text-[#DB2323]'
                   viewBox='0 0 24 24'
                 >
                   <rect width='20' height='20' x='2' y='2' rx='5' ry='5'></rect>
@@ -73,6 +66,7 @@ export default function Footer() {
                 </svg>
               </Link>
             </span>
+</div>
         </div>
 
       </footer>
