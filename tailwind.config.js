@@ -7,6 +7,9 @@ module.exports = {
     './node_modules/flowbite/**/*.js',
   ],
   theme: {
+    fontWeight:{
+
+    },
     extend: {},
   },
   plugins: [require('flowbite/plugin')],
