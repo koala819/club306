@@ -7,7 +7,7 @@
 }
 
 .step {
-    @apply w-10 h-10 flex items-center justify-center z-10 relative bg-slate-700 rounded-full font-semibold text-white;
+    @apply w-10 h-10 flex items-center justify-center z-10 relative bg-slate-700 rounded-full text-white;
 }
 
 .active .step {
@@ -19,7 +19,7 @@
 }
 
 .complete p {
-    @apply line-through font-bold;
+    @apply line-through;
 }
 
 .complete:not(:first-child):before, .active:not(:first-child):before {
