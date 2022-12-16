@@ -20,11 +20,6 @@ export default function MembershipContent1(nextStep: any) {
     dayjs('2014-08-18T21:11:54'),
   );
 
-  const handleChange = (newValue: Dayjs | null) => {
-    setValue(newValue);
-  };
-
-
   const formik = useFormik({
     initialValues: {
       textInput: '',
@@ -55,7 +50,7 @@ export default function MembershipContent1(nextStep: any) {
     localStorage.getItem('mySession');
   }, []);
 
-  async function onSubmit(values: any) {
+  function onSubmit(values: any) {
     console.log('clické')
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
@@ -341,9 +336,7 @@ export default function MembershipContent1(nextStep: any) {
             </div>
 
 
-            {/*<Field type="checkbox" name="checkbox">
-                My Field
-              </Field>*/}
+
 
             {/*Check Privacy Policy*/}
             <div className='flex items-center mb-4'>
@@ -371,6 +364,9 @@ export default function MembershipContent1(nextStep: any) {
               </label>
             </div>
           </fieldset>
+          <button type='submit' className='btn'>
+            Suivant
+          </button>
         </div>
         <div
           className='mt-12 border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 mb-4 mx-20'>
