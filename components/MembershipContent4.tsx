@@ -5,8 +5,10 @@ import { RxAvatar } from 'react-icons/rx';
 import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import Link from 'next/link';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
-const MembershipContent4 = function(nextStep: any) {
+export default function MembershipContent4 (nextStep: any) {
+  const height = _useLayoutHeight();
   const [dataSession, setDataSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [googleName, setGoogleName] = useState('');
@@ -64,7 +66,42 @@ const MembershipContent4 = function(nextStep: any) {
 
   return (
     <div>
-      <section className='min-h-screen flex items-stretch text-white pt-8'>
+      <main className='flex-1'>
+        {(height !== 0) && <div className='flex' style={{ height: `${height - 80}px` }}>
+
+          {/*LEFT*/}
+          <section className='lg:flex w-1/2 hidden bg-cover'
+                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
+          >
+            <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
+              <div>
+                <h1 className='text-5xl tracking-wide'>Club 306</h1>
+                <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
+              </div>
+            </div>
+          </section>
+
+          {/*RIGHT*/}
+          <section className='h-full lg:w-1/2 w-full lg:flex flex-col justify-between'>
+
+            {!isRegistered && (
+              <div className='h-full flex flex-col justify-center items-center'>
+                <ClipLoader
+                  loading={true}
+                  size={50}
+                  aria-label='Loading Spinner'
+                  data-testid='loader'
+                />
+                <p>Enregistrement des informations dans notre base de données</p>
+                <p>Veuillez patienter</p>
+              </div>
+            )}
+
+          </section>
+        </div>
+        }
+      </main>
+      {/*<section className='min-h-screen flex items-stretch text-white pt-8'>
 
         <div className='lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center'
              style={{ backgroundImage: `url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2662&q=80)` }}
@@ -142,10 +179,20 @@ const MembershipContent4 = function(nextStep: any) {
 
 
         </div>
-      </section>
+      </section>*/}
 
     </div>
   );
 };
+function _useLayoutHeight() {
+  const [height, setHeight] = useState(0);
 
-export default MembershipContent4;
+  useEffect(() => {
+    const divRef = document.getElementById('mainDiv');
+    if (divRef) {
+      setHeight(divRef.offsetHeight);
+    }
+  }, []);
+
+  return height;
+}

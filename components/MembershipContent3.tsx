@@ -190,7 +190,7 @@ const MembershipContent3 = function(nextStep: any) {
                          {...formik.getFieldProps('username')}
 
                   />
-                  <span className='icon flex items-center px-4 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED]'>
+                  <span className='icon flex items-center px-4 text-[#3B578E]'>
                 <CiUser size={25} />
               </span>
                 </div>
@@ -216,7 +216,7 @@ const MembershipContent3 = function(nextStep: any) {
                          {...formik.getFieldProps('password')}
 
                   />
-                  <span className='icon flex items-center px-4 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED]'
+                  <span className='icon flex items-center px-4 text-[#3B578E] hover:text-[#DB2323] active:text-[#201C44]'
                         onClick={() => setShow({ ...show, password: !show.password })}>
                 <AiOutlineEye size={25} />
               </span>
@@ -231,9 +231,9 @@ const MembershipContent3 = function(nextStep: any) {
                          {...formik.getFieldProps('cpassword')}
 
                   />
-                  <span className='icon flex items-center px-4 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED]'
+                  <span className='icon flex items-center px-4 text-[#3B578E] hover:text-[#DB2323] active:text-[#201C44]'
                         onClick={() => setShow({ ...show, cpassword: !show.cpassword })}>
-                <HiFingerPrint size={25} />
+                <AiOutlineEye size={25} />
               </span>
                 </div>
 
