@@ -15,7 +15,7 @@ export default function MembershipContent1(nextStep: any) {
     nextStep.onClick(4);
   }
   const height = _useLayoutHeight();
-  console.log('height MembershipContent 1',height)
+
   const [value, setValue] = useState<Dayjs | null>(
     dayjs('2014-08-18T21:11:54'),
   );
@@ -51,7 +51,6 @@ export default function MembershipContent1(nextStep: any) {
   }, []);
 
   function onSubmit(values: any) {
-    console.log('clické')
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
   }
@@ -63,7 +62,7 @@ export default function MembershipContent1(nextStep: any) {
           name='myForm'
           onSubmit={formik.handleSubmit}
     >
-      <>
+
         <div className='w-full flex flex-col items-center justify-center text-center md:px-16  mt-4 my-4'
              style={{ height: `${height-80}px` }}>
 
@@ -286,7 +285,7 @@ export default function MembershipContent1(nextStep: any) {
                      {...formik.getFieldProps('checkCotisation')}
               />
               <label htmlFor='checkCotisation'
-                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
+                     className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
                        ${formik.errors.checkCotisation && formik.touched.checkCotisation ? 'text-red-500 font-mono' : ''}`}
               >
                 <p id='helper-checkCotisation'>
@@ -305,7 +304,7 @@ export default function MembershipContent1(nextStep: any) {
 
               />
               <label htmlFor='checkCertificateHonour'
-                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
+                     className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
                        ${formik.errors.checkCertificateHonour && formik.touched.checkCertificateHonour ? 'text-red-500 font-mono' : ''}`}
               >
                 <p id='check-checkCertificateHonour'>
@@ -324,7 +323,7 @@ export default function MembershipContent1(nextStep: any) {
                      {...formik.getFieldProps('checkEngagementClub')}
               />
               <label htmlFor='checkEngagementClub'
-                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
+                     className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
                        ${formik.errors.checkEngagementClub && formik.touched.checkEngagementClub ? 'text-red-500 font-mono' : ''}`}
               >
                 <p id='check-checkCertificateHonour'>
@@ -347,7 +346,7 @@ export default function MembershipContent1(nextStep: any) {
 
               />
               <label htmlFor='checkPrivacyPolicy'
-                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
+                     className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
                        ${formik.errors.checkPrivacyPolicy && formik.touched.checkPrivacyPolicy ? 'text-red-500 font-mono' : ''}`}
               >
                 <p id='check-checkPrivacyPolicy'>
@@ -364,19 +363,12 @@ export default function MembershipContent1(nextStep: any) {
               </label>
             </div>
           </fieldset>
-          <button type='submit' className='btn'>
-            Suivant
-          </button>
-        </div>
-        <div
-          className='mt-12 border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 mb-4 mx-20'>
           <button
             type='submit'
-            className='text-[#F7F9FF] text-xl'>
+            className='text-[#F7F9FF] text-xl bg-[#3B578E] hover:bg-[#DB2323] active:bg-green-600 text-gray-100 px-7 py-1.5 rounded'>
             Suivant
           </button>
         </div>
-      </>
     </form>
   );
 }
