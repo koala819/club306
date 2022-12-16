@@ -1,11 +1,8 @@
 import { getSession } from 'next-auth/react';
-import Image from "next/image";
-import { BsCaretRightFill } from 'react-icons/bs';
-import { RxAvatar } from 'react-icons/rx';
+
 import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
-import Link from 'next/link';
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
+
 
 export default function MembershipContent4 (nextStep: any) {
   const height = _useLayoutHeight();
@@ -13,7 +10,7 @@ export default function MembershipContent4 (nextStep: any) {
   const [isRegistered, setIsRegistered] = useState(false);
   const [googleName, setGoogleName] = useState('');
   const [googleEmail, setGoogleEmail] = useState('');
-  const [googlePicture, setGooglePicture] = useState('');
+  /*const [googlePicture, setGooglePicture] = useState('');*/
 
 
   useEffect(() => {
@@ -27,7 +24,7 @@ export default function MembershipContent4 (nextStep: any) {
         if (session) {
           session.user?.name && setGoogleName(session.user.name);
           session.user?.email && setGoogleEmail(session.user.email);
-          session.user?.image && setGooglePicture(session.user.image);
+          /*session.user?.image && setGooglePicture(session.user.image);*/
         } else {
           console.log('Aucune identification avec un compte Google trouvé !');
         }
@@ -183,7 +180,7 @@ export default function MembershipContent4 (nextStep: any) {
 
     </div>
   );
-};
+}
 function _useLayoutHeight() {
   const [height, setHeight] = useState(0);
 
