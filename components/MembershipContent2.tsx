@@ -1,9 +1,5 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { FcGoogle } from 'react-icons/fc';
-import { HiAtSymbol } from 'react-icons/hi';
-import { AiOutlineEye } from 'react-icons/ai';
 
 export default function MembershipContent2(nextStep: any) {
   const height = _useLayoutHeight();
