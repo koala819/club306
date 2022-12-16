@@ -2,21 +2,29 @@ import { useFormik } from 'formik';
 import { membership_validate } from '../lib/validate';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import styles from '../styles/MemberShip.module.css';
 import Link from 'next/link';
-
-
+import styles from '../styles/MemberShip.module.css';
+import dayjs, { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 export default function MembershipContent1(nextStep: any) {
   const { data: session } = useSession();
   if (session?.user !== undefined) {
     nextStep.onClick(4);
   }
-  const [value, setValue] = useState(null);
+  const height = _useLayoutHeight();
+  console.log('height MembershipContent 1',height)
+  const [value, setValue] = useState<Dayjs | null>(
+    dayjs('2014-08-18T21:11:54'),
+  );
+
+  const handleChange = (newValue: Dayjs | null) => {
+    setValue(newValue);
+  };
+
+
   const formik = useFormik({
     initialValues: {
       textInput: '',
@@ -28,16 +36,16 @@ export default function MembershipContent1(nextStep: any) {
       town: '',
       phone: '',
       immatriculation: '',
-      email: '',
-      birth_date: null,
+      birth_date: new Date(),
       color: '',
       model: '',
       submitEvent: '',
-      registrationDocument: '',
       checkCotisation: false,
       checkCertificateHonour: false,
       checkEngagementClub: false,
-      checkPrivacyPolicy: false
+      checkPrivacyPolicy: false,
+      email: 'mj23@club306.fr',
+      password: 'club306',
     },
     validate: membership_validate,
     onSubmit
@@ -48,6 +56,7 @@ export default function MembershipContent1(nextStep: any) {
   }, []);
 
   async function onSubmit(values: any) {
+    console.log('clické')
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
   }
@@ -59,10 +68,13 @@ export default function MembershipContent1(nextStep: any) {
           name='myForm'
           onSubmit={formik.handleSubmit}
     >
-      <section className='flex items-stretch mt-12'>
-        <div className='w-full flex items-center justify-center text-center md:px-16 px-0 z-0'>
-          <div className='w-full z-20'>
-            <div className='grid md:grid-cols-2 md:gap-6'>
+      <>
+        <div className='w-full flex flex-col items-center justify-center text-center md:px-16  mt-4 my-4'
+             style={{ height: `${height-80}px` }}>
+
+
+
+            <div className='w-full grid md:grid-cols-3 gap-12 h-full py-12'>
 
               {/*First Name*/}
               <div className='relative z-0 mb-6 w-full group'>
@@ -73,7 +85,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('first_name')}
                 />
                 <label htmlFor='first_name'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -92,7 +104,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('last_name')}
                 />
                 <label htmlFor='last_name'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -103,7 +115,7 @@ export default function MembershipContent1(nextStep: any) {
               </div>
 
               {/*Address*/}
-              <div className='relative z-0 mb-6 w-full group mt-4'>
+              <div className='relative z-0 mb-6 w-full group'>
                 <input type='text'
                        id='address'
                        className={`${styles.inputTextItem} ${optionInputTextItem}
@@ -111,7 +123,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('address')}
                 />
                 <label htmlFor='address'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -130,7 +142,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('zip_code')}
                 />
                 <label htmlFor='zip_code'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'} 
@@ -149,7 +161,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('town')}
                 />
                 <label htmlFor='town'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -168,7 +180,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('phone')}
                 />
                 <label htmlFor='phone'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'} 
@@ -187,7 +199,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('immatriculation')}
                 />
                 <label htmlFor='immatriculation'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -206,7 +218,7 @@ export default function MembershipContent1(nextStep: any) {
                        {...formik.getFieldProps('email')}
                 />
                 <label htmlFor='email'
-                       className={`${'peer-focus:font-medium absolute text-lg text-white dark:text-gray-400 duration-300' +
+                       className={`${'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
                        'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
                        'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                        'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'}
@@ -217,33 +229,20 @@ export default function MembershipContent1(nextStep: any) {
               </div>
 
               {/*Birth Date*/}
-              <div className='relative z-0 mb-6 w-full group'
-                   id='birth_date'
-              >
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label='Date de Naissance'
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DesktopDatePicker
                     className={`${formik.errors.birth_date && formik.touched.birth_date ? 'border-red-600 border-b-3 text-red-600' : ''}`}
+                    label="Date de Naissance"
+                    inputFormat="DD/MM/YYYY"
+                    value={value}
                     onChange={(date) => {
                       const birthDateFormatted = dayjs(date).format('DD/MM/YYYY');
                       setValue(date);
                       formik.setFieldValue('birth_date', birthDateFormatted, false);
                     }}
-                    inputFormat='DD/MM/YYYY'
-                    value={value}
-                    renderInput={(params) => (
-                      <TextField {...params}
-                                 id='birth_date'
-                                 name='birth_date'
-                                 error={Boolean(formik.errors['birth_date'])}
-
-
-                        /*helperText={formik.errors['birth_date'] ?? params.helperText}*/
-                      />
-                    )}
+                    renderInput={(params) => <TextField id='birth_date' {...params} />}
                   />
-                </LocalizationProvider>
-              </div>
+              </LocalizationProvider>
 
               {/*Car Model*/}
               <select id='model'
@@ -279,116 +278,122 @@ export default function MembershipContent1(nextStep: any) {
                 <option value='Vert' label='Vert'>Vert</option>
               </select>
 
-              {/*Registration Document */}
-              <select id='registrationDocument'
-                      onChange={event => formik.setFieldValue('registrationDocument', event.target.value)}
-                      className={`${'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg' +
-                      'focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700' +
-                      'dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500' +
-                      'dark:focus:border-blue-500'} ${formik.errors.registrationDocument && formik.touched.registrationDocument ? 'border-red-600 border-b-3 text-red-600' : ''}`}
-              >
-                <option value='' label='La carte grise est-elle à votre nom ?'></option>
-                <option value='Oui' label='Oui'>Oui</option>
-                <option value='Non' label='Non'>Non</option>
-              </select>
+
             </div>
 
 
-            <fieldset>
-              {/*Check Cotisation*/}
-              <div className='flex items-center mb-4 mt-12'>
-                <input type='checkbox'
-                       className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+          <fieldset>
+            {/*Check Cotisation*/}
+            <div className='flex items-center mb-4 mt-12'>
+              <input type='checkbox'
+                     className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
                                            dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-                       {...formik.getFieldProps('checkCotisation')}
-                />
-                <label htmlFor='checkCotisation'
-                       className={`${'ml-2 text-sm font-medium text-white font-sans dark:text-gray-300 text-left'} 
+                     {...formik.getFieldProps('checkCotisation')}
+              />
+              <label htmlFor='checkCotisation'
+                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
                        ${formik.errors.checkCotisation && formik.touched.checkCotisation ? 'text-red-500 font-mono' : ''}`}
-                >
-                  <p id='helper-checkCotisation'>
-                    Cotisation : Je comprends que la cotisation annuelle au Club306 est fixée à 20 euros pour
-                    une année pleine en adhésion (01/01 au 31/12).
-                  </p>
-                </label>
-              </div>
+              >
+                <p id='helper-checkCotisation'>
+                  Cotisation : Je comprends que la cotisation annuelle au Club306 est fixée à 20 euros pour
+                  une année pleine en adhésion (01/01 au 31/12).
+                </p>
+              </label>
+            </div>
 
-              {/*Check Certificate Honour*/}
-              <div className='flex items-center mb-4'>
-                <input type='checkbox'
-                       className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+            {/*Check Certificate Honour*/}
+            <div className='flex items-center mb-4'>
+              <input type='checkbox'
+                     className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
                                            dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-                       {...formik.getFieldProps('checkCertificateHonour')}
+                     {...formik.getFieldProps('checkCertificateHonour')}
 
-                />
-                <label htmlFor='checkCertificateHonour'
-                       className={`${'ml-2 text-sm font-medium text-white font-sans dark:text-gray-300 text-left'} 
+              />
+              <label htmlFor='checkCertificateHonour'
+                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
                        ${formik.errors.checkCertificateHonour && formik.touched.checkCertificateHonour ? 'text-red-500 font-mono' : ''}`}
-                >
-                  <p id='check-checkCertificateHonour'>
-                    J’atteste sur l’honneur que je suis bien le (la) propriétaire de chaque véhicule déclaré,
-                    que les caractéristiques communiquées sont conformes à la réalité et que le
-                    véhicule est à jour de son assurance et du contrôle technique.
-                  </p>
-                </label>
-              </div>
+              >
+                <p id='check-checkCertificateHonour'>
+                  J’atteste sur l’honneur que je suis bien le (la) propriétaire de chaque véhicule déclaré,
+                  que les caractéristiques communiquées sont conformes à la réalité et que le
+                  véhicule est à jour de son assurance et du contrôle technique.
+                </p>
+              </label>
+            </div>
 
-              {/*Check Engagement CLub*/}
-              <div className='flex items-center mb-4'>
-                <input type='checkbox'
-                       className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+            {/*Check Engagement CLub*/}
+            <div className='flex items-center mb-4'>
+              <input type='checkbox'
+                     className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
                                            dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-                       {...formik.getFieldProps('checkEngagementClub')}
-                />
-                <label htmlFor='checkEngagementClub'
-                       className={`${'ml-2 text-sm font-medium text-white font-sans dark:text-gray-300 text-left'} 
+                     {...formik.getFieldProps('checkEngagementClub')}
+              />
+              <label htmlFor='checkEngagementClub'
+                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
                        ${formik.errors.checkEngagementClub && formik.touched.checkEngagementClub ? 'text-red-500 font-mono' : ''}`}
-                >
-                  <p id='check-checkCertificateHonour'>
-                    Je m&apos;engage, en adhérant au Club à respecter les termes de ses statuts
-                    et de son règlement.
-                  </p>
-                </label>
+              >
+                <p id='check-checkCertificateHonour'>
+                  Je m&apos;engage, en adhérant au Club à respecter les termes de ses statuts
+                  et de son règlement.
+                </p>
+              </label>
 
-              </div>
+            </div>
 
 
-              {/*<Field type="checkbox" name="checkbox">
+            {/*<Field type="checkbox" name="checkbox">
                 My Field
               </Field>*/}
 
-              {/*Check Privacy Policy*/}
-              <div className='flex items-center mb-4'>
-                <input type='checkbox'
-                       className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
+            {/*Check Privacy Policy*/}
+            <div className='flex items-center mb-4'>
+              <input type='checkbox'
+                     className='w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
                                            dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-                       {...formik.getFieldProps('checkPrivacyPolicy')}
+                     {...formik.getFieldProps('checkPrivacyPolicy')}
 
-                />
-                <label htmlFor='checkPrivacyPolicy'
-                       className={`${'ml-2 text-sm font-medium text-white font-sans dark:text-gray-300 text-left'} 
+              />
+              <label htmlFor='checkPrivacyPolicy'
+                     className={`${'ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left'} 
                        ${formik.errors.checkPrivacyPolicy && formik.touched.checkPrivacyPolicy ? 'text-red-500 font-mono' : ''}`}
-                >
-                  <p id='check-checkPrivacyPolicy'>
-                    En soumettant ce formulaire, je confirme avoir pris connaissant de
-                    <Link href='#'
-                       className='text-blue-600 hover:underline dark:text-blue-500'
-                    >
-                      &nbsp;la politique de confidentialité
-                    </Link>
-                    &nbsp;du Club306. Des lors, j&apos;autorise Club306 à exploiter les
-                    informations saisies dans le cadre de la relation commerciale
-                    qui peut en découler.
-                  </p>
-                </label>
-              </div>
-            </fieldset>
-            <button type='submit' className='btn'>
-              Suivant
-            </button>
-          </div>
+              >
+                <p id='check-checkPrivacyPolicy'>
+                  En soumettant ce formulaire, je confirme avoir pris connaissant de
+                  <Link href='#'
+                        className='text-blue-600 hover:underline dark:text-blue-500'
+                  >
+                    &nbsp;la politique de confidentialité
+                  </Link>
+                  &nbsp;du Club306. Des lors, j&apos;autorise Club306 à exploiter les
+                  informations saisies dans le cadre de la relation commerciale
+                  qui peut en découler.
+                </p>
+              </label>
+            </div>
+          </fieldset>
         </div>
-      </section>
+        <div
+          className='mt-12 border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 mb-4 mx-20'>
+          <button
+            type='submit'
+            className='text-[#F7F9FF] text-xl'>
+            Suivant
+          </button>
+        </div>
+      </>
     </form>
   );
+}
+
+function _useLayoutHeight() {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const divRef = document.getElementById('mainDiv');
+    if (divRef) {
+      setHeight(divRef.offsetHeight);
+    }
+  }, []);
+
+  return height;
 }
