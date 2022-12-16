@@ -17,7 +17,7 @@ export default function Stepper() {
   console.log('Stepper numberStep', numberStep);
   return (
     <>
-      <div className=''>
+      <div className='mt-4'>
         <div className='flex justify-between'>
         {
           steps.map((step, i) => (
@@ -29,7 +29,7 @@ export default function Stepper() {
               <div className={styles.step}>
                 {i + 1 < numberStep ? <TiTick size={24} /> : i + 1}
               </div>
-              <p className='text-white'>{step}</p>
+              <p className='text-black'>{step}</p>
             </div>
           ))
         }

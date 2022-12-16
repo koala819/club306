@@ -10,9 +10,9 @@ export default function Navbar(props: any) {
   const [isEventOpen, setEventOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
   return (
-    <div className='relative'>
+    <div className='relative '>
       <nav className='flex px-4 md:shadow-lg items-center px-2
-            dark:bg-gray-900 dark:border-gray-700 '
+            dark:bg-gray-900 dark:border-gray-700'
            style={{
              /*backgroundColor: props.bgColor || '#3B578E',
              color: '#F7F9FF'}}*/
@@ -32,7 +32,7 @@ export default function Navbar(props: any) {
               }} />
         </Link>
         {/*SECTION MOBILE*/}
-        <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0 '>
+        <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0'>
           <div
             className='HAMBURGER-ICON space-y-2'
             onClick={() => setIsNavOpen((prev) => !prev)}

@@ -1,6 +1,7 @@
 import {FormikErrors} from 'formik'
 
 export default function login_validate(values: any) {
+
     const errors: FormikErrors<FormValues> = {}
 
     if (!values.email) {
@@ -110,9 +111,9 @@ export function membership_validate(values: any) {
         errors.color = 'Obligatoire'
     }
 
-    if (!values.registrationDocument) {
+    /*if (!values.registrationDocument) {
         errors.registrationDocument = 'Obligatoire'
-    }
+    }*/
 
     if (values.checkCotisation === false) {
         errors.checkCotisation = ' Veuillez valider...!'
