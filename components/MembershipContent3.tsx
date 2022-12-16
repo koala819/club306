@@ -1,11 +1,10 @@
-import { HiAtSymbol, HiFingerPrint } from 'react-icons/hi';
+import { HiAtSymbol } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
 import { CiUser } from 'react-icons/ci';
 import { signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { register_validate } from '../lib/validate';
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { AiOutlineEye } from 'react-icons/ai';
 
 const MembershipContent3 = function(nextStep: any) {
