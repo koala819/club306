@@ -39,8 +39,7 @@ export default function MembershipContent1(nextStep: any) {
       checkCertificateHonour: false,
       checkEngagementClub: false,
       checkPrivacyPolicy: false,
-      email: 'mj23@club306.fr',
-      password: 'club306',
+      email: 'mj23@club306.fr'
     },
     validate: membership_validate,
     onSubmit
@@ -51,6 +50,24 @@ export default function MembershipContent1(nextStep: any) {
   }, []);
 
   function onSubmit(values: any) {
+    /*const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    console.log('options before send to dbb:: ', options);
+
+    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
+      .then((response) => {
+        (response.status === 200) &&
+        console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+
+      })
+      .catch((error) => {
+        console.log('ERROR Sir in _MembershipContent4_ ', error);
+
+      });*/
+
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
   }
