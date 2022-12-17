@@ -1,13 +1,12 @@
 import { getSession } from 'next-auth/react';
-import { RxAvatar } from 'react-icons/rx'
-import { BsCaretRightFill } from 'react-icons/bs'
+import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 
-export default function MembershipContent4 (nextStep: any) {
+export default function MembershipContent4(nextStep: any) {
   const height = _useLayoutHeight();
   const [dataSession, setDataSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -17,11 +16,6 @@ export default function MembershipContent4 (nextStep: any) {
 
 
   useEffect(() => {
-    const storedData = localStorage.getItem('mySession');
-
-    if (storedData) {
-      setDataSession(JSON.parse(storedData));
-    }
     getSession()
       .then(session => {
         if (session) {
@@ -35,8 +29,12 @@ export default function MembershipContent4 (nextStep: any) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('mySession', JSON.stringify(dataSession));
+    const storedData = localStorage.getItem('mySession');
 
+    if (storedData) {
+      setDataSession(JSON.parse(storedData));
+    }
+console.log('nextStep',nextStep)
     const updatedDataSession = googleEmail && {
       ...dataSession,
       email: googleEmail,
@@ -47,21 +45,24 @@ export default function MembershipContent4 (nextStep: any) {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(dataSession)
+      body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(storedData)
     };
+    const xx = _transformObject(options)
+    console.log('options before send to dbb:: ', xx);
 
-    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
+    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, xx)
       .then((response) => {
-        (response.status === 200) &&
-        console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-        setIsRegistered(true);
-        nextStep.onClick(5);
+        if (response.status === 208) {
+          console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+          setIsRegistered(true);
+          nextStep.onClick(5);
+        }
       })
       .catch((error) => {
         console.log('ERROR Sir in _MembershipContent4_ ', error);
 
       });
-  }, [dataSession, googleEmail, googleName, nextStep]);
+  }, []);
 
 
   return (
@@ -108,8 +109,8 @@ export default function MembershipContent4 (nextStep: any) {
                     className='rounded-full'
                     src={`${googlePicture}`}
                     style={{
-                      maxWidth: "100%",
-                      height: "auto"
+                      maxWidth: '100%',
+                      height: 'auto'
                     }} />
                   : <span className='flex justify-center '><RxAvatar size={100} /></span>
                 }
@@ -155,6 +156,7 @@ export default function MembershipContent4 (nextStep: any) {
     </div>
   );
 }
+
 function _useLayoutHeight() {
   const [height, setHeight] = useState(0);
 
@@ -166,4 +168,9 @@ function _useLayoutHeight() {
   }, []);
 
   return height;
+}
+
+function _transformObject(obj: any) {
+  obj.body = JSON.parse(obj.body);
+  return obj;
 }
