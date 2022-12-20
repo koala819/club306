@@ -30,12 +30,19 @@ export default Nextauth({
             console.log('An error Sir when record',error);
           }
 
-          if (await bcrypt.compare(credentials?.password, data[0]?.password)) {
-            console.log('Great Job !!! User has been founded :)');
-            return 'find'
+          console.log('data',data)
+
+          if (data.length > 0) {
+            if (await bcrypt.compare(credentials?.password, data[0]?.password)) {
+              console.log('Great Job !!! User has been founded :)');
+              return 'find'
+            }
+            console.log('No record !!! :(');
+            return null
+          } else {
+            console.log('No record!!!')
+            return null
           }
-          console.log('No record !!! :(');
-          return null
 
 
         } catch (error) {
@@ -64,29 +71,6 @@ export default Nextauth({
      })*/
       }
     }),
-    /* CredentialsProvider({
-        id: 'register',
-        name: 'my-project',
-        async authorize(credentials) {
-            try {
-
-                connectMongo().catch(() => {
-                    'Connection Failed...!'
-                })
-                //create user
-                const result = await Users.create({email: credentials.email, password: credentials.password})
-                //import result = await Users.findOne({email: credentials.email})
-                if (result!== null) {
-                    console.log('find ONE',result)
-                    throw new Error('User already exist...!')
-                }
-
-                return result
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    })*/
   ],
   secret: process.env.NEXTAUTH_SECRET,
   /*callbacks: {
@@ -99,8 +83,8 @@ export default Nextauth({
       }
     }
   },*/
-  pages: {
+  /*pages: {
     signIn: '/membership',
     error: '/404'
-  }
+  }*/
 });

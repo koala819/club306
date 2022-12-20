@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcrypt';
-import { hash } from 'bcryptjs';
 
 export default async function handler(req, res) {
   try {
