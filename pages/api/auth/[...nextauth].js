@@ -1,29 +1,48 @@
 import Nextauth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-/*import CredentialsProvider from 'next-auth/providers/credentials'
-import {connectMongo} from '../../../database/conn'
-import Users from '../../../model/Schema'
-import {compare} from 'bcryptjs'*/
-
-/*console.log ('check in ...nextauth Google client ID',process.env.GOOGLE_ID)
-console.log ('check in ...nextauth Google client secret',process.env.GOOGLE_SECRET)*/
+import CredentialsProvider from 'next-auth/providers/credentials'
+import { createClient } from '@supabase/supabase-js';
+import bcrypt from 'bcrypt';
 
 export default Nextauth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET
-    })
-    /* CredentialsProvider({
-         id: 'login',
-         name: 'my-project',
-         async authorize(credentials) {
-             try {
-                 connectMongo().catch(() => {
-                     'Connection Failed...!'
-                 })
+    }),
+    CredentialsProvider({
+      id: 'login',
+      async authorize(credentials) {
+        const supabase = createClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+          process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
+        );
 
-                 //check user existance
+        try {
+          const { data, error } = await supabase
+            .from('members')
+            .select('*')
+            .eq('email', credentials?.email)
+            .limit(1);
+
+          if (error) {
+            //throw new Error(error);
+            console.log('An error Sir when record',error);
+          }
+
+          if (await bcrypt.compare(credentials?.password, data[0]?.password)) {
+            console.log('Great Job !!! User has been founded :)');
+            return 'find'
+          }
+          console.log('No record !!! :(');
+          return null
+
+
+        } catch (error) {
+          console.log('Error Sir in login page !!!\n',error)
+        }
+
+/*//check user existance
                  const result = await Users.findOne({email: credentials.email})
                  if (!result) {
                      throw new Error('No User found with email. Please sign up...!')
@@ -42,30 +61,32 @@ export default Nextauth({
                  console.log('Error Sir',error)
              }
          }
-     }),
-     CredentialsProvider({
-         id: 'register',
-         name: 'my-project',
-         async authorize(credentials) {
-             try {
-
-                 connectMongo().catch(() => {
-                     'Connection Failed...!'
-                 })
-                 //create user
-                 const result = await Users.create({email: credentials.email, password: credentials.password})
-                 //import result = await Users.findOne({email: credentials.email})
-                 if (result!== null) {
-                     console.log('find ONE',result)
-                     throw new Error('User already exist...!')
-                 }
-
-                 return result
-             } catch (error) {
-                 console.log(error)
-             }
-         }
      })*/
+      }
+    }),
+    /* CredentialsProvider({
+        id: 'register',
+        name: 'my-project',
+        async authorize(credentials) {
+            try {
+
+                connectMongo().catch(() => {
+                    'Connection Failed...!'
+                })
+                //create user
+                const result = await Users.create({email: credentials.email, password: credentials.password})
+                //import result = await Users.findOne({email: credentials.email})
+                if (result!== null) {
+                    console.log('find ONE',result)
+                    throw new Error('User already exist...!')
+                }
+
+                return result
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    })*/
   ],
   secret: process.env.NEXTAUTH_SECRET,
   /*callbacks: {
