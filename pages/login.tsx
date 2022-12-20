@@ -7,7 +7,7 @@ import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import login_validate from '../lib/validate';
 import { useState, useEffect } from 'react';
-import { router } from 'next/client';
+import Router from 'next/router';
 
 export default function Login() {
   const formik = useFormik({
@@ -22,21 +22,38 @@ export default function Login() {
   const height = _useLayoutHeight();
 
   async function onSubmit(values: any) {
-    const status = await signIn('login', {
+   await signIn('login', {
       redirect: false,
       email: values.email,
       password: values.password,
       callbackUrl: '/user'
-    });
+    })
+      .then ((status) =>{
+        //if (status?.url !== null && status?.url !== undefined) {
+          console.log('find user\n',status);
+        if (status?.url !== null && status?.url !== undefined) {
+          console.log('find user');
+          /*router.push(status?.url);*/
+          Router.push({
+            pathname: '/user',
+            query: { message: "Please signin to view profile" }
+          });
+        } else {
+          alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
+        }
+          //await router.push(status?.url);
+        //}
+      });
 
-    console.log(status)
-
-    if (status?.url !== null && status?.url !== undefined) {
-      console.log('find user')
+    /*if (status?.url === null) {
+      alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
+    }*/
+    /*if (status?.url !== null && status?.url !== undefined) {
+      console.log('find user');
       await router.push(status?.url);
     } else {
-      alert('les informations saisies sont incorrectes. Merci de re essayer')
-    }
+      alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
+    }*/
   }
 
   return (
@@ -60,7 +77,7 @@ export default function Login() {
             </section>
 
             {/*RIGHT*/}
-            <section className='w-full flex flex-col justify-between my-4'>
+            <section className='w-full flex flex-col justify-between my-4 mb-16'>
 
               {/*Section HAUT*/}
               <div className=''>
@@ -80,15 +97,16 @@ export default function Login() {
               {/*Section MILIEU*/}
               <div className=''>
                 <div
-                  className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56'>
+                  className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56'
+                >
                   <button type='button'
                           onClick={() => _handleGoogleSignin}
-                          >
-                  </button>
-                  <span className='flex'>
+                  >
+                    <span className='flex'>
                     <FcGoogle size={25} className='mr-2' />
                     Continuer avec Google
                   </span>
+                  </button>
                 </div>
                 <div className='relative flex py-5 items-center mx-4 mb-8'>
                   <div className='flex-grow border-t border-gray-400 '></div>
@@ -156,7 +174,7 @@ export default function Login() {
 }
 
 async function _handleGoogleSignin() {
-  console.log('je vois que tu cliques')
+  console.log('je vois que tu cliques');
   await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
 }
 
