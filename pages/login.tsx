@@ -7,6 +7,7 @@ import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import login_validate from '../lib/validate';
 import { useState, useEffect } from 'react';
+import { router } from 'next/client';
 
 export default function Login() {
   const formik = useFormik({
@@ -28,15 +29,13 @@ export default function Login() {
       callbackUrl: '/user'
     });
 
-    console.log('mail ::', values.email);
-    if (status !== undefined) {
-      console.log('status', status);
-      if (status.status === 401) {
-        alert('Email ou Mot de passe incorrect...!');
-      }
-      /*if (status.ok) { // @ts-ignore
-        await router.push(status.url);
-      }*/
+    console.log(status)
+
+    if (status?.url !== null && status?.url !== undefined) {
+      console.log('find user')
+      await router.push(status?.url);
+    } else {
+      alert('les informations saisies sont incorrectes. Merci de re essayer')
     }
   }
 
@@ -84,8 +83,7 @@ export default function Login() {
                   className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56'>
                   <button type='button'
                           onClick={() => _handleGoogleSignin}
-                          className=''>
-
+                          >
                   </button>
                   <span className='flex'>
                     <FcGoogle size={25} className='mr-2' />
@@ -130,7 +128,7 @@ export default function Login() {
                     </span>
                   </div>
 
-                  <div className='text-right text-gray-400 hover:underline hover:text-gray-100'>
+                  <div className='text-right text-gray-400 hover:underline hover:font-[999]'>
                     <Link href='findPwd'>Mot de passe oublié ?</Link>
                   </div>
                   <div
@@ -158,6 +156,7 @@ export default function Login() {
 }
 
 async function _handleGoogleSignin() {
+  console.log('je vois que tu cliques')
   await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
 }
 
