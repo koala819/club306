@@ -55,9 +55,16 @@ export default async function handler(req, res) {
                 username,
                 zip_code
               },
-              { onConflict: 'id' },
-              /*{ignoreDuplicates: false}*/
+              { onConflict: 'immatriculation' },
+              {ignoreDuplicates: false}
             )
+
+          if (error) {
+            //throw new Error(error);
+            console.log('An error Sir when record',error);
+          }
+          //console.log(data);
+        
 
           if (data === null) {
             console.log('Great Job !!! User has created successfully :)');
