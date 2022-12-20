@@ -54,9 +54,7 @@ export default async function handler(req, res) {
                 town,
                 username,
                 zip_code
-              },
-              { onConflict: 'immatriculation' },
-              {ignoreDuplicates: false}
+              }
             )
 
           if (error) {
