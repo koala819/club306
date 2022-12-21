@@ -62,7 +62,7 @@ const MembershipContent3 = function(nextStep: any) {
             <div
               className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-8'>
               <button type='button'
-                      onClick={() => _handleGoogleSignin(dataSession)}
+                      onClick={() => _handleGoogleSignin()}
               >
                 <span className='flex'>
                   <FcGoogle size={25} className='mr-2' />
@@ -154,7 +154,7 @@ const MembershipContent3 = function(nextStep: any) {
   );
 };
 
-async function _handleGoogleSignin(dataSession: any) {
+async function _handleGoogleSignin() {
   /*console.log('check dataSession', dataSession);
   localStorage.setItem('mySession', JSON.stringify(dataSession));*/
   await signIn('google');
