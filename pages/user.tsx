@@ -40,24 +40,5 @@ function _Guest() {
 }
 
 async function _handleGoogleSignout() {
-    await signOut({callbackUrl: 'https://pascal306.vercel.app'})
+    await signOut({callbackUrl: `${process.env.CLIENT_URL}`})
 }
-
-/*export async function getServerSideProps({req}:any) {
-    const session = await getSession({req})
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false
-            }
-        }
-    }
-
-    return {
-        props: {session}
-    }
-}*/
-
-

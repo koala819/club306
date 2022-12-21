@@ -1,6 +1,5 @@
 import { HiAtSymbol } from 'react-icons/hi';
 import { FcGoogle } from 'react-icons/fc';
-import { CiUser } from 'react-icons/ci';
 import { signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
@@ -13,7 +12,8 @@ const MembershipContent3 = function(nextStep: any) {
   const [show, setShow] = useState({ password: false, cpassword: false });
   const formik = useFormik({
     initialValues: {
-      username: '',
+      /*username: '',*/
+      email: '',
       password: '',
       cpassword: ''
     },
@@ -48,10 +48,10 @@ const MembershipContent3 = function(nextStep: any) {
                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
           >
             <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
-              <div>
+              {/*<div>
                 <h1 className='text-5xl tracking-wide'>Club 306</h1>
                 <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
-              </div>
+              </div>*/}
             </div>
           </section>
 
@@ -62,14 +62,13 @@ const MembershipContent3 = function(nextStep: any) {
             <div
               className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-8'>
               <button type='button'
-                      onClick={() => _handleGoogleSignin}
-                      className=''>
-
-              </button>
-              <span className='flex'>
-                <FcGoogle size={25} className='mr-2' />
+                      onClick={() => _handleGoogleSignin(dataSession)}
+              >
+                <span className='flex'>
+                  <FcGoogle size={25} className='mr-2' />
                   Continuer avec Google
-              </span>
+                </span>
+              </button>
             </div>
             <div className='relative flex py-5 items-center mb-8'>
               <div className='flex-grow border-t border-gray-400 '></div>
@@ -80,7 +79,7 @@ const MembershipContent3 = function(nextStep: any) {
             <form className='sm:w-1/2 w-full mx-auto'
                     onSubmit={formik.handleSubmit}
               >
-                {/*Username*/}
+                {/*Username
                 <div
                   className={`${'my-3 flex border rounded-xl relative hover:bg-[#D7DEED]'} ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
                   <input type='username'
@@ -92,14 +91,15 @@ const MembershipContent3 = function(nextStep: any) {
                   <span className='icon flex items-center px-4 text-[#3B578E]'>
                 <CiUser size={25} />
               </span>
-                </div>
+                </div>*/}
 
                 {/*Email*/}
-                <div className='my-3 flex relative bg-[#D7DEED] border rounded-xl'>
+                <div
+                  className={`${'my-3 flex border rounded-xl hover:bg-[#D7DEED]'} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                   <input type='email'
-                         placeholder={dataSession?.email}
-                         className='w-full py-4 px-6 bg-[#D7DEED] border-none '
-                         readOnly
+                         placeholder='Email'
+                         className='w-full py-4 px-6 border rounded-xl bg-transparent focus:outline-none border-none'
+                         {...formik.getFieldProps('username')}
                   />
                   <span className='icon flex items-center px-4 text-[#3B578E]'>
                 <HiAtSymbol size={25} />
@@ -154,9 +154,11 @@ const MembershipContent3 = function(nextStep: any) {
   );
 };
 
-async function _handleGoogleSignin() {
+async function _handleGoogleSignin(dataSession: any) {
+  /*console.log('check dataSession', dataSession);
+  localStorage.setItem('mySession', JSON.stringify(dataSession));*/
   await signIn('google');
-  /*const user = await signIn('google', { callbackUrl: 'https://pascal306.vercel.app/user' })*/
+
 }
 
 function _useLayoutHeight() {

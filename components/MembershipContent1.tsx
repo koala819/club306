@@ -38,8 +38,8 @@ export default function MembershipContent1(nextStep: any) {
       checkCotisation: false,
       checkCertificateHonour: false,
       checkEngagementClub: false,
-      checkPrivacyPolicy: false,
-      email: 'mj23@club306.fr'
+      checkPrivacyPolicy: false
+      /*email: 'mj23@club306.fr'*/
     },
     validate: membership_validate,
     onSubmit
@@ -220,7 +220,7 @@ export default function MembershipContent1(nextStep: any) {
                 </label>
               </div>
 
-              {/*Mail*/}
+              {/*Mail
               <div className='relative z-0 mb-6 w-full group mt-4'>
                 <input type='text'
                        id='email'
@@ -237,7 +237,7 @@ export default function MembershipContent1(nextStep: any) {
                 >
                   E-mail
                 </label>
-              </div>
+              </div>*/}
 
               {/*Birth Date*/}
               <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -13,8 +13,17 @@ export default function Index() {
   const { data: session } = useSession();
   const [registered, setRegistered] = useState(false);
   console.log('utilisateur enregistré ?', registered);
+  console.log('utilisateur email', session?.user?.email);
   checkAuthWithEmail(session?.user?.email, setRegistered);
+  /*if (registered === false && session) {
 
+    xavFunction()
+      .then(() => console.log('Votre compte n\'existe pas encore. Veuillez en créer un svp.'))
+  }
+
+  async function xavFunction() {
+
+  }*/
 
   return (
     <div>
@@ -145,14 +154,16 @@ async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
       process.env.NEXT_PUBLIC_SUPABASE_URL || '',
       process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
     );
-    let { data: members2 } = await supabase
+    const { data: members2 } = await supabase
       .from('members')
       .select('*')
       .filter('email', 'eq', googleUser);
+    console.log('in members2 we have',members2)
     if (members2?.length !== 0) {
       return setRegistered(true);
     } else {
-      console.log('no record');
+      console.log('no register in database');
+      return setRegistered(false);
     }
 
   } catch (error) {
