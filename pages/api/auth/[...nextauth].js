@@ -30,8 +30,7 @@ export default Nextauth({
             console.log('An error Sir when record',error);
           }
 
-          console.log('data',data)
-
+          /*console.log('data',data)*/
           if (data.length > 0) {
             if (await bcrypt.compare(credentials?.password, data[0]?.password)) {
               console.log('Great Job !!! User has been founded :)');
@@ -43,32 +42,9 @@ export default Nextauth({
             console.log('No record!!!')
             return null
           }
-
-
         } catch (error) {
           console.log('Error Sir in login page !!!\n',error)
         }
-
-/*//check user existance
-                 const result = await Users.findOne({email: credentials.email})
-                 if (!result) {
-                     throw new Error('No User found with email. Please sign up...!')
-                 }
-
-                 //compare
-                 const checkPwd = await compare(credentials.password, result.password)
-
-                 //incorrect pwd
-                 if (!checkPwd || result.email !== credentials.email) {
-                     throw new Error('Username or Password doesn\'t match')
-                 }
-
-                 return result
-             } catch (error) {
-                 console.log('Error Sir',error)
-             }
-         }
-     })*/
       }
     }),
   ],

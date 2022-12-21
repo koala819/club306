@@ -23,17 +23,17 @@ export default function login_validate(values: any) {
 export function register_validate(values: any) {
     const errors: FormikErrors<FormValues> = {}
 
-    if (!values.username) {
+    /*if (!values.username) {
         errors.username = 'Obligatoire'
     } else if (values.username.includes(' ')) {
         errors.username = 'Nom d\'utilisateur invalide'
-    }
+    }*/
 
-    /*if (!values.email) {
+    if (!values.email) {
         errors.email = 'Obligatoire'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Adresse mail incorrecte';
-    }*/
+        errors.email = 'Adresse email incorrecte';
+    }
 
     if (!values.password) {
         errors.password = 'Obligatoire';
@@ -89,11 +89,11 @@ export function membership_validate(values: any) {
         errors.password = 'Pas d\'espace svp ^^'
     }
 
-    if (!values.email) {
+    /*if (!values.email) {
         errors.email = 'Obligatoire'
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Adresse email incorrecte';
-    }
+    }*/
 
     if (!values.immatriculation) {
         errors.immatriculation = 'Obligatoire'

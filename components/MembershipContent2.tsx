@@ -25,36 +25,35 @@ export default function MembershipContent2(nextStep: any) {
                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
         >
           <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
-            <div>
+            {/*<div>
               <h1 className='text-5xl tracking-wide'>Club 306</h1>
               <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
-            </div>
+            </div>*/}
           </div>
         </section>
 
         {/*RIGHT*/}
-        <section className='h-full lg:w-1/2 w-full lg:flex flex-col justify-between'>
-          <div className='flex flex-col text-center w-full'>
-            <h1 className='sm:text-4xl text-3xl font-medium title-font mb-2 '>
+        <section className='lg:w-1/2 w-full lg:flex flex-col justify-between'>
+          <div className='flex flex-col text-center '>
+            {/*<h1 className='sm:text-4xl text-3xl font-medium title-font mb-2 '>
               Tarif
-            </h1>
+            </h1>*/}
             <div className='flex mt-4 mx-4'>
               <p className=''>Bonjour&nbsp;</p>
               <h1 className='font-bol text-[#3B578E]'
                   style={{ fontWeight: 'bolder' }}>
                 {data?.first_name}&nbsp;{data?.last_name}
               </h1>
-              <p>, pour continuer de l&#39;aventure avec l&#39;association
-                Club 306, il est indispensable d&#39;y hadhérer ^_^</p>
+              <p>, pour continuer vous devez hadhérer à notre association ^_^</p>
             </div>
           </div>
           <div className='flex justify-center w-full h-full mb-4 mt-4'>
 
-            <div className='h-full p-6 rounded-lg border-2 border-[#3B578E] flex flex-col relative '>
+            <div className='h-full p-6 rounded-lg border-2 border-[#3B578E] flex flex-col'>
                     <span className='bg-[#3B578E] px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl text-gray-100'>
                       POPULAIRE
                     </span>
-              <h2 className='text-5xl font-bold text-left tracking-wide text-center'>CLUB 306</h2>
+              {/*<h2 className='text-5xl font-bold text-left tracking-wide text-center'>CLUB 306</h2>*/}
               <h1
                 className='text-5xl leading-none flex items-center pb-4 mb-4 border-b border-[#3B578E]'>
                 <span>20 € </span>

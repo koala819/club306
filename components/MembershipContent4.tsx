@@ -22,35 +22,73 @@ export default function MembershipContent4(nextStep: any) {
           session.user?.name && setGoogleName(session.user.name);
           session.user?.email && setGoogleEmail(session.user.email);
           session.user?.image && setGooglePicture(session.user.image);
+
+          const storedData = localStorage.getItem('mySession');
+          if (storedData) {
+            console.log('GOOGLE ACCOUNT FIND\ndata in Session:: ', storedData);
+            console.log('GOOGLE ACCOUNT FIND\ndata in Session parse:: ', JSON.parse(storedData));
+            setDataSession(JSON.parse(storedData));
+            console.log('GOOGLE ACCOUNT FIND\ndata in Session:: ', dataSession);
+          }
+
+          const updatedDataSession = {
+            ...dataSession,
+            email: googleEmail,
+            username: googleName,
+            password: ''
+          };
+          console.log('data update with data Session:: ', updatedDataSession);
+
+          const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedDataSession)
+          };
+          console.log('options before send to dbb:: ', options);
+
+          fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
+            .then((response) => {
+              if (response.status === 208) {
+                console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+                setIsRegistered(true);
+                nextStep.onClick(5);
+              }
+            })
+            .catch((error) => {
+              console.log('ERROR Sir in _MembershipContent4_ ', error);
+
+            });
+
         } else {
           console.log('Aucune identification avec un compte Google trouvé !');
         }
       });
-  }, []);
 
-  useEffect(() => {
-    const storedData = localStorage.getItem('mySession');
+    /*const storedData = localStorage.getItem('mySession');
 
     if (storedData) {
+      //console.log('check storedData',storedData)
       setDataSession(JSON.parse(storedData));
+      //console.log('check data in Session',dataSession)
     }
-console.log('nextStep',nextStep)
+
     const updatedDataSession = googleEmail && {
       ...dataSession,
       email: googleEmail,
       username: googleName,
       password: ''
     };
+    googleEmail ? console.log('you use a Google account with this data', updatedDataSession) : console.log('you use a standard account with this data ', storedData)
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(storedData)
     };
-    const xx = _transformObject(options)
-    console.log('options before send to dbb:: ', xx);
+    const optionsGoodFormat = _transformObject(options)
+    console.log('options before send to dbb:: ', optionsGoodFormat);
 
-    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, xx)
+    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, optionsGoodFormat)
       .then((response) => {
         if (response.status === 208) {
           console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
@@ -61,8 +99,12 @@ console.log('nextStep',nextStep)
       .catch((error) => {
         console.log('ERROR Sir in _MembershipContent4_ ', error);
 
-      });
+      });*/
   }, []);
+
+/*  useEffect(() => {
+
+  }, []);*/
 
 
   return (
@@ -75,10 +117,10 @@ console.log('nextStep',nextStep)
                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
           >
             <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
-              <div>
+              {/*<div>
                 <h1 className='text-5xl tracking-wide'>Club 306</h1>
                 <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
-              </div>
+              </div>*/}
             </div>
           </section>
 

@@ -3,13 +3,18 @@ import Link from 'next/link';
 import { HiAtSymbol } from 'react-icons/hi';
 import { AiOutlineEye } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { useFormik } from 'formik';
 import login_validate from '../lib/validate';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 
 export default function Login() {
+  const { data: session } = useSession();
+  console.log('session',session?.user?.email)
+  if (session?.user?.email) {
+    signOut({ callbackUrl: `${process.env.CLIENT_URL}/login` })
+  }
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -29,31 +34,15 @@ export default function Login() {
       callbackUrl: '/user'
     })
       .then ((status) =>{
-        //if (status?.url !== null && status?.url !== undefined) {
-          console.log('find user\n',status);
         if (status?.url !== null && status?.url !== undefined) {
-          console.log('find user');
-          /*router.push(status?.url);*/
           Router.push({
             pathname: '/user',
-            query: { message: "Please signin to view profile" }
+            query: { message: "Signin with success" }
           });
         } else {
           alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
         }
-          //await router.push(status?.url);
-        //}
       });
-
-    /*if (status?.url === null) {
-      alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
-    }*/
-    /*if (status?.url !== null && status?.url !== undefined) {
-      console.log('find user');
-      await router.push(status?.url);
-    } else {
-      alert('les informations saisies sont incorrectes. Veuillez recommencer SVP.');
-    }*/
   }
 
   return (
@@ -100,7 +89,7 @@ export default function Login() {
                   className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56'
                 >
                   <button type='button'
-                          onClick={() => _handleGoogleSignin}
+                          onClick={() => _handleGoogleSignin()}
                   >
                     <span className='flex'>
                     <FcGoogle size={25} className='mr-2' />
@@ -174,8 +163,7 @@ export default function Login() {
 }
 
 async function _handleGoogleSignin() {
-  console.log('je vois que tu cliques');
-  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
+  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}/login` });
 }
 
 function _useLayoutHeight() {

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         process.env.NEXT_PUBLIC_SUPABASE_URL || '',
         process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
       );
-      /*console.log('in recordMemberInfo check req.body\n', req.body)*/
+      console.log('in recordMemberInfo check req.body\n', req.body)
       const {
         address, birth_date, color, email, first_name, immatriculation, last_name, model, password, phone,
         town, username, zip_code
@@ -25,15 +25,14 @@ export default async function handler(req, res) {
         const dateParts = birth_date.split('/');
         const rearrangedDate = dateParts.reverse().join('/');
         //view date to check  is good formatted => to deleted
-        /*console.log('date saisie\n', birth_date);
+        console.log('date saisie\n', birth_date);
         console.log('date formatée\n', rearrangedDate);
         const yy = {
           ...req.body,
           birth_date: rearrangedDate
         };
-        console.log('in recordMemberInfo.js with a good date :)\n', yy);*/
+        console.log('in recordMemberInfo.js with a good date :)\n', yy);
 
-        //@todo : check duplicate users
         try {
           const { data, error } = await supabase
             .from('members')
