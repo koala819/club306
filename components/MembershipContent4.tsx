@@ -100,7 +100,7 @@ export default function MembershipContent4(nextStep: any) {
         console.log('ERROR Sir in _MembershipContent4_ ', error);
 
       });*/
-  }, []);
+  }, [dataSession, googleEmail, googleName, nextStep]);
 
 /*  useEffect(() => {
 
@@ -212,7 +212,8 @@ function _useLayoutHeight() {
   return height;
 }
 
+/*
 function _transformObject(obj: any) {
   obj.body = JSON.parse(obj.body);
   return obj;
-}
+}*/
