@@ -13,7 +13,7 @@ const MembershipContent3 = function(nextStep: any) {
   const formik = useFormik({
     initialValues: {
       /*username: '',*/
-      email: '',
+      email: 'Email',
       password: '',
       cpassword: ''
     },
@@ -97,9 +97,8 @@ const MembershipContent3 = function(nextStep: any) {
                 <div
                   className={`${'my-3 flex border rounded-xl hover:bg-[#D7DEED]'} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                   <input type='email'
-                         placeholder='Email'
                          className='w-full py-4 px-6 border rounded-xl bg-transparent focus:outline-none border-none'
-                         {...formik.getFieldProps('username')}
+                         {...formik.getFieldProps('email')}
                   />
                   <span className='icon flex items-center px-4 text-[#3B578E]'>
                 <HiAtSymbol size={25} />

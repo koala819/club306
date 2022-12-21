@@ -18,18 +18,16 @@ export default function MembershipContent4(nextStep: any) {
   useEffect(() => {
     getSession()
       .then(session => {
+        const storedData = localStorage.getItem('mySession');
+        if (storedData) {
+          setDataSession(JSON.parse(storedData));
+          console.log('data in Session:: ', dataSession);
+        }
+
         if (session) {
           session.user?.name && setGoogleName(session.user.name);
           session.user?.email && setGoogleEmail(session.user.email);
           session.user?.image && setGooglePicture(session.user.image);
-
-          const storedData = localStorage.getItem('mySession');
-          if (storedData) {
-            console.log('GOOGLE ACCOUNT FIND\ndata in Session:: ', storedData);
-            console.log('GOOGLE ACCOUNT FIND\ndata in Session parse:: ', JSON.parse(storedData));
-            setDataSession(JSON.parse(storedData));
-            console.log('GOOGLE ACCOUNT FIND\ndata in Session:: ', dataSession);
-          }
 
           const updatedDataSession = {
             ...dataSession,
@@ -61,51 +59,30 @@ export default function MembershipContent4(nextStep: any) {
 
         } else {
           console.log('Aucune identification avec un compte Google trouvé !');
+          const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(storedData)
+          };
+          const optionsGoodFormat = _transformObject(options)
+          console.log('options before send to dbb:: ', optionsGoodFormat);
+
+          fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, optionsGoodFormat)
+            .then((response) => {
+              if (response.status === 208) {
+                console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+                setIsRegistered(true);
+                nextStep.onClick(5);
+              }
+            })
+            .catch((error) => {
+              console.log('ERROR Sir in _MembershipContent4_ ', error);
+
+            })
         }
       });
 
-    /*const storedData = localStorage.getItem('mySession');
-
-    if (storedData) {
-      //console.log('check storedData',storedData)
-      setDataSession(JSON.parse(storedData));
-      //console.log('check data in Session',dataSession)
-    }
-
-    const updatedDataSession = googleEmail && {
-      ...dataSession,
-      email: googleEmail,
-      username: googleName,
-      password: ''
-    };
-    googleEmail ? console.log('you use a Google account with this data', updatedDataSession) : console.log('you use a standard account with this data ', storedData)
-
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: googleEmail ? JSON.stringify(updatedDataSession) : JSON.stringify(storedData)
-    };
-    const optionsGoodFormat = _transformObject(options)
-    console.log('options before send to dbb:: ', optionsGoodFormat);
-
-    fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, optionsGoodFormat)
-      .then((response) => {
-        if (response.status === 208) {
-          console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-          setIsRegistered(true);
-          nextStep.onClick(5);
-        }
-      })
-      .catch((error) => {
-        console.log('ERROR Sir in _MembershipContent4_ ', error);
-
-      });*/
   }, [dataSession, googleEmail, googleName, nextStep]);
-
-/*  useEffect(() => {
-
-  }, []);*/
-
 
   return (
     <div>
@@ -212,8 +189,7 @@ function _useLayoutHeight() {
   return height;
 }
 
-/*
 function _transformObject(obj: any) {
   obj.body = JSON.parse(obj.body);
   return obj;
-}*/
+}
