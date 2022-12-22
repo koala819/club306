@@ -1,35 +1,81 @@
-
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react'
-/*import { RxAvatar } from 'react-icons/rx';
+import { getSession } from 'next-auth/react';
+import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
 import Link from 'next/link';
-import ClipLoader from 'react-spinners/ClipLoader';*/
+import ClipLoader from 'react-spinners/ClipLoader';
 
 
-export default function MembershipContent4(/*nextStep: any*/) {
+export default function MembershipContent4(nextStep: any) {
   const [dataSession, setDataSession] = useState<any>(null);
+  const [dataSessionWithGoogleAccount, setDataSessionWithGoogleAccount] = useState<any>(null);
 
-  /*const height = _useLayoutHeight();
-  const [dataSession, setDataSession] = useState<any>(null);
+  const height = _useLayoutHeight();
+  /*const [dataSession, setDataSession] = useState<any>(null);*/
   const [isRegistered, setIsRegistered] = useState(false);
   const [googleName, setGoogleName] = useState('');
   const [googleEmail, setGoogleEmail] = useState('');
-  const [googlePicture, setGooglePicture] = useState('');*/
+  const [googlePicture, setGooglePicture] = useState('');
 
-useEffect(() => {
-  getSession()
-    .then((session: any) => {
-      const storedData = localStorage.getItem('mySession');
-      if (storedData) {
-        setDataSession(JSON.parse(storedData));
-        console.log('data in Session:: ', dataSession);
-      }
-      console.log('session', session)
-    })
-},[])
+  /*
+    Permet de récuperer les informations de la session mySession enregistré précédemment
+    Permet de voir si l'utilisateur s'est identifié avec un compte Google pour récuperer les informations avant l'enregsitrement en base
+ */
+  useEffect(() => {
+    getSession()
+      .then((sessionWithGoogleAccount) => {
+        const storedData = localStorage.getItem('mySession');
+        if (storedData) {
+          setDataSession(JSON.parse(storedData));
+          console.log('data in Session:: ', dataSession);
+        }
+        if (sessionWithGoogleAccount) {
+          setDataSessionWithGoogleAccount(sessionWithGoogleAccount);
+        }
+      });
+  }, []);
 
+  /*
+  Gère quand l'utilisateur se connecte avec son compte Google
+   */
+  useEffect(() => {
+    if (dataSessionWithGoogleAccount) {
+      dataSessionWithGoogleAccount.user?.name && setGoogleName(dataSessionWithGoogleAccount.user.name);
+      dataSessionWithGoogleAccount.user?.email && setGoogleEmail(dataSessionWithGoogleAccount.user.email);
+      dataSessionWithGoogleAccount.user?.image && setGooglePicture(dataSessionWithGoogleAccount.user.image);
 
+      const updatedDataSession = {
+        ...dataSession,
+        email: googleEmail,
+        username: googleName,
+        password: ''
+      };
+      console.log('data update with data Session:: ', updatedDataSession);
+
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedDataSession)
+      };
+      console.log('options before send to dbb:: ', options);
+
+      fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
+        .then((response) => {
+          if (response.status === 208) {
+            console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
+            setIsRegistered(true);
+            nextStep.onClick(5);
+          }
+        })
+        .catch((error) => {
+          console.log('ERROR Sir in _MembershipContent4_ ', error);
+
+        });
+    }
+  }, [dataSession, googleEmail, googleName, nextStep]);
+  /*else {
+   console.log('session without Google account')
+ }*/
 
   /*useEffect(() => {
     getSession()
@@ -102,7 +148,7 @@ useEffect(() => {
 
   return (
     <div>
-      {/*<main className='flex-1'>
+      <main className='flex-1'>
         {(height !== 0) && <div className='flex' style={{ height: `${height - 80}px` }}>
 
           LEFT
@@ -187,19 +233,14 @@ useEffect(() => {
           </section>
         </div>
         }
-      </main>*/}
-      <div>
-        <h1>Welcome to the Tortue component!</h1>
-        <p>Your session data: {JSON.stringify(dataSession)}</p>
-      </div>
+      </main>
+
       )
     </div>
   );
 }
 
-
-
-/*function _useLayoutHeight() {
+function _useLayoutHeight() {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -212,7 +253,7 @@ useEffect(() => {
   return height;
 }
 
-function _transformObject(obj: any) {
+/*function _transformObject(obj: any) {
   obj.body = JSON.parse(obj.body);
   return obj;
 }
