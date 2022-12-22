@@ -8,7 +8,7 @@ import { AiOutlineEye } from 'react-icons/ai';
 
 const MembershipContent3 = function(nextStep: any) {
   const height = _useLayoutHeight();
-  const [dataSession, setDataSession] = useState<any>(null);
+  const [dataFromLocalStorage, setDataFromLocalStorage] = useState<any>(null)
   const [show, setShow] = useState({ password: false, cpassword: false });
   const formik = useFormik({
     initialValues: {
@@ -21,17 +21,18 @@ const MembershipContent3 = function(nextStep: any) {
     validate: register_validate
   });
   useEffect(() => {
-    const storedData = localStorage.getItem('mySession');
+    const temp = localStorage.getItem('mySession');
 
-    if (storedData) {
-      setDataSession(JSON.parse(storedData));
+    if (temp) {
+      setDataFromLocalStorage(JSON.parse(temp));
+      //console.log('data in localStorage',temp)
     }
   }, []);
 
   async function onSubmit(values: any) {
     const memberInfos = {
       ...values,
-      ...dataSession
+      ...dataFromLocalStorage
     };
     //console.log('check dataSession before exit MembershipContent3', memberInfos);
     localStorage.setItem('mySession', JSON.stringify(memberInfos));
