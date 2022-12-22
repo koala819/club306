@@ -1,21 +1,37 @@
-import { getSession } from 'next-auth/react';
-import { RxAvatar } from 'react-icons/rx';
+
+import { useEffect, useState } from 'react';
+import { getSession } from 'next-auth/react'
+/*import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
+import ClipLoader from 'react-spinners/ClipLoader';*/
 
 
-export default function MembershipContent4(nextStep: any) {
-  const height = _useLayoutHeight();
+export default function MembershipContent4(/*nextStep: any*/) {
+  const [dataSession, setDataSession] = useState<any>(null);
+
+  /*const height = _useLayoutHeight();
   const [dataSession, setDataSession] = useState<any>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [googleName, setGoogleName] = useState('');
   const [googleEmail, setGoogleEmail] = useState('');
-  const [googlePicture, setGooglePicture] = useState('');
+  const [googlePicture, setGooglePicture] = useState('');*/
+
+useEffect(() => {
+  getSession()
+    .then((session: any) => {
+      const storedData = localStorage.getItem('mySession');
+      if (storedData) {
+        setDataSession(JSON.parse(storedData));
+        console.log('data in Session:: ', dataSession);
+      }
+      console.log('session', session)
+    })
+},[])
 
 
-  useEffect(() => {
+
+  /*useEffect(() => {
     getSession()
       .then(session => {
         const storedData = localStorage.getItem('mySession');
@@ -82,26 +98,26 @@ export default function MembershipContent4(nextStep: any) {
         }
       });
 
-  }, [dataSession, googleEmail, googleName, nextStep]);
+  }, [dataSession, googleEmail, googleName, nextStep]);*/
 
   return (
     <div>
-      <main className='flex-1'>
+      {/*<main className='flex-1'>
         {(height !== 0) && <div className='flex' style={{ height: `${height - 80}px` }}>
 
-          {/*LEFT*/}
+          LEFT
           <section className='lg:flex w-1/2 hidden bg-cover'
                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
           >
             <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
-              {/*<div>
+              <div>
                 <h1 className='text-5xl tracking-wide'>Club 306</h1>
                 <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
-              </div>*/}
+              </div>
             </div>
           </section>
 
-          {/*RIGHT*/}
+          RIGHT
           <section className='h-full lg:w-1/2 w-full lg:flex flex-col justify-between'>
 
             {!isRegistered && (
@@ -171,12 +187,19 @@ export default function MembershipContent4(nextStep: any) {
           </section>
         </div>
         }
-      </main>
+      </main>*/}
+      <div>
+        <h1>Welcome to the Tortue component!</h1>
+        <p>Your session data: {JSON.stringify(dataSession)}</p>
+      </div>
+      )
     </div>
   );
 }
 
-function _useLayoutHeight() {
+
+
+/*function _useLayoutHeight() {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -193,3 +216,7 @@ function _transformObject(obj: any) {
   obj.body = JSON.parse(obj.body);
   return obj;
 }
+function _transformObject(options: { method: string; headers: { 'Content-Type': string; }; body: string; }) {
+    throw new Error('Function not implemented.');
+}*/
+
