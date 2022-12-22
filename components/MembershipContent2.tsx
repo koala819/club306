@@ -49,7 +49,7 @@ export default function MembershipContent2(nextStep: any) {
           </div>
           <div className='flex justify-center w-full h-full mb-4 mt-4'>
 
-            <div className='h-full p-6 rounded-lg border-2 border-[#3B578E] flex flex-col'>
+            <div className='h-full p-6 rounded-lg border-2 border-[#3B578E] flex flex-col relative'>
                     <span className='bg-[#3B578E] px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl text-gray-100'>
                       POPULAIRE
                     </span>

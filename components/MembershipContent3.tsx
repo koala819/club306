@@ -33,7 +33,7 @@ const MembershipContent3 = function(nextStep: any) {
       ...values,
       ...dataSession
     };
-    console.log('check dataSession', memberInfos);
+    //console.log('check dataSession before exit MembershipContent3', memberInfos);
     localStorage.setItem('mySession', JSON.stringify(memberInfos));
     nextStep.onClick(4);
   }
