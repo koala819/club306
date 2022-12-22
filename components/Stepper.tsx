@@ -14,8 +14,8 @@ export default function Stepper() {
   function nextStep(nb:number) {
     setNumberStep(nb);
   }
-  console.log('Stepper numberStep', numberStep);
-  // @ts-ignore
+  //console.log('Stepper numberStep', numberStep);
+
   return (
       <div className='mt-4'>
         <div className='flex justify-between'>
@@ -38,8 +38,7 @@ export default function Stepper() {
       {numberStep === 1 && <MembershipContent1 onClick={nextStep} member={setMember} />}
       {numberStep === 2 && <MembershipContent2 onClick={nextStep} member={member} />}
       {numberStep === 3 && <MembershipContent3 onClick={nextStep} member={member} />}
-      {/*numberStep >= 4 && <MembershipContent4 onClick={nextStep} member={member} />*/}
-      {numberStep >= 4 && <MembershipContent4  />}
+      {numberStep >= 4 && <MembershipContent4 onClick={nextStep} member={member} />}
       </div>
   );
 }

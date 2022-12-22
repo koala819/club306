@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
+import record from '../lib/recordInSupabase'
+import { useSession } from 'next-auth/react';
 import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,163 +8,55 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 
 export default function MembershipContent4(nextStep: any) {
-  const [dataSession, setDataSession] = useState<any>(null);
-  const [dataSessionWithGoogleAccount, setDataSessionWithGoogleAccount] = useState<any>(null);
-
   const height = _useLayoutHeight();
-  /*const [dataSession, setDataSession] = useState<any>(null);*/
+  const {data: session} = useSession()
+  const [dataFromLocalStorage, setDataFromLocalStorage] = useState<any>(null)
   const [isRegistered, setIsRegistered] = useState(false);
   const [googleName, setGoogleName] = useState('');
   const [googleEmail, setGoogleEmail] = useState('');
   const [googlePicture, setGooglePicture] = useState('');
 
   /*
-    Permet de récuperer les informations de la session mySession enregistré précédemment
-    Permet de voir si l'utilisateur s'est identifié avec un compte Google pour récuperer les informations avant l'enregsitrement en base
- */
+     Retrieve information from the previously saved 'mySession'
+     If member choose a Google account => retrieve the information of it with 'session' from useSession
+  */
   useEffect(() => {
-    getSession()
-      .then((sessionWithGoogleAccount) => {
-        const storedData = localStorage.getItem('mySession');
-        if (storedData) {
-          setDataSession(JSON.parse(storedData));
-          console.log('data in Session:: ', dataSession);
-        }
-        if (sessionWithGoogleAccount) {
-          setDataSessionWithGoogleAccount(sessionWithGoogleAccount);
-        }
-      });
-  }, []);
-
-  /*
-  Gère quand l'utilisateur se connecte avec son compte Google
-   */
-  useEffect(() => {
-    if (dataSessionWithGoogleAccount) {
-      dataSessionWithGoogleAccount.user?.name && setGoogleName(dataSessionWithGoogleAccount.user.name);
-      dataSessionWithGoogleAccount.user?.email && setGoogleEmail(dataSessionWithGoogleAccount.user.email);
-      dataSessionWithGoogleAccount.user?.image && setGooglePicture(dataSessionWithGoogleAccount.user.image);
-
-      const updatedDataSession = {
-        ...dataSession,
-        email: googleEmail,
-        username: googleName,
-        password: ''
-      };
-      console.log('data update with data Session:: ', updatedDataSession);
-
-      const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedDataSession)
-      };
-      console.log('options before send to dbb:: ', options);
-
-      fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
-        .then((response) => {
-          if (response.status === 208) {
-            console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-            setIsRegistered(true);
-            nextStep.onClick(5);
-          }
-        })
-        .catch((error) => {
-          console.log('ERROR Sir in _MembershipContent4_ ', error);
-
-        });
+    const temp = localStorage.getItem('mySession');
+    if (temp) {
+      setDataFromLocalStorage(JSON.parse(temp));
     }
-  }, [dataSession, googleEmail, googleName, nextStep]);
-  /*else {
-   console.log('session without Google account')
- }*/
 
-  /*useEffect(() => {
-    getSession()
-      .then(session => {
-        const storedData = localStorage.getItem('mySession');
-        if (storedData) {
-          setDataSession(JSON.parse(storedData));
-          console.log('data in Session:: ', dataSession);
-        }
-
-        if (session) {
-          session.user?.name && setGoogleName(session.user.name);
-          session.user?.email && setGoogleEmail(session.user.email);
-          session.user?.image && setGooglePicture(session.user.image);
-
-          const updatedDataSession = {
-            ...dataSession,
-            email: googleEmail,
-            username: googleName,
-            password: ''
-          };
-          console.log('data update with data Session:: ', updatedDataSession);
-
-          const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedDataSession)
-          };
-          console.log('options before send to dbb:: ', options);
-
-          fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, options)
-            .then((response) => {
-              if (response.status === 208) {
-                console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-                setIsRegistered(true);
-                nextStep.onClick(5);
-              }
-            })
-            .catch((error) => {
-              console.log('ERROR Sir in _MembershipContent4_ ', error);
-
-            });
-
-        } else {
-          console.log('Aucune identification avec un compte Google trouvé !');
-          const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(storedData)
-          };
-          const optionsGoodFormat = _transformObject(options)
-          console.log('options before send to dbb:: ', optionsGoodFormat);
-
-          fetch(`${process.env.CLIENT_URL}/api/auth/recordMemberInfo`, optionsGoodFormat)
-            .then((response) => {
-              if (response.status === 208) {
-                console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-                setIsRegistered(true);
-                nextStep.onClick(5);
-              }
-            })
-            .catch((error) => {
-              console.log('ERROR Sir in _MembershipContent4_ ', error);
-
-            })
-        }
-      });
-
-  }, [dataSession, googleEmail, googleName, nextStep]);*/
+    if (session) {
+      session.user?.name && setGoogleName(session.user.name);
+      session.user?.email && setGoogleEmail(session.user.email);
+      session.user?.image && setGooglePicture(session.user.image);
+    }
+  }, []);
 
   return (
     <div>
       <main className='flex-1'>
-        {(height !== 0) && <div className='flex' style={{ height: `${height - 80}px` }}>
+        {(height !== 0) && <>
 
-          LEFT
+          {session ?
+            record(dataFromLocalStorage, setIsRegistered, nextStep, session?.user?.email)
+            : record(dataFromLocalStorage, setIsRegistered, nextStep)}
+
+          <div className='flex' style={{ height: `${height - 80}px` }}>
+
+          {/*LEFT*/}
           <section className='lg:flex w-1/2 hidden bg-cover'
                    style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
           >
             <div className=' text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full'>
               <div>
-                <h1 className='text-5xl tracking-wide'>Club 306</h1>
-                <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>
+                {/*<h1 className='text-5xl tracking-wide'>Club 306</h1>
+                <p className='text-3xl my-4'>Rejoins nous dans l&apos;aventure Peugeot 306</p>*/}
               </div>
             </div>
           </section>
 
-          RIGHT
+          {/*RIGHT*/}
           <section className='h-full lg:w-1/2 w-full lg:flex flex-col justify-between'>
 
             {!isRegistered && (
@@ -197,10 +90,10 @@ export default function MembershipContent4(nextStep: any) {
                 }
                 <div className='flex-grow'>
                   <h2 className='title-font font-medium'>
-                    {googleName || dataSession?.last_name + ' ' + dataSession?.first_name}
+                    {googleName || dataFromLocalStorage?.last_name + ' ' + dataFromLocalStorage?.first_name}
                   </h2>
                   <p className='ml-4'>
-                    {googleEmail || dataSession?.email}
+                    {googleEmail || dataFromLocalStorage?.email}
                   </p>
                 </div>
                 <p className='lg:w-2/3 mx-auto leading-relaxed text-base mt-8'>pour ta
@@ -231,11 +124,10 @@ export default function MembershipContent4(nextStep: any) {
             )}
 
           </section>
-        </div>
+          </div>
+        </>
         }
       </main>
-
-      )
     </div>
   );
 }
@@ -252,12 +144,3 @@ function _useLayoutHeight() {
 
   return height;
 }
-
-/*function _transformObject(obj: any) {
-  obj.body = JSON.parse(obj.body);
-  return obj;
-}
-function _transformObject(options: { method: string; headers: { 'Content-Type': string; }; body: string; }) {
-    throw new Error('Function not implemented.');
-}*/
-
