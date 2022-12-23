@@ -46,7 +46,7 @@ export default function Login() {
   }
 
   return (
-    <Layout title='Ecran Connexion'>
+    <Layout title='Ecran Connexion' displayNavbar={false}>
       <div className='container mx-auto'>
         <main className='flex-1'>
           {(height !== 0) && <div className='flex' style={{ height: `${height}px` }}>
