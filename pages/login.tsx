@@ -3,18 +3,13 @@ import Link from 'next/link';
 import { HiAtSymbol } from 'react-icons/hi';
 import { AiOutlineEye } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useFormik } from 'formik';
 import login_validate from '../lib/validate';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 
 export default function Login() {
-  /*const { data: session } = useSession();
-  console.log('session',session?.user?.email)
-  if (session?.user?.email) {
-    signOut({ callbackUrl: `${process.env.CLIENT_URL}/login` })
-  }*/
   const formik = useFormik({
     initialValues: {
       email: '',
