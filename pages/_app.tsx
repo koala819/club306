@@ -6,8 +6,14 @@ import {linkResolver, repositoryName} from '../prismicio';
 import { SessionProvider } from "next-auth/react";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { useState } from 'react'
 
-export default function App({Component, pageProps}: any) {
+export default function App({Component, pageProps}) {
+  // Create a new supabase browser client on every first render.
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+
     return (
         <SessionProvider session={pageProps.session}>
             <PrismicProvider
@@ -21,7 +27,12 @@ export default function App({Component, pageProps}: any) {
                 )}
             >
                 <PrismicPreview repositoryName={repositoryName}>
+                  <SessionContextProvider
+                    supabaseClient={supabaseClient}
+                    initialSession={pageProps.initialSession}
+                  >
                     <Component {...pageProps} />
+                  </SessionContextProvider>
                 </PrismicPreview>
             </PrismicProvider>
         </SessionProvider>

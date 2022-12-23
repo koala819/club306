@@ -10,11 +10,11 @@ import { useState, useEffect } from 'react';
 import Router from 'next/router';
 
 export default function Login() {
-  const { data: session } = useSession();
+  /*const { data: session } = useSession();
   console.log('session',session?.user?.email)
   if (session?.user?.email) {
     signOut({ callbackUrl: `${process.env.CLIENT_URL}/login` })
-  }
+  }*/
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -163,7 +163,7 @@ export default function Login() {
 }
 
 async function _handleGoogleSignin() {
-  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}/login` });
+  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
 }
 
 function _useLayoutHeight() {
