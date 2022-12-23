@@ -6,29 +6,41 @@ import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
-import { createClient } from '@supabase/supabase-js';
-import { useState } from 'react';
+import check from '../lib/checkRecordMember'
+import { useEffect, useState } from 'react';
 
-export default function Index() {
+export default  function Index() {
   const { data: session } = useSession();
-  const [registered, setRegistered] = useState(false);
-  console.log('utilisateur enregistré ?', registered);
-  console.log('utilisateur email', session?.user?.email);
-  checkAuthWithEmail(session?.user?.email, setRegistered);
-  /*if (registered === false && session) {
+  const [registredMember, setRegistredMember] = useState(false);
+  useEffect(() => {
+    if (session?.user!== undefined) {
+      //console.log('kesako in session',session)
 
-    xavFunction()
-      .then(() => console.log('Votre compte n\'existe pas encore. Veuillez en créer un svp.'))
-  }
+      if (Object.keys(session?.user).length !== 0) {
+        check(session)
+          .then((response) => {
+            setRegistredMember(response)
+            console.log('ce membre Google est-il autorisé ?', setRegistredMember)
+          })
+      }
 
-  async function xavFunction() {
+      else {
+        console.log('we have a standard account with login / pwd')
+        setRegistredMember(true)
+      }
 
+    }
+  },[session])
+
+ /* if (session) {
+    const xx = check(session)
+    console.log('ce membre Google est-il autorisé ?', xx)
   }*/
-
+//console.log('ce membre Google est-il autorisé ?', setRegistredMember)
   return (
     <div>
-      {session && registered ?
-        _User({ session, setRegistered })
+      {registredMember ?
+        _User({ session })
         : _Guest()
       }
     </div>
@@ -124,7 +136,7 @@ function _Guest() {
     <div>
 
       <div className="fixed w-full  inset-x-0 top-0 z-50">
-       <Navbar />
+        <Navbar />
       </div>
 
 
@@ -148,7 +160,7 @@ async function _handleGoogleSignout() {
   await signOut({ callbackUrl: `${process.env.CLIENT_URL}` });
 }
 
-async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
+/*async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
   try {
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -169,4 +181,4 @@ async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
   } catch (error) {
     console.log('Erreur lors de la vérif de l\'email');
   }
-}
+}*/
