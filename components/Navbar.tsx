@@ -147,14 +147,26 @@ export default function Navbar(props: any) {
                 </div>
                 <ul className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    <Link href='login'>
-                      Se Connecter
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href='partners'>
+                    {props.member && <Link href='partners'
+                                           className={styles.a}
+                    >
                       Partenariats
                     </Link>
+                    }
+                  </li>
+                  <li>
+                    {props.member ?
+                      <div className={styles.a}
+                           onClick={() => _handleGoogleSignout()}
+                      >
+                        Se Déconnecter
+                      </div>
+                      :
+                      <Link href='login'
+                            className={styles.a}>
+                        Se Connecter
+                      </Link>}
+
                   </li>
                 </ul>
               </li>
@@ -255,7 +267,16 @@ export default function Navbar(props: any) {
               </svg>
             </div>
             <ul
-              className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'>
+              className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'
+            >
+              <li>
+                {props.member && <Link href='partners'
+                                       className={styles.a}
+                >
+                  Partenariats
+                </Link>
+                }
+              </li>
               <li>
                 {props.member ?
                   <div className={styles.a}
@@ -269,14 +290,6 @@ export default function Navbar(props: any) {
                     Se Connecter
                   </Link>}
 
-              </li>
-              <li>
-                {props.member && <Link href='partners'
-                                       className={styles.a}
-                >
-                  Partenariats
-                </Link>
-                }
               </li>
             </ul>
           </li>
