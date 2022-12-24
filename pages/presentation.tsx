@@ -1,6 +1,5 @@
-import type { NextPage } from 'next';
 import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Layout } from "../components/Layout";
 import AdhesionComponent from "../components/Adhesion";
 import pictureCircuit from "../public/images/LGHA-Juin2019.jpg";
 import pictureField from "../public/images/rassemblement306.jpg";
@@ -8,11 +7,9 @@ import pictureYellow from "../public/images/306Jaune.jpg";
 import Image from "next/image";
 import Link from 'next/link';
 
-
-const Presentation : NextPage = () => {
-
+export default function Presentation () {
     return (
-        <div>
+        <Layout title={'Présentation du Club 306'} >
             <Header />
             <section className="text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto">
@@ -30,7 +27,7 @@ const Presentation : NextPage = () => {
                         </div>
                         <div className="basis-2/3 sm:pl-4 pl-0 ">
                             <div className="flex flex-col justify-center h-full">
-                                <h2 className="text-gray-900 text-lg title-font font-medium mb-2 ">Histoire</h2>
+                                <h2 className="text-gray-900 text-lg title-font font-medium mb-2 ">Histoire </h2>
                                 <p className="leading-relaxed text-base">Le club a été créé suite a un besoin exprimé par de
                                     nombreuses personnes qui sont membres de forums ou groupes. Sous l’impulsion d’une dizaine
                                     de volontaire en 2016, le Club306 est officiellement lancé.</p>
@@ -133,9 +130,6 @@ const Presentation : NextPage = () => {
                 </div>
             </section>
             <AdhesionComponent />
-            <Footer />
-        </div>
+        </Layout>
     );
 }
-
-export default Presentation

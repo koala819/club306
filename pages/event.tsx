@@ -1,9 +1,22 @@
 import {Layout} from '../components/Layout'
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function PageName() {
+    const { data: session } = useSession();
+    const router = useRouter();
+
+    useEffect(()=>{
+        if(!session){
+            router.push('/')
+        }
+    },[router, session])
+
     return (
-      <Layout title="Evenements à venir">
+      <>
+      {session && <Layout title="Evenements à venir">
           <section className="text-gray-600 body-font">
               <div className="container px-5 py-24 mx-auto flex flex-wrap">
                   <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
@@ -67,5 +80,7 @@ export default function PageName() {
               </div>
           </section>
       </Layout>
+      }
+      </>
     )
 }
