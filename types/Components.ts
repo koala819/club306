@@ -7,4 +7,6 @@ export interface Children {
 export type LayoutProps = {
     title: string,
     displayNavbar?: boolean,
+    bgColor?: string,
+    member?: boolean,
 } & Children
