@@ -3,8 +3,10 @@ import Image from "next/image";
 import picture306 from '../public/images/logoClub306.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
+import { signOut } from 'next-auth/react';
 
 export default function Navbar(props: any) {
+
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);
@@ -255,17 +257,26 @@ export default function Navbar(props: any) {
             <ul
               className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'>
               <li>
-                <Link href='login'
-                      className={styles.a}>
-                  Se Connecter
-                </Link>
+                {props.member ?
+                  <div className={styles.a}
+                    onClick={() => _handleGoogleSignout()}
+                  >
+                    Se Déconnecter
+                  </div>
+                :
+                  <Link href='login'
+                       className={styles.a}>
+                    Se Connecter
+                  </Link>}
+
               </li>
               <li>
-                <Link href='partners'
-                      className={styles.a}
+                {props.member && <Link href='partners'
+                                       className={styles.a}
                 >
                   Partenariats
                 </Link>
+                }
               </li>
             </ul>
           </li>
@@ -284,3 +295,6 @@ export default function Navbar(props: any) {
   );
 }
 
+async function _handleGoogleSignout() {
+  await signOut({ callbackUrl: `${process.env.CLIENT_URL}` });
+}
