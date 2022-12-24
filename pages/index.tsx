@@ -7,7 +7,6 @@ import Picture306 from '../components/Picture306';
 import { useSession } from 'next-auth/react';
 import check from '../lib/checkRecordMember';
 import { useEffect, useState } from 'react';
-import { Layout } from '../components/Layout';
 
 export default function Index() {
   const { data: session } = useSession();
@@ -31,7 +30,10 @@ export default function Index() {
   }, [session]);
 
   return (
-    <Layout title={'Club 306'} bgColor={'#ADA075'} member={true}>
+    <div>
+      <div className='fixed w-full  inset-x-0 top-0 z-50'>
+        <Navbar />
+      </div>
       <Picture306 />
       <Presentation />
       {registredMember && <div className='flex items-center justify-center'>
@@ -46,6 +48,6 @@ export default function Index() {
       </section>
       <Partners />
       <Footer />
-    </Layout>
+    </div>
   );
 }

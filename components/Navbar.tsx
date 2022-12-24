@@ -1,37 +1,57 @@
-import { useState } from 'react';
-import Image from "next/image";
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import picture306 from '../public/images/logoClub306.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import check from '../lib/checkRecordMember';
 
-export default function Navbar(props: any) {
-
+export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
+  const { data: session } = useSession();
+  const [registeredMember, setRegisteredMember] = useState(false);
+
+  useEffect(() => {
+    if (session?.user !== undefined) {
+
+      if (Object.keys(session?.user).length !== 0) {
+        check(session)
+          .then((response) => {
+            setRegisteredMember(response);
+          });
+      } else {
+        console.log('we have a standard account with login / pwd');
+        setRegisteredMember(true);
+      }
+
+    }
+  }, [session]);
+
   return (
     <div className='relative '>
       <nav className='flex px-4 md:shadow-lg items-center px-2
-            dark:bg-gray-900 dark:border-gray-700'
+            dark:bg-gray-900 dark:border-gray-700  bg-white'
            style={{
              /*backgroundColor: props.bgColor || '#3B578E',
              color: '#F7F9FF'}}*/
-             backgroundColor: props.bgColor || '#F7F9FF',
-             color: '#3B578E'}}
+             backgroundColor: registeredMember ? '#ADA075' : '#F7F9FF',
+             color: '#3B578E'
+           }}
       >
         <Link href='/'>
-            <Image
-              src={picture306}
-              alt='logo club 306'
-              width={240}
-              height={46}
-              className='mr-3 h-6 sm:h-10'
-              style={{
-                maxWidth: "100%",
-                height: "auto"
-              }} />
+          <Image
+            src={picture306}
+            alt='logo club 306'
+            width={240}
+            height={46}
+            className='mr-3 h-6 sm:h-10'
+            style={{
+              maxWidth: '100%',
+              height: 'auto'
+            }} />
         </Link>
         {/*SECTION MOBILE*/}
         <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0'>
@@ -104,6 +124,38 @@ export default function Navbar(props: any) {
                   </li>
                 </ul>
               </li>
+              { registeredMember ?
+                <li onClick={() => setEventOpen((prev) => !prev)}>
+                  <div
+                    className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'
+                  >
+                    <span>Evènements</span>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='w-4 h-4 fill-current pt-1'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
+                    </svg>
+                  </div>
+                  <ul className={isEventOpen ? 'showSubMenu' : 'hideMenuNav'}>
+                    <li>
+                      <Link href='event' className='flex px-4 py-3 hover:bg-gray-50'>
+                        Evènements à venir
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href='blog' className='flex px-4 py-3 hover:bg-gray-50'>
+                        Blog : évènements passés
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+                : <li
+                  className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'>
+                  <Link href='blog'>Blog</Link>
+                </li>
+              }
 
               <li onClick={() => setEventOpen((prev) => !prev)}>
                 <div
@@ -147,15 +199,15 @@ export default function Navbar(props: any) {
                 </div>
                 <ul className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}>
                   <li>
-                    {props.member && <Link href='partners'
-                                           className={styles.a}
+                    {registeredMember && <Link href='partners'
+                                               className={styles.a}
                     >
                       Partenariats
                     </Link>
                     }
                   </li>
                   <li>
-                    {props.member ?
+                    {registeredMember ?
                       <div className={styles.a}
                            onClick={() => _handleGoogleSignout()}
                       >
@@ -227,32 +279,41 @@ export default function Navbar(props: any) {
               </li>
             </ul>
           </li>
-          <li className='relative parent'>
-            <div
-              className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'>
-              <span>Evènements</span>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='w-4 h-4 fill-current pt-1'
-                viewBox='0 0 24 24'
+          { registeredMember ?
+            <li className='relative parent'>
+              <div
+                className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'>
+                <span>Evènements</span>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='w-4 h-4 fill-current pt-1'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
+                </svg>
+              </div>
+              <ul
+                className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#F7F9FF]'>
+                <li>
+                  <Link href='event' className={styles.a}>
+                    Evènements à venir
+                  </Link>
+                </li>
+                <li>
+                  <Link href='blog' className={styles.a}>
+                    Blog : évènements passés
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            : <li>
+              <Link href='blog'
+                    className={styles.a}
               >
-                <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
-              </svg>
-            </div>
-            <ul
-              className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#F7F9FF]'>
-              <li>
-                <Link href='event' className={styles.a}>
-                  Evènements à venir
-                </Link>
-              </li>
-              <li>
-                <Link href='blog' className={styles.a}>
-                  Blog : évènements passés
-                </Link>
-              </li>
-            </ul>
-          </li>
+                Blog
+              </Link>
+            </li>
+          }
           <li className='relative parent'>
             <div
               className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'
@@ -270,23 +331,23 @@ export default function Navbar(props: any) {
               className='child transition duration-300 md:absolute top-full right-0 md:w-48 bg-[#F7F9FF] md:shadow-lg md:rounded-b'
             >
               <li>
-                {props.member && <Link href='partners'
-                                       className={styles.a}
+                {registeredMember && <Link href='partners'
+                                           className={styles.a}
                 >
                   Partenariats
                 </Link>
                 }
               </li>
               <li>
-                {props.member ?
+                {registeredMember ?
                   <div className={styles.a}
-                    onClick={() => _handleGoogleSignout()}
+                       onClick={() => _handleGoogleSignout()}
                   >
                     Se Déconnecter
                   </div>
-                :
+                  :
                   <Link href='login'
-                       className={styles.a}>
+                        className={styles.a}>
                     Se Connecter
                   </Link>}
 
