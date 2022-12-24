@@ -6,54 +6,43 @@ import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
-import check from '../lib/checkRecordMember'
+import check from '../lib/checkRecordMember';
 import { useEffect, useState } from 'react';
 
-export default  function Index() {
+export default function Index() {
   const { data: session } = useSession();
   const [registredMember, setRegistredMember] = useState(false);
+
   useEffect(() => {
-    if (session?.user!== undefined) {
+    if (session?.user !== undefined) {
       //console.log('kesako in session',session)
 
       if (Object.keys(session?.user).length !== 0) {
         check(session)
           .then((response) => {
-            setRegistredMember(response)
-            console.log('ce membre Google est-il autorisé ?', setRegistredMember)
-          })
-      }
-
-      else {
-        console.log('we have a standard account with login / pwd')
-        setRegistredMember(true)
+            setRegistredMember(response);
+            console.log('ce membre Google est-il autorisé ?', setRegistredMember);
+          });
+      } else {
+        console.log('we have a standard account with login / pwd');
+        setRegistredMember(true);
       }
 
     }
-  },[session])
+  }, [session]);
 
- /* if (session) {
-    const xx = check(session)
-    console.log('ce membre Google est-il autorisé ?', xx)
-  }*/
-//console.log('ce membre Google est-il autorisé ?', setRegistredMember)
   return (
+    /* <div>
+       {registredMember ?
+         _User({ session })
+         : _Guest()
+       }
+     </div>*/
     <div>
-      {registredMember ?
-        _User({ session })
-        : _Guest()
-      }
-    </div>
-  );
-}
-
-function _User({ session }: any) {
-  return (
-    <div>
-      <main className='container mx-auto text-center py-20'>
+      {registredMember && <main className='container mx-auto text-center py-20'>
         <h3 className='text-4xl font-bold'>Authorize User Homepage</h3>
-        <h5>{session.user.name}</h5>
-        <h5>{session.user.email}</h5>
+        <h5>{session?.user?.name}</h5>
+        <h5>{session?.user?.email}</h5>
         <div className='flex justify-center'>
           <button
             className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 bg-gray-50'
@@ -62,8 +51,33 @@ function _User({ session }: any) {
             Se déconnecter
           </button>
         </div>
-      </main>
-      <div className="fixed w-full  inset-x-0 top-0 z-50">
+      </main>}
+      <div className='fixed w-full  inset-x-0 top-0 z-50'>
+        {registredMember ? <Navbar bgColor={'#ADA075'} /> : <Navbar />}
+      </div>
+      <Picture306 />
+      <Presentation />
+      {registredMember && <div className='flex items-center justify-center'>
+        <iframe
+          src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fclub306france&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId'
+          width='500' height='500'
+          scrolling='no'
+          allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share' />
+      </div>}
+      <section className='w-full h-screen'>
+        <Outings />
+      </section>
+      <Partners />
+      <Footer />
+    </div>
+  );
+}
+
+function _User({ session }: any) {
+  return (
+    <div>
+
+      <div className='fixed w-full  inset-x-0 top-0 z-50'>
         <Navbar bgColor={'#ADA075'} />
       </div>
 
@@ -78,13 +92,7 @@ function _User({ session }: any) {
 
       {/*Section 03*/}
       <section className='w-full h-5/6'>
-        <div className='flex items-center justify-center'>
-          <iframe
-            src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fclub306france&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId'
-            width='500' height='500'
-            scrolling='no'
-            allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share' />
-        </div>
+
 
         <section className='text-gray-600 body-font text-white bg-blue-500 border-0 mt-4'>
           <div className='container px-5 py-24 mx-auto flex items-center md:flex-row flex-col'>
@@ -130,55 +138,13 @@ function _User({ session }: any) {
   );
 }
 
-function _Guest() {
+/*function _Guest() {
 
   return (
-    <div>
 
-      <div className="fixed w-full  inset-x-0 top-0 z-50">
-        <Navbar />
-      </div>
-
-
-      <Picture306 />
-
-
-      <Presentation />
-
-      <section className='w-full h-screen'>
-        <Outings />
-      </section>
-
-      <Partners />
-
-      <Footer />
-    </div>
   );
-}
+}*/
 
 async function _handleGoogleSignout() {
   await signOut({ callbackUrl: `${process.env.CLIENT_URL}` });
 }
-
-/*async function checkAuthWithEmail(googleUser: any, setRegistered: any) {
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-      process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
-    );
-    const { data: members2 } = await supabase
-      .from('members')
-      .select('*')
-      .filter('email', 'eq', googleUser);
-    console.log('in members2 we have',members2)
-    if (members2?.length !== 0) {
-      return setRegistered(true);
-    } else {
-      console.log('no register in database');
-      return setRegistered(false);
-    }
-
-  } catch (error) {
-    console.log('Erreur lors de la vérif de l\'email');
-  }
-}*/
