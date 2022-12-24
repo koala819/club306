@@ -47,7 +47,7 @@ export default function Login() {
           {(height !== 0) && <div className='flex' style={{ height: `${height}px` }}>
 
             {/*LEFT*/}
-            <section className='lg:flex w-1/2 hidden bg-cover'
+            <section className='lg:flex lg:w-2/3 hidden bg-cover'
                      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)' }}
             >
               {/*La hauteur de cette div est : {height} px*/}
@@ -61,7 +61,7 @@ export default function Login() {
             </section>
 
             {/*RIGHT*/}
-            <section className='w-full flex flex-col justify-between my-4 mb-16'>
+            <section className='w-full flex flex-col justify-between my-4 mb-16 lg:w-1/3'>
 
               {/*Section HAUT*/}
               <div className=''>
@@ -81,7 +81,7 @@ export default function Login() {
               {/*Section MILIEU*/}
               <div className=''>
                 <div
-                  className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56'
+                  className='border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56 lg:mx-28'
                 >
                   <button type='button'
                           onClick={() => _handleGoogleSignin()}
