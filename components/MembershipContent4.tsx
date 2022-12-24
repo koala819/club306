@@ -40,7 +40,8 @@ export default function MembershipContent4(nextStep: any) {
 
           {session ?
             record(dataFromLocalStorage, setIsRegistered, nextStep, session?.user?.email)
-            : record(dataFromLocalStorage, setIsRegistered, nextStep)}
+            : record(dataFromLocalStorage, setIsRegistered, nextStep)
+          }
 
           <div className='flex' style={{ height: `${height - 80}px` }}>
 
