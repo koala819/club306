@@ -26,12 +26,11 @@ export default function Login() {
       redirect: false,
       email: values.email,
       password: values.password,
-      callbackUrl: '/user'
     })
       .then ((status) =>{
         if (status?.url !== null && status?.url !== undefined) {
           Router.push({
-            pathname: '/user',
+            pathname: '/',
             query: { message: "Signin with success" }
           });
         } else {
