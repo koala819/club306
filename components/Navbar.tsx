@@ -232,7 +232,7 @@ export default function Navbar() {
 
         {/*SECTION NORMALE*/}
         <ul
-          className='md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 DESKTOP-MENU hidden space-x-8'>
+          className='md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 DESKTOP-MENU hidden space-x-8 z-50'>
           <li>
             <Link href='/'
                   className={styles.a}

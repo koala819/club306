@@ -17,8 +17,36 @@ export default function PageName() {
     return (
       <>
       {session && <Layout title="Evenements à venir">
-          <section className="text-gray-600 body-font">
+          <section className="text-gray-600 body-font z-10">
               <div className="container px-5 py-24 mx-auto flex flex-wrap">
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-80 title-font font-medium text-sm">01
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">02
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">03
+                      </div>
+                  </div>
+
                   <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
                       <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
                           <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
@@ -50,6 +78,34 @@ export default function PageName() {
                           </div>
                       </div>
                   </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">05
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">06
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">07
+                      </div>
+                  </div>
+
                   <div className="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
                       <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
                           <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
@@ -77,6 +133,43 @@ export default function PageName() {
                           </div>
                       </div>
                   </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">09
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">10
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">11
+                      </div>
+                  </div>
+
+                  <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
+                      <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
+                          <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+                      </div>
+                      <div
+                        className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">12
+                      </div>
+                  </div>
+
               </div>
           </section>
       </Layout>
