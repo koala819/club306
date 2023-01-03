@@ -1,12 +1,8 @@
-import type { NextPage } from 'next'
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-const Contact : NextPage = () => {
+import { Layout } from "../components/Layout";
+export default  function Contact () {
 
     return (
-        <div>
-            <Header />
+            <Layout title="Contact">
             <section className="center text-gray-600 body-font relative">
                 <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
                     <div
@@ -42,9 +38,6 @@ const Contact : NextPage = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
-        </div>
+            </Layout>
     )
 }
-
-export default Contact
