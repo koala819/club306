@@ -1,11 +1,9 @@
-import {NextPage} from "next";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Layout } from "../components/Layout";
 import React from "react";
 import CardStaff from "../components/CardStaff";
 
 
-const Staff: NextPage = () => {
+export default function Staff () {
     const StaffMember = [
         {
             picture: "/images/clubGaucherotFabrice.jpg",
@@ -160,8 +158,7 @@ const Staff: NextPage = () => {
     ];
 
     return (
-        <div>
-            <Header/>
+        <Layout title="l'équipe de Club 306">
             <div className="container my-24 px-6 mx-auto">
                 <section className="mb-32 text-gray-800 text-center">
 
@@ -186,9 +183,6 @@ const Staff: NextPage = () => {
                     </div>
                 </section>
             </div>
-            <Footer/>
-        </div>
+        </Layout>
     )
 }
-
-export default Staff
