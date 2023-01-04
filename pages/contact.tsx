@@ -15,7 +15,7 @@ export default  function Contact () {
                     </div>
                     <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
                         <h2 className="text-gray-900 text-lg mb-1 font-medium title-font">Contact</h2>
-                        <p className="leading-relaxed mb-5 text-gray-600">Une question sur adhésion, le suivi d&apos;une commande ou par rapport à un évènement ? Contactez nous ^_^</p>
+                        <p className="leading-relaxed mb-5 text-gray-600">Une question concernant l&apos;adhésion ? un évènement ? un bon plan à partager? Passer une vitesse, déposer un message et accélérer jusqu'à cliquer sur "envoyer" ^_^</p>
                         <div className="relative mb-4">
                             <label htmlFor="name" className="leading-7 text-sm text-gray-600">Nom</label>
                             <input type="text" id="name" name="name"
