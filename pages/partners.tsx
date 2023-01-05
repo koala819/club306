@@ -1,5 +1,9 @@
 import {Layout} from '../components/Layout'
+import Partners from '../components/Partners';
 
 export default function PageName() {
-    return (<Layout title="Nos partenaires"><h1>Nos partenaires</h1></Layout>)
+    return (
+      <Layout title="Nos partenaires">
+          <Partners />
+      </Layout>)
 }
