@@ -54,7 +54,7 @@ export default function Navbar() {
             }} />
         </Link>
         {/*SECTION MOBILE*/}
-        <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0'>
+        <section className='MOBILE-MENU flex md:hidden ml-auto top-full left-0 right-0 z-50'>
           <div
             className='HAMBURGER-ICON space-y-2'
             onClick={() => setIsNavOpen((prev) => !prev)}
@@ -123,6 +123,11 @@ export default function Navbar() {
                     </Link>
                   </li>
                 </ul>
+              </li>
+              <li className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'>
+                <Link href='documents'>
+                  Documents
+                </Link>
               </li>
               { registeredMember ?
                 <li onClick={() => setEventOpen((prev) => !prev)}>
@@ -223,7 +228,7 @@ export default function Navbar() {
                 </ul>
               </li>
 
-              <li className='border-b border-gray-400 my-8 uppercase'>
+              <li className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'>
                 <Link href='contact'>Contact</Link>
               </li>
             </ul>
