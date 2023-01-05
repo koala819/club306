@@ -3,7 +3,10 @@ module.exports = async () => {
     reactStrictMode: true,
     swcMinify: true,
     images: {
-      domains: ['lh3.googleusercontent.com','www.thebigcarshow.com','scontent-cdt1-1.xx.fbcdn.net']
+      domains: ['lh3.googleusercontent.com',
+        'www.thebigcarshow.com',
+        'scontent-cdt1-1.xx.fbcdn.net',
+        'images.unsplash.com']
     },
     env: {
       PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
