@@ -279,6 +279,12 @@ export default function Navbar() {
               </li>
             </ul>
           </li>
+          <li>
+            <Link href='documents'
+                  className={styles.a}>
+              Documents
+            </Link>
+          </li>
           { registeredMember ?
             <li className='relative parent'>
               <div
