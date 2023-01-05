@@ -46,7 +46,7 @@ export default function Index() {
       <section className='w-full h-screen'>
         <Outings />
       </section>
-      <Partners />
+      {registredMember && <Partners />}
       <Footer />
     </div>
   );
