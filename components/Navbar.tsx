@@ -11,6 +11,7 @@ export default function Navbar() {
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
+  const [isTuturialOpen, setTutorialOpen] = useState(false);
   const { data: session } = useSession();
   const [registeredMember, setRegisteredMember] = useState(false);
 
@@ -124,11 +125,13 @@ export default function Navbar() {
                   </li>
                 </ul>
               </li>
+
               <li className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'>
                 <Link href='documents'>
                   Documents
                 </Link>
               </li>
+
               { registeredMember ?
                 <li onClick={() => setEventOpen((prev) => !prev)}>
                   <div
@@ -161,33 +164,6 @@ export default function Navbar() {
                   <Link href='blog'>Blog</Link>
                 </li>
               }
-
-              <li onClick={() => setEventOpen((prev) => !prev)}>
-                <div
-                  className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'
-                >
-                  <span>Evènements</span>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='w-4 h-4 fill-current pt-1'
-                    viewBox='0 0 24 24'
-                  >
-                    <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
-                  </svg>
-                </div>
-                <ul className={isEventOpen ? 'showSubMenu' : 'hideMenuNav'}>
-                  <li>
-                    <Link href='Event' className='flex px-4 py-3 hover:bg-gray-50'>
-                      Evènements à venir
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href='blog' className='flex px-4 py-3 hover:bg-gray-50'>
-                      Blog : évènements passés
-                    </Link>
-                  </li>
-                </ul>
-              </li>
 
               <li onClick={() => setMemberOpen((prev) => !prev)}>
                 <div
@@ -227,6 +203,40 @@ export default function Navbar() {
                   </li>
                 </ul>
               </li>
+
+              { registeredMember &&
+                <li onClick={() => setTutorialOpen((prev) => !prev)}>
+                  <div
+                    className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'
+                  >
+                    <span>Tutoriels</span>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='w-4 h-4 fill-current pt-1'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
+                    </svg>
+                  </div>
+                  <ul className={isTuturialOpen ? 'showSubMenu' : 'hideMenuNav'}>
+                    <li>
+                      <Link href='mecanique' className='flex px-4 py-3 hover:bg-gray-50'>
+                        Mécanique
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href='electrique' className='flex px-4 py-3 hover:bg-gray-50'>
+                        Electrique
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href='moteur' className='flex px-4 py-3 hover:bg-gray-50'>
+                        Moteur
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              }
 
               <li className='flex justify-between p-4 items-center hover:bg-gray-50 space-x-2 border-b border-gray-400 my-8 uppercase'>
                 <Link href='contact'>Contact</Link>
@@ -365,6 +375,41 @@ export default function Navbar() {
               </li>
             </ul>
           </li>
+
+          { registeredMember &&
+            <li className='relative parent'>
+              <div
+                className='flex justify-between md:inline-flex p-4 items-center hover:bg-[#D7DEED] space-x-2'>
+                <span>Tutoriels</span>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='w-4 h-4 fill-current pt-1'
+                  viewBox='0 0 24 24'
+                >
+                  <path d='M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z' />
+                </svg>
+              </div>
+              <ul
+                className='child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg md:rounded-b bg-[#F7F9FF]'>
+                <li>
+                  <Link href='mecanique' className={styles.a}>
+                    Mécanique
+                  </Link>
+                </li>
+                <li>
+                  <Link href='electrique' className={styles.a}>
+                    Electrique
+                  </Link>
+                </li>
+                <li>
+                  <Link href='moteur' className={styles.a}>
+                    Moteur
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          }
+
           <li>
             <Link href='contact'
                   className={styles.a}>
