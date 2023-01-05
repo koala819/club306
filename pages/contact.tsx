@@ -9,8 +9,7 @@ export default function Contact() {
           <div
             className='lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative'>
             <iframe
-              className='absolute inset-0'
-              src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2781.9068895596333!2d3.167241015852697!3d45.79309307910619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f71e0d5abdb2bb%3A0x7af27c6e59a7982!2s1%20Imp.%20le%20Clos%20des%20Puys%2C%2063510%20Aulnat!5e0!3m2!1sfr!2sfr!4v1664366909223!5m2!1sfr!2sfr'
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.4837782314116!2d2.5016583150511273!3d48.906174505296015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e61309abfa1ec7%3A0x8b5008655e255987!2s12%20All.%20Ledru%20Rollin%2C%2093320%20Les%20Pavillons-sous-Bois!5e0!3m2!1sfr!2sfr!4v1672912951927!5m2!1sfr!2sfr"
               width='100%' height='100%' loading='lazy'
               referrerPolicy='no-referrer-when-downgrade'></iframe>
           </div>
