@@ -1,8 +1,8 @@
 import {Layout} from '../components/Layout';
-import articles_presse from '../public/images/documents_articles_presse.jpg';
-import catalogue from '../public/images/documents_catalogue.png';
-import magazine from '../public/images/documents_magazine.png';
-import publicite from '../public/images/pub.jpg';
+import articles_presse from '/images/documents_articles_presse.jpg';
+import catalogue from '/images/documents_catalogue.png';
+import magazine from '/images/documents_magazine.png';
+import publicite from '/images/pub.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 
