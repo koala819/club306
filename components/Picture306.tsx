@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 export default function Picture306() {
   const images = [carroussel_306_Yellow, carroussel_rassemblement_306, carroussel_two_306_white];
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const changeImage = () => {
     setCurrentIndex((currentIndex + 1) % images.length);

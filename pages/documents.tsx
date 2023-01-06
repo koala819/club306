@@ -1,4 +1,8 @@
-import {Layout} from '../components/Layout'
+import {Layout} from '../components/Layout';
+import articles_presse from '../public/images/documents_articles_presse.jpg';
+import catalogue from '../public/images/documents_catalogue.PNG';
+import magazine from '../public/images/documents_magazine.PNG';
+import publicite from '../public/images/pub.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,17 +16,12 @@ export default function PageName() {
               <div className="flex flex-wrap -mx-2">
 
                 <div className="px-2 w-1/2">
-                  <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative">
-                    <Image alt="gallery"
-                         className="w-full object-cover h-full object-center block opacity-25 absolute inset-0"
-                         src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                           fill
-                           sizes='100vw'
-                           style={{
-                             objectFit: 'cover',
-                             objectPosition: 'center'
-                           }}/>
-                      <div className="text-center relative z-10 w-full">
+                  <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative ">
+                    <Image alt="articles de presse"
+                         className="w-full h-full absolute inset-0 opacity-20 hover:bg-green-800"
+                         src={articles_presse}
+                    />
+                      <div className="text-center relative w-full">
                         <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Articles de presse</h2>
                         <Link className="mt-3 text-indigo-500 inline-flex items-center" href='articlesPress'>
                           Découvrir
@@ -37,15 +36,10 @@ export default function PageName() {
 
                 <div className="px-2 w-1/2">
                   <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative">
-                    <Image alt="gallery"
-                           className="w-full object-cover h-full object-center block opacity-25 absolute inset-0"
-                           src="https://images.unsplash.com/photo-1592799152713-5542a82544fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
-                           fill
-                           sizes='100vw'
-                           style={{
-                             objectFit: 'cover',
-                             objectPosition: 'center'
-                           }}/>
+                    <Image alt="magazine"
+                           className="w-full h-full opacity-25 absolute inset-0"
+                           src={magazine}
+                    />
                     <div className="text-center relative z-10 w-full">
                       <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Magazines</h2>
                       <Link className="mt-3 text-indigo-500 inline-flex items-center" href='magazines'>
@@ -65,15 +59,10 @@ export default function PageName() {
 
                 <div className="px-2 w-1/2">
                   <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative">
-                    <Image alt="gallery"
-                           className="w-full object-cover h-full object-center block opacity-25 absolute inset-0"
-                           src="https://images.unsplash.com/photo-1622551557132-c949387622e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                           fill
-                           sizes='100vw'
-                           style={{
-                             objectFit: 'cover',
-                             objectPosition: 'center'
-                           }}/>
+                    <Image alt="publicite"
+                           className="w-full h-full opacity-25 absolute inset-0"
+                           src={publicite}
+                    />
                     <div className="text-center relative z-10 w-full">
                       <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Publicités</h2>
                       <Link className="mt-3 text-indigo-500 inline-flex items-center" href='advertisings'>
@@ -89,15 +78,10 @@ export default function PageName() {
 
                 <div className="px-2 w-1/2">
                   <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative">
-                    <Image alt="gallery"
-                           className="w-full object-cover h-full object-center block opacity-25 absolute inset-0"
-                           src="https://images.unsplash.com/photo-1652509621255-709c807ed7c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
-                           fill
-                           sizes='100vw'
-                           style={{
-                             objectFit: 'cover',
-                             objectPosition: 'center'
-                           }}/>
+                    <Image alt="catalogue"
+                           className="w-full h-full opacity-25 absolute inset-0"
+                           src={catalogue}
+                    />
                     <div className="text-center relative z-10 w-full">
                       <h2 className="text-xl text-gray-900 font-medium title-font mb-2">Catalogues</h2>
                       <Link className="mt-3 text-indigo-500 inline-flex items-center" href='contactatalogues'>
