@@ -19,10 +19,10 @@ export default function Index() {
         check(session)
           .then((response) => {
             setRegistredMember(response);
-            console.log('ce membre Google est-il autorisé ?', setRegistredMember);
+            //console.log('ce membre Google est-il autorisé ?', setRegistredMember);
           });
       } else {
-        console.log('we have a standard account with login / pwd');
+        //console.log('we have a standard account with login / pwd');
         setRegistredMember(true);
       }
 
