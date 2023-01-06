@@ -16,7 +16,7 @@ export default function Picture306() {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(changeImage, 10000);
+    const intervalId = setInterval(changeImage, 7000);
     return () => clearInterval(intervalId);
   }, [changeImage]);
 
