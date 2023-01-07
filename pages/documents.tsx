@@ -17,7 +17,7 @@ export default function PageName() {
 
                 <div className="px-2 w-1/2">
                   <div className="flex flex-wrap w-full bg-gray-100 sm:py-24 py-16 sm:px-10 px-6 relative ">
-                    <Image alt="articles de presse"
+                    <Image alt="article de presse"
                          className="w-full h-full absolute inset-0 opacity-20 hover:bg-green-800"
                          src={articles_presse}
                     />
