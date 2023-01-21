@@ -187,6 +187,14 @@ export default function Navbar() {
                     </Link>
                     }
                   </li>
+				<li>
+					{!registeredMember &&
+					<Link href='membership'
+							className={styles.a}>
+						Adhérer
+					</Link>
+					}
+				</li>
                   <li>
                     {registeredMember ?
                       <div className={styles.a}
@@ -359,7 +367,15 @@ export default function Navbar() {
                 </Link>
                 }
               </li>
-              <li>
+			<li>
+                {!registeredMember &&
+                  <Link href='membership'
+                        className={styles.a}>
+                    Adhérer
+                  </Link>
+                  }
+			</li>
+			<li>
                 {registeredMember ?
                   <div className={styles.a}
                        onClick={() => _handleGoogleSignout()}
