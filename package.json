@@ -1,13 +1,13 @@
 {
 	"name": "pascal306",
-	"homepage": "http://gafa9870.odns.fr/yes",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "node server.js",
+		"dev": "next dev",
 		"build": "next build",
-		"start": "NODE_ENV=production node server.js",
-		"export": "next export"
+		"start": "next start",
+		"lint": "next lint",
+		"slicemachine": "start-slicemachine"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
