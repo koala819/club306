@@ -102,11 +102,11 @@ export default function MembershipContent2(nextStep: any) {
                              className='w-3 h-3' viewBox='0 0 24 24'>
                           <path d='M20 6L9 17l-5-5'></path>
                         </svg>
-                      </span>Etre averti des prochains rassos
+                      </span>Etre averti des prochains rasso
               </p>
 
               <PayPalScriptProvider
-                options={{ 'client-id': process.env.PAYPAL_CLIENT_ID || 'test', currency: 'EUR' }}>
+                options={{ 'client-id': 'test', currency: 'EUR' }}>
                 <PayPalButtons
                   createOrder={(data, actions) => {
                     return actions.order.create({
