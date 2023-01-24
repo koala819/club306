@@ -106,7 +106,7 @@ export default function MembershipContent2(nextStep: any) {
               </p>
 
               <PayPalScriptProvider
-                options={{ 'client-id': 'test', currency: 'EUR' }}>
+                options={{ 'client-id': process.env.PAYPAL_CLIENT_ID || 'test', currency: 'EUR' }}>
                 <PayPalButtons
                   createOrder={(data, actions) => {
                     return actions.order.create({
