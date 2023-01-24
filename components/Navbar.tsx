@@ -442,5 +442,5 @@ export default function Navbar() {
 }
 
 async function _handleGoogleSignout() {
-  await signOut({ callbackUrl: `${process.env.CLIENT_URL}` });
+  await signOut({ callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}` });
 }

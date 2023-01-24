@@ -157,7 +157,7 @@ export default function Login() {
 }
 
 async function _handleGoogleSignin() {
-  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` });
+  await signIn('google', { callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}` });
 }
 
 function _useLayoutHeight() {
