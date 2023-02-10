@@ -11,7 +11,11 @@ module.exports = async () => {
     env: {
 		PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
 		PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET,
-		CLIENT_URL: process.env.CLIENT_URL
+		CLIENT_URL: process.env.CLIENT_URL,
+		MAIL_USER: process.env.MAIL_USER,
+		MAIL_PWD: process.env.MAIL_PWD,
+		USR_CHECK_DB: process.env.USR_CHECK_DB,
+		USR_CHECK_DB2: process.env.USR_CHECK_DB2
     }
   };
 };
