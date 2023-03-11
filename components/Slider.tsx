@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from './CardSlider';
 import { useSession } from 'next-auth/react';
-import { dataPartners } from '../pages/partner';
+import { dataPartners } from '../pages/api/partner';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import check from '../lib/checkRecordMember';

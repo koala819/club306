@@ -1,7 +1,7 @@
-import GhostFactory from '../public/images/partners/GhostFactory.jpg';
-import Gryp3D from '../public/images/partners/Gryp3D.jpg';
-import DTCPerf from '../public/images/partners/DTCPerf.jpg';
-import CarCover from '../public/images/partners/CarCover.jpg';
+import GhostFactory from '../../public/images/partners/GhostFactory.jpg';
+import Gryp3D from '../../public/images/partners/Gryp3D.jpg';
+import DTCPerf from '../../public/images/partners/DTCPerf.jpg';
+import CarCover from '../../public/images/partners/CarCover.jpg';
 
 export const dataPartners = [
     {
