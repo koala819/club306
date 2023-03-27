@@ -1,28 +1,115 @@
-.a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    padding: 1rem;
-    transition: all ease-in-out 0.3s;
+/* DISPLAY MOBILE */
+.aMobile {
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+  padding: 1rem;
+  margin-left: 0.5rem;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(156 163 175);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
 }
 
-.a:hover {
-    /*color: #D7DEED;*/
-    color: #201C44;
-    /*background-color: #201C44;*/
-    background-color: #D7DEED;
+.aMobile:hover {
+  color: #201c44;
+  background-color: #d7deed;
 }
 
-.button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background-color: #D7DEED;
-    color: black;
-    border: none;
-    font-weight: 700;
-    font-size: 1.2rem;
-    transition: all ease-in-out 0.3s;
+.aMobileRegister {
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+  padding: 1rem;
+  margin-left: 0.5rem;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(75 85 99);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
 }
+
+.aMobileRegister:hover {
+  color: #be2525;
+  background-color: #f5f5dc;
+  border-radius: 8px;
+}
+
+.arrow {
+  margin-left: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+  padding-top: 0.25rem;
+}
+
+.aSubMenu,
+.aSubMenuRegister {
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.aSubMenu:hover {
+  color: #201c44;
+  background-color: rgb(229 231 235);
+}
+
+.aSubMenuRegister:hover {
+  color: #be2525;
+  background-color: #f5f5dc;
+  border-radius: 8px;
+}
+
+/* DISPLAY COMPUTER */
+.aNormal,
+.aNormalRegister {
+  display: flex;
+  text-align: center;
+  text-decoration: none;
+  padding: 1rem;
+  cursor: pointer;
+  /* transition: all ease-in-out 0.3s; */
+}
+
+.aNormal:hover {
+  color: #201c44;
+  background-color: #0c1f3f;
+  color: #ffa500;
+}
+
+.aNormalRegister:hover {
+  color: #be2525;
+  background-color: #f5f5dc;
+  border-radius: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+  .subMenu {
+    position: absolute;
+    width: 12rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+}
+/* .button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: #d7deed;
+  color: black;
+  border: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  transition: all ease-in-out 0.3s;
+} */
 /*
 .button:hover {
     background-color: #FFF;

@@ -1,13 +1,11 @@
 import Outings from '../components/Outings';
 import Partners from '../components/Partners';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import { Layout } from '../components/Layout';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import { useSession } from 'next-auth/react';
 import check from '../lib/checkRecordMember';
 import { useEffect, useState } from 'react';
-
 export default function Index() {
   const { data: session } = useSession();
   const [registredMember, setRegistredMember] = useState(false);
@@ -27,28 +25,26 @@ export default function Index() {
   }, [session]);
 
   return (
-    <div>
-      <div className="fixed w-full  inset-x-0 top-0 z-50">
-        <Navbar />
+    <Layout title="Index">
+      <div className="hidden md:block">
+        <Picture306 />
       </div>
-      <Picture306 />
       <Presentation />
       {registredMember && (
         <div className="flex items-center justify-center">
           <iframe
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fclub306france&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-            width="500"
-            height="500"
+            src="https:www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fclub306france&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+            width="1000"
+            height="1000"
             scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           />
         </div>
       )}
-      <section className="w-full h-screen">
-        <Outings />
-      </section>
+      {/* <section className="w-full h-screen"> */}
+      <Outings />
+      {/* </section> */}
       <Partners />
-      <Footer />
-    </div>
+    </Layout>
   );
 }

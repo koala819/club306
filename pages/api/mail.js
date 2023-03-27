@@ -10,8 +10,8 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "Don't have form data...!" });
       const email = process.env.MAIL_USER;
       const pass = process.env.MAIL_PWD;
-      console.log('in send mail send data are \n', req.body);
-      console.log('in send mail come from \n', req.body.from);
+      // console.log('in send mail send data are \n', req.body);
+      // console.log('in send mail come from \n', req.body.from);
 
       const transporter = nodemailer.createTransport({
         host: 'mail.club306.fr',
@@ -24,28 +24,44 @@ export default async function handler(req, res) {
         tls: { rejectUnauthorized: false },
       });
 
-      const mailOptions = {
-        from:
-          req.body.from === 'canI'
-            ? '"👼🚘🧙 Nouvelle Interrogation de notre base 🧙🚘👼" <watch.event@club306.fr>'
-            : '"🌟📧🔎 Un nouveau message à lire 🔍📧🌟" <contact-page@club306.fr>', // sender address
-        to:
-          req.body.from === 'canI'
-            ? 'president@club306.fr, xgenolhac@gmail.com'
-            : 'contact@club306.fr, president@club306.fr, xgenolhac@gmail.com', // list of receivers
-        subject:
-          req.body.from === 'canI'
-            ? 'Nouvelle recherche dans notre base détectée !!!'
-            : `${req.body.firstName} nous a écrit`, // Subject line
-        text:
-          req.body.from === 'canI'
-            ? `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}. Celui qui a fait cette recherche utilise ce mail ${req.body.user}`
-            : `${req.body.message}.<br> Adresse mail ${req.body.email} pour répondre.`, // plain text body
-        html:
-          req.body.from === 'canI'
-            ? `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}.<br>Celui qui a fait cette recherche utilise ce mail ${req.body.user}`
-            : `${req.body.message}.<br><br><br>Adresse mail :: <b>${req.body.email}</b>.`, // plain text body// html body
-      };
+      let mailOptions = {};
+      switch (req.body.from) {
+        case 'canI':
+          mailOptions = {
+            from: '"👼🚘🧙 Nouvelle Interrogation de notre base 🧙🚘👼" <watch.event@club306.fr>',
+            to: 'president@club306.fr, xgenolhac@gmail.com',
+            subject: 'Nouvelle recherche dans notre base détectée !!!',
+            text: `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}. Celui qui a fait cette recherche utilise ce mail ${req.body.user}`,
+            html: `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}.<br>Celui qui a fait cette recherche utilise ce mail ${req.body.user}`,
+          };
+          break;
+        case 'contact':
+          mailOptions = {
+            from: '"🌟📧🔎 Un nouveau message à lire 🔍📧🌟" <contact-page@club306.fr>',
+            to: 'contact@club306.fr, president@club306.fr, xgenolhac@gmail.com',
+            subject: `${req.body.firstName} nous a écrit`,
+            text: `${req.body.message}.<br> Adresse mail ${req.body.email} pour répondre.`,
+            html: `${req.body.message}.<br><br><br>Adresse mail :: <b>${req.body.email}</b>.`,
+          };
+          break;
+        case 'recordDataBase':
+          mailOptions = {
+            from: '"🎉🚀👤 Un nouveau membre vient de s\'inscrire 👤🚀🎉" <contact-page@club306.fr>',
+            // to: 'president@club306.fr, xgenolhac@gmail.com',
+            to: ' xgenolhac@gmail.com',
+            subject: `${req.body.first_name} ${req.body.last_name} vient de s'inscrire`,
+            html: `${req.body.first_name}<br>${req.body.last_name}<br>${req.body.address}<br>${req.body.zip_code}<br>${req.body.town}<br>${req.body.phone}<br>${req.body.immatriculation}<br>${req.body.birth_date}<br>${req.body.color}<br>${req.body.model}<br>${req.body.email}`,
+          };
+          break;
+        default:
+          mailOptions = {
+            from: '"🚨🚨Big Brother a report for you 🚘" <big.brother@watching.you>',
+            to: 'xgenolhac@gmail.com',
+            subject: 'Mail envoyé cas par défaut from Club306.fr',
+            text: `${req.body}`,
+            html: `${req.body}`,
+          };
+      }
 
       transporter.sendMail(mailOptions, function (error) {
         if (error) {
