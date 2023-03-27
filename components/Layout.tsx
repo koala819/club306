@@ -4,14 +4,17 @@ import Footer from './Footer';
 import { useElementSize } from 'usehooks-ts';
 
 export function Layout({ children, title, displayNavbar }: LayoutProps) {
-  const [divRef, { height }] = useElementSize()
+  const [divRef, { height }] = useElementSize();
 
   return (
-    <div className='min-h-screen flex flex-col'>
-      {(displayNavbar || displayNavbar === undefined) ? <Navbar /> : null}
+    <div className=" flex flex-col min-h-screen">
+      {displayNavbar || displayNavbar === undefined ? <Navbar /> : null}
       <title>{title}</title>
-      <main ref={divRef} id="mainDiv" className="flex-1"
-            style={{height:`${height}px`}}
+      <main
+        ref={divRef}
+        id="mainDiv"
+        className="flex-1"
+        style={{ height: `${height}px` }}
       >
         {children}
       </main>
