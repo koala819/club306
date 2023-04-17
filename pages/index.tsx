@@ -31,19 +31,46 @@ export default function Index() {
       </div>
       <Presentation />
       {registredMember && (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center overflow-hidden">
           <iframe
             src="https:www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fclub306france&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-            width="1000"
-            height="1000"
-            scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            style={{
+              minWidth: '100%',
+              maxWidth: '100%',
+              height: '593px',
+              border: 'none',
+              overflow: 'hidden',
+            }}
+            // width="500"
+            // height="660"
+            // style={{ border: 'none', overflow: 'hidden', width: '100%' }}
+            // scrolling="no"
+            // frameBorder="0"
+            // allowFullScreen={true}
+            // allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share, hide_cover"
           />
+          {/* <div
+            className="fb-page"
+            data-href="https://www.facebook.com/club306france"
+            data-tabs="timeline"
+            data-width="180"
+            data-height="360"
+            data-small-header="false"
+            data-adapt-container-width="true"
+            data-hide-cover="true"
+            data-show-facepile="false"
+          >
+            <blockquote
+              cite="https://www.facebook.com/club306france"
+              className="fb-xfbml-parse-ignore"
+            >
+              <a href="https://www.facebook.com/club306france">Club 306</a>
+            </blockquote>
+          </div> */}
         </div>
       )}
-      {/* <section className="w-full h-screen"> */}
       <Outings />
-      {/* </section> */}
       <Partners />
     </Layout>
   );
