@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-//const nodemailer = require("nodemailer");
-
 // console.log('check mail : ',process.env.CLIENT_URL)
 
 export default async function handler(req, res) {
@@ -63,7 +61,7 @@ export default async function handler(req, res) {
           };
       }
 
-      transporter.sendMail(mailOptions, function (error) {
+      await transporter.sendMail(mailOptions, function (error) {
         if (error) {
           console.log('Error Sir in send mail  :: ', error);
         } else {
@@ -81,18 +79,3 @@ export default async function handler(req, res) {
     res.status(405).end;
   }
 }
-
-// export const mailOptions = {
-//   from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//   to: 'contact@club306.fr', // list of receivers
-//   subject: 'Hello ✔', // Subject line
-//   text: 'Hello world?', // plain text body
-//   html: '<b>Hello world?</b>', // html body
-// };
-// transporter.sendMail(mailOptions, function (error, info) {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
