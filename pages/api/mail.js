@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-// console.log('check mail : ',process.env.CLIENT_URL)
+console.log('check mail : ', process.env.CLIENT_URL);
 
 export default async function handler(req, res) {
   try {
