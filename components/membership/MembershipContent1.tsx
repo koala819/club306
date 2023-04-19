@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
-import { membership_validate } from '../lib/validate';
+import { membership_validate } from '../../lib/validate';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import styles from '../styles/MemberShip.module.css';
+import styles from '../../styles/MemberShip.module.css';
 import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import Router from 'next/router';
+
 export default function MembershipContent1(nextStep: any) {
   const { data: session } = useSession();
   if (session?.user !== undefined) {
@@ -50,24 +52,6 @@ export default function MembershipContent1(nextStep: any) {
   }, []);
 
   function onSubmit(values: any) {
-    /*const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
-    };
-    console.log('options before send to dbb:: ', options);
-
-    fetch(`${process.env.CLIENT_URL}/api/recordMemberInfo`, options)
-      .then((response) => {
-        (response.status === 200) &&
-        console.log('_MembershipContent4_ New member has been created in db supabase with success :)');
-
-      })
-      .catch((error) => {
-        console.log('ERROR Sir in _MembershipContent4_ ', error);
-
-      });*/
-
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
   }
@@ -529,12 +513,25 @@ export default function MembershipContent1(nextStep: any) {
             </label>
           </div>
         </fieldset>
-        <button
-          type="submit"
-          className="text-[#F7F9FF] text-xl bg-[#3B578E] hover:bg-[#DB2323] active:bg-green-600 text-gray-100 px-7 py-1.5 rounded"
-        >
-          Suivant
-        </button>
+        <div>
+          <button
+            className=" hover:bg-[#DB2323] bg-[#3B578E]  active:bg-green-600 text-gray-100 text-xl px-7 py-1.5 rounded"
+            onClick={() => {
+              Router.push({
+                pathname: '/',
+              });
+            }}
+          >
+            Retour
+          </button>
+          &nbsp;
+          <button
+            type="submit"
+            className="text-[#F7F9FF] text-xl bg-[#3B578E] hover:bg-[#DB2323] active:bg-green-600 text-gray-100 px-7 py-1.5 rounded"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
     </form>
   );

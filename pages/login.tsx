@@ -47,20 +47,32 @@ export default function Login() {
           {height !== 0 && (
             <div className="flex" style={{ height: `${height}px` }}>
               {/*LEFT*/}
-              <section
-                className="lg:flex lg:w-2/3 hidden bg-cover"
-                style={{
-                  backgroundImage:
-                    'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
-                }}
-              >
-                {/*La hauteur de cette div est : {height} px*/}
-                <div className=" text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full">
-                  <div>
-                    <h1 className="text-5xl tracking-wide">Club 306</h1>
-                    <p className="text-3xl my-4">
-                      Rejoins nous dans l&apos;aventure Peugeot 306
-                    </p>
+              <section className="lg:flex lg:w-2/3 hidden bg-cover relative">
+                <button
+                  className="absolute top-0 left-0 mt-4 ml-4 hover:bg-[#DB2323] bg-[#3B578E]  text-white px-4 py-2 rounded z-10"
+                  onClick={() => {
+                    Router.push({
+                      pathname: '/',
+                    });
+                  }}
+                >
+                  Retour
+                </button>
+                <div
+                  className="lg:flex lg:w-2/3 hidden bg-cover"
+                  style={{
+                    backgroundImage:
+                      'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
+                  }}
+                >
+                  {/*La hauteur de cette div est : {height} px*/}
+                  <div className=" text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full">
+                    <div>
+                      <h1 className="text-5xl tracking-wide">Club 306</h1>
+                      <p className="text-3xl my-4">
+                        Rejoins nous dans l&apos;aventure Peugeot 306
+                      </p>
+                    </div>
                   </div>
                 </div>
               </section>

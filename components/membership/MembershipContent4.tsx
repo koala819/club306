@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { record } from '../lib/supabase';
+import { record } from '../../lib/supabase';
 import { useSession } from 'next-auth/react';
 import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
@@ -42,6 +42,12 @@ export default function MembershipContent4(nextStep: any) {
         )
       : record(dataFromLocalStorage, setIsRegistered, nextStep);
   }, [dataFromLocalStorage]);
+
+  useEffect(() => {
+    if (isRegistered) {
+      _sendMail();
+    }
+  }, [isRegistered]);
 
   return (
     <div>
@@ -96,6 +102,7 @@ export default function MembershipContent4(nextStep: any) {
                     <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 ">
                       Merci
                     </h1>
+
                     {googlePicture ? (
                       <Image
                         alt="picture user"
@@ -173,4 +180,25 @@ function _useLayoutHeight() {
   }, []);
 
   return height;
+}
+
+async function _sendMail() {
+  const data = {
+    from: 'recordDataBase',
+  };
+
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  };
+
+  fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+    .then((response: any) => {
+      console.log('response or Not', response);
+      response.status === 200 && console.log('Send mail with SUCCESS :)');
+    })
+    .catch((error: any) => {
+      console.log('ERROR Sir in _contact_ to send the mail', error);
+    });
 }
