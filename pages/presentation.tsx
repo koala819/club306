@@ -1,4 +1,4 @@
-import { Layout } from '../components/Layout';
+import Layout from '../components/Layout';
 import AdhesionComponent from '../components/Adhesion';
 import pictureCircuit from '../public/images/LGHA-Juin2019.jpg';
 import pictureField from '../public/images/rassemblement306.jpg';

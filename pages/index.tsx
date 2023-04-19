@@ -1,10 +1,10 @@
 import Outings from '../components/Outings';
-import Partners from '../components/Partners';
-import { Layout } from '../components/Layout';
+import Partners from '../components/partners/Partners';
+import Layout from '../components/Layout';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 import { useSession } from 'next-auth/react';
-import check from '../lib/checkRecordMember';
+import { check } from '../lib/supabase';
 import { useEffect, useState } from 'react';
 export default function Index() {
   const { data: session } = useSession();
