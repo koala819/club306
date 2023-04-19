@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import Stepper from '../components/Stepper';
+import Stepper from '../components/membership/Stepper';
 
 export default function Membership() {
   return (
