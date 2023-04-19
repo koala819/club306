@@ -4,7 +4,7 @@ import picture306 from '../public/images/logoClub306.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
 import { signOut, useSession } from 'next-auth/react';
-import check from '../lib/checkRecordMember';
+import { check } from '../lib/supabase';
 import { CiMail } from 'react-icons/ci';
 import { IoIosContact } from 'react-icons/io';
 

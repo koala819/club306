@@ -3,7 +3,11 @@ import { LayoutProps } from '../types/Components';
 import Footer from './Footer';
 import { useElementSize } from 'usehooks-ts';
 
-export function Layout({ children, title, displayNavbar }: LayoutProps) {
+export default function Layout({
+  children,
+  title,
+  displayNavbar,
+}: LayoutProps) {
   const [divRef, { height }] = useElementSize();
 
   return (

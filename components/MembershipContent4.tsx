@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import record from '../lib/recordInSupabase';
+import { record } from '../lib/supabase';
 import { useSession } from 'next-auth/react';
 import { RxAvatar } from 'react-icons/rx';
 import Image from 'next/image';
