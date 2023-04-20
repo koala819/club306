@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { mailContact, recordDb, welcomeNewMember } from '../../styles/mails.ts';
 
 export default async function handler(req, res) {
   try {
@@ -7,6 +8,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "Don't have form data...!" });
       const email = process.env.MAIL_USER;
       const pass = process.env.MAIL_PWD;
+
       // console.log('in send mail send data are \n', req.body);
       // console.log('in send mail come from \n', req.body.from);
 
@@ -25,46 +27,59 @@ export default async function handler(req, res) {
       switch (req.body.from) {
         case 'canI':
           mailOptions = {
-            from: '"👼🚘🧙 Nouvelle Interrogation de notre base 🧙🚘👼" <watch.event@club306.fr>',
-            to: 'president@club306.fr, xgenolhac@gmail.com',
-            subject: 'Nouvelle recherche dans notre base détectée !!!',
+            from: 'watch.event@club306.fr',
+            to: 'president@club306.fr, x.genolhac@gmail.com',
+            subject: '👼🚘🧙 Nouvelle Interrogation de notre base 🧙🚘👼',
             text: `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}. Celui qui a fait cette recherche utilise ce mail ${req.body.user}`,
             html: `La recherche a concerné cette personne qui a le prénom ${req.body.value.firstName} et le nom ${req.body.value.lastName}.<br>Celui qui a fait cette recherche utilise ce mail ${req.body.user}`,
           };
           break;
         case 'contact':
           mailOptions = {
-            from: '"🌟📧🔎 Un nouveau message à lire 🔍📧🌟" <contact-page@club306.fr>',
-            to: 'contact@club306.fr, president@club306.fr, xgenolhac@gmail.com',
-            subject: `${req.body.firstName} nous a écrit`,
+            from: req.body.email,
+            to: 'contact@club306.fr, president@club306.fr',
+            bcc: 'x.genolhac@gmail.com',
+            subject: `🌟📧🔎 Un nouveau message à lire : ${req.body.firstName} nous a écrit 🔍📧🌟`,
             text: `${req.body.message}.<br> Adresse mail ${req.body.email} pour répondre.`,
-            html: `${req.body.message}.<br><br><br>Adresse mail :: <b>${req.body.email}</b>.`,
+            html: mailContact(req.body.firstName, req.body.message),
           };
           break;
         case 'recordDataBase':
           mailOptions = {
-            from: '"🎉🚀👤 Un nouveau membre vient de s\'inscrire 👤🚀🎉" <contact-page@club306.fr>',
-            // to: 'president@club306.fr, xgenolhac@gmail.com',
-            to: ' xgenolhac@gmail.com',
-            subject: `${req.body.first_name} ${req.body.last_name} vient de s'inscrire`,
-            html: `${req.body.first_name}<br>${req.body.last_name}<br>${req.body.address}<br>${req.body.zip_code}<br>${req.body.town}<br>${req.body.phone}<br>${req.body.immatriculation}<br>${req.body.birth_date}<br>${req.body.color}<br>${req.body.model}<br>${req.body.email}`,
+            from: 'supabase-info@club306.fr',
+            to: 'secretariat@club306.fr, x.genolhac@gmail.com',
+            subject: `🎉🚀👤 Le nouveau membre ${req.body.first_name} ${req.body.last_name} vient de s'inscrire 👤🚀🎉`,
+            text: `Enregsitrement d'un nouveau membre ${req.body.first_name} ${req.body.last_name} !`,
+            html: recordDb(req.body.first_name, req.body.last_name),
+          };
+          break;
+        case 'newMember':
+          mailOptions = {
+            from: 'contact@club306.fr',
+            to: req.body.mail,
+            bcc: 'x.genolhac@gmail.com',
+            subject: 'Bienvenue au club 306',
+            html: welcomeNewMember(req.body.first_name),
           };
           break;
         default:
           mailOptions = {
-            from: '"🚨🚨Big Brother a report for you 🚘" <big.brother@watching.you>',
-            to: 'xgenolhac@gmail.com',
-            subject: 'Mail envoyé cas par défaut from Club306.fr',
+            from: 'big.brother@watching.you',
+            to: 'x.genolhac@gmail.com',
+            subject: '🚨🚨Big Brother a report for you 🚘',
             text: `${req.body}`,
             html: `${req.body}`,
           };
       }
 
-      await transporter.sendMail(mailOptions, function (error) {
+      await transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log('Error Sir in send mail  :: ', error);
         } else {
-          res.status(200).json({ message: 'Email sent successfully' });
+          console.log('mail envoyé ! ', info.response);
+          return res
+            .status(200)
+            .json({ message: 'Email sent successfully', info });
         }
       });
     } else {

@@ -31,7 +31,6 @@ export default function MembershipContent4(nextStep: any) {
       session.user?.image && setGooglePicture(session.user.image);
     }
   }, []);
-
   useEffect(() => {
     session
       ? record(
@@ -45,7 +44,7 @@ export default function MembershipContent4(nextStep: any) {
 
   useEffect(() => {
     if (isRegistered) {
-      _sendMail();
+      _sendMail(dataFromLocalStorage);
     }
   }, [isRegistered]);
 
@@ -150,7 +149,9 @@ export default function MembershipContent4(nextStep: any) {
                       <Link href="login">
                         <div className="border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 px-4 ">
                           <button
-                            type="submit"
+                            onClick={() =>
+                              _sendWelcomeMail(dataFromLocalStorage)
+                            }
                             className="text-[#F7F9FF] text-xl"
                           >
                             Terminer
@@ -182,8 +183,10 @@ function _useLayoutHeight() {
   return height;
 }
 
-async function _sendMail() {
+async function _sendMail(newMember: newMemberType) {
   const data = {
+    first_name: newMember.first_name,
+    last_name: newMember.last_name,
     from: 'recordDataBase',
   };
 
@@ -195,10 +198,43 @@ async function _sendMail() {
 
   fetch(`${process.env.CLIENT_URL}/api/mail`, options)
     .then((response: any) => {
-      console.log('response or Not', response);
+      // console.log('response or Not', response);
       response.status === 200 && console.log('Send mail with SUCCESS :)');
     })
     .catch((error: any) => {
       console.log('ERROR Sir in _contact_ to send the mail', error);
     });
+}
+
+async function _sendWelcomeMail(newMember: mailForNewMemberType) {
+  const data = {
+    first_name: newMember.first_name,
+    mail: newMember.email,
+    from: 'newMember',
+  };
+
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  };
+
+  fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+    .then((response: any) => {
+      // console.log('response or Not', response);
+      response.status === 200 && console.log('Send mail with SUCCESS :)');
+    })
+    .catch((error: any) => {
+      console.log('ERROR Sir in _contact_ to send the mail', error);
+    });
+}
+
+interface newMemberType {
+  first_name: string;
+  last_name: string;
+}
+
+interface mailForNewMemberType {
+  first_name: string;
+  email: string;
 }
