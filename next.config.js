@@ -8,6 +8,7 @@ module.exports = async () => {
         'www.thebigcarshow.com',
         'scontent-cdt1-1.xx.fbcdn.net',
         'images.unsplash.com',
+        'raw.githubusercontent.com',
       ],
     },
     env: {
