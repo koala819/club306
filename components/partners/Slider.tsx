@@ -5,7 +5,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styles from '../../styles/slider.module.css';
 
-import { check, ourPartners } from '../../lib/supabase';
+import { checkForStartSession, ourPartners } from '../../lib/supabase';
 
 import Image from 'next/image';
 
@@ -47,7 +47,7 @@ const MySlider = () => {
   useEffect(() => {
     if (session?.user !== undefined) {
       if (Object.keys(session?.user).length !== 0) {
-        check(session).then((response) => {
+        checkForStartSession(session).then((response) => {
           setRegistredMember(response);
         });
       } else {

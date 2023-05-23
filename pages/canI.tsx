@@ -1,9 +1,9 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { createClient } from '@supabase/supabase-js';
 import { useFormik } from 'formik';
 import { FormGroup } from '@mui/material';
+import { checkForCanI } from '../lib/supabase';
 
-export default function Home() {
+export default function CanI() {
   const { data: session, status } = useSession();
 
   const formik = useFormik({
@@ -91,33 +91,6 @@ export default function Home() {
     );
   }
 
-  async function check(lastName: string, firstName: string) {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-      process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
-    );
-
-    const { data } = await supabase
-      .from('members')
-      .select('*')
-      .filter(
-        'first_name',
-        'eq',
-        firstName.charAt(0).toUpperCase() + firstName.slice(1)
-      )
-      .filter('last_name', 'eq', lastName.toUpperCase());
-
-    if (data) {
-      if (data.length > 0) {
-        alert('il existe');
-      } else {
-        alert('personne dans la base');
-      }
-    } else {
-      console.log('erreur sur la requête en base');
-    }
-  }
-
   async function onSubmit(values: any) {
     const data = {
       value: values,
@@ -138,6 +111,16 @@ export default function Home() {
         console.log('ERROR Sir in _canI_ to send the mail', error);
       });
 
-    check(values.lastName, values.firstName);
+    await checkForCanI(values.lastName, values.firstName).then((response) => {
+      if (response.data) {
+        if (response.data.length > 0) {
+          alert('cette personne est enregistrée dans notre base ^^');
+        } else {
+          alert(
+            'nous ne connaissons personne avec les informations fournies !!!'
+          );
+        }
+      }
+    });
   }
 }

@@ -160,11 +160,47 @@ export function register_validate(values: any) {
   return errors;
 }
 
+export function rst_pwd(values: any) {
+  const errors: FormikErrors<FormValues> = {};
+
+  if (!values.email) {
+    errors.email = 'Il est OBLIGATOIRE de remplir ce champ !';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email =
+      'Adresse email doit être de la forme jack.scelere@club306.fr';
+  }
+  return errors;
+}
+
+export function change_pwd(values: any) {
+  const errors: FormikErrors<FormValues> = {};
+
+  if (!values.pwd) {
+    errors.pwd = 'Obligatoire';
+  } else if (values.pwd.length < 8 || values.pwd.length > 20) {
+    errors.pwd = 'Doit avoir entre 8 et 20 caractères';
+  } else if (values.pwd.includes(' ')) {
+    errors.pwd = 'Mot de passe invalide';
+  }
+
+  if (!values.cpwd) {
+    errors.cpwd = 'Obligatoire';
+  } else if (values.cpwd !== values.pwd) {
+    errors.cpwd = 'Vous devez saisir le même mot de passe';
+  } else if (values.cpwd.includes(' ')) {
+    errors.cpwd = 'Mot de passe invalide';
+  }
+
+  return errors;
+}
+
 interface FormValues {
   username: string;
   email: string;
   password: string;
+  pwd: string;
   cpassword: string;
+  cpwd: string;
   first_name: string;
   last_name: string;
   address: string;
