@@ -1,5 +1,10 @@
 import nodemailer from 'nodemailer';
-import { mailContact, recordDb, welcomeNewMember } from '../../styles/mails.ts';
+import {
+  mailContact,
+  recordDb,
+  sendOTP,
+  welcomeNewMember,
+} from '../../styles/mails.ts';
 
 export default async function handler(req, res) {
   try {
@@ -62,13 +67,22 @@ export default async function handler(req, res) {
             html: welcomeNewMember(req.body.first_name),
           };
           break;
+        case 'rstPwd':
+          mailOptions = {
+            from: 'contact@club306.fr',
+            to: req.body.mail,
+            bcc: 'x.genolhac@gmail.com',
+            subject: 'Votre code pour définir un nouveau mot de passe',
+            html: sendOTP(req.body.otp),
+          };
+          break;
         default:
           mailOptions = {
-            from: 'big.brother@watching.you',
+            from: 'bigBrother.watchingYou@club306.fr',
             to: 'x.genolhac@gmail.com',
             subject: '🚨🚨Big Brother a report for you 🚘',
-            text: `${req.body}`,
-            html: `${req.body}`,
+            text: `${req}`,
+            html: `<html>fonction mail de club306 déclenchée !!!<br/> ${req.body.value.firstName} ${req.body.value.lastName}<br/>${req.body.user}<br>${req.body.from}</html>`,
           };
       }
 

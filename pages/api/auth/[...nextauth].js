@@ -1,6 +1,6 @@
 import Nextauth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcrypt';
 
@@ -8,7 +8,7 @@ export default Nextauth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
     CredentialsProvider({
       id: 'login',
@@ -27,40 +27,33 @@ export default Nextauth({
 
           if (error) {
             //throw new Error(error);
-            console.log('An error Sir when record',error);
+            console.error(
+              'Error to check if member is registered in our db',
+              error
+            );
           }
 
-          /*console.log('data',data)*/
           if (data.length > 0) {
-            if (await bcrypt.compare(credentials?.password, data[0]?.password)) {
+            if (
+              await bcrypt.compare(credentials?.password, data[0]?.password)
+            ) {
               console.log('Great Job !!! User has been founded :)');
-              return 'find'
+              return 'find';
             }
-            console.log('No record !!! :(');
-            return null
+            console.error('Error to check if member is registered in our db');
+            return null;
           } else {
-            console.log('No record!!!')
-            return null
+            console.error('Error to check if member is registered in our db');
+            return null;
           }
         } catch (error) {
-          console.log('Error Sir in login page !!!\n',error)
+          console.error(
+            'Error to check if member is registered in our db',
+            error
+          );
         }
-      }
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  /*callbacks: {
-    async signIn({ account, profile }) {
-      if (account.provider === 'google') {
-        console.log('profile email \n', profile.email);
-        console.log('profile name \n', profile.name);
-        console.log('profile picture \n', profile.picture);
-        return profile.email
-      }
-    }
-  },*/
-  /*pages: {
-    signIn: '/membership',
-    error: '/404'
-  }*/
 });

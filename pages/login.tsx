@@ -156,7 +156,7 @@ export default function Login() {
                     </div>
 
                     <div className="text-right text-gray-400 hover:underline hover:font-[999]">
-                      <Link href="findPwd">Mot de passe oublié ?</Link>
+                      <Link href="otpInput">Mot de passe oublié ?</Link>
                     </div>
                     <div className="mt-4 border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 px-2">
                       <button type="submit" className="text-[#F7F9FF] text-xl">

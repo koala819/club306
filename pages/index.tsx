@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
 // import { useSession } from 'next-auth/react';
-// import { check } from '../lib/supabase';
+// import { checkForStartSession } from '../lib/supabase';
 // import { useEffect, useState } from 'react';
 
 export default function Index() {
@@ -14,7 +14,7 @@ export default function Index() {
   // useEffect(() => {
   //   if (session?.user !== undefined) {
   //     if (Object.keys(session?.user).length !== 0) {
-  //       check(session).then((response) => {
+  //       checkForStartSession(session).then((response) => {
   //         setRegistredMember(response);
   //         //console.log('ce membre Google est-il autorisé ?', setRegistredMember);
   //       });
