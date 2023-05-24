@@ -3,11 +3,15 @@ import Partners from '../components/partners/Partners';
 import Layout from '../components/Layout';
 import Presentation from '../components/Presentation';
 import Picture306 from '../components/Picture306';
+import Prismic from 'prismic-javascript';
+import type { GetStaticPropsContext } from 'next';
+import { createClient } from '../prismicio';
+
 // import { useSession } from 'next-auth/react';
 // import { checkForStartSession } from '../lib/supabase';
 // import { useEffect, useState } from 'react';
 
-export default function Index() {
+export default function Index({ articles }: any) {
   // const { data: session } = useSession();
   // const [registredMember, setRegistredMember] = useState(false);
 
@@ -31,8 +35,24 @@ export default function Index() {
         <Picture306 />
       </div>
       <Presentation />
-      <Outings />
+      <Outings articles={articles} />
       <Partners />
     </Layout>
   );
+}
+export async function getServerSideProps({
+  previewData,
+}: GetStaticPropsContext) {
+  const client = createClient({ previewData });
+
+  const articles = await client.query(
+    Prismic.Predicates.at('document.tags', ['index'])
+  );
+  console.log('articles\n', articles);
+
+  return {
+    props: {
+      articles: articles,
+    },
+  };
 }

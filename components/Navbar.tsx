@@ -376,7 +376,7 @@ export default function Navbar() {
                           : styles.aNormal
                       }
                     >
-                      <Link href="presentation">Présentation</Link>
+                      <Link href="/presentation">Présentation</Link>
                     </li>
                     <li
                       className={
@@ -385,7 +385,7 @@ export default function Navbar() {
                           : styles.aNormal
                       }
                     >
-                      <Link href="staff">le Staff</Link>
+                      <Link href="/staff">le Staff</Link>
                     </li>
                     <li
                       className={
@@ -394,7 +394,7 @@ export default function Navbar() {
                           : styles.aNormal
                       }
                     >
-                      <Link href="rules">Règlement du Club</Link>
+                      <Link href="/rules">Règlement du Club</Link>
                     </li>
                     <li
                       className={
@@ -403,7 +403,7 @@ export default function Navbar() {
                           : styles.aNormal
                       }
                     >
-                      <Link href="press">Revue de presse</Link>
+                      <Link href="/press">Revue de presse</Link>
                     </li>
                   </ul>
                 </li>
@@ -412,7 +412,7 @@ export default function Navbar() {
                     registeredMember ? styles.aNormalRegister : styles.aNormal
                   }
                 >
-                  <Link href="documents">Documents</Link>
+                  <Link href="/documents">Documents</Link>
                 </li>
                 {registeredMember ? (
                   <li className="relative parent">
@@ -440,7 +440,7 @@ export default function Navbar() {
                             : styles.aNormal
                         }
                       >
-                        <Link href="event">Evènements à venir</Link>
+                        <Link href="/event">Evènements à venir</Link>
                       </li>
                       <li
                         className={
@@ -449,13 +449,13 @@ export default function Navbar() {
                             : styles.aNormal
                         }
                       >
-                        <Link href="blog">Blog : évènements passés</Link>
+                        <Link href="/blog">Blog : évènements passés</Link>
                       </li>
                     </ul>
                   </li>
                 ) : (
                   <li className={styles.aNormal}>
-                    <Link href="blog">Blog</Link>
+                    <Link href="/blog">Blog</Link>
                   </li>
                 )}
                 {registeredMember && (
@@ -472,7 +472,7 @@ export default function Navbar() {
                     </div>
                     <ul className="bg-[#f5f5dca2] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg rounded-3xl">
                       <li className={styles.aNormalRegister}>
-                        <Link href="partners">Partenariats</Link>
+                        <Link href="/partners">Partenariats</Link>
                       </li>
                     </ul>
                   </li>
@@ -492,13 +492,13 @@ export default function Navbar() {
                     </div>
                     <ul className="bg-[#f5f5dca2] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg rounded-3xl">
                       <li className={styles.aNormalRegister}>
-                        <Link href="mecanique">Mécanique</Link>
+                        <Link href="/mecanique">Mécanique</Link>
                       </li>
                       <li className={styles.aNormalRegister}>
-                        <Link href="electrique">Electrique</Link>
+                        <Link href="/electrique">Electrique</Link>
                       </li>
                       <li className={styles.aNormalRegister}>
-                        <Link href="moteur">Moteur</Link>
+                        <Link href="/moteur">Moteur</Link>
                       </li>
                     </ul>
                   </li>
@@ -509,7 +509,7 @@ export default function Navbar() {
                     registeredMember ? styles.aNormalRegister : styles.aNormal
                   }
                 >
-                  <Link href="contact">
+                  <Link href="/contact">
                     <CiMail size={26} className="" />
                   </Link>
                 </li>
@@ -540,7 +540,7 @@ export default function Navbar() {
                   >
                     {!registeredMember && (
                       <li className={styles.aNormal}>
-                        <Link href="membership">Adhérer</Link>
+                        <Link href="/membership">Adhérer</Link>
                       </li>
                     )}
                     {registeredMember ? (
@@ -552,7 +552,7 @@ export default function Navbar() {
                       </li>
                     ) : (
                       <li className={styles.aNormal}>
-                        <Link href="login">Se Connecter</Link>
+                        <Link href="/login">Se Connecter</Link>
                       </li>
                     )}
                   </ul>

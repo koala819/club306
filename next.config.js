@@ -4,7 +4,7 @@ module.exports = async () => {
     swcMinify: true,
     images: {
       domains: [
-        // 'lh3.googleusercontent.com',
+        'images.prismic.io',
         'www.thebigcarshow.com',
         'scontent-cdt1-1.xx.fbcdn.net',
         'images.unsplash.com',
