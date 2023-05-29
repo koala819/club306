@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import picture306 from '../public/images/logoClub306.png';
+import Avp from '../public/images/Logo_AVP.png';
 import Link from 'next/link';
 import styles from '../styles/navbar.module.css';
 import { signOut, useSession } from 'next-auth/react';
@@ -13,7 +14,7 @@ export default function Navbar() {
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isEventOpen, setEventOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
-  const [isTuturialOpen, setTutorialOpen] = useState(false);
+  // const [isTuturialOpen, setTutorialOpen] = useState(false);
   const { data: session } = useSession();
   const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
@@ -61,6 +62,19 @@ export default function Navbar() {
                   }}
                 />
               </Link>
+              <div>
+                <Image
+                  src={Avp}
+                  alt="logo l'Aventure Peugeot"
+                  width={240}
+                  height={46}
+                  className={'hidden md:block ml-4 h-12 md:h-24 lg:h-24'}
+                  // style={{
+                  //   width: 'auto',
+                  //   height: 'auto',
+                  // }}
+                />
+              </div>
               <div className="md:hidden ">
                 <button
                   className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
@@ -158,7 +172,7 @@ export default function Navbar() {
                               : styles.aSubMenu
                           }
                         >
-                          <Link href="presentation">Présentation</Link>
+                          <Link href="/presentation">Présentation</Link>
                         </li>
                         <li
                           className={
@@ -167,7 +181,16 @@ export default function Navbar() {
                               : styles.aSubMenu
                           }
                         >
-                          <Link href="staff">le Staff</Link>
+                          <Link href="/staff">le Staff</Link>
+                        </li>
+                        {/* <li
+                          className={
+                            registeredMember
+                              ? styles.aSubMenuRegister
+                              : styles.aSubMenu
+                          }
+                        >
+                          <Link href="/rules">Règlement du Club</Link>
                         </li>
                         <li
                           className={
@@ -176,29 +199,20 @@ export default function Navbar() {
                               : styles.aSubMenu
                           }
                         >
-                          <Link href="rules">Règlement du Club</Link>
-                        </li>
-                        <li
-                          className={
-                            registeredMember
-                              ? styles.aSubMenuRegister
-                              : styles.aSubMenu
-                          }
-                        >
-                          <Link href="press">Revue de presse</Link>
-                        </li>
+                          <Link href="/press">Revue de presse</Link>
+                        </li> */}
                       </ul>
                     </li>
 
-                    <li
+                    {/* <li
                       className={
                         registeredMember
                           ? styles.aMobileRegister
                           : styles.aMobile
                       }
                     >
-                      <Link href="documents">Documents</Link>
-                    </li>
+                      <Link href="/documents">Documents</Link>
+                    </li> */}
 
                     {registeredMember ? (
                       <li onClick={() => setEventOpen((prev) => !prev)}>
@@ -221,13 +235,13 @@ export default function Navbar() {
                             <Link href="event">Evènements à venir</Link>
                           </li>
                           <li className={styles.aSubMenuRegister}>
-                            <Link href="blog">Blog : évènements passés</Link>
+                            <Link href="/blog">Blog : évènements passés</Link>
                           </li>
                         </ul>
                       </li>
                     ) : (
                       <li className={styles.aMobile}>
-                        <Link href="blog">Blog</Link>
+                        <Link href="/blog">Blog</Link>
                       </li>
                     )}
 
@@ -251,14 +265,18 @@ export default function Navbar() {
                       <ul
                         className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
-                        {registeredMember && (
-                          <li className={styles.aSubMenuRegister}>
-                            <Link href="partners">Partenariats</Link>
+                        {registeredMember ? (
+                          <li className={styles.aNormalRegister}>
+                            <Link href="/idg">Mon Compte</Link>
+                          </li>
+                        ) : (
+                          <li className={styles.aNormal}>
+                            <Link href="/membership">Adhérer</Link>
                           </li>
                         )}
-                        {!registeredMember && (
-                          <li className={styles.aSubMenu}>
-                            <Link href="membership">Adhérer</Link>
+                        {registeredMember && (
+                          <li className={styles.aSubMenuRegister}>
+                            <Link href="/partners">Partenariats</Link>
                           </li>
                         )}
 
@@ -271,13 +289,13 @@ export default function Navbar() {
                           </li>
                         ) : (
                           <li className={styles.aSubMenu}>
-                            <Link href="login">Se Connecter</Link>
+                            <Link href="/login">Se Connecter</Link>
                           </li>
                         )}
                       </ul>
                     </li>
 
-                    {registeredMember && (
+                    {/* {registeredMember && (
                       <li onClick={() => setTutorialOpen((prev) => !prev)}>
                         <div className={styles.aMobileRegister}>
                           <span>Tutoriels</span>
@@ -323,7 +341,7 @@ export default function Navbar() {
                           </li>
                         </ul>
                       </li>
-                    )}
+                    )} */}
 
                     <li
                       className={
@@ -332,7 +350,7 @@ export default function Navbar() {
                           : styles.aMobile
                       }
                     >
-                      <Link href="contact">Contact</Link>
+                      <Link href="/contact">Contact</Link>
                     </li>
                   </ul>
                 </div>
@@ -387,7 +405,7 @@ export default function Navbar() {
                     >
                       <Link href="/staff">le Staff</Link>
                     </li>
-                    <li
+                    {/* <li
                       className={
                         registeredMember
                           ? styles.aNormalRegister
@@ -404,16 +422,16 @@ export default function Navbar() {
                       }
                     >
                       <Link href="/press">Revue de presse</Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
-                <li
+                {/* <li
                   className={
                     registeredMember ? styles.aNormalRegister : styles.aNormal
                   }
                 >
                   <Link href="/documents">Documents</Link>
-                </li>
+                </li> */}
                 {registeredMember ? (
                   <li className="relative parent">
                     <div
@@ -458,27 +476,8 @@ export default function Navbar() {
                     <Link href="/blog">Blog</Link>
                   </li>
                 )}
-                {registeredMember && (
-                  <li className="relative parent">
-                    <div className={styles.aNormalRegister}>
-                      <span>Membres</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={styles.arrow}
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
-                      </svg>
-                    </div>
-                    <ul className="bg-[#f5f5dca2] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg rounded-3xl">
-                      <li className={styles.aNormalRegister}>
-                        <Link href="/partners">Partenariats</Link>
-                      </li>
-                    </ul>
-                  </li>
-                )}
 
-                {registeredMember && (
+                {/* {registeredMember && (
                   <li className="relative parent">
                     <div className={styles.aNormalRegister}>
                       <span>Tutoriels</span>
@@ -502,7 +501,7 @@ export default function Navbar() {
                       </li>
                     </ul>
                   </li>
-                )}
+                )} */}
 
                 <li
                   className={
@@ -538,9 +537,19 @@ export default function Navbar() {
                         : 'bg-[#d1d9f1bb]  rounded-none'
                     } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
                   >
-                    {!registeredMember && (
+                    {registeredMember ? (
+                      <li className={styles.aNormalRegister}>
+                        <Link href="/idg">Mon Compte</Link>
+                      </li>
+                    ) : (
                       <li className={styles.aNormal}>
                         <Link href="/membership">Adhérer</Link>
+                      </li>
+                    )}
+
+                    {registeredMember && (
+                      <li className={styles.aNormalRegister}>
+                        <Link href="/partners">Partenariats</Link>
                       </li>
                     )}
                     {registeredMember ? (

@@ -72,7 +72,6 @@ export async function getServerSideProps({
     Prismic.Predicates.at('document.type', 'articles')
     // Prismic.Predicates.at('document.tags', ['index'])
   );
-  console.log('articles\n', articles);
 
   return {
     props: {
