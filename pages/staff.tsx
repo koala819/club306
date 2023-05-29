@@ -120,9 +120,9 @@ export default function Staff() {
       name: 'Xavier Genolhac',
       role: 'Développeur',
       content:
-        "Depuis que j'ai découvert la Peugeot 306 2L xs HDI en gris Iceland, ce fut un véritable coup\n" +
+        "Depuis que j'ai découvert la Peugeot 306 2L XS HDI en gris Iceland, ce fut un véritable coup\n" +
         " de cœur. J'ai attendu jusqu'en 2014 pour enfin acquérir ma première 306, une version TD \n" +
-        " que j'ai rapidement remplacée pour une HDI noire. Aujourd'hui, je possède une\n" +
+        " que j'ai rapidement remplacée pour une HDI Gris Aster. Aujourd'hui, je possède une\n" +
         ' 306 gris Iceland avec un moteur 1.8L.\n' +
         " Je suis fier d'avoir créé le site Club306 avec NextJS, offrant ainsi un espace de rencontre et\n" +
         " d'échange pour les passionnés de cette voiture intemporelle. Grâce à cette plateforme, les \n" +
