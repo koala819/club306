@@ -265,7 +265,7 @@ export default function Navbar() {
                       <ul
                         className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
-                        {registeredMember ? (
+                        {/* {registeredMember ? (
                           <li className={styles.aNormalRegister}>
                             <Link href="/idg">Mon Compte</Link>
                           </li>
@@ -273,7 +273,14 @@ export default function Navbar() {
                           <li className={styles.aNormal}>
                             <Link href="/membership">Adhérer</Link>
                           </li>
+                        )} */}
+
+                        {!registeredMember && (
+                          <li className={styles.aNormal}>
+                            <Link href="/membership">Adhérer</Link>
+                          </li>
                         )}
+
                         {registeredMember && (
                           <li className={styles.aSubMenuRegister}>
                             <Link href="/partners">Partenariats</Link>
@@ -537,11 +544,17 @@ export default function Navbar() {
                         : 'bg-[#d1d9f1bb]  rounded-none'
                     } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
                   >
-                    {registeredMember ? (
+                    {/* {registeredMember ? (
                       <li className={styles.aNormalRegister}>
                         <Link href="/idg">Mon Compte</Link>
                       </li>
                     ) : (
+                      <li className={styles.aNormal}>
+                        <Link href="/membership">Adhérer</Link>
+                      </li>
+                    )} */}
+
+                    {!registeredMember && (
                       <li className={styles.aNormal}>
                         <Link href="/membership">Adhérer</Link>
                       </li>
