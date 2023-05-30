@@ -79,7 +79,7 @@ export default function Footer() {
                   </span>
                   <ul className="list-unstyled">
                     <li>
-                      <Link href="#" className="hover:text-red-600">
+                      <Link href="/reglement" className="hover:text-red-600">
                         Règlement du Club
                       </Link>
                     </li>
@@ -98,7 +98,7 @@ export default function Footer() {
                     </li>
 
                     <li>
-                      <Link href="#" className="hover:text-red-600">
+                      <Link href="/contact" className="hover:text-red-600">
                         Nous contacter
                       </Link>
                     </li>
