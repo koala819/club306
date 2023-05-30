@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import moment from 'moment';
+import rasso_yt from '../../public/images/carroussel_rassemblement_Young_Timer_2023.jpg';
 require('moment/locale/fr');
 
 export default function Subscription({
@@ -23,7 +24,7 @@ export default function Subscription({
         <Image
           loading="lazy"
           className="rounded-t-2xl object-cover w-full h-10 sm:h-40 2xl:h-55"
-          src="https://scontent-cdg4-2.xx.fbcdn.net/v/t39.30808-6/337560069_1185394442178089_8015614733131388189_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=e3f864&_nc_ohc=AfVUb1RvbogAX9hV1jX&_nc_ht=scontent-cdg4-2.xx&oh=00_AfBqHkumAYbt8EgRglXQAvVM9UbiiLsNzJqZrT5eL4s7Eg&oe=64748A57"
+          src={rasso_yt}
           alt="photo du club 306"
           width="1000"
           height="1000"
