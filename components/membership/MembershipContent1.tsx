@@ -473,8 +473,14 @@ export default function MembershipContent1(nextStep: any) {
                        }`}
             >
               <p id="check-checkCertificateHonour">
-                Je m&apos;engage, en adhérant au Club à respecter les termes de
-                ses statuts et de son règlement.
+                Je m&apos;engage, en adhérant au Club à respecter{' '}
+                <Link
+                  href="/reglement"
+                  className="text-blue-600 hover:underline dark:text-blue-500"
+                >
+                  &nbsp;les termes de ses statuts et de son règlement
+                </Link>
+                .
               </p>
             </label>
           </div>
@@ -501,7 +507,7 @@ export default function MembershipContent1(nextStep: any) {
                 En soumettant ce formulaire, je confirme avoir pris connaissant
                 de
                 <Link
-                  href="#"
+                  href="/confidentialite"
                   className="text-blue-600 hover:underline dark:text-blue-500"
                 >
                   &nbsp;la politique de confidentialité
