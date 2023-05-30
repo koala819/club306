@@ -51,6 +51,7 @@
 		"react-slideshow-image": "^4.2.1",
 		"react-spinners": "^0.13.7",
 		"react-use": "^17.4.0",
+		"react-vertical-timeline-component": "^3.6.0",
 		"sharp": "^0.32.0",
 		"usehooks-ts": "^2.9.1"
 	},
@@ -60,6 +61,7 @@
 		"@types/node": "18.7.17",
 		"@types/react": "18.0.19",
 		"@types/react-dom": "18.0.6",
+		"@types/react-vertical-timeline-component": "^3.3.3",
 		"autoprefixer": "^10.4.9",
 		"eslint": "^8.2.0",
 		"eslint-config-airbnb": "19.0.4",
