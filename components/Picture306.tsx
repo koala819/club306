@@ -1,28 +1,29 @@
-import Image from 'next/image';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
+import styles from '../styles/keen.module.css';
+// import dynamic from 'next/dynamic';
 import carroussel_306_Yellow from '../public/images/carroussel_306_Yellow.jpg';
 import carroussel_rassemblement_306 from '../public/images/carroussel_rassemblement_306.jpg';
-import carroussel_two_306_white from '../public/images/carroussel_two_306_white.jpg';
-import { useInView } from 'react-intersection-observer';
-import styles from '../styles/reactIntersectionObserver.module.css';
-import { useState, useEffect } from 'react';
+import carroussel_rasso_yt from '../public/images/carroussel_rassemblement_Young_Timer_2023.jpg';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import loader from '../public/images/loader.svg';
 
 export default function Picture306() {
+  const [loaded, setLoaded] = useState<boolean[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const images = [
-    carroussel_306_Yellow,
-    carroussel_rassemblement_306,
-    carroussel_two_306_white,
+    {
+      src: carroussel_rasso_yt,
+      alt: 'photo prise lors du rasso Young Timer de 2023',
+    },
+    {
+      src: carroussel_306_Yellow,
+      alt: "photo d'une 306 jaune au premier plan et derrière il y a une 306 BV6 blanche",
+    },
+    { src: carroussel_rassemblement_306, alt: "photo d'un rasso avec 18 306" },
   ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const changeImage = () => {
-    setCurrentIndex((currentIndex + 1) % images.length);
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(changeImage, 7000);
-    return () => clearInterval(intervalId);
-  }, [changeImage]);
 
   const IconScrollDown = () => {
     return (
@@ -36,41 +37,79 @@ export default function Picture306() {
     );
   };
 
-  const { ref, inView } = useInView({
-    /* Optional options */
-    threshold: 0.4,
-    initialInView: true,
-  });
-  const renderContent = () => {
-    return (
-      <div className="relative h-full w-full">
-        <div className="lg:h-screen overflow-hidden sm:h-1/2">
-          <Image
-            alt="306 car"
-            src={images[currentIndex]}
-            fill
-            sizes="100vw"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
-            }}
-          />
-          <div className="absolute inset-x-0 bottom-0">
-            <IconScrollDown />
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const [ref] = useKeenSlider<HTMLDivElement>(
+    {
+      animationEnded(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      loop: true,
+      initial: 0,
+    },
+    [
+      (slider) => {
+        let timeout: ReturnType<typeof setTimeout>;
+        let mouseOver = false;
+        function clearNextTimeout() {
+          clearTimeout(timeout);
+        }
+        function nextTimeout() {
+          clearTimeout(timeout);
+          if (mouseOver) return;
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 7000);
+        }
+        slider.on('created', () => {
+          slider.container.addEventListener('mouseover', () => {
+            mouseOver = true;
+            clearNextTimeout();
+          });
+          slider.container.addEventListener('mouseout', () => {
+            mouseOver = false;
+            nextTimeout();
+          });
+          nextTimeout();
+        });
+        slider.on('dragStarted', clearNextTimeout);
+        slider.on('animationEnded', nextTimeout);
+        slider.on('updated', nextTimeout);
+      },
+    ]
+  );
+
+  useEffect(() => {
+    const new_loaded = [...loaded];
+    new_loaded[currentSlide] = true;
+    setLoaded(new_loaded);
+  }, [currentSlide]);
 
   return (
-    <div
-      className={
-        inView ? `${styles.slider} ${styles.slider__zoom}` : `${styles.slider}`
-      }
-      ref={ref}
-    >
-      {renderContent()}
+    <div ref={ref} className="keen-slider h-full">
+      {images.map((picture, idx) => (
+        <div
+          key={idx}
+          className={`keen-slider__slide lazy__slide`}
+          style={{ height: '85vh' }}
+        >
+          <div className="flex justify-center items-center w-full h-full bg-blue-300">
+            <div
+              className={` ${!loaded[idx] ? 'w-1/12 h-1/12' : 'w-full h-full'}`}
+            >
+              <Image
+                alt={picture.alt}
+                height={2000}
+                width={2000}
+                src={loaded[idx] ? picture.src : loader}
+                property="priority"
+                className="object-cover object-center w-full h-full"
+              />
+              <div className="absolute inset-x-0 bottom-0">
+                <IconScrollDown />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

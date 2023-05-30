@@ -21,7 +21,7 @@ export default function Outings({ articles }: any) {
                     <Image
                       className="lg:h-48 md:h-36 w-full object-cover object-center"
                       src={article.data.featureImageUrl.url}
-                      alt={article.data.featureImageUrl.alt}
+                      alt={article.data.featureImageUrl.alt || 'image'}
                       width="1000"
                       height="1000"
                     />
