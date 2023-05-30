@@ -2,10 +2,16 @@ import Outings from '../components/Outings';
 import Partners from '../components/partners/Partners';
 import Layout from '../components/Layout';
 import Presentation from '../components/Presentation';
-import Picture306 from '../components/Picture306';
+// import Picture306 from '../components/Picture306';
 import Prismic from 'prismic-javascript';
 import type { GetStaticPropsContext } from 'next';
 import { createClient } from '../prismicio';
+import dynamic from 'next/dynamic';
+
+const Picture306 = dynamic(() => import('../components/Picture306'), {
+  ssr: false,
+  loading: () => <p>Chargement ...</p>,
+});
 
 // import { useSession } from 'next-auth/react';
 // import { checkForStartSession } from '../lib/supabase';
@@ -40,6 +46,7 @@ export default function Index({ articles }: any) {
     </Layout>
   );
 }
+
 export async function getServerSideProps({
   previewData,
 }: GetStaticPropsContext) {

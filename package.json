@@ -33,6 +33,7 @@
 		"flowbite": "^1.5.3",
 		"flowbite-react": "^0.1.11",
 		"formik": "^2.2.9",
+		"keen-slider": "^6.8.5",
 		"lazy-load-images": "^1.0.1",
 		"moment": "^2.29.4",
 		"next": "^13.0.6",

@@ -1,0 +1,148 @@
+.my-class [class^='number-slide'],
+.my-class [class*=' number-slide'] {
+  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 500;
+  height: 300px;
+  max-height: 100vh;
+}
+
+.lazy__slide {
+  height: 300px;
+  background: rgb(255, 75, 64);
+  background-color: linear-gradient(
+    0deg,
+    rgba(255, 75, 64, 1) 0%,
+    rgba(255, 154, 63, 1) 100%
+  );
+  /* background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%22800px%22%20height%3D%22800px%22%20viewBox%3D%220%20-2%2020%2020%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3Ctitle%3Eimage_picture%20%5B%23968%5D%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22Dribbble-Light-Preview%22%20transform%3D%22translate(-140.000000%2C%20-3921.000000)%22%20fill%3D%22%23000000%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20id%3D%22icons%22%20transform%3D%22translate(56.000000%2C%20160.000000)%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M98.141%2C3768.755%20L98.129%2C3768.768%20L98.102%2C3768.74%20L98.141%2C3768.755%20Z%20M98.143%2C3768.756%20L98.141%2C3768.755%20L98.156%2C3768.74%20L98.143%2C3768.756%20Z%20M102%2C3772.752%20L98.129%2C3768.768%20L96.74%2C3770.171%20L92.118%2C3765.542%20L92.106%2C3765.558%20L91.977%2C3765.542%20L86%2C3771.407%20L86%2C3763%20L102%2C3763%20L102%2C3772.752%20Z%20M95.586%2C3775%20L98.2%2C3772.386%20L100.814%2C3775%20L95.586%2C3775%20Z%20M92.758%2C3775%20L86.297%2C3775%20L92.11%2C3768.771%20L95.34%2C3772.21%20L92.758%2C3775%20Z%20M84%2C3777%20L104%2C3777%20L104%2C3761%20L84%2C3761%20L84%2C3777%20Z%22%20id%3D%22image_picture-%5B%23968%5D%22%3E%0A%0A%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E'); */
+  background-image: url('https://keen-slider.io/images/loader.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100px;
+  min-height: auto;
+}
+
+.lazy__slide img {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+/* picture arrows on Picture 306*/
+
+.mouse_scroll {
+  display: block;
+  margin: 0 auto;
+  width: 24px;
+  height: 100px;
+  margin-top: 125px;
+}
+
+.m_scroll_arrows {
+  display: block;
+  width: 5px;
+  height: 5px;
+  -ms-transform: rotate(45deg); /* IE 9 */
+  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  margin: 0 0 3px 4px;
+
+  width: 16px;
+  height: 16px;
+}
+
+.unu {
+  margin-top: 1px;
+}
+
+.unu,
+.doi,
+.trei {
+  -webkit-animation: mouse-scroll 1s infinite;
+  -moz-animation: mouse-scroll 1s infinite;
+  animation: mouse-scroll 1s infinite;
+}
+
+.unu {
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -webkit-animation-direction: alternate;
+
+  animation-direction: alternate;
+}
+
+.doi {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -webkit-animation-direction: alternate;
+
+  animation-delay: 0.2s;
+  animation-direction: alternate;
+
+  margin-top: -6px;
+}
+
+.trei {
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  -webkit-animation-direction: alternate;
+
+  animation-delay: 0.3s;
+  animation-direction: alternate;
+
+  margin-top: -6px;
+}
+
+@-webkit-keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
