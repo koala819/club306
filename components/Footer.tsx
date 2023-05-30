@@ -120,7 +120,13 @@ export default function Footer() {
                 <RiCopyleftLine className="ml-2" size={16} />
                 <span id="get-current-year">2023</span>
                 <Link href="#">by</Link>
-                <Link href="https://github.com/koala819">Xavier</Link>.
+                <Link
+                  href="https://github.com/koala819"
+                  className="hover:text-red-600"
+                >
+                  Xavier
+                </Link>
+                .
               </div>
             </div>
           </div>
