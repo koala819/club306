@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { VscGithub } from 'react-icons/vsc';
-import { BsLinkedin } from 'react-icons/bs';
+import { BsLinkedin, BsYoutube } from 'react-icons/bs';
 import { IoMdMailOpen } from 'react-icons/io';
 
 export default function CardStaff({
@@ -17,6 +17,7 @@ export default function CardStaff({
   github,
   linkedin,
   mail,
+  youtube,
 }: CardStaffProps) {
   return (
     <section className=" rounded-lg mb-8 bg-slate-200">
@@ -87,6 +88,11 @@ export default function CardStaff({
                 <VscGithub size={20} />
               </Link>
             )}
+            {youtube !== undefined && (
+              <Link href={youtube} className="ml-3 text-gray-500">
+                <BsYoutube size={20} />
+              </Link>
+            )}
             {linkedin !== undefined && (
               <Link href={linkedin} className="ml-3 text-gray-500">
                 <BsLinkedin size={20} />
@@ -115,4 +121,5 @@ export interface CardStaffProps {
   insta?: any;
   mail?: any;
   children?: React.ReactNode;
+  youtube?: string;
 }

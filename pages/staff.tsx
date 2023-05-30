@@ -17,7 +17,7 @@ export default function Staff() {
         '306 S16 BV6 1997 Blanc Banquise Premium\n' +
         'X306 S16 BV6 1999 Gris Iceland',
       localisation: 'Île-de-France (93), Angers (49), Toulouse (31)',
-      facebook: '#',
+      facebook: 'https://www.facebook.com/pascal.besnard',
       insta: '#',
       mail: 'president@club306.fr',
     },
@@ -35,7 +35,7 @@ export default function Staff() {
         ' Mon souhait, avec le club 306, est de valoriser cette géniale petite voiture française',
       car: '306 1.8 16v Grise Aster\n' + 'X306 Cabriolet Gris',
       localisation: 'Île-de-France (78)',
-      facebook: '#',
+      facebook: 'https://www.facebook.com/dine.erlew',
       insta: '#',
       mail: 'secretariat@club306.fr',
     },
@@ -53,7 +53,7 @@ export default function Staff() {
         'X306 s16 bv6 noire Onyx',
       localisation: 'Île-de-France (77), Haute-Savoie (74)',
       facebook: 'https://www.facebook.com/isciane.belleville',
-      insta: '#',
+      insta: 'https://www.instagram.com/isciane_belleville/',
       mail: 'evenements@club306.fr',
     },
     {
@@ -69,8 +69,8 @@ export default function Staff() {
         ' expérimenté dans le domaine de la mécanique comme moi.',
       car: '306 2.0 HDI 5p de 99\n' + 'X306 s16 BV6 de 97',
       localisation: 'Brive-la-Gaillarde (19)',
-      facebook: '#',
-      insta: '#',
+      facebook: 'https://www.facebook.com/AntonyCrafted',
+      insta: 'https://www.instagram.com/antony.crafted/',
       mail: 'evenements@club306.fr',
     },
     {
@@ -87,7 +87,7 @@ export default function Staff() {
       car: '306 2.0 HDI 5p Gris Aster\n' + '306 1.8 16s break Gris Aster',
       localisation: 'Guingamp (22)',
       facebook: 'https://www.facebook.com/bastien.faurie',
-      insta: '#',
+      insta: 'https://www.instagram.com/_bastien.f/',
       mail: 'communication@club306.fr',
     },
     {
@@ -112,7 +112,7 @@ export default function Staff() {
         'XT 1.8 16s 112ch Ph2.2 Rouge',
       localisation: 'Lille (59)',
       facebook: 'https://www.facebook.com/Peaceof59',
-      insta: '#',
+      insta: 'https://www.instagram.com/peaceof59/',
       mail: 'communication@club306.fr',
     },
     {
@@ -159,6 +159,7 @@ export default function Staff() {
                 github={member.github}
                 linkedin={member.linkedin}
                 insta={member.insta}
+                youtube={member.youtube}
                 mail={member.mail}
                 key={index}
               />
