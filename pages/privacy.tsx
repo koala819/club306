@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 
-const PolitiqueConfidentialite = () => {
+export default function Privacy() {
   return (
     <Layout title="Politique de confidentialité">
       <div className="container mx-auto p-4">
@@ -139,6 +139,4 @@ const PolitiqueConfidentialite = () => {
       </div>
     </Layout>
   );
-};
-
-export default PolitiqueConfidentialite;
+}
