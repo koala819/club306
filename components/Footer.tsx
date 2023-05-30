@@ -1,71 +1,128 @@
 import React from 'react';
-import Image from 'next/image';
-import picture306 from '../public/images/logoClub306.png';
-/*import CC from '../public/images/Cc-by_new.svg.png';*/
 import Link from 'next/link';
+import { BsFacebook } from 'react-icons/bs';
+import { RiInstagramFill, RiCopyleftLine } from 'react-icons/ri';
 
 export default function Footer() {
   return (
     <div>
-      <footer className="bg-[#3B578E] text-white">
-        <div className="px-4 py-6 flex w-full items-center sm:flex-row justify-between">
-          <div className="lg:w-1/3 hidden lg:block">
-            <Image
-              src={picture306}
-              alt="logo club 306"
-              className="mr-3 lg:h-10 h-6 bg-cover w-1/3 "
-            />
+      <footer className="relative bg-[#3B578E] text-white pt-4">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap text-left lg:text-left">
+            <div className="w-full lg:w-6/12 px-4">
+              <h4 className="text-3xl fonat-semibold text-blueGray-700">
+                Restons en contact !
+              </h4>
+              <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
+                Retrouvez-nous sur l&apos;une de ces plateformes, nous répondons
+                sous 1 à 2 jours ouvrables.
+              </h5>
+              <div className=" flex mt-6 space-x-4">
+                <Link href="https://www.facebook.com/club306france/">
+                  <BsFacebook
+                    size={28}
+                    className="hover:fill-red-600 cursor-pointer"
+                  />
+                </Link>
+                <Link href="https://www.instagram.com/club306officielfrance/">
+                  <RiInstagramFill
+                    size={32}
+                    className="hover:fill-red-600 cursor-pointer"
+                  />
+                </Link>
+              </div>
+            </div>
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="flex flex-wrap items-top mb-6">
+                {/* <div className="w-full lg:w-4/12 px-4 ml-auto">
+                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                    Useful Links
+                  </span>
+                  <ul className="list-unstyled">
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://www.creative-tim.com/presentation?ref=njs-profile"
+                      >
+                        About Us
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://blog.creative-tim.com?ref=njs-profile"
+                      >
+                        Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://www.github.com/creativetimofficial?ref=njs-profile"
+                      >
+                        Github
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
+                      >
+                        Free Products
+                      </a>
+                    </li>
+                  </ul>
+                </div> */}
+                <div className="w-full lg:w-4/12 px-4 ml-auto">
+                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                    Autres ressources
+                  </span>
+                  <ul className="list-unstyled">
+                    <li>
+                      <Link href="#" className="hover:text-red-600">
+                        Règlement du Club
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/confidentialite"
+                        className="hover:text-red-600"
+                      >
+                        Politique de confidentialité
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="#" className="hover:text-red-600">
+                        Mentions légales
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link href="#" className="hover:text-red-600">
+                        Nous contacter
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="flex w-1/2 md:w-1/3 text-sm font-bold mx-2 h-6 sm:mt-0 justify-center ">
-            <p className="mr-2">BY</p>
-            {/*<Image
-              src={CC}
-              alt='logo CC'
-              className=''
-              style={{objectFit: 'contain'}}
-            />*/}
-            <Link
-              href="https://github.com/koala819/"
-              className="hover:text-[#DB2323]"
-            >
-              Xavier
-            </Link>
-          </div>
-
-          <div className="flex w-1/2 md:w-1/3 justify-center">
-            {/*Facebook*/}
-            <Link href="https://www.facebook.com/club306france/">
-              <svg
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="h-6 hover:text-[#DB2323]"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-              </svg>
-            </Link>
-
-            {/*Instagram*/}
-            <Link
-              href="https://www.instagram.com/club306officielfrance/"
-              className="ml-3"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="h-6 hover:text-[#DB2323]"
-                viewBox="0 0 24 24"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-              </svg>
-            </Link>
+          <hr className="my-6 border-blueGray-300" />
+          <div className="flex flex-wrap items-center md:justify-between justify-center">
+            <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+              <div className="text-sm text-blueGray-500 font-semibold py-1 flex space-x-8">
+                <Link
+                  href="https://www.gnu.org/licenses/copyleft.fr.html"
+                  className="hover:text-red-600"
+                >
+                  Copyleft
+                </Link>{' '}
+                <RiCopyleftLine className="ml-2" size={16} />
+                <span id="get-current-year">2023</span>
+                <Link href="#">by</Link>
+                <Link href="https://github.com/koala819">Xavier</Link>.
+              </div>
+            </div>
           </div>
         </div>
       </footer>
