@@ -79,20 +79,17 @@ export default function Footer() {
                   </span>
                   <ul className="list-unstyled">
                     <li>
-                      <Link href="/reglement" className="hover:text-red-600">
+                      <Link href="/rules" className="hover:text-red-600">
                         Règlement du Club
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        href="/confidentialite"
-                        className="hover:text-red-600"
-                      >
+                      <Link href="/privacy" className="hover:text-red-600">
                         Politique de confidentialité
                       </Link>
                     </li>
                     <li>
-                      <Link href="#" className="hover:text-red-600">
+                      <Link href="/legalNotice" className="hover:text-red-600">
                         Mentions légales
                       </Link>
                     </li>
