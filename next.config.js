@@ -9,6 +9,8 @@ module.exports = async () => {
         'scontent-cdt1-1.xx.fbcdn.net',
         'images.unsplash.com',
         'raw.githubusercontent.com',
+        'scontent-cdg4-2.xx.fbcdn.net',
+        'avatars.githubusercontent.com',
       ],
     },
     env: {
