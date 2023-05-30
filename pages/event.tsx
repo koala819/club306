@@ -1,8 +1,16 @@
 import Layout from '../components/Layout';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import {
+  VerticalTimeline,
+  VerticalTimelineElement,
+} from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import { GoFlame, GoRuby } from 'react-icons/go';
+import { GiPartyPopper } from 'react-icons/gi';
+import Link from 'next/link';
 
 export default function Event() {
   const { data: session } = useSession();
@@ -18,171 +26,147 @@ export default function Event() {
     <>
       {session && (
         <Layout title="Evenements à venir">
-          <section className="text-gray-600 body-font z-10">
-            <div className="container px-5 py-24 mx-auto flex flex-wrap">
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-80 title-font font-medium text-sm">
-                  01
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  02
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  03
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  04
-                </div>
-                <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
-                  <div className="flex-shrink-0 w-24 h-24 bg-blue-100 text-blue-500 rounded-full inline-flex items-center justify-center">
-                    <Image
-                      alt="picture user"
-                      height={100}
-                      width={100}
-                      className="rounded-full"
-                      src="https://scontent-cdt1-1.xx.fbcdn.net/v/t39.30808-1/243742892_1911227272391511_2574982284899304928_n.png?stp=dst-png_p148x148&_nc_cat=103&ccb=1-7&_nc_sid=1eb0c7&_nc_ohc=6zsKEm3QHD4AX-7961p&_nc_ht=scontent-cdt1-1.xx&oh=00_AfABYzTtQxlX3XWl0Xy8IrQdjCdzxz2-sZUCWj2kXcAcrQ&oe=63ACC4BA"
-                      style={{
-                        maxWidth: '100%',
-                        height: 'auto',
-                      }}
-                    />
-                  </div>
-                  <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
-                    <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">
-                      Youngtimers festival
-                    </h2>
-                    <p className="leading-relaxed">
-                      {' '}
-                      Le circuit de Linas-Montlhéry compte donner un peu plus de
-                      place encore à ces voitures et aux incroyables passionnés
-                      qui les bichonnes. Deux jours de fêtes le 15 et 16 avril
-                      2023 avec du son des expos ! Les voitures d’après 1990
-                      vont donner de la voix sur le circuit 3,405 km tandis que
-                      les plus anciennes rivaliseront sur les expos et
-                      participeront aux parades.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  05
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  06
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  07
-                </div>
-              </div>
-
-              <div className="flex relative pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  08
-                </div>
-                <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
-                  <div className="flex-shrink-0 w-24 h-24 bg-blue-100 text-blue-500 rounded-full inline-flex items-center justify-center">
-                    <Image
-                      alt="picture user"
-                      height={100}
-                      width={100}
-                      className="rounded-full"
-                      src="https://www.thebigcarshow.com/wp-content/themes/bigcarshow/images/logo-thebigcarshow.png"
-                      style={{
-                        maxWidth: '100%',
-                        height: 'auto',
-                      }}
-                    />
-                  </div>
-                  <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
-                    <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">
-                      Big Car Show
-                    </h2>
-                    <p className="leading-relaxed">
-                      Le 19 et 20 août 2023 venez participer à cet évènement sur
-                      le circuit Bugatti au Mans.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  09
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  10
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  11
-                </div>
-              </div>
-
-              <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
-                <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
-                  <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-                </div>
-                <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-[#3B578E] text-white relative z-10 title-font font-medium text-sm">
-                  12
-                </div>
-              </div>
-            </div>
-          </section>
+          <VerticalTimeline>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Janvier 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Février 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Mars 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              contentArrowStyle={{
+                borderLeft: '7px solid  rgb(33, 150, 243)',
+              }}
+              date="Avril 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              icon={<GoFlame />}
+            >
+              <h3
+                className="vertical-timeline-element-title"
+                style={{ fontWeight: 700 }}
+              >
+                Youngtimers festival
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle">
+                15-16 Avril
+              </h4>
+              <p>
+                Le circuit de Linas-Montlhéry compte donner un peu plus de place
+                encore à ces voitures et aux incroyables passionnés qui les
+                bichonnes. Deux jours de fêtes le 15 et 16 avril 2023 avec du
+                son des expos ! Les voitures d’après 1990 vont donner de la voix
+                sur le circuit 3,405 km tandis que les plus anciennes
+                rivaliseront sur les expos et participeront aux parades.
+              </p>
+            </VerticalTimelineElement>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Mai 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Juin 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Juillet 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              contentArrowStyle={{
+                borderLeft: '7px solid  rgb(33, 150, 243)',
+              }}
+              date="Août 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              icon={<GoRuby />}
+            >
+              <h3
+                className="vertical-timeline-element-title"
+                style={{ fontWeight: 700 }}
+              >
+                Big Car Show
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle">19-20 Août</h4>
+              <p>
+                Le Big Car Show est le fruit d&apos;un rêve porté par des
+                passionnés d&apos;automobile, qui prend vie sur le Circuit du
+                Mans. C&apos;est un projet ambitieux visant à rassembler des
+                fans, qu&apos;ils soient similaires à nous ou différents de
+                nous, car le Big Car Show représente avant tout la diversité des
+                genres unis par la passion de la mécanique et de magnifiques
+                carrosseries. Leur devise est : &quot;Différentes voitures, même
+                passion.&quot;
+              </p>
+            </VerticalTimelineElement>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              contentArrowStyle={{
+                borderLeft: '7px solid  rgb(33, 150, 243)',
+              }}
+              date="Septembre 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+              icon={<GiPartyPopper />}
+            >
+              <h3
+                className="vertical-timeline-element-title"
+                style={{ fontWeight: 700 }}
+              >
+                Anniversaire des 30ans de la Peugeot 306
+              </h3>
+              <h4 className="vertical-timeline-element-subtitle">
+                29 septembre au 01 octobre
+              </h4>
+              <p>
+                Cet événement, minutieusement préparé, a pour objectif de te
+                offrir une expérience mémorable. Au programme, tu pourras
+                profiter d&apos;une balade découverte de la région, présenter ta
+                Peugeot 306 dans toute sa splendeur sur le parking du Musée
+                Peugeot, déguster un repas au sein du musée et rencontrer
+                d&apos;autres passionnés. Les places pour cet événement exclusif
+                sont limitées aux membres, c&apos;est pourquoi nous
+                t&apos;encourageons à confirmer ta présence dès que possible.
+                Pour cela, il te suffit de cliquer sur{' '}
+                <Link
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfQythLymDZHzkqGgkYnFPw3mMsHzP_PqVWIjDd68J_CxWMdQ/viewform"
+                  className="hover:text-red-600 underline"
+                >
+                  ce lien
+                </Link>{' '}
+                pour remplir le formulaire d&apos;inscription.
+              </p>
+            </VerticalTimelineElement>
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Octobre 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Novembre 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />
+            <VerticalTimelineElement
+              className="vertical-timeline-element--work"
+              date="Décembre 2023"
+              iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            />{' '}
+          </VerticalTimeline>
         </Layout>
       )}
     </>
