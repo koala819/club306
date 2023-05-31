@@ -17,6 +17,7 @@
 		"@mui/material": "^5.11.0",
 		"@mui/system": "^5.10.14",
 		"@mui/x-date-pickers": "^5.0.10",
+		"@next/bundle-analyzer": "^13.4.4",
 		"@paypal/checkout-server-sdk": "^1.0.3",
 		"@paypal/react-paypal-js": "^7.8.1",
 		"@prismicio/client": "^6.7.1",
