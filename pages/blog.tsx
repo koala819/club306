@@ -34,7 +34,7 @@ export default function Blog({ articles }: any) {
                     </div>
                     <div className="flex items-center flex-wrap ">
                       <Link
-                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0"
+                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover: hover:text-[#DB2323]"
                         href={`article/${article.uid}`}
                       >
                         Lire la suite
@@ -78,31 +78,4 @@ export async function getServerSideProps({
       articles: articles,
     },
   };
-}
-
-{
-  /* <h1>Blog : Evenements passés</h1> */
-}
-{
-  /* <div className="flex">
-        <div className="flex flex-col w-2/3 ml-24 mr-20">
-          {articles.results.map((article: any) => (
-            <div key={article.uid}>
-              <Link href={`article/${article.uid}`}>
-                <div className="bold text-3xl text-blue-600 cursor-pointer">
-                  {RichText.render(article.data.title)}
-                </div>
-              </Link>
-              <Image
-                className="w-2/3"
-                src={article.data.featureImageUrl.url}
-                alt=""
-                width="1000"
-                height="1000"
-              />
-              <h1>{RichText.render(article.data.description)}</h1>
-            </div>
-          ))}
-        </div>
-      </div> */
 }

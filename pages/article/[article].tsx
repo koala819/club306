@@ -24,10 +24,10 @@ export default function Article({ article }: any) {
         <h1 className="text-lg opacity-75">
           {RichText.render(article.data.paragraphes)}
         </h1>
-        <div className="text-center mb-20">
+        <div className="text-center mt-16 mb-16">
           <Link
             href="/blog"
-            className="inline-flex text-white bg-[#DB2323] border-0 py-2 px-6 focus:outline-none hover:bg-[#201C44] rounded text-lg"
+            className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
           >
             Retour &nbsp; 👈
           </Link>
