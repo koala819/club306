@@ -24,7 +24,7 @@ const Presentation = () => {
                 personnes qui sont membres de forums ou de groupes.
               </p>
               <div className="flex justify-center">
-                <button className="inline-flex text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg">
+                <button className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg">
                   <Link href="/presentation">En savoir plus ...</Link>
                 </button>
               </div>
