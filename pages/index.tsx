@@ -2,7 +2,6 @@ import Outings from '../components/Outings';
 import Partners from '../components/partners/Partners';
 import Layout from '../components/Layout';
 import Presentation from '../components/Presentation';
-import Prismic from 'prismic-javascript';
 import type { GetStaticPropsContext } from 'next';
 import { createClient } from '../prismicio';
 import dynamic from 'next/dynamic';
@@ -30,9 +29,7 @@ export async function getServerSideProps({
 }: GetStaticPropsContext) {
   const client = createClient({ previewData });
 
-  const articles = await client.query(
-    Prismic.Predicates.at('document.tags', ['index'])
-  );
+  const articles = await client.getByTag('index');
 
   return {
     props: {
