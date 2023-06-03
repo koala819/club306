@@ -32,7 +32,7 @@ const Presentation = () => {
             <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
               <Image
                 src={presentationPicture}
-                alt="logo club 306"
+                alt="Deux personnes dans une 306"
                 width={720}
                 height={600}
                 className="mr-3 h-6 sm:h-10"

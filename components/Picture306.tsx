@@ -16,7 +16,7 @@ export default function Picture306() {
   const images = [
     {
       src: carroussel_rasso_yt,
-      alt: 'photo prise lors du rasso Young Timer de 2023',
+      alt: 'logo club 306',
     },
     {
       src: carroussel_306_Yellow,
