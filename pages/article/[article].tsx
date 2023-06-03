@@ -24,7 +24,7 @@ export default function Article({ article }: any) {
         <h1 className="text-lg opacity-75">
           {RichText.render(article.data.paragraphes)}
         </h1>
-        <div className="text-center mb-20">
+        <div className="text-center my-12">
           <Link
             href="/blog"
             className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
