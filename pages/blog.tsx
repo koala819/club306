@@ -1,5 +1,4 @@
 import Layout from '../components/Layout';
-import Prismic from 'prismic-javascript';
 import type { GetStaticPropsContext } from 'next';
 import { createClient } from '../prismicio';
 import { RichText } from 'prismic-reactjs';
@@ -68,10 +67,7 @@ export async function getServerSideProps({
 }: GetStaticPropsContext) {
   const client = createClient({ previewData });
 
-  const articles = await client.query(
-    Prismic.Predicates.at('document.type', 'articles')
-    // Prismic.Predicates.at('document.tags', ['index'])
-  );
+  const articles = await client.getByType('articles');
 
   return {
     props: {
