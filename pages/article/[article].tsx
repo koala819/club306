@@ -1,5 +1,5 @@
 import { RichText } from 'prismic-reactjs';
-import Layout from '../../components/Layout';
+import { Layout } from '../../src/components/Layout';
 import type { GetServerSidePropsContext } from 'next';
 import { createClient } from '../../prismicio';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ export default function Article({ article }: any) {
         <h1 className="text-lg opacity-75">
           {RichText.render(article.data.paragraphes)}
         </h1>
-        <div className="text-center mt-16 mb-16">
+        <div className="text-center mb-20">
           <Link
             href="/blog"
             className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
@@ -45,7 +45,7 @@ export async function getServerSideProps({
 
   let article = null;
   if (typeof context.query.article === 'string') {
-    console.log('check UID', context.query.article);
+    // console.log('check UID\n\n', context.query.article);
     article = await client.getByUID('articles', context.query.article);
   }
 
