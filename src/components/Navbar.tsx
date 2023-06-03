@@ -129,7 +129,13 @@ export const Navbar = () => {
                     </svg>
                   </div>
                   <ul className="flex flex-col items-center justify-between min-h-[450px] ">
-                    <Link href="/">
+                    <Link
+                      href="/"
+                      onClick={() => {
+                        setIsNavOpen(false);
+                        setNavbar(!navbar);
+                      }}
+                    >
                       <li
                         className={
                           registeredMember
@@ -161,7 +167,13 @@ export const Navbar = () => {
                       <ul
                         className={isLeClubOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
-                        <Link href="/club">
+                        <Link
+                          href="/club"
+                          onClick={() => {
+                            setIsNavOpen(false);
+                            setNavbar(!navbar);
+                          }}
+                        >
                           <li
                             className={
                               registeredMember
@@ -172,7 +184,13 @@ export const Navbar = () => {
                             Présentation
                           </li>
                         </Link>
-                        <Link href="/club/staff">
+                        <Link
+                          href="/club/staff"
+                          onClick={() => {
+                            setIsNavOpen(false);
+                            setNavbar(!navbar);
+                          }}
+                        >
                           <li
                             className={
                               registeredMember
@@ -214,7 +232,13 @@ export const Navbar = () => {
                       <Link href="/documents">Documents</Link>
                     </li> */}
 
-                    <Link href="/blog">
+                    <Link
+                      href="/blog"
+                      onClick={() => {
+                        setIsNavOpen(false);
+                        setNavbar(!navbar);
+                      }}
+                    >
                       <li
                         className={
                           registeredMember
@@ -225,7 +249,13 @@ export const Navbar = () => {
                         Blog
                       </li>
                     </Link>
-                    <Link href="/contact">
+                    <Link
+                      href="/contact"
+                      onClick={() => {
+                        setIsNavOpen(false);
+                        setNavbar(!navbar);
+                      }}
+                    >
                       <li
                         className={
                           registeredMember
@@ -259,12 +289,24 @@ export const Navbar = () => {
                         {registeredMember ? (
                           <>
                             <li className={styles.aSubMenuRegister}>
-                              <Link href="/idg">
+                              <Link
+                                href="/idg"
+                                onClick={() => {
+                                  setIsNavOpen(false);
+                                  setNavbar(!navbar);
+                                }}
+                              >
                                 <FaHouseUser size={26} />
                                 Mon Compte
                               </Link>
                             </li>
-                            <Link href="/event">
+                            <Link
+                              href="/event"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
                               <li
                                 className={`flex justify-between  ${styles.aSubMenuRegister}`}
                               >
@@ -273,7 +315,13 @@ export const Navbar = () => {
                               </li>
                             </Link>
                             <li className={styles.aSubMenuRegister}>
-                              <Link href="/partners">
+                              <Link
+                                href="/partners"
+                                onClick={() => {
+                                  setIsNavOpen(false);
+                                  setNavbar(!navbar);
+                                }}
+                              >
                                 <TbCirclesRelation size={26} />
                                 Nos Partenaires
                               </Link>
@@ -288,11 +336,25 @@ export const Navbar = () => {
                           </>
                         ) : (
                           <>
-                            <Link href="/login">
+                            <Link
+                              href="/login"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
                               <li className={styles.aSubMenu}>Se Connecter</li>
                             </Link>
                             <li className={styles.aSubMenu}>
-                              <Link href="/membership">Adhérer</Link>
+                              <Link
+                                href="/membership"
+                                onClick={() => {
+                                  setIsNavOpen(false);
+                                  setNavbar(!navbar);
+                                }}
+                              >
+                                Adhérer
+                              </Link>
                             </li>
                           </>
                         )}
