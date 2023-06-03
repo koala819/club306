@@ -37,7 +37,7 @@ export default function Outings({ articles }: any) {
                       </div>
                       <div className="flex items-center flex-wrap ">
                         <Link
-                          className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0"
+                          className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover: hover:text-[#DB2323]"
                           href={`article/${article.uid}`}
                         >
                           Lire Plus
