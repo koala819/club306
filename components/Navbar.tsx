@@ -36,8 +36,8 @@ export default function Navbar() {
     <div className="relative ">
       {/* <nav className="w-full bg-white shadow"> */}
       <nav
-        className="flex px-4 md:shadow-lg items-center
-            dark:bg-gray-900 dark:border-gray-700  bg-white"
+        className="flex items-center bg-white px-4
+            dark:border-gray-700 dark:bg-gray-900  md:shadow-lg"
         style={{
           /*backgroundColor: props.bgColor || '#3B578E',
              color: '#F7F9FF'}}*/
@@ -45,9 +45,9 @@ export default function Navbar() {
           color: '#3B578E',
         }}
       >
-        <div className="justify-between px-4 mx-auto  md:items-center md:flex md:px-8 w-full">
+        <div className="mx-auto w-full justify-between  px-4 md:flex md:items-center md:px-8">
           <div>
-            <div className="flex items-center justify-between py-3 md:py-5 md:blockw-full  ">
+            <div className="md:blockw-full flex items-center justify-between py-3 md:py-5  ">
               <Link href="/">
                 <Image
                   src={picture306}
@@ -68,7 +68,7 @@ export default function Navbar() {
                   alt="logo l'Aventure Peugeot"
                   width={240}
                   height={46}
-                  className={'hidden md:block ml-4 h-12 md:h-24 lg:h-24'}
+                  className={'ml-4 hidden h-12 md:block md:h-24 lg:h-24'}
                   // style={{
                   //   width: 'auto',
                   //   height: 'auto',
@@ -77,7 +77,7 @@ export default function Navbar() {
               </div>
               <div className="md:hidden ">
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  className="rounded-md p-2 text-gray-700 outline-none focus:border focus:border-gray-400"
                   // onClick={() => setNavbar(!navbar)}
                   onClick={() => {
                     setNavbar(!navbar);
@@ -87,7 +87,7 @@ export default function Navbar() {
                   {!navbar && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -106,16 +106,16 @@ export default function Navbar() {
           </div>
           <div className=" ">
             <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              className={`mt-8 flex-1 justify-self-center pb-3 md:mt-0 md:block md:pb-0 ${
                 navbar ? 'block' : 'hidden'
               }`}
             >
               {/*SECTION MOBILE*/}
-              <section className="MOBILE-MENU flex center md:hidden ml-auto top-full left-0 right-0 z-50 min-h-[950px]">
+              <section className="MOBILE-MENU center left-0 right-0 top-full z-50 ml-auto flex min-h-[950px] md:hidden">
                 <div className={isNavOpen ? 'showMenuNav' : 'hideMenuNav'}>
                   {/* CLOSE BUTTON */}
                   <div
-                    className="absolute top-0 right-0 px-8 py-8"
+                    className="absolute right-0 top-0 px-8 py-8"
                     onClick={() => {
                       setIsNavOpen(false);
                       setNavbar(!navbar);
@@ -134,17 +134,24 @@ export default function Navbar() {
                       <line x1="6" y1="6" x2="18" y2="18" />
                     </svg>
                   </div>
-                  <ul className="flex flex-col items-center justify-between min-h-[450px] ">
-                    <li
-                      className={
-                        registeredMember
-                          ? styles.aMobileRegister
-                          : styles.aMobile
-                      }
+                  <ul className="flex min-h-[450px] flex-col items-center justify-between ">
+                    <Link
+                      href="/"
+                      onClick={() => {
+                        setIsNavOpen(false);
+                        setNavbar(!navbar);
+                      }}
                     >
-                      <Link href="/">Accueil</Link>
-                    </li>
-
+                      <li
+                        className={
+                          registeredMember
+                            ? styles.aMobileRegister
+                            : styles.aMobile
+                        }
+                      >
+                        Accueil
+                      </li>
+                    </Link>
                     <li onClick={() => setLeClubOpen((prev) => !prev)}>
                       <div
                         className={
@@ -165,33 +172,52 @@ export default function Navbar() {
                       <ul
                         className={isLeClubOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
-                        <li
-                          className={
-                            registeredMember
-                              ? styles.aSubMenuRegister
-                              : styles.aSubMenu
-                          }
+                        <Link
+                          href="/presentation"
+                          onClick={() => {
+                            setIsNavOpen(false);
+                            setNavbar(!navbar);
+                          }}
                         >
-                          <Link href="/presentation">Présentation</Link>
-                        </li>
-                        <li
-                          className={
-                            registeredMember
-                              ? styles.aSubMenuRegister
-                              : styles.aSubMenu
-                          }
+                          <li
+                            className={
+                              registeredMember
+                                ? styles.aSubMenuRegister
+                                : styles.aSubMenu
+                            }
+                          >
+                            Présentation
+                          </li>
+                        </Link>
+                        <Link
+                          href="/staff"
+                          onClick={() => {
+                            setIsNavOpen(false);
+                            setNavbar(!navbar);
+                          }}
                         >
-                          <Link href="/staff">le Staff</Link>
-                        </li>
-                        {/* <li
-                          className={
-                            registeredMember
-                              ? styles.aSubMenuRegister
-                              : styles.aSubMenu
-                          }
-                        >
-                          <Link href="/rules">Règlement du Club</Link>
-                        </li>
+                          <li
+                            className={
+                              registeredMember
+                                ? styles.aSubMenuRegister
+                                : styles.aSubMenu
+                            }
+                          >
+                            le Staff
+                          </li>
+                        </Link>
+                        <Link href="/rules">
+                          <li
+                            className={
+                              registeredMember
+                                ? styles.aSubMenuRegister
+                                : styles.aSubMenu
+                            }
+                          >
+                            Règlement du Club
+                          </li>
+                        </Link>
+                        {/* 
                         <li
                           className={
                             registeredMember
@@ -231,19 +257,53 @@ export default function Navbar() {
                             isEventOpen ? 'showSubMenu' : 'hideMenuNav'
                           }
                         >
-                          <li className={styles.aSubMenuRegister}>
-                            <Link href="event">Evènements à venir</Link>
-                          </li>
-                          <li className={styles.aSubMenuRegister}>
-                            <Link href="/blog">Blog : évènements passés</Link>
-                          </li>
+                          <Link
+                            href="event"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                              setNavbar(!navbar);
+                            }}
+                          >
+                            <li className={styles.aSubMenuRegister}>
+                              Evènements à venir
+                            </li>
+                          </Link>
+                          <Link
+                            href="/blog"
+                            onClick={() => {
+                              setIsNavOpen(false);
+                              setNavbar(!navbar);
+                            }}
+                          >
+                            <li className={styles.aSubMenuRegister}>
+                              Blog : évènements passés
+                            </li>
+                          </Link>
                         </ul>
                       </li>
                     ) : (
-                      <li className={styles.aMobile}>
-                        <Link href="/blog">Blog</Link>
-                      </li>
+                      <Link
+                        href="/blog"
+                        onClick={() => {
+                          setIsNavOpen(false);
+                          setNavbar(!navbar);
+                        }}
+                      >
+                        <li className={styles.aMobile}>Blog</li>
+                      </Link>
                     )}
+
+                    <Link href="/contact">
+                      <li
+                        className={
+                          registeredMember
+                            ? styles.aMobileRegister
+                            : styles.aMobile
+                        }
+                      >
+                        Contact
+                      </li>
+                    </Link>
 
                     <li onClick={() => setMemberOpen((prev) => !prev)}>
                       <div
@@ -266,38 +326,57 @@ export default function Navbar() {
                         className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
                         {registeredMember ? (
-                          <li className={styles.aNormalRegister}>
-                            <Link href="/idg">Mon Compte</Link>
-                          </li>
+                          <>
+                            <Link
+                              href="/idg"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
+                              <li className={styles.aNormalRegister}>
+                                Mon Compte
+                              </li>
+                            </Link>
+                            <Link
+                              href="/partners"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
+                              <li className={styles.aSubMenuRegister}>
+                                Partenariats
+                              </li>
+                            </Link>
+                            <li
+                              className={styles.aSubMenuRegister}
+                              onClick={() => _handleGoogleSignout()}
+                            >
+                              Se Déconnecter
+                            </li>
+                          </>
                         ) : (
-                          <li className={styles.aNormal}>
-                            <Link href="/membership">Adhérer</Link>
-                          </li>
-                        )}
-
-                        {/* {!registeredMember && (
-                          <li className={styles.aNormal}>
-                            <Link href="/membership">Adhérer</Link>
-                          </li>
-                        )} */}
-
-                        {registeredMember && (
-                          <li className={styles.aSubMenuRegister}>
-                            <Link href="/partners">Partenariats</Link>
-                          </li>
-                        )}
-
-                        {registeredMember ? (
-                          <li
-                            className={styles.aSubMenuRegister}
-                            onClick={() => _handleGoogleSignout()}
-                          >
-                            Se Déconnecter
-                          </li>
-                        ) : (
-                          <li className={styles.aSubMenu}>
-                            <Link href="/login">Se Connecter</Link>
-                          </li>
+                          <>
+                            <Link
+                              href="/login"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
+                              <li className={styles.aSubMenu}>Se Connecter</li>
+                            </Link>
+                            <Link
+                              href="/membership"
+                              onClick={() => {
+                                setIsNavOpen(false);
+                                setNavbar(!navbar);
+                              }}
+                            >
+                              <li className={styles.aNormal}>Adhérer</li>
+                            </Link>
+                          </>
                         )}
                       </ul>
                     </li>
@@ -349,30 +428,22 @@ export default function Navbar() {
                         </ul>
                       </li>
                     )} */}
-
-                    <li
-                      className={
-                        registeredMember
-                          ? styles.aMobileRegister
-                          : styles.aMobile
-                      }
-                    >
-                      <Link href="/contact">Contact</Link>
-                    </li>
                   </ul>
                 </div>
               </section>
 
               {/*SECTION NORMALE*/}
-              <ul className="md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 hidden space-x-8 z-50">
-                <li
-                  className={
-                    registeredMember ? styles.aNormalRegister : styles.aNormal
-                  }
-                >
-                  <Link href="/">Accueil</Link>
-                </li>
-                <li className="relative parent">
+              <ul className="absolute left-0 right-0 top-full z-50 ml-auto hidden space-x-8 md:relative md:flex md:space-x-2 md:px-2">
+                <Link href="/">
+                  <li
+                    className={
+                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                    }
+                  >
+                    Accueil
+                  </li>
+                </Link>
+                <li className="parent relative">
                   <div
                     className={
                       registeredMember ? styles.aNormalRegister : styles.aNormal
@@ -390,38 +461,44 @@ export default function Navbar() {
                   <ul
                     className={` ${
                       registeredMember
-                        ? 'bg-[#f5f5dca2] rounded-3xl'
-                        : 'bg-[#d1d9f1bb] rounded-none'
-                    } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
+                        ? 'rounded-3xl bg-[#f5f5dca2]'
+                        : 'rounded-none bg-[#d1d9f1bb]'
+                    } child right-0 top-full transition duration-300 md:absolute md:w-48 md:shadow-lg `}
                   >
-                    <li
-                      className={
-                        registeredMember
-                          ? styles.aNormalRegister
-                          : styles.aNormal
-                      }
-                    >
-                      <Link href="/presentation">Présentation</Link>
-                    </li>
-                    <li
-                      className={
-                        registeredMember
-                          ? styles.aNormalRegister
-                          : styles.aNormal
-                      }
-                    >
-                      <Link href="/staff">le Staff</Link>
-                    </li>
+                    <Link href="/presentation">
+                      <li
+                        className={
+                          registeredMember
+                            ? styles.aNormalRegister
+                            : styles.aNormal
+                        }
+                      >
+                        Présentation
+                      </li>
+                    </Link>
+                    <Link href="/staff">
+                      <li
+                        className={
+                          registeredMember
+                            ? styles.aNormalRegister
+                            : styles.aNormal
+                        }
+                      >
+                        le Staff
+                      </li>
+                    </Link>
+                    <Link href="/rules">
+                      <li
+                        className={
+                          registeredMember
+                            ? styles.aNormalRegister
+                            : styles.aNormal
+                        }
+                      >
+                        Règlement du Club
+                      </li>
+                    </Link>
                     {/* <li
-                      className={
-                        registeredMember
-                          ? styles.aNormalRegister
-                          : styles.aNormal
-                      }
-                    >
-                      <Link href="/rules">Règlement du Club</Link>
-                    </li>
-                    <li
                       className={
                         registeredMember
                           ? styles.aNormalRegister
@@ -440,7 +517,7 @@ export default function Navbar() {
                   <Link href="/documents">Documents</Link>
                 </li> */}
                 {registeredMember ? (
-                  <li className="relative parent">
+                  <li className="parent relative">
                     <div
                       className={
                         registeredMember
@@ -457,31 +534,35 @@ export default function Navbar() {
                         <path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z" />
                       </svg>
                     </div>
-                    <ul className="bg-[#f5f5dca2] rounded-3xl child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg">
-                      <li
-                        className={
-                          registeredMember
-                            ? styles.aNormalRegister
-                            : styles.aNormal
-                        }
-                      >
-                        <Link href="/event">Evènements à venir</Link>
-                      </li>
-                      <li
-                        className={
-                          registeredMember
-                            ? styles.aNormalRegister
-                            : styles.aNormal
-                        }
-                      >
-                        <Link href="/blog">Blog : évènements passés</Link>
-                      </li>
+                    <ul className="child right-0 top-full rounded-3xl bg-[#f5f5dca2] transition duration-300 md:absolute md:w-48 md:shadow-lg">
+                      <Link href="/event">
+                        <li
+                          className={
+                            registeredMember
+                              ? styles.aNormalRegister
+                              : styles.aNormal
+                          }
+                        >
+                          Evènements à venir
+                        </li>
+                      </Link>
+                      <Link href="/blog">
+                        <li
+                          className={
+                            registeredMember
+                              ? styles.aNormalRegister
+                              : styles.aNormal
+                          }
+                        >
+                          Blog : évènements passés
+                        </li>
+                      </Link>
                     </ul>
                   </li>
                 ) : (
-                  <li className={styles.aNormal}>
-                    <Link href="/blog">Blog</Link>
-                  </li>
+                  <Link href="/blog">
+                    <li className={styles.aNormal}>Blog</li>
+                  </Link>
                 )}
 
                 {/* {registeredMember && (
@@ -510,17 +591,17 @@ export default function Navbar() {
                   </li>
                 )} */}
 
-                <li
-                  className={
-                    registeredMember ? styles.aNormalRegister : styles.aNormal
-                  }
-                >
-                  <Link href="/contact">
+                <Link href="/contact">
+                  <li
+                    className={
+                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                    }
+                  >
                     <CiMail size={26} className="" />
-                  </Link>
-                </li>
+                  </li>
+                </Link>
 
-                <li className="relative parent">
+                <li className="parent relative">
                   <div
                     className={
                       registeredMember ? styles.aNormalRegister : styles.aNormal
@@ -540,42 +621,36 @@ export default function Navbar() {
                   <ul
                     className={`${
                       registeredMember
-                        ? 'bg-[#f5f5dca2] rounded-3xl'
-                        : 'bg-[#d1d9f1bb]  rounded-none'
-                    } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
+                        ? 'rounded-3xl bg-[#f5f5dca2]'
+                        : 'rounded-none  bg-[#d1d9f1bb]'
+                    } child right-0 top-full transition duration-300 md:absolute md:w-48 md:shadow-lg `}
                   >
                     {registeredMember ? (
-                      <li className={styles.aNormalRegister}>
-                        <Link href="/idg">Mon Compte</Link>
-                      </li>
+                      <>
+                        <Link href="/idg">
+                          <li className={styles.aNormalRegister}>Mon Compte</li>
+                        </Link>
+                        <Link href="/partners">
+                          <li className={styles.aNormalRegister}>
+                            Partenariats
+                          </li>
+                        </Link>
+                        <li
+                          className={styles.aNormalRegister}
+                          onClick={() => _handleGoogleSignout()}
+                        >
+                          Se Déconnecter
+                        </li>
+                      </>
                     ) : (
-                      <li className={styles.aNormal}>
-                        <Link href="/membership">Adhérer</Link>
-                      </li>
-                    )}
-
-                    {/* {!registeredMember && (
-                      <li className={styles.aNormal}>
-                        <Link href="/membership">Adhérer</Link>
-                      </li>
-                    )} */}
-
-                    {registeredMember && (
-                      <li className={styles.aNormalRegister}>
-                        <Link href="/partners">Partenariats</Link>
-                      </li>
-                    )}
-                    {registeredMember ? (
-                      <li
-                        className={styles.aNormalRegister}
-                        onClick={() => _handleGoogleSignout()}
-                      >
-                        Se Déconnecter
-                      </li>
-                    ) : (
-                      <li className={styles.aNormal}>
-                        <Link href="/login">Se Connecter</Link>
-                      </li>
+                      <>
+                        <li className={styles.aNormal}>
+                          <Link href="/login">Se Connecter</Link>
+                        </li>
+                        <Link href="/membership">
+                          <li className={styles.aNormal}>Adhérer</li>
+                        </Link>
+                      </>
                     )}
                   </ul>
                 </li>
