@@ -6,13 +6,13 @@ export default function Rules() {
     <Layout title="Règlement intérieur">
       <div className="container mx-auto p-4">
         <h1
-          className="flex text-2xl mb-8 justify-center"
+          className="mb-8 flex justify-center text-2xl"
           style={{ fontWeight: 700 }}
         >
           Règlement intérieur
         </h1>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 1
           </h2>
           <p>
@@ -31,7 +31,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 2
           </h2>
           <p>
@@ -44,7 +44,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 3
           </h2>
           <p>
@@ -60,7 +60,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 4
           </h2>
           <p>
@@ -73,15 +73,15 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 5
           </h2>
-          <p>
+          <div>
             Chaque membre exonère l&apos;association{' '}
             <span style={{ fontWeight: 700 }}>Club306</span> et ses dirigeants
             de toute responsabilité et renonce à tout recours, action ou demande
             en cas de
-            <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
+            <ul className="mb-4 ml-4 mt-4 list-disc space-y-4">
               <li>
                 Dommages corporels et/ou matériels subis par lui et ses
                 accompagnants,
@@ -93,10 +93,10 @@ export default function Rules() {
             à l&apos;occasion d&apos;accident ou de vol survenu pendant et /ou à
             l&apos;occasion d&apos;une manifestation organisée par de
             l&apos;association <span style={{ fontWeight: 700 }}>Club306</span>.
-          </p>
+          </div>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 6
           </h2>
           <p>
@@ -111,7 +111,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 7
           </h2>
           <p>
@@ -138,7 +138,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 8
           </h2>
           <p>
@@ -159,7 +159,7 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 9
           </h2>
           <p>
@@ -179,14 +179,14 @@ export default function Rules() {
           </p>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 10
           </h2>
           <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
             A - ADHÉSION
           </h3>
           <p>La cotisation annuelle s&apos;entend :</p>
-          <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
+          <ul className="mb-4 ml-4 mt-4 list-disc space-y-4">
             <li>Par personne,</li>
             <li>
               Sur une période du 1 Janvier au 31 décembre (aucun prorata
@@ -226,7 +226,7 @@ export default function Rules() {
             C – RADIATION
           </h3>
           <p>La qualité de membre de l’association se perd par :</p>
-          <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
+          <ul className="mb-4 ml-4 mt-4 list-disc space-y-4">
             <li>La démission adressée au président de l&apos;association,</li>
             <li>
               Le non-paiement de la cotisation au 31 janvier de chaque année,
@@ -257,14 +257,14 @@ export default function Rules() {
             recommandée avec accusé de réception), l&apos;exclusion est
             prononcée par le Président après avis unanime des membres du Bureau.
           </p>
-          <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
+          <ul className="mb-4 ml-4 mt-4 list-disc space-y-4">
             <li>Comportement inapproprié,</li>
             <li>Mise en danger d&apos;autrui,</li>
             <li>Consommation substance licite et/ou illicite.</li>
           </ul>
         </section>
         <section className="mb-10 space-y-8">
-          <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
+          <h2 className="font-bold text-lg" style={{ fontWeight: 700 }}>
             ARTICLE 11
           </h2>
           <p>

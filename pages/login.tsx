@@ -41,15 +41,15 @@ export default function Login() {
   }
 
   return (
-    <Layout title="Ecran Connexion" displayNavbar={false}>
+    <Layout title="Ecran Connexion">
       <div className="container mx-auto">
         <main className="flex-1">
           {height !== 0 && (
             <div className="flex" style={{ height: `${height}px` }}>
               {/*LEFT*/}
-              <section className="lg:flex lg:w-2/3 hidden bg-cover relative">
+              <section className="relative hidden bg-cover lg:flex lg:w-2/3">
                 <button
-                  className="absolute top-0 left-0 mt-4 ml-4 hover:bg-[#DB2323] bg-[#3B578E]  text-white px-4 py-2 rounded z-10"
+                  className="absolute left-0 top-0 z-10 ml-4 mt-4 rounded  bg-[#3B578E] px-4 py-2 text-white hover:bg-[#DB2323]"
                   onClick={() => {
                     Router.push({
                       pathname: '/',
@@ -59,17 +59,17 @@ export default function Login() {
                   Retour
                 </button>
                 <div
-                  className="lg:flex lg:w-2/3 hidden bg-cover"
+                  className="hidden bg-cover lg:flex lg:w-2/3"
                   style={{
                     backgroundImage:
                       'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
                   }}
                 >
                   {/*La hauteur de cette div est : {height} px*/}
-                  <div className=" text-black flex items-center justify-center bg-white opacity-60 inset-0 z-0 h-full w-full">
+                  <div className=" inset-0 z-0 flex h-full w-full items-center justify-center bg-white text-black opacity-60">
                     <div>
                       <h1 className="text-5xl tracking-wide">Club 306</h1>
-                      <p className="text-3xl my-4">
+                      <p className="my-4 text-3xl">
                         Rejoins nous dans l&apos;aventure Peugeot 306
                       </p>
                     </div>
@@ -78,44 +78,47 @@ export default function Login() {
               </section>
 
               {/*RIGHT*/}
-              <section className="w-full flex flex-col justify-between my-4 mb-16 lg:w-1/3">
+              <section className="my-4 mb-16 flex w-full flex-col justify-between lg:w-1/3">
                 {/*Section HAUT*/}
                 <div className="">
-                  <p className="text-xl font-[999] pt-6 ml-8">
+                  <p className="ml-8 pt-6 text-xl font-[999]">
                     Connexion à votre compte
                   </p>
-                  <div className="flex mb-6 ml-8 text-sm">
-                    <p className="text-gray-400 mr-2 ">
+                  <div className="mb-6 ml-8 flex text-sm">
+                    <p className="mr-2 text-gray-400 ">
                       Pas encore de compte ?
                     </p>
-                    <p className="hover:underline hover:font-[999]">
+                    <p className="underline hover:text-red-600">
                       <Link href="membership">Créez en un</Link>
                     </p>
                   </div>
                 </div>
 
                 {/*Section MILIEU*/}
-                <div className="">
-                  <div className="border rounded-md border-black hover:border-blue-400 hover:bg-blue-50 flex justify-center items-center py-2 mb-4 mx-56 lg:mx-28">
-                    <button type="button" onClick={() => _handleGoogleSignin()}>
-                      <span className="flex">
-                        <FcGoogle size={25} className="mr-2" />
+                <section>
+                  <div className="flex items-center justify-center">
+                    <button
+                      className="flex flex-row rounded-md border-2 border-black px-4 py-2 hover:border-blue-400 hover:bg-blue-50"
+                      onClick={() => _handleGoogleSignin()}
+                    >
+                      <FcGoogle size={25} />
+                      <span className="hidden sm:ml-2 sm:block sm:text-base">
                         Continuer avec Google
                       </span>
                     </button>
                   </div>
-                  <div className="relative flex py-5 items-center mx-4 mb-8">
+                  <div className="relative mx-4 mb-8 flex items-center py-5">
                     <div className="flex-grow border-t border-gray-400 "></div>
-                    <span className="flex-shrink mx-4 ">OU</span>
+                    <span className="mx-4 flex-shrink ">OU</span>
                     <div className="flex-grow border-t border-gray-400"></div>
                   </div>
-                </div>
+                </section>
 
                 {/*Section BAS*/}
-                <div className="flex justify-center items-center -mt-16">
+                <div className="-mt-16 flex items-center justify-center">
                   <form action="" className="" onSubmit={formik.handleSubmit}>
                     <div
-                      className={`${'flex border rounded-xl'} ${
+                      className={`${'flex rounded-xl border'} ${
                         formik.errors.email && formik.touched.email
                           ? 'border-rose-600'
                           : ''
@@ -124,16 +127,16 @@ export default function Login() {
                       <input
                         type="email"
                         placeholder="Email"
-                        className="border rounded-xl focus:outline-none border-none"
+                        className="rounded-xl border border-none focus:outline-none"
                         {...formik.getFieldProps('email')}
                       />
-                      <span className="flex items-center px-2 flex text-[#3B578E] ">
+                      <span className="flex items-center px-2 text-[#3B578E] ">
                         <HiAtSymbol size={25} />
                       </span>
                     </div>
 
                     <div
-                      className={`${'my-3 flex border rounded-xl'} ${
+                      className={`${'my-3 flex rounded-xl border'} ${
                         formik.errors.password && formik.touched.password
                           ? 'border-rose-600'
                           : ''
@@ -142,7 +145,7 @@ export default function Login() {
                       <input
                         type={`${show.password ? 'text' : 'password'}`}
                         placeholder="Mot de Passe"
-                        className="border rounded-xl focus:outline-none border-none"
+                        className="rounded-xl border border-none focus:outline-none"
                         {...formik.getFieldProps('password')}
                       />
                       <span
@@ -155,11 +158,11 @@ export default function Login() {
                       </span>
                     </div>
 
-                    <div className="text-right text-gray-400 hover:underline hover:font-[999]">
+                    <div className="text-right text-gray-400 hover:font-[999] hover:underline">
                       <Link href="otpInput">Mot de passe oublié ?</Link>
                     </div>
-                    <div className="mt-4 border rounded-md hover:bg-[#DB2323] bg-[#3B578E] flex justify-center items-center py-2 px-2">
-                      <button type="submit" className="text-[#F7F9FF] text-xl">
+                    <div className="mt-4 flex items-center justify-center rounded-md border bg-[#3B578E] px-2 py-2 hover:bg-[#DB2323]">
+                      <button type="submit" className="text-xl text-[#F7F9FF]">
                         Se Connecter
                       </button>
                     </div>
