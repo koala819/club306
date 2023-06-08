@@ -46,11 +46,24 @@ export default function login_validate(values: any) {
   return errors;
 }
 
+function isDateOlderThan18Years(dateString: string) {
+  const today = new Date();
+  const inputDate = new Date(dateString);
+  const eighteenYearsAgo = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  );
+
+  return inputDate <= eighteenYearsAgo;
+}
+
 export function membership_validate(values: any) {
+  console.log('in membership_validate');
   const errors: FormikErrors<FormValues> = {};
 
   if (!values.first_name) {
-    errors.first_name = 'Obligatoire';
+    errors.first_name = 'Veuillez fournir votre Nom';
   }
 
   if (!values.last_name) {
@@ -126,6 +139,138 @@ export function membership_validate(values: any) {
   return errors;
 }
 
+export function personalInfos_validate(values: any) {
+  const errors: FormikErrors<FormValues> = {};
+
+  if (!values.first_name) {
+    errors.first_name = 'Veuillez fournir votre Nom';
+  }
+
+  if (!values.last_name) {
+    errors.last_name = 'Veuillez fournir votre Prénom';
+  }
+
+  if (!values.address) {
+    errors.address = 'Veuillez fournir votre Adresse';
+  } else if (values.address.length < 8) {
+    errors.address = 'Votre adresse est trop courte';
+  }
+
+  if (!values.zip_code) {
+    errors.zip_code = 'Veuillez fournir votre Code Postal';
+  }
+
+  if (!values.town) {
+    errors.town = 'Veuillez fournir votre Ville';
+  }
+
+  const checkDate = isDateOlderThan18Years(values.birth_date);
+
+  if (
+    (checkDate === false && values.birth_date === '') ||
+    (checkDate === true && values.birth_date === null)
+  ) {
+    errors.birth_date = 'Veillez fournir votre Date de naissance';
+  }
+  if (checkDate === false && values.birth_date !== '') {
+    errors.birth_date = 'Vous devez avoir minimum 18 ans';
+  }
+
+  if (!values.phone) {
+    errors.phone = 'Veuillez fournir votre Numéro de téléphone';
+  } else if (values.phone.length < 11) {
+    errors.phone = 'Le numéro de téléphone est trop court';
+  }
+
+  if (values.checkCotisation === false) {
+    errors.checkCotisation = ' Veuillez approuver la cotisation ...!';
+  }
+
+  if (values.checkCertificateHonour === false) {
+    errors.checkCertificateHonour =
+      " Veuillez approuver sur l'honneur que vous êtes bien propriétaire du véhicule ...!";
+  }
+
+  if (values.checkEngagementClub === false) {
+    errors.checkEngagementClub = ' Veuillez approuver notre règlement ...!';
+  }
+
+  if (values.checkPrivacyPolicy === false) {
+    errors.checkPrivacyPolicy =
+      ' Veuillez approuver notre politique de confidentialité ...!';
+  }
+
+  return errors;
+}
+
+export function garage_validate(values: any) {
+  console.log('in garage_validate', values);
+  const errors: FormikErrors<FormValues> = {};
+
+  if (!values.mine) {
+    errors.mine = 'Veuillez fournir votre Code Mine';
+  } else if (values.mine.length < 12) {
+    errors.mine = 'Code Mine trop court';
+  } else if (values.mine.length > 15) {
+    errors.mine = 'Code Mine trop long';
+  }
+
+  if (!values.immatriculation) {
+    errors.immatriculation = 'Veuillez fournir votre Immatriculation';
+  } else if (values.immatriculation.length < 9) {
+    errors.immatriculation = 'Immatriculation trop courte';
+  } else if (values.immatriculation.length > 10) {
+    errors.immatriculation = 'Immatriculation trop longue';
+  }
+
+  if (!values.model) {
+    errors.model = 'Veuillez fournir votre Modèle';
+  }
+
+  if (!values.color) {
+    errors.color = 'Veuillez fournir votre Couleur';
+  }
+  if (!values.finition) {
+    errors.finition = 'Veuillez fournir votre Finition';
+  }
+
+  return errors;
+}
+export function add_car_validate(values: any, index: number) {
+  console.log('in add_car_validate', values);
+  console.log('with this index', index);
+  const errors: any = {};
+
+  if (!values[`mine-${index}`]) {
+    errors[`mine-${index}`] = 'Veuillez fournir votre Code Mine';
+  } else if (values.mine.length < 12) {
+    errors.mine = 'Code Mine trop court';
+  } else if (values.mine.length > 15) {
+    errors.mine = 'Code Mine trop long';
+  }
+
+  // if (!values.immatriculation) {
+  //   errors.immatriculation = 'Veuillez fournir votre Immatriculation';
+  // } else if (values.immatriculation.length < 9) {
+  //   errors.immatriculation = 'Immatriculation trop courte';
+  // } else if (values.immatriculation.length > 10) {
+  //   errors.immatriculation = 'Immatriculation trop longue';
+  // }
+
+  // if (!values.model) {
+  //   errors.model = 'Veuillez fournir votre Modèle';
+  // }
+
+  // if (!values.color) {
+  //   errors.color = 'Veuillez fournir votre Couleur';
+  // }
+  // if (!values.finition) {
+  //   errors.finition = 'Veuillez fournir votre Finition';
+  // }
+
+  return errors;
+}
+
 export function register_validate(values: any) {
   const errors: FormikErrors<FormValues> = {};
 
@@ -191,7 +336,7 @@ export function change_pwd(values: any) {
     errors.cpwd = 'Mot de passe invalide';
   }
 
-  return errors;
+  return errors as any;
 }
 
 interface FormValues {
@@ -217,4 +362,6 @@ interface FormValues {
   checkCertificateHonour: boolean;
   checkEngagementClub: boolean;
   checkPrivacyPolicy: boolean;
+  mine: string;
+  finition: string;
 }

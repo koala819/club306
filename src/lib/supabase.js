@@ -190,6 +190,14 @@ async function getCarColor(idColor) {
     return null;
   }
 }
+async function getAllColors() {
+  try {
+    return await supabase.from('car_colors').select('*');
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
 
 export {
   checkMail,
@@ -201,4 +209,5 @@ export {
   returnMemberInfo,
   getMemberCars,
   getCarColor,
+  getAllColors,
 };

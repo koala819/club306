@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -35,7 +39,12 @@
     "src/app/types/User.old",
     "src/app/api/auth/[...nextauth].ts_old",
     "src/app/login.old",
-    "src/app/supabase-provider.old"
+    "src/app/supabase-provider.old",
+    "src/app/head.js",
+    "src/app/signin/Garage.jsx",
+    "src/app/signin/PersonalInfos.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
