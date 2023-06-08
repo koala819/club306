@@ -280,9 +280,7 @@ export const PersonalInfos = ({
                     className={`${'rounded-lg border focus:border-indigo-600 w-full h-9'}
                     ${errors.birth_date && 'border-red-600'}`}
                     placeholder={'DD/MM/YYYY'}
-                    value={
-                      field.value ? dayjs(field.value, 'DD/MM/YYYY') : null
-                    }
+                    value={field.value ? dayjs(field.value) : null}
                     onChange={(date) => {
                       field.onChange(date ? dayjs(date).toDate() : null);
                     }}
