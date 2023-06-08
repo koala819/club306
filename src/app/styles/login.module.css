@@ -1,4 +1,4 @@
-.input_group{
+/* .input_group{
     @apply flex border rounded-xl;
     position: relative;
 }
@@ -6,4 +6,4 @@
 .input_text{
     @apply w-full py-4 px-6 border rounded-xl bg-black;
     @apply focus:outline-none border-none
-}
+} */

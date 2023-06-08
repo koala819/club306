@@ -10,7 +10,6 @@ import { LayoutProps } from './types/Components';
 
 export default function RootLayout({
   children,
-  title,
   displayNavbar,
   session,
 }: LayoutProps) {
@@ -20,7 +19,7 @@ export default function RootLayout({
         <SessionProvider session={session}>
           <div className=" flex flex-col h-screen">
             {displayNavbar || displayNavbar === undefined ? <Navbar /> : null}
-            <title>{title}</title>
+
             <main className="flex-1 ">
               {/* <SupabaseProvider> */}
               {children}
