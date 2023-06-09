@@ -1,15 +1,15 @@
 'use client';
 import { useFormik } from 'formik';
 import { membership_validate } from '../../lib/validate';
-import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React, { useEffect, useState } from 'react';
+// import TextField from '@mui/material/TextField';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import React, { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from './Membership.module.css';
-import dayjs, { Dayjs } from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+// import dayjs, { Dayjs } from 'dayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Router from 'next/router';
 
 export const MembershipContent1 = (nextStep: any) => {
@@ -19,9 +19,9 @@ export const MembershipContent1 = (nextStep: any) => {
   //   nextStep.onClick(4);
   // }
 
-  const [value, setValue] = useState<Dayjs | null>(
-    dayjs('2014-08-18T21:11:54')
-  );
+  // const [value, setValue] = useState<Dayjs | null>(
+  //   dayjs('2014-08-18T21:11:54')
+  // );
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +53,8 @@ export const MembershipContent1 = (nextStep: any) => {
   }, []);
 
   function onSubmit(values: any) {
+    console.log('\n\n\ntu as cliqué BROVA\n\n\n', values);
+
     nextStep.onClick(2);
     localStorage.setItem('mySession', JSON.stringify(values));
   }
@@ -300,7 +302,7 @@ export const MembershipContent1 = (nextStep: any) => {
               </div>*/}
 
           {/*Birth Date*/}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               className={`${
                 formik.errors.birth_date && formik.touched.birth_date
@@ -319,7 +321,7 @@ export const MembershipContent1 = (nextStep: any) => {
                 <TextField id="birth_date" {...params} />
               )}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
 
           {/*Car Model*/}
           <select
