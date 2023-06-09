@@ -1,0 +1,17 @@
+
+.body{
+    background-color:#1e1e1e;
+    color:#fff;
+    display:flex;
+    flex-wrap:wrap-reverse;
+    align-items:center;
+    justify-content:space-around;
+    min-height:98vh
+}
+
+
+
+.a, .a:visited{
+    color:#f07e27;
+    text-decoration:none
+}
