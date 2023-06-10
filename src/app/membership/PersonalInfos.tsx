@@ -100,14 +100,14 @@ export const PersonalInfos = ({
             type="text"
             id="first_name"
             defaultValue={personalInfo.first_name || ''}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.first_name && 'border-red-600'}`}
             {...register('first_name')}
             placeholder=" "
           />
           <label
             htmlFor="first_name"
-            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
+            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
               errors.first_name && 'text-red-500 font-mono text-sm'
             }`}
           >
@@ -126,14 +126,14 @@ export const PersonalInfos = ({
             type="text"
             id="last_name"
             defaultValue={personalInfo.last_name || ''}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
       ${errors.last_name && 'border-red-600'}`}
             {...register('last_name')}
             placeholder=" "
           />
           <label
             htmlFor="last_name"
-            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
+            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
               errors.last_name && 'text-red-500 font-mono text-sm'
             }`}
           >
@@ -152,14 +152,14 @@ export const PersonalInfos = ({
             type="text"
             id="address"
             defaultValue={personalInfo.address}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.address && 'border-red-600'}`}
             {...register('address')}
             placeholder=" "
           />
           <label
             htmlFor="address"
-            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
+            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
               errors.address && 'text-red-500 font-mono text-sm'
             }`}
           >
@@ -178,14 +178,14 @@ export const PersonalInfos = ({
             type="text"
             id="zip_code"
             defaultValue={personalInfo.zip_code}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.zip_code && 'border-red-600'}`}
             {...register('zip_code')}
             placeholder=" "
           />
           <label
             htmlFor="zip_code"
-            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
+            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
               errors.zip_code && 'text-red-500 font-mono text-sm'
             }`}
           >
@@ -204,14 +204,14 @@ export const PersonalInfos = ({
             type="text"
             id="town"
             defaultValue={personalInfo.town}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.town && 'border-red-600'}`}
             {...register('town')}
             placeholder=" "
           />
           <label
             htmlFor="town"
-            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
+            className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
               errors.town && 'text-red-500 font-mono text-sm'
             }`}
           >
@@ -312,7 +312,7 @@ export const PersonalInfos = ({
             <div className="ml-3 text-sm">
               <label
                 htmlFor="checkCotisation"
-                className="font-medium text-gray-700 dark:text-gray-400"
+                className="font-medium text-gray-700"
               >
                 <span>
                   Cotisation : Je comprends que la cotisation annuelle au
@@ -342,7 +342,7 @@ export const PersonalInfos = ({
             <div className="ml-3 text-sm">
               <label
                 htmlFor="checkCertificateHonour"
-                className="font-medium text-gray-700 dark:text-gray-400"
+                className="font-medium text-gray-700"
               >
                 <span>
                   J’atteste sur l’honneur que je suis bien le (la) propriétaire
@@ -373,7 +373,7 @@ export const PersonalInfos = ({
             <div className="ml-3 text-sm">
               <label
                 htmlFor="checkEngagementClub"
-                className="font-medium text-gray-700 dark:text-gray-400"
+                className="font-medium text-gray-700"
               >
                 <span>
                   Je m&apos;engage, en adhérant au Club à respecter{' '}
@@ -405,7 +405,7 @@ export const PersonalInfos = ({
             <div className="ml-3 text-sm">
               <label
                 htmlFor="checkPrivacyPolicy"
-                className="font-medium text-gray-700 dark:text-gray-400"
+                className="font-medium text-gray-700"
               >
                 <span>
                   En soumettant ce formulaire, je confirme avoir pris
