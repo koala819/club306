@@ -1,3 +1,4 @@
+'use client';
 import { createClient } from '../../prismicio';
 import { Homepage } from './homepage/Homepage';
 

@@ -38,8 +38,9 @@
     "src/app/login.old",
     "src/app/supabase-provider.old",
     "src/app/head.js",
-    "src/app/signin/Garage.jsx",
-    "src/app/signin/PersonalInfos.jsx"
+    "src/app/membership/Garage.jsx",
+    "src/app/membership/PersonalInfos.jsx",
+    "middleware.old"
   ],
   "exclude": ["node_modules"]
 }
