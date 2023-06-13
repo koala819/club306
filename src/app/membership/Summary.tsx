@@ -1,26 +1,35 @@
 'use client';
-import React from 'react';
-import { personalInfo } from '../types/Components';
-
-interface Vehicle {
-  immatriculation: string;
-  model: string;
-  color: string;
-  finition: string;
-  mine: string;
-}
-
-interface SummaryProps {
-  setStep: any;
-  personalInfo: personalInfo;
-  vehicles: Vehicle[];
-}
+import React, { useEffect, useState } from 'react';
+import { SummaryProps } from '@/app/models';
+import { getMemberId } from '@/lib/supabase';
 
 export const Summary: React.FC<SummaryProps> = ({
   setStep,
   personalInfo,
   vehicles,
 }) => {
+  const [memberId, setMemberId] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const memberId = await getMemberId();
+
+      if (memberId !== null && memberId.data !== null) {
+        console.log('dernier id', memberId.data[0].id);
+        setMemberId(memberId.data[0].id + 1);
+        // const fetchedColors: Color[] = memberId.data.map((color: any) => {
+        //   return {
+        //     id: color.id,
+        //     name: color.name,
+        //     hexa: color.hexa,
+        //   };
+        // });
+        // setColors(fetchedColors);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
@@ -36,7 +45,8 @@ export const Summary: React.FC<SummaryProps> = ({
   return (
     <>
       <div className="bg-gray-100 p-8">
-        <h2 className="text-2xl font-bold mb-4">Résumé</h2>
+        <h2 className="text-2xl font-bold mb-4">Résumé </h2>
+        <h1>with id {memberId}</h1>
 
         {/* Personal Info */}
         <div className="mb-6">

@@ -3,21 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { getAllColors } from '../../lib/supabase';
-
-interface Vehicles {
-  immatriculation: string;
-  mine: string;
-  model: string;
-  color: string;
-  finition: string;
-}
-
-interface Color {
-  id: number;
-  nom: string;
-  hexa: string;
-}
+import {
+  getAllColors,
+  getAllFinitions,
+  getAllModels,
+} from '../../lib/supabase';
+import { Color, Finition, Model, Vehicles } from '@/app/models';
 
 export const Garage = ({
   setStep,
@@ -30,6 +21,8 @@ export const Garage = ({
 }) => {
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [colors, setColors] = useState<Color[]>([]);
+  const [finitions, setFinitions] = useState<Finition[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -107,17 +100,40 @@ export const Garage = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getAllColors();
-
-      if (response !== null && response.data !== null) {
-        const fetchedColors: Color[] = response.data.map((color: any) => {
+      const carColor = await getAllColors();
+      if (carColor !== null && carColor.data !== null) {
+        const fetchedColors: Color[] = carColor.data.map((color: any) => {
           return {
             id: color.id,
-            nom: color.nom,
+            name: color.name,
             hexa: color.hexa,
           };
         });
         setColors(fetchedColors);
+      }
+
+      const carFinition = await getAllFinitions();
+      if (carFinition !== null && carFinition.data !== null) {
+        const fetchedFinitions: Finition[] = carFinition.data.map(
+          (color: any) => {
+            return {
+              id: color.id,
+              name: color.name,
+            };
+          }
+        );
+        setFinitions(fetchedFinitions);
+      }
+
+      const carModel = await getAllModels();
+      if (carModel !== null && carModel.data !== null) {
+        const fetchedModels: Model[] = carModel.data.map((color: any) => {
+          return {
+            id: color.id,
+            name: color.name,
+          };
+        });
+        setModels(fetchedModels);
       }
     };
     fetchData();
@@ -164,6 +180,7 @@ export const Garage = ({
             )}
           </div>
 
+          {/* MINE */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
             <input
               type="text"
@@ -192,6 +209,7 @@ export const Garage = ({
             )}
           </div>
 
+          {/* MODEL */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
             <select
               id="model"
@@ -202,22 +220,14 @@ export const Garage = ({
                   : ''
               }`}
             >
-              <option
-                value=""
-                label="Quel est le modèle de votre 306 ?"
-              ></option>
-              <option value="3 Portes" label="3 Portes">
-                3 Portes
-              </option>
-              <option value="5 Portes" label="5 Portes">
-                5 Portes
-              </option>
-              <option value="Break" label="Break">
-                Break
-              </option>
-              <option value="Cabriolet" label="Cabriolet">
-                Cabriolet
-              </option>
+              <option value="">Choix du modèle</option>
+              {models
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((model: Model) => (
+                  <option key={model.id} value={model.name}>
+                    {model.name}
+                  </option>
+                ))}
             </select>
             <label
               htmlFor="model"
@@ -237,6 +247,7 @@ export const Garage = ({
             )}
           </div>
 
+          {/* COLOR */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
             <select
               id="color"
@@ -247,16 +258,16 @@ export const Garage = ({
                   : ''
               }`}
             >
-              <option value="">Choix de la couleur </option>
+              <option value="">Choix de la couleur</option>
               {colors
-                .sort((a, b) => a.nom.localeCompare(b.nom))
+                .sort((a, b) => a.name.localeCompare(b.name))
                 .map((color: Color) => (
                   <option
                     key={color.id}
-                    value={color.nom}
+                    value={color.name}
                     style={{ backgroundColor: `#${color.hexa}` }}
                   >
-                    {color.nom}
+                    {color.name}
                   </option>
                 ))}
             </select>
@@ -278,16 +289,26 @@ export const Garage = ({
             )}
           </div>
 
+          {/* FINITION */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
-            <input
-              type="text"
+            <select
               id="finition"
-              {...register('finition', { required: 'Finition is required' })}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                errors.finition && editIndex === null ? 'border-red-500' : ''
+              {...register('finition')}
+              className={`block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer ${
+                errors.model && editIndex === null
+                  ? 'border-red-500 text-red-500 text-sm font-mono'
+                  : ''
               }`}
-              placeholder=" "
-            />
+            >
+              <option value="">Choix de la finition</option>
+              {finitions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((finition: Finition) => (
+                  <option key={finition.id} value={finition.name}>
+                    {finition.name}
+                  </option>
+                ))}
+            </select>
             <label
               htmlFor="finition"
               className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
