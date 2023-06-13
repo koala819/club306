@@ -32,6 +32,25 @@ nav {
   text-align: center;
 }
 
+.success {
+  background-color: rgb(59 130 246);
+  font-weight: bolder;
+}
+
+.my-link {
+  text-decoration: underline;
+}
+
+.my-link:hover {
+  color: #db2323;
+}
+
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: yellow;
+}
+
 .loading {
   margin: 40vh auto;
 }

@@ -10,6 +10,7 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^3.1.0",
