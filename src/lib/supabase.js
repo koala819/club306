@@ -7,34 +7,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 );
 
-async function checkMail(mail) {
-  const { data, error } = await supabase
-    .from('members')
-    .select('*')
-    .filter('email', 'eq', mail);
-
-  if (error) {
-    console.error(error);
-    return false;
-  }
-
-  return data.length > 0;
-}
-
-async function returnMemberInfo(mail) {
-  const { data, error } = await supabase
-    .from('members')
-    .select('*')
-    .filter('email', 'eq', mail);
-
-  if (error) {
-    console.error(error);
-    return false;
-  }
-
-  return data;
-}
-
 async function checkForCanI(lastName, firstName) {
   return await supabase
     .from('members')
@@ -64,6 +36,20 @@ async function checkForStartSession(dataFromAccountGoogle) {
   }
 }
 
+async function checkMail(mail) {
+  const { data, error } = await supabase
+    .from('members')
+    .select('*')
+    .filter('email', 'eq', mail);
+
+  if (error) {
+    console.error(error);
+    return false;
+  }
+
+  return data.length > 0;
+}
+
 async function checkRegisteredMember(credentialsProvider) {
   const { data, error } = await supabase
     .from('members')
@@ -87,6 +73,83 @@ async function checkRegisteredMember(credentialsProvider) {
     return null;
   } else {
     console.error('Error to check if member is registered in our db');
+    return null;
+  }
+}
+
+async function getAllColors() {
+  try {
+    return await supabase.from('car_colors').select('*');
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+async function getAllFinitions() {
+  try {
+    return await supabase.from('car_finitions').select('*');
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getAllModels() {
+  try {
+    return await supabase.from('car_models').select('*');
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getCarColor(idColor) {
+  try {
+    const { data, error } = await supabase
+      .from('car_colors')
+      .select('*')
+      .eq('id', idColor)
+      .single();
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getMemberCars(idMember) {
+  try {
+    const { data, error } = await supabase
+      .from('members')
+      .select(
+        `members_cars (member_id, modele, finition, min, immatriculation, color_id)`
+      )
+      .eq('id', idMember)
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data.members_cars;
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getMemberId() {
+  try {
+    return await supabase
+      .from('members')
+      .select('id')
+      .order('id', { ascending: false })
+      .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
   }
 }
@@ -153,61 +216,32 @@ function record(dataFromLocalStorage, setIsRegistered, nextStep, mailGoogle) {
     });
 }
 
-async function getMemberCars(idMember) {
-  try {
-    const { data, error } = await supabase
-      .from('members')
-      .select(
-        `members_cars (member_id, modele, finition, min, immatriculation, color_id)`
-      )
-      .eq('id', idMember)
-      .single();
+async function returnMemberInfo(mail) {
+  const { data, error } = await supabase
+    .from('members')
+    .select('*')
+    .filter('email', 'eq', mail);
 
-    if (error) {
-      throw new Error(error.message);
-    }
+  if (error) {
+    console.error(error);
+    return false;
+  }
 
-    return data.members_cars;
-  } catch (error) {
-    console.error("Erreur lors de l'exécution de la requête :", error.message);
-    return null;
-  }
-}
-
-async function getCarColor(idColor) {
-  try {
-    const { data, error } = await supabase
-      .from('car_colors')
-      .select('*')
-      .eq('id', idColor)
-      .single();
-    if (error) {
-      throw new Error(error.message);
-    }
-    return data;
-  } catch (error) {
-    console.error("Erreur lors de l'exécution de la requête :", error.message);
-    return null;
-  }
-}
-async function getAllColors() {
-  try {
-    return await supabase.from('car_colors').select('*');
-  } catch (error) {
-    console.error("Erreur lors de l'exécution de la requête :", error.message);
-    return null;
-  }
+  return data;
 }
 
 export {
-  checkMail,
-  checkForStartSession,
   checkForCanI,
+  checkForStartSession,
+  checkMail,
   checkRegisteredMember,
-  record,
-  ourPartners,
-  returnMemberInfo,
-  getMemberCars,
-  getCarColor,
   getAllColors,
+  getAllFinitions,
+  getAllModels,
+  getCarColor,
+  getMemberCars,
+  getMemberId,
+  ourPartners,
+  record,
+  returnMemberInfo,
 };

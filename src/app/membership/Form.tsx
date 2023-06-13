@@ -1,43 +1,13 @@
 'use client';
-// import utilStyles from '../../styles/utils.module.css';
-// import formStyles from './Form.module.css';
 import { useState } from 'react';
 import { PersonalInfos } from './PersonalInfos';
 import { Garage } from './Garage';
 import { Summary } from './Summary';
-// import PickAddOns from './pickAddOns/pickAddOns';
-// import Summary from './summary';
-// import ThankYou from './thankYou';
-// import {
-//   nameRegex,
-//   emailRegex,
-//   phoneNumberRegex,
-// } from '../../constants/regex/regexConstants';
-// import { garage_validate, personalInfos_validate } from '../../lib/validate';
-import { personalInfo } from '../types/Components';
-// import { add_car_validate } from '../../lib/validate';
+import { PersonalInfo, Vehicles } from '@/app/models';
 
-interface Vehicles {
-  immatriculation: string;
-  mine: string;
-  model: string;
-  color: string;
-  finition: string;
-}
-
-export const Form = ({
-  step,
-  setStep,
-}: // formData,
-// updateFormData,
-{
-  step: number;
-  setStep: any;
-  // formData: FormData;
-  // updateFormData: any;
-}) => {
+export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
   const [vehicles, setVehicles] = useState<Vehicles[]>([]);
-  const [personalInfo, setPersonalInfo] = useState<personalInfo>({
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     first_name: '',
     last_name: '',
     address: '',
@@ -50,20 +20,6 @@ export const Form = ({
     checkEngagementClub: false,
     checkPrivacyPolicy: false,
   });
-
-  // const [index, setIndex] = useState(0);
-
-  // const checkDataFromGarage = (childData: number) => {
-  //   console.log(
-  //     'données provenant de Garage, nous avons un index ==',
-  //     childData
-  //   );
-  //   setIndex(() => childData);
-  // };
-
-  // useEffect(() => {
-  //   console.log('La valeur de "index" a été mise à jour :', index);
-  // }, [index]);
 
   if (step != 5)
     return (
@@ -102,48 +58,6 @@ export const Form = ({
               vehicles={vehicles}
             />
           )}
-          {/* {step == 3 && (
-          <PickAddOns
-            addOns={addOnsInfo}
-            setAddOns={setAddOnsInfo}
-            yearly={selectPlanInfo.timeframe}
-          />
-        )}
-        {step == 4 && (
-          <Summary
-            formData={formData}
-            toggleYearly={() => {
-              setSelectPlanInfo({
-                ...selectPlanInfo,
-                timeframe: !selectPlanInfo.timeframe,
-              });
-              toggleYearly();
-            }}
-          />
-        )} */}
-          {/* <div className="flex  w-full justify-between mt-4">
-            <button
-              type="button"
-              className={
-                step >= 2
-                  ? 'hover:bg-red-600 bg-red-800  active:bg-red-200 text-gray-100 text-xl px-7 py-1.5 rounded '
-                  : 'hidden'
-              }
-              onClick={handleGoBack}
-            >
-              Retour
-            </button>
-            <button
-              type="submit"
-              className={
-                step < 3
-                  ? 'hover:bg-green-600 bg-green-800  active:bg-green-200 text-gray-100 text-xl px-7 py-1.5 rounded ml-auto'
-                  : 'hidden'
-              }
-            >
-              {step == 4 ? 'Confirm' : 'Suivant'}
-            </button>
-          </div> */}
         </div>
       </main>
     );

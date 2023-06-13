@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { ConfigProvider, DatePicker } from 'antd';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { personalInfo } from '../types/Components';
+import { PersonalInfo } from '@/app/models';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -17,8 +17,8 @@ export const PersonalInfos = ({
   personalInfo,
 }: {
   setStep: any;
-  setPersonalInfo: React.Dispatch<React.SetStateAction<personalInfo>>;
-  personalInfo: personalInfo;
+  setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo>>;
+  personalInfo: PersonalInfo;
 }) => {
   const schema = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
@@ -65,11 +65,11 @@ export const PersonalInfos = ({
     control,
     reset,
     formState: { errors },
-  } = useForm<personalInfo>({
+  } = useForm<PersonalInfo>({
     resolver: yupResolver(schema),
   });
 
-  const handleAddPersonalInfos = (data: personalInfo) => {
+  const handleAddPersonalInfos = (data: PersonalInfo) => {
     console.log('\n\n\ntu as cliqué BRAVO\n\n\n', data);
     setPersonalInfo(data);
     reset();

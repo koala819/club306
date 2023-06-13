@@ -49,20 +49,6 @@ export type CardStaffProps = {
   youtube?: string;
 };
 
-export type personalInfo = {
-  first_name: string;
-  last_name: string;
-  address: string;
-  zip_code: string;
-  town: string;
-  birth_date: string;
-  phone: string;
-  checkCotisation: boolean;
-  checkCertificateHonour: boolean;
-  checkEngagementClub: boolean;
-  checkPrivacyPolicy: boolean;
-};
-
 export type LayoutProps = {
   title: string;
   displayNavbar?: boolean;
