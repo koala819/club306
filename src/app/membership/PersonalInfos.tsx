@@ -21,7 +21,7 @@ export const PersonalInfos = ({
   setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo>>;
   personalInfo: PersonalInfo;
 }) => {
-  const schema = yup.object().shape({
+  const schema: yup.ObjectSchema<PersonalInfo> = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
     last_name: yup.string().required('Veuillez fournir votre Prénom'),
     address: yup
