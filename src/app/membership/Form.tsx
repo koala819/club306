@@ -16,7 +16,7 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
     address: '',
     zip_code: '',
     town: '',
-    birth_date: '',
+    birth_date: new Date(),
     phone: '',
     checkCotisation: false,
     checkCertificateHonour: false,
