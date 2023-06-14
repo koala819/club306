@@ -1,4 +1,4 @@
-'use local';
+'use client';
 import Image from 'next/image';
 import { Button } from 'antd';
 import { BsPatchPlus } from 'react-icons/bs';

@@ -9,6 +9,12 @@ export interface Finition {
   name: string;
 }
 
+export interface MailPwd {
+  email: string;
+  pwd: string;
+  cpwd?: string;
+}
+
 export interface Model {
   id: number;
   name: string;

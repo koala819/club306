@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import { ConfigProvider, DatePicker } from 'antd';
+import { Button, ConfigProvider, DatePicker } from 'antd';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { PersonalInfo } from '@/app/models';
@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import dayjs from 'dayjs';
 import locale from 'antd/locale/fr_FR';
+import { RightCircleFilled } from '@ant-design/icons';
 
 export const PersonalInfos = ({
   setStep,
@@ -92,7 +93,7 @@ export const PersonalInfos = ({
   // };
 
   return (
-    <form onSubmit={handleSubmit(handleAddPersonalInfos)}>
+    <form>
       <div className="mt-8 grid h-full grid-cols-6 gap-6 px-2">
         {/* FIRST NAME */}
         <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
@@ -111,7 +112,7 @@ export const PersonalInfos = ({
               errors.first_name && 'text-red-500 font-mono text-sm'
             }`}
           >
-            Nom <span className="text-red-500">*</span>
+            Prénom <span className="text-red-500">*</span>
           </label>
           {errors.first_name && (
             <span className="text-red-500 font-mono text-xs">
@@ -137,7 +138,7 @@ export const PersonalInfos = ({
               errors.last_name && 'text-red-500 font-mono text-sm'
             }`}
           >
-            Prénom <span className="text-red-500">*</span>
+            Nom <span className="text-red-500">*</span>
           </label>
           {errors.last_name && (
             <span className="text-red-500 font-mono text-xs">
@@ -433,12 +434,23 @@ export const PersonalInfos = ({
 
         {/* SUBMIT BUTTON */}
         <div className="col-span-6 mt-8">
-          <button
-            type="submit"
-            className="w-full py-3 px-6 rounded-md bg-blue-600 text-white font-medium tracking-wide hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+          <ConfigProvider
+            theme={{
+              token: {
+                fontSize: 18,
+              },
+            }}
           >
-            Suivant
-          </button>
+            <Button
+              onClick={handleSubmit(handleAddPersonalInfos)}
+              type="primary"
+              size="large"
+              block
+              icon={<RightCircleFilled />}
+            >
+              <span>Suivant</span>
+            </Button>
+          </ConfigProvider>
         </div>
       </div>
     </form>

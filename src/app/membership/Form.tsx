@@ -1,11 +1,14 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { PersonalInfos } from './PersonalInfos';
 import { Garage } from './Garage';
 import { Summary } from './Summary';
-import { PersonalInfo, Vehicles } from '@/app/models';
+import { Paypal } from './Paypal';
+import { SignIn } from './SignIn';
+import { MailPwd, PersonalInfo, Vehicles } from '@/app/models';
 
 export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
+  console.log('step', step);
   const [vehicles, setVehicles] = useState<Vehicles[]>([]);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     first_name: '',
@@ -20,8 +23,12 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
     checkEngagementClub: false,
     checkPrivacyPolicy: false,
   });
+  const [mailInfo, setMailInfo] = useState<MailPwd>({
+    email: '',
+    pwd: '',
+  });
 
-  if (step != 5)
+  if (step <= 6)
     return (
       <main
         aria-label="Main"
@@ -58,14 +65,23 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
               vehicles={vehicles}
             />
           )}
+          {step == 4 && (
+            <Paypal setStep={setStep} personalInfo={personalInfo} />
+          )}
+          {step == 5 && <SignIn setStep={setStep} setMailInfo={setMailInfo} />}
         </div>
       </main>
     );
   else
     return (
-      <div>
+      <div className="flex w-full lg:flex lg:items-center lg:justify-center lg:col-span-7 lg:px-8 xl:col-span-6 bg-green-200">
         {/* <ThankYou /> */}
-        Thank You
+        <p>Thank You</p>
+        <p>You have these data to record in db</p>
+        <br />
+        <br />
+        <p>{mailInfo.email}</p>
+        <p>{mailInfo.pwd}</p>
       </div>
     );
 };

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Step } from './Step';
 import { Form } from './Form';
 
-export default function SigninPage() {
-  const [step, setStep] = useState(3);
+export default function Page() {
+  const [step, setStep] = useState(5);
 
   return (
     <>
