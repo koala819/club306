@@ -26,12 +26,12 @@ export interface PersonalInfo {
   address: string;
   zip_code: string;
   town: string;
-  birth_date: string;
+  birth_date: Date;
   phone: string;
-  checkCotisation: boolean;
-  checkCertificateHonour: boolean;
-  checkEngagementClub: boolean;
-  checkPrivacyPolicy: boolean;
+  checkCotisation: boolean | undefined;
+  checkCertificateHonour: boolean | undefined;
+  checkEngagementClub: boolean | undefined;
+  checkPrivacyPolicy: boolean | undefined;
 }
 
 export interface SummaryProps {
