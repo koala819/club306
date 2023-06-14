@@ -26,7 +26,7 @@ export const SignIn = ({
   const [cPasswordVisible, setCPasswordVisible] = useState(false);
   const { data: session } = useSession();
 
-  const schema = yup.object().shape({
+  const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
       .string()
       .required("L'email est obligatoire")
