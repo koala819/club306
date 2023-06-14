@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { SummaryProps } from '@/app/models';
 import { getMemberId } from '@/lib/supabase';
+import { Button, ConfigProvider } from 'antd';
+import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 
 export const Summary: React.FC<SummaryProps> = ({
   setStep,
@@ -17,14 +19,6 @@ export const Summary: React.FC<SummaryProps> = ({
       if (memberId !== null && memberId.data !== null) {
         console.log('dernier id', memberId.data[0].id);
         setMemberId(memberId.data[0].id + 1);
-        // const fetchedColors: Color[] = memberId.data.map((color: any) => {
-        //   return {
-        //     id: color.id,
-        //     name: color.name,
-        //     hexa: color.hexa,
-        //   };
-        // });
-        // setColors(fetchedColors);
       }
     };
     fetchData();
@@ -125,22 +119,32 @@ export const Summary: React.FC<SummaryProps> = ({
         </div>
       </div>
       <div className="flex  w-full justify-between mt-4">
-        <button
-          type="button"
-          className="hover:bg-red-600 bg-red-800  active:bg-red-200 text-gray-100 text-xl px-7 py-1.5 rounded "
-          onClick={handleGoBack}
+        <ConfigProvider
+          theme={{
+            token: {
+              fontSize: 18,
+            },
+          }}
         >
-          Retour
-        </button>
-        {vehicles.length >= 1 && (
-          <button
-            type="button"
-            className="hover:bg-green-600 bg-green-800  active:bg-green-200 text-gray-100 text-xl px-7 py-1.5 rounded ml-auto"
-            onClick={handleNext}
+          <Button
+            onClick={handleGoBack}
+            type="primary"
+            size="large"
+            icon={<LeftCircleFilled />}
           >
-            Suivant
-          </button>
-        )}
+            Précédent
+          </Button>
+          {vehicles.length >= 1 && (
+            <Button
+              onClick={handleNext}
+              type="primary"
+              size="large"
+              icon={<RightCircleFilled />}
+            >
+              Suivant
+            </Button>
+          )}
+        </ConfigProvider>
       </div>
     </>
   );

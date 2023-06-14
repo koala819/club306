@@ -9,7 +9,6 @@
 html,
 body {
   padding: 0;
-  /* margin: 0; */
   background-color: #f7f9ff;
   color: rgb(75 85 99);
   margin: 0;
@@ -32,7 +31,7 @@ nav {
   text-align: center;
 }
 
-.success {
+.success .next {
   background-color: rgb(59 130 246);
   font-weight: bolder;
 }
@@ -45,7 +44,7 @@ nav {
   color: #db2323;
 }
 
-.h2 {
+/* .h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: yellow;
@@ -53,11 +52,11 @@ nav {
 
 .loading {
   margin: 40vh auto;
-}
+} */
 
-.btn {
+/* .btn {
   @apply rounded bg-gray-800 px-7 py-1.5 text-gray-100 hover:bg-gray-900 active:bg-green-600;
-}
+} */
 
 .hideMenuNav {
   display: none;

@@ -9,6 +9,8 @@ import {
   getAllModels,
 } from '../../lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/app/models';
+import { Button, ConfigProvider } from 'antd';
+import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 
 export const Garage = ({
   setStep,
@@ -148,9 +150,9 @@ export const Garage = ({
             : handleSubmit(handleAddVehicle)
         }
       >
-        <div className="grid grid-cols-6 gap-6">
+        <div className="grid grid-cols-6 gap-6   space-y-8">
           {/* IMMATRICULATION */}
-          <div className="col-span-6 sm:col-span-3 relative z-0">
+          <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
             <input
               type="text"
               id="immatriculation"
@@ -390,20 +392,30 @@ export const Garage = ({
         ))}
       </div>
       <div className="flex  w-full justify-between mt-4">
-        <button
-          type="button"
-          className="hover:bg-red-600 bg-red-800  active:bg-red-200 text-gray-100 text-xl px-7 py-1.5 rounded "
-          onClick={handleGoBack}
+        <ConfigProvider
+          theme={{
+            token: {
+              fontSize: 18,
+            },
+          }}
         >
-          Retour
-        </button>
-        <button
-          type="button"
-          className="hover:bg-green-600 bg-green-800  active:bg-green-200 text-gray-100 text-xl px-7 py-1.5 rounded ml-auto"
-          onClick={handleNext}
-        >
-          Suivant
-        </button>
+          <Button
+            onClick={handleGoBack}
+            type="primary"
+            size="large"
+            icon={<LeftCircleFilled />}
+          >
+            Précédent
+          </Button>
+          <Button
+            onClick={handleNext}
+            type="primary"
+            size="large"
+            icon={<RightCircleFilled />}
+          >
+            Suivant
+          </Button>
+        </ConfigProvider>
       </div>
     </>
   );
