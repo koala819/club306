@@ -81,9 +81,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="first_name"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               }
                         ${
@@ -112,9 +112,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="last_name"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               }
                         ${
@@ -143,9 +143,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="address"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               }
                         ${
@@ -174,9 +174,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="zip_code"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               } 
                        ${
@@ -205,9 +205,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="town"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               }
                         ${
@@ -236,9 +236,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="phone"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               } 
                        ${
@@ -267,9 +267,9 @@ export default function MembershipContent1(nextStep: any) {
             <label
               htmlFor="immatriculation"
               className={`${
-                'peer-focus:font-medium absolute text-lg text-black dark:text-gray-400 duration-300' +
+                'peer-focus:font-medium absolute text-lg text-black duration-300' +
                 'transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600' +
-                'peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
+                'peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0' +
                 'peer-focus:scale-75 peer-focus:-translate-y-6 font-semibold'
               }
                        ${
@@ -331,9 +331,7 @@ export default function MembershipContent1(nextStep: any) {
             }
             className={`${
               'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg' +
-              'focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700' +
-              'dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500' +
-              'dark:focus:border-blue-500'
+              'focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
             } ${
               formik.errors.model && formik.touched.model
                 ? 'border-red-600 border-b-3 text-red-600'
@@ -363,9 +361,7 @@ export default function MembershipContent1(nextStep: any) {
             }
             className={`${
               'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg' +
-              'focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700' +
-              'dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500' +
-              'dark:focus:border-blue-500'
+              'focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
             } ${
               formik.errors.color && formik.touched.color
                 ? 'border-red-600 border-b-3 text-red-600'
@@ -405,13 +401,12 @@ export default function MembershipContent1(nextStep: any) {
           <div className="flex items-center mb-4 mt-12">
             <input
               type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
-                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
               {...formik.getFieldProps('checkCotisation')}
             />
             <label
               htmlFor="checkCotisation"
-              className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
+              className={`ml-2 text-sm font-medium text-black font-sans text-left 
                        ${
                          formik.errors.checkCotisation &&
                          formik.touched.checkCotisation
@@ -431,13 +426,12 @@ export default function MembershipContent1(nextStep: any) {
           <div className="flex items-center mb-4">
             <input
               type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
-                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
               {...formik.getFieldProps('checkCertificateHonour')}
             />
             <label
               htmlFor="checkCertificateHonour"
-              className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
+              className={`ml-2 text-sm font-medium text-black font-sans text-left 
                        ${
                          formik.errors.checkCertificateHonour &&
                          formik.touched.checkCertificateHonour
@@ -458,13 +452,12 @@ export default function MembershipContent1(nextStep: any) {
           <div className="flex items-center mb-4">
             <input
               type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
-                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
               {...formik.getFieldProps('checkEngagementClub')}
             />
             <label
               htmlFor="checkEngagementClub"
-              className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
+              className={`ml-2 text-sm font-medium text-black font-sans text-left 
                        ${
                          formik.errors.checkEngagementClub &&
                          formik.touched.checkEngagementClub
@@ -476,7 +469,7 @@ export default function MembershipContent1(nextStep: any) {
                 Je m&apos;engage, en adhérant au Club à respecter{' '}
                 <Link
                   href="/reglement"
-                  className="text-blue-600 hover:underline dark:text-blue-500"
+                  className="text-blue-600 hover:underline"
                 >
                   &nbsp;les termes de ses statuts et de son règlement
                 </Link>
@@ -489,13 +482,12 @@ export default function MembershipContent1(nextStep: any) {
           <div className="flex items-center mb-4">
             <input
               type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500
-                                           dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
               {...formik.getFieldProps('checkPrivacyPolicy')}
             />
             <label
               htmlFor="checkPrivacyPolicy"
-              className={`ml-2 text-sm font-medium text-black font-sans dark:text-gray-300 text-left 
+              className={`ml-2 text-sm font-medium text-black font-sans  text-left 
                        ${
                          formik.errors.checkPrivacyPolicy &&
                          formik.touched.checkPrivacyPolicy
@@ -508,7 +500,7 @@ export default function MembershipContent1(nextStep: any) {
                 de
                 <Link
                   href="/confidentialite"
-                  className="text-blue-600 hover:underline dark:text-blue-500"
+                  className="text-blue-600 hover:underline"
                 >
                   &nbsp;la politique de confidentialité
                 </Link>
