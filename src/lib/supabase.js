@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import { signOut } from 'next-auth/react';
 import bcrypt from 'bcryptjs';
 
 const supabase = createClient(
