@@ -3,7 +3,7 @@ import Image from 'next/image';
 import picture306 from '../public/images/logoClub306.png';
 import Avp from '../public/images/Logo_AVP.png';
 import Link from 'next/link';
-import styles from '../styles/navbar.module.css';
+import styles from '../navbar.module.css';
 import { signOut, useSession } from 'next-auth/react';
 import { checkForStartSession } from '../lib/supabase';
 import { CiMail } from 'react-icons/ci';
