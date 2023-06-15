@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import { signOut } from 'next-auth/react';
 import bcrypt from 'bcryptjs';
 
 const supabase = createClient(
@@ -28,10 +27,10 @@ async function checkForStartSession(dataFromAccountGoogle) {
   if (registeredMember?.length !== 0) {
     return true;
   } else {
-    alert('no registration in database');
-    await signOut({
-      callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
-    });
+    console.log('no registration in database');
+    // await signOut({
+    //   callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
+    // });
     return false;
   }
 }
