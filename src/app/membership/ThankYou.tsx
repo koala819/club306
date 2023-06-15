@@ -8,6 +8,7 @@ import { getMemberId, record } from '@/lib/supabase';
 import { RxAvatar } from 'react-icons/rx';
 import { Button, ConfigProvider } from 'antd';
 import { TrophyFilled } from '@ant-design/icons';
+import Link from 'next/link';
 
 export const ThankYou = ({
   personalInfo,
@@ -137,29 +138,27 @@ export const ThankYou = ({
             pour ta participation à cette grande et belle aventure mécanique
             autour de la merveilleuse 306.
           </p>
-
-          <ConfigProvider
-            theme={{
-              token: {
-                fontSize: 18,
-              },
-            }}
+          <Link
+            href="/"
+            onClick={() =>
+              sendWelcomeMail(
+                session?.user?.name || personalInfo.first_name,
+                session?.user?.email || mailInfo.email
+              )
+            }
           >
-            <Button
-              onClick={() =>
-                sendWelcomeMail(
-                  session?.user?.name || personalInfo.first_name,
-                  session?.user?.email || mailInfo.email
-                )
-              }
-              type="primary"
-              size="large"
-              href="/"
-              icon={<TrophyFilled />}
+            <ConfigProvider
+              theme={{
+                token: {
+                  fontSize: 18,
+                },
+              }}
             >
-              <span>Terminer</span>
-            </Button>
-          </ConfigProvider>
+              <Button type="primary" size="large" icon={<TrophyFilled />}>
+                <span>Terminer</span>
+              </Button>
+            </ConfigProvider>
+          </Link>
         </div>
       )}
     </section>
