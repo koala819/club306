@@ -120,6 +120,45 @@ async function getCarColor(idColor) {
   }
 }
 
+async function getIdColor(name) {
+  try {
+    return await supabase
+      .from('car_colors')
+      .select('id')
+      .eq('name', name)
+      .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getIdFinition(name) {
+  try {
+    return await supabase
+      .from('car_finitions')
+      .select('id')
+      .eq('name', name)
+      .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getIdModel(name) {
+  try {
+    return await supabase
+      .from('car_models')
+      .select('id')
+      .eq('name', name)
+      .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
 async function getMemberCars(idMember) {
   try {
     const { data, error } = await supabase
@@ -158,62 +197,132 @@ async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*');
 }
 
-function record(dataFromLocalStorage, setIsRegistered, nextStep, mailGoogle) {
-  //Account GOOGLE
-  if (mailGoogle) {
-    const updatedWithGoogleData = {
-      ...dataFromLocalStorage,
-      email: mailGoogle,
-      password: '',
-      from: 'recordDataBase',
+async function record(
+  personalInfo,
+  vehicles,
+  email,
+  memberId,
+  setIsRegistered
+) {
+  recordMember(personalInfo, vehicles, email, memberId, setIsRegistered);
+}
+
+async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
+  Promise.all([
+    ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
+    ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
+    ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
+  ]).then((responses) => {
+    const colorIds = responses
+      .slice(0, vehicles.length)
+      .map((res) => res.data[0].id);
+    const finitionIds = responses
+      .slice(vehicles.length, vehicles.length * 2)
+      .map((res) => res.data[0].id);
+    const modelIds = responses
+      .slice(vehicles.length * 2)
+      .map((res) => res.data[0].id);
+
+    const updatedVehicles = vehicles.map((vehicle, index) => ({
+      ...vehicle,
+      color: colorIds[index],
+      finition: finitionIds[index],
+      model: modelIds[index],
+    }));
+
+    const vehiclesData = {
+      member_id: memberId,
+      vehicles: updatedVehicles,
     };
+    // console.log('vehiclesData', vehiclesData);
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedWithGoogleData),
+      body: JSON.stringify(vehiclesData),
     };
 
-    fetch(`${process.env.CLIENT_URL}/api/recordMemberInfo`, options)
-      .then(async (response) => {
-        if (response.status === 208) {
-          console.log(
-            '_MembershipContent4_ New member has been created in db supabase with success :)'
+    fetch(`${process.env.CLIENT_URL}/api/recordCars`, options).then(
+      async (response) => {
+        // console.log('response', response);
+        if (response.status === 200) {
+          sendMailRecordDb(personalInfo, setIsRegistered);
+        } else {
+          alert(
+            'Erreur dans le traitement des données, veuillez nous contacter et nous excuser pour la gêne occasionnée, merci de nous indiquer\n\n le code erreur : ' +
+              response.status +
+              "\n\net le message d'erreur : " +
+              response.statusText
           );
-          setIsRegistered(true);
-          nextStep.onClick(5);
         }
-      })
-      .catch((error) => {
-        console.log('ERROR Sir in _MembershipContent4_ ', error);
-      });
-  }
+      }
+    );
+  });
+}
 
-  //With email and password
-  const updatedWithFrom = {
-    ...dataFromLocalStorage,
-    from: 'recordDataBase',
+async function recordMember(
+  personalInfo,
+  vehicles,
+  email,
+  memberId,
+  setIsRegistered
+) {
+  const { phone, ...rest } = personalInfo;
+  const countryCodes = {
+    33: 'France',
+    32: 'Belgique',
+    39: 'Italie',
+    31: 'Hollande',
+    34: 'Espagne',
+    41: 'Suisse',
   };
+
+  const countryCode = phone.substring(0, 2);
+  const country = countryCodes[countryCode] || '';
+  let memberData;
+
+  if (email.pwd) {
+    //Member is registered with email and password
+    memberData = {
+      ...rest,
+      email: email.email,
+      pwd: email.pwd,
+      member_id: memberId,
+      country,
+      phone,
+    };
+  } else {
+    //Member is registered with Google
+    memberData = {
+      ...rest,
+      email,
+      member_id: memberId,
+      country,
+      phone,
+    };
+  }
+  // console.log('memberData', memberData);
 
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updatedWithFrom),
+    body: JSON.stringify(memberData),
   };
 
-  fetch(`${process.env.CLIENT_URL}/api/recordMemberInfo`, options)
-    .then(async (response) => {
-      if (response.status === 208) {
-        console.log(
-          '_MembershipContent4_ New member has been created in db supabase with success :)'
+  await fetch(`${process.env.CLIENT_URL}/api/recordMember`, options).then(
+    (response) => {
+      if (response.status === 200) {
+        recordCar(setIsRegistered, vehicles, memberId, personalInfo);
+      } else {
+        alert(
+          'Erreur dans le traitement des données, veuillez nous contacter et nous excuser pour la gêne occasionnée, merci de nous indiquer\n\n le code erreur : ' +
+            response.status +
+            "\n\net le message d'erreur : " +
+            response.statusText
         );
-        setIsRegistered(true);
-        nextStep.onClick(5);
       }
-    })
-    .catch((error) => {
-      console.log('ERROR Sir in _MembershipContent4_ ', error);
-    });
+    }
+  );
 }
 
 async function returnMemberInfo(mail) {
@@ -228,6 +337,27 @@ async function returnMemberInfo(mail) {
   }
 
   return data;
+}
+
+async function sendMailRecordDb(personalInfo, setIsRegistered) {
+  const dataSendMail = {
+    first_name: personalInfo.first_name,
+    last_name: personalInfo.last_name,
+    from: 'recordDataBase',
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(dataSendMail),
+  };
+  await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
+    (response) => {
+      response.status === 200 && setIsRegistered(true);
+    }
+  );
 }
 
 export {

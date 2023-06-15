@@ -35,6 +35,10 @@ export const Navbar = () => {
     }
   }, [session]);
 
+  // if (session) {
+  //   setRegisteredMember(true);
+  // }
+
   return (
     <div className="relative ">
       <nav

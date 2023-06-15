@@ -29,18 +29,12 @@
     "**/*.ts",
     "**/*.tsx",
     ".next_old/types/**/*.ts",
-    "src/app/layout.old",
-    "src/app/page.old",
-    "pagesOLD/_app.old",
     ".next/types/**/*.ts",
-    "src/app/types/User.old",
-    "src/app/api/auth/[...nextauth].ts_old",
-    "src/app/login.old",
-    "src/app/supabase-provider.old",
     "src/app/head.js",
     "src/app/membership/Garage.jsx",
     "src/app/membership/PersonalInfos.jsx",
-    "middleware.old"
+    "src/app/api/mail/route.ts",
+    "src/app/api/mail/mails.js"
   ],
   "exclude": ["node_modules"]
 }
