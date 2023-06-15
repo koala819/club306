@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, ConfigProvider, DatePicker } from 'antd';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
