@@ -71,7 +71,6 @@ export const PersonalInfos = ({
   });
 
   const handleAddPersonalInfos = (data: PersonalInfo) => {
-    console.log('\n\n\ntu as cliqué BRAVO\n\n\n', data);
     setPersonalInfo(data);
     reset();
     setStep((s: number) => s + 1);
@@ -81,16 +80,6 @@ export const PersonalInfos = ({
     register('phone');
     return true;
   };
-  useEffect(() => {
-    console.log('données sauvegardées avant traitement en base', personalInfo);
-  }, [personalInfo]);
-
-  // const datePickerValueChange = (newValue: any) => {
-  //   console.log('datePickerValueChange', newValue);
-  //   setDateValue(newValue);
-  //   register('birth_date');
-  //   return true;
-  // };
 
   return (
     <form>

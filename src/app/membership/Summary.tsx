@@ -1,29 +1,18 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { SummaryProps } from '@/app/models';
-import { getMemberId } from '@/lib/supabase';
+import React from 'react';
 import { Button, ConfigProvider } from 'antd';
 import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
+import { PersonalInfo, Vehicles } from '@/app/models';
 
-export const Summary: React.FC<SummaryProps> = ({
+export const Summary = ({
   setStep,
   personalInfo,
   vehicles,
+}: {
+  setStep: any;
+  personalInfo: PersonalInfo;
+  vehicles: Vehicles[];
 }) => {
-  const [memberId, setMemberId] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const memberId = await getMemberId();
-
-      if (memberId !== null && memberId.data !== null) {
-        console.log('dernier id', memberId.data[0].id);
-        setMemberId(memberId.data[0].id + 1);
-      }
-    };
-    fetchData();
-  }, []);
-
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
@@ -40,7 +29,6 @@ export const Summary: React.FC<SummaryProps> = ({
     <>
       <div className="bg-gray-100 p-8">
         <h2 className="text-2xl font-bold mb-4">Résumé </h2>
-        <h1>with id {memberId}</h1>
 
         {/* Personal Info */}
         <div className="mb-6">

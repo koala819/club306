@@ -34,12 +34,6 @@ export interface PersonalInfo {
   checkPrivacyPolicy: boolean | undefined;
 }
 
-export interface SummaryProps {
-  setStep: any;
-  personalInfo: PersonalInfo;
-  vehicles: Vehicles[];
-}
-
 export interface Vehicles {
   immatriculation: string;
   mine: string;

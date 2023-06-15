@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   CheckCircleFilled,
@@ -12,19 +12,25 @@ import { Button, ConfigProvider } from 'antd';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { MailPwd } from '@/app/models';
+import { MailPwd, PersonalInfo, Vehicles } from '@/app/models';
+import bcrypt from 'bcryptjs';
 
 export const SignIn = ({
   setStep,
   setMailInfo,
+  personalInfo,
+  vehicles,
 }: {
   setStep: any;
+  personalInfo: PersonalInfo;
   setMailInfo: React.Dispatch<React.SetStateAction<MailPwd>>;
+  vehicles: Vehicles[];
 }) => {
   const [watch, setWatch] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [cPasswordVisible, setCPasswordVisible] = useState(false);
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -48,10 +54,17 @@ export const SignIn = ({
     resolver: yupResolver(schema),
   });
 
-  const handleAddMailInfos = (data: MailPwd) => {
-    console.log('\n\n\ntu as cliqué BRAVO\n\n\n', data);
-    setMailInfo(data);
-    setStep((s: number) => s + 1);
+  const handleAddMailInfos = async (data: MailPwd) => {
+    const { email, pwd } = data;
+
+    try {
+      const hashedPwd = await bcrypt.hash(pwd, 12);
+      const mailInfoWithHashedPwd: MailPwd = { email, pwd: hashedPwd };
+      setMailInfo(mailInfoWithHashedPwd);
+      setStep((s: number) => s + 1);
+    } catch (error) {
+      console.error('Error hashing password:', error);
+    }
   };
 
   const handleLoginClick = () => {
@@ -61,9 +74,20 @@ export const SignIn = ({
     setWatch(false);
   };
 
-  if (session) {
-    console.log('session FOUND');
-    setStep((s: number) => s + 1);
+  const handleSignIn = () => {
+    sessionStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+    sessionStorage.setItem('vehicles', JSON.stringify(vehicles));
+    signIn('google');
+  };
+
+  useEffect(() => {
+    if (session !== undefined) {
+      setIsLoading(false);
+    }
+  }, [session]);
+
+  if (isLoading) {
+    return null; // Ne rien afficher pendant la vérification de la session
   }
 
   return (
@@ -81,7 +105,9 @@ export const SignIn = ({
                   }}
                 >
                   <Button
-                    onClick={() => signIn('google')}
+                    onClick={() => {
+                      handleSignIn();
+                    }}
                     type="primary"
                     size="large"
                     block
@@ -119,7 +145,7 @@ export const SignIn = ({
                       type="text"
                       id="email"
                       className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
-            ${errors.email && 'border-red-600'}`}
+              ${errors.email && 'border-red-600'}`}
                       {...register('email')}
                       placeholder=" "
                     />
@@ -143,7 +169,7 @@ export const SignIn = ({
                       type={`${passwordVisible ? 'text' : 'password'}`}
                       id="pwd"
                       className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
-    ${errors.pwd && 'border-red-600'}`}
+      ${errors.pwd && 'border-red-600'}`}
                       {...register('pwd')}
                       placeholder=" "
                     />
@@ -176,7 +202,7 @@ export const SignIn = ({
                       type={`${cPasswordVisible ? 'text' : 'password'}`}
                       id="cpwd"
                       className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
-    ${errors.cpwd && 'border-red-600'}`}
+      ${errors.cpwd && 'border-red-600'}`}
                       {...register('cpwd')}
                       placeholder=" "
                     />
