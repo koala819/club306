@@ -3,10 +3,8 @@
 # dependencies
 /node_modules
 /.pnp
-/.idea
 .pnp.js
 .package-lock.json
-.yarn.lock
 .env.local
 
 # testing

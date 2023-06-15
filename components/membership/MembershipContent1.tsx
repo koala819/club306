@@ -1,14 +1,14 @@
 import { useFormik } from 'formik';
 import { membership_validate } from '../../lib/validate';
-import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import TextField from '@mui/material/TextField';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import styles from '../../styles/MemberShip.module.css';
-import dayjs, { Dayjs } from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+// import dayjs, { Dayjs } from 'dayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import Router from 'next/router';
 
 export default function MembershipContent1(nextStep: any) {
@@ -18,9 +18,9 @@ export default function MembershipContent1(nextStep: any) {
   }
   const height = _useLayoutHeight();
 
-  const [value, setValue] = useState<Dayjs | null>(
-    dayjs('2014-08-18T21:11:54')
-  );
+  // const [value, setValue] = useState<Dayjs | null>(
+  //   dayjs('2014-08-18T21:11:54')
+  // );
 
   const formik = useFormik({
     initialValues: {
@@ -302,7 +302,7 @@ export default function MembershipContent1(nextStep: any) {
               </div>*/}
 
           {/*Birth Date*/}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               className={`${
                 formik.errors.birth_date && formik.touched.birth_date
@@ -321,7 +321,7 @@ export default function MembershipContent1(nextStep: any) {
                 <TextField id="birth_date" {...params} />
               )}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
 
           {/*Car Model*/}
           <select

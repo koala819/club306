@@ -1,0 +1,56 @@
+// import nodemailer from 'nodemailer';
+// import { mailContact } from '../styles/mails.js';
+
+export async function handler(req, res) {
+  //   try {
+  //     if (req.method === 'POST') {
+  //       if (!req.body)
+  //         return res.status(400).json({ message: "Don't have form data...!" });
+  //       const email = process.env.MAIL_USER;
+  //       const pass = process.env.MAIL_PWD;
+
+  //       console.log('in send mail send data are \n', req.body);
+  //       // console.log('in send mail come from \n', req.body.from);
+
+  //       const transporter = nodemailer.createTransport({
+  //         host: 'mail.club306.fr',
+  //         port: 465,
+  //         secure: true,
+  //         auth: {
+  //           user: email,
+  //           pass,
+  //         },
+  //         tls: { rejectUnauthorized: false },
+  //       });
+
+  //       const mailOptions = {
+  //         from: req.body.email,
+  //         to: 'contact@club306.fr, president@club306.fr',
+  //         bcc: 'x.genolhac@gmail.com',
+  //         subject: `🌟📧🔎 Un nouveau message à lire : ${req.body.firstName} nous a écrit 🔍📧🌟`,
+  //         text: `${req.body.message}.<br> Adresse mail ${req.body.email} pour répondre.`,
+  //         html: mailContact(req.body.firstName, req.body.message),
+  //       };
+
+  //       await transporter.sendMail(mailOptions, function (error, info) {
+  //         if (error) {
+  //           console.log('Error Sir in send mail  :: ', error);
+  //         } else {
+  //           console.log('mail envoyé ! ', info.response);
+  //           return res
+  //             .status(200)
+  //             .json({ message: 'Email sent successfully', info });
+  //         }
+  //       });
+  //     } else {
+  //       res
+  //         .status(500)
+  //         .json({ message: 'HTTP method not valid only POST Accepted' });
+  //     }
+  //   } catch (error) {
+  //     console.log('Error Sir in send mail  :: ', error);
+  //     res.json(error);
+  //     res.status(405).end;
+  //   }
+  console.log('send mail ???');
+}

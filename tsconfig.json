@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,15 +18,25 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "formik": ["./src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/slice-simulator.jsx",
+    ".next_old/types/**/*.ts",
+    ".next/types/**/*.ts",
+    "src/app/head.js",
+    "src/app/membership/Garage.jsx",
+    "src/app/membership/PersonalInfos.jsx",
+    "src/app/api/mail/route.ts",
+    "src/app/api/mail/mails.js",
     "pages/article/[article].js",
-    ".next/types/**/*.ts"
+    "pages/slice-simulator.jsx",
   ],
   "exclude": [
     "node_modules"
