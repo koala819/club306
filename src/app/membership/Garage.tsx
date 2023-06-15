@@ -364,13 +364,16 @@ export const Garage = ({
               {vehicle.immatriculation}
             </div>
             <div>
+              <span className="font-bold">Code Mine:</span> {vehicle.mine}
+            </div>
+            <div>
               <span className="font-bold">Model:</span> {vehicle.model}
             </div>
             <div>
-              <span className="font-bold">Color:</span> {vehicle.color}
+              <span className="font-bold">Finition:</span> {vehicle.finition}
             </div>
             <div>
-              <span className="font-bold">Finition:</span> {vehicle.finition}
+              <span className="font-bold">Color:</span> {vehicle.color}
             </div>
             <div className="mt-2">
               <button
