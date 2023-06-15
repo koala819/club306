@@ -28,10 +28,10 @@ async function checkForStartSession(dataFromAccountGoogle) {
   if (registeredMember?.length !== 0) {
     return true;
   } else {
-    alert('no registration in database');
-    await signOut({
-      callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
-    });
+    console.log('no registration in database');
+    // await signOut({
+    //   callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
+    // });
     return false;
   }
 }
