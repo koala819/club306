@@ -1,19 +1,29 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { createClient } from '../../prismicio';
 import { Homepage } from './homepage/Homepage';
 
 export default async function RootPage() {
-  const client = createClient();
-  const articles = await client.getByTag('index');
-  const mappedArticles = articles.results.map((article) => ({
-    uid: article.uid,
-    data: {
-      featureImageUrl: article.data.featureImageUrl,
-      dateEvent: article.data.dateEvent,
-      title: article.data.title,
-      description: article.data.description,
-    },
-  }));
+  const [mappedArticles, setMappedArticles] = useState<any>([]);
+
+  useEffect(() => {
+    async function handle() {
+      const client = createClient();
+      const articles = await client.getByTag('index');
+      setMappedArticles(
+        articles.results.map((article) => ({
+          uid: article.uid,
+          data: {
+            featureImageUrl: article.data.featureImageUrl,
+            dateEvent: article.data.dateEvent,
+            title: article.data.title,
+            description: article.data.description,
+          },
+        }))
+      );
+    }
+    handle();
+  }, []);
 
   return (
     <div>
