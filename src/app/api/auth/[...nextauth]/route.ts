@@ -10,6 +10,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET || '',
     }),
     CredentialsProvider({
+      name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'text', placeholder: 'email' },
         password: { label: 'Password', type: 'password' },
@@ -25,6 +26,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: '/auth/signIn',
+  },
 });
 
 export { handler as GET, handler as POST };
