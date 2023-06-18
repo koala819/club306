@@ -1,24 +1,24 @@
 'use client';
-import { SessionProvider } from 'next-auth/react';
 import { StyleProvider } from '@ant-design/cssinjs';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { LayoutProps } from './types/Components';
 import './globals.css';
+import Providers from '@/components/Providers';
 
-export default function RootLayout({ children, session }: LayoutProps) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html>
+    <html lang="fr">
       <body>
-        <SessionProvider session={session}>
-          <StyleProvider hashPriority="high">
-            <div className=" flex flex-col h-screen">
+        <StyleProvider hashPriority="high">
+          <div className=" flex flex-col h-screen">
+            <Providers>
               <Navbar />
               <main className="flex-1 ">{children}</main>
               <Footer />
-            </div>
-          </StyleProvider>
-        </SessionProvider>
+            </Providers>
+          </div>
+        </StyleProvider>
       </body>
     </html>
   );

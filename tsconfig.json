@@ -28,17 +28,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next_old/types/**/*.ts",
     ".next/types/**/*.ts",
-    "src/app/head.js",
-    "src/app/membership/Garage.jsx",
-    "src/app/membership/PersonalInfos.jsx",
     "src/app/api/mail/route.ts",
-    "src/app/api/mail/mails.js",
-    "pages/article/[article].js",
-    "pages/slice-simulator.jsx",
+    "pages/slice-simulator.jsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
