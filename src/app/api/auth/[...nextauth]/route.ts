@@ -10,6 +10,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET || '',
     }),
     CredentialsProvider({
+      name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'text', placeholder: 'email' },
         password: { label: 'Password', type: 'password' },
@@ -25,9 +26,8 @@ const handler = NextAuth({
       },
     }),
   ],
-  session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+  pages: {
+    signIn: '/auth/signIn',
   },
 });
 

@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import {
   CheckCircleFilled,
   CloseCircleFilled,
@@ -96,27 +95,25 @@ export const SignIn = ({
         <div className="flex rounded-lg overflow-hidden  w-full">
           <div className="w-full p-8 space-y-12">
             {!watch && (
-              <Link href="">
-                <ConfigProvider
-                  theme={{
-                    token: {
-                      fontSize: 18,
-                    },
+              <ConfigProvider
+                theme={{
+                  token: {
+                    fontSize: 18,
+                  },
+                }}
+              >
+                <Button
+                  onClick={() => {
+                    handleSignIn();
                   }}
+                  type="primary"
+                  size="large"
+                  block
+                  icon={<GoogleCircleFilled />}
                 >
-                  <Button
-                    onClick={() => {
-                      handleSignIn();
-                    }}
-                    type="primary"
-                    size="large"
-                    block
-                    icon={<GoogleCircleFilled />}
-                  >
-                    Se connecter avec Google
-                  </Button>
-                </ConfigProvider>
-              </Link>
+                  Se connecter avec Google
+                </Button>
+              </ConfigProvider>
             )}
             <div>
               {!watch ? (
