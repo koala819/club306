@@ -1,6 +1,6 @@
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-// import '../app/global.css';
+import '@/app/globals.css';
 import { SessionProvider } from 'next-auth/react';
 
 export const Layout = ({ children, title, displayNavbar, session }: any) => {
