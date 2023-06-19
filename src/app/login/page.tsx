@@ -8,49 +8,21 @@ import { GoogleCircleFilled, MailFilled } from '@ant-design/icons';
 
 const Page = () => {
   return (
-    <div>
-      <div className="py-6">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
-          <div
-            className="hidden lg:block lg:w-1/2 bg-cover"
-            style={{
-              backgroundImage:
-                'url(https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/login_background.jpg)',
-            }}
-          ></div>
-          <div className="w-full p-8 lg:w-1/2 space-y-12">
-            <h2 className="text-2xl font-semibold text-gray-700 text-center">
-              Connexion à votre compte
-            </h2>
+    <div className="flex justify-center items-center h-full">
+      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden lg:w-1/2">
+        <div
+          className="hidden lg:block lg:w-1/2 bg-cover"
+          style={{
+            backgroundImage:
+              'url(https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/login_background.jpg)',
+          }}
+        ></div>
+        <div className="w-full p-8 lg:w-1/2 space-y-12">
+          <h2 className="text-2xl font-semibold text-gray-700 text-center">
+            Connexion à votre compte
+          </h2>
 
-            <div>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    fontSize: 18,
-                  },
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    signInGoogle();
-                  }}
-                  type="primary"
-                  size="large"
-                  block
-                  icon={<GoogleCircleFilled />}
-                >
-                  Se connecter avec Google
-                </Button>
-              </ConfigProvider>
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="border-b w-1/5 lg:w-1/4"></span>
-              <span className="text-xs text-center text-gray-500 uppercase">
-                ou
-              </span>
-              <span className="border-b w-1/5 lg:w-1/4"></span>
-            </div>
+          <div>
             <ConfigProvider
               theme={{
                 token: {
@@ -59,25 +31,51 @@ const Page = () => {
               }}
             >
               <Button
-                onClick={() => signIn()}
+                onClick={() => {
+                  signInGoogle();
+                }}
                 type="primary"
                 size="large"
                 block
-                icon={<MailFilled />}
+                icon={<GoogleCircleFilled />}
               >
-                Se connecter avec son mail
+                Se connecter avec Google
               </Button>
             </ConfigProvider>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="border-b w-1/5 md:w-1/4"></span>
-              <Link
-                href="/membership"
-                className="text-xs text-gray-500 uppercase underline hover:text-red-600 cursor-pointer"
-              >
-                ou inscrivez-vous
-              </Link>
-              <span className="border-b w-1/5 md:w-1/4"></span>
-            </div>
+          </div>
+          <div className="mt-4 flex items-center justify-between">
+            <span className="border-b w-1/5 lg:w-1/4"></span>
+            <span className="text-xs text-center text-gray-500 uppercase">
+              ou
+            </span>
+            <span className="border-b w-1/5 lg:w-1/4"></span>
+          </div>
+          <ConfigProvider
+            theme={{
+              token: {
+                fontSize: 18,
+              },
+            }}
+          >
+            <Button
+              onClick={() => signIn()}
+              type="primary"
+              size="large"
+              block
+              icon={<MailFilled />}
+            >
+              Se connecter avec son mail
+            </Button>
+          </ConfigProvider>
+          <div className="mt-4 flex items-center justify-between">
+            <span className="border-b w-1/5 md:w-1/4"></span>
+            <Link
+              href="/membership"
+              className="text-xs text-gray-500 uppercase underline hover:text-red-600 cursor-pointer"
+            >
+              ou inscrivez-vous
+            </Link>
+            <span className="border-b w-1/5 md:w-1/4"></span>
           </div>
         </div>
       </div>

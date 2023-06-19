@@ -1,5 +1,5 @@
 import { RichText } from 'prismic-reactjs';
-import { Layout } from '../../src/components/Layout';
+import { Layout } from '@/components/Layout';
 import type { GetServerSidePropsContext } from 'next';
 import { createClient } from '../../prismicio';
 import Image from 'next/image';
