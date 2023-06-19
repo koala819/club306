@@ -272,7 +272,7 @@ export const PersonalInfos = ({
                     placeholder={'DD/MM/YYYY'}
                     value={field.value ? dayjs(field.value) : null}
                     onChange={(date) => {
-                      field.onChange(date ? dayjs(date).toDate() : null);
+                      field.onChange(dayjs(date).toDate());
                     }}
                   />
                   {fieldState.error ? (
