@@ -42,9 +42,9 @@ const LoginPage = () => {
   }
 
   return (
-    <div>
-      <div className="py-6">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+    <div className="h-full flex justify-center items-center">
+      <div className="w-full">
+        <div className="flex bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
@@ -53,7 +53,7 @@ const LoginPage = () => {
             }}
           ></div>
           <div className="w-full p-8 lg:w-1/2 space-y-12">
-            <h2 className="text-2xl font-semibold text-gray-700 text-center">
+            <h2 className="text-2xl font-semibold text-center">
               Connexion avec votre e-mail
             </h2>
 
@@ -62,7 +62,7 @@ const LoginPage = () => {
               <div className="mt-4">
                 <label
                   htmlFor="email"
-                  className={`${'block text-gray-700 text-sm font-bold mb-2'} ${
+                  className={`${'block text-sm font-bold mb-2'} ${
                     errors.email && 'text-red-500 font-mono text-sm'
                   }`}
                 >
@@ -86,7 +86,7 @@ const LoginPage = () => {
                 <div className="flex justify-between">
                   <label
                     htmlFor="pwd"
-                    className={`${'block text-gray-700 text-sm font-bold mb-2'} ${
+                    className={`${'block  text-sm font-bold mb-2'} ${
                       errors.pwd && 'text-red-500 font-mono text-sm'
                     }`}
                   >
@@ -94,7 +94,7 @@ const LoginPage = () => {
                   </label>
                   <Link
                     href="/otpInput"
-                    className="text-xs text-gray-500 underline hover:text-red-600 cursor-pointer"
+                    className="text-xs text-gray-500 dark:text-gray-200 underline hover:text-red-600 cursor-pointer"
                   >
                     Mot de passe oublié ?
                   </Link>
@@ -108,7 +108,7 @@ const LoginPage = () => {
                     {...register('pwd')}
                   />
                   <span
-                    className="flex items-center px-2 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED]"
+                    className="flex items-center px-2 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED] dark:text-white"
                     onClick={() =>
                       setShow({ ...show, password: !show.password })
                     }

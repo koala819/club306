@@ -56,15 +56,12 @@ export default function OtpInput() {
   }, [disable]);
 
   return (
-    <div className="flex center">
+    <div className="flex justify-center items-center h-full">
       {!confirmationSend ? (
-        <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-gray-600 dark:text-white">
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="leading-7 text-sm text-gray-600 block"
-              >
+              <label htmlFor="email" className="leading-7 text-sm  block">
                 Email :
               </label>
               <input
@@ -102,7 +99,7 @@ export default function OtpInput() {
           </form>
         </div>
       ) : (
-        <div className="bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
+        <div className="bg-white dark:bg-gray-800 px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
               <div className="font-semibold text-3xl">
@@ -127,7 +124,7 @@ export default function OtpInput() {
                             inputRefs.current[index] = ref as HTMLInputElement;
                           }}
                           maxLength={1}
-                          className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                          className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white dark:bg-blue-gray-500 focus:bg-gray-50 focus:ring-1 ring-blue-700 dark:text-yellow-800"
                           type="text"
                           onChange={(e) => handleInputChange(e, index)}
                         ></input>
@@ -139,7 +136,7 @@ export default function OtpInput() {
                     <div>
                       <a
                         onClick={() => verfiyOTP()}
-                        className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
+                        className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white  text-sm shadow-sm"
                       >
                         Continuer pour changer mon mot de passe
                       </a>
@@ -150,7 +147,7 @@ export default function OtpInput() {
                       <a
                         className="flex flex-row items-center"
                         style={{
-                          color: disable ? 'gray' : 'blue',
+                          color: disable ? 'gray' : 'chocolate',
                           cursor: disable ? 'none' : 'pointer',
                           textDecorationLine: disable ? 'none' : 'underline',
                         }}

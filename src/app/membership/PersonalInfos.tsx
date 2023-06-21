@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import { Button, ConfigProvider, DatePicker } from 'antd';
+import { Button, ConfigProvider, DatePicker, theme } from 'antd';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { PersonalInfo } from '@/app/models';
@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import dayjs from 'dayjs';
 import locale from 'antd/locale/fr_FR';
 import { RightCircleFilled } from '@ant-design/icons';
+import { useTheme } from 'next-themes';
 
 export const PersonalInfos = ({
   setStep,
@@ -21,6 +22,9 @@ export const PersonalInfos = ({
   setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo>>;
   personalInfo: PersonalInfo;
 }) => {
+  const { resolvedTheme } = useTheme();
+  const { defaultAlgorithm, darkAlgorithm } = theme;
+
   const schema: yup.ObjectSchema<PersonalInfo> = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
     last_name: yup.string().required('Veuillez fournir votre Prénom'),
@@ -90,7 +94,7 @@ export const PersonalInfos = ({
             type="text"
             id="first_name"
             defaultValue={personalInfo.first_name || ''}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.first_name && 'border-red-600'}`}
             {...register('first_name')}
             placeholder=" "
@@ -116,7 +120,7 @@ export const PersonalInfos = ({
             type="text"
             id="last_name"
             defaultValue={personalInfo.last_name || ''}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
       ${errors.last_name && 'border-red-600'}`}
             {...register('last_name')}
             placeholder=" "
@@ -142,7 +146,7 @@ export const PersonalInfos = ({
             type="text"
             id="address"
             defaultValue={personalInfo.address}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.address && 'border-red-600'}`}
             {...register('address')}
             placeholder=" "
@@ -168,7 +172,7 @@ export const PersonalInfos = ({
             type="text"
             id="zip_code"
             defaultValue={personalInfo.zip_code}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.zip_code && 'border-red-600'}`}
             {...register('zip_code')}
             placeholder=" "
@@ -194,7 +198,7 @@ export const PersonalInfos = ({
             type="text"
             id="town"
             defaultValue={personalInfo.town}
-            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+            className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
             ${errors.town && 'border-red-600'}`}
             {...register('town')}
             placeholder=" "
@@ -233,12 +237,22 @@ export const PersonalInfos = ({
               <PhoneInput
                 value={value || personalInfo.phone}
                 onChange={onChange}
-                containerClass={`${'rounded-lg border focus:border-indigo-600'}
-            ${errors.phone && 'border-red-600'}`}
+                inputClass="dark:text-white"
+                containerClass={`${'rounded-lg border focus:border-indigo-600 dark:hover:bg-green-500'}
+    ${errors.phone && 'border-red-600'}
+    ${resolvedTheme === 'dark' ? 'dark:bg-black' : ''}`}
                 country="fr"
                 onlyCountries={['fr', 'uk', 'be', 'nl', 'ch', 'it', 'es']}
                 inputStyle={{
                   width: '100%',
+                  background: resolvedTheme === 'dark' ? '#111827' : '',
+                }}
+                buttonStyle={{
+                  background: resolvedTheme === 'dark' ? '#111827' : '',
+                }}
+                dropdownStyle={{
+                  background: resolvedTheme === 'dark' ? '#111827' : '',
+                  // color: resolvedTheme === 'dark' ? 'white' : '',
                 }}
               />
             )}
@@ -264,7 +278,15 @@ export const PersonalInfos = ({
             name={'birth_date'}
             render={({ field, fieldState }) => {
               return (
-                <ConfigProvider locale={locale}>
+                <ConfigProvider
+                  locale={locale}
+                  theme={{
+                    algorithm:
+                      resolvedTheme === 'dark'
+                        ? darkAlgorithm
+                        : defaultAlgorithm,
+                  }}
+                >
                   <DatePicker
                     format={'DD/MM/YYYY'}
                     className={`${'rounded-lg border focus:border-indigo-600 w-full h-9'}

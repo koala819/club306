@@ -84,6 +84,11 @@
   color: #ffa500;
 }
 
+[data-theme='dark'] .aNormal:hover {
+  background-color: white;
+  color: black;
+}
+
 .aNormalRegister:hover {
   /* color: #be2525; */
   color: #ad6d73;
@@ -93,7 +98,6 @@
   border-radius: 9px;
   font-weight: bolder;
 }
-
 
 @media only screen and (min-width: 768px) {
   .subMenu {
@@ -105,18 +109,3 @@
     border-bottom-left-radius: 0.25rem;
   }
 }
-/* .button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  background-color: #d7deed;
-  color: black;
-  border: none;
-  font-weight: 700;
-  font-size: 1.2rem;
-  transition: all ease-in-out 0.3s;
-} */
-/*
-.button:hover {
-    background-color: #FFF;
-    color: #201C44;
-}*/

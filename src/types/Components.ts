@@ -49,13 +49,6 @@ export type CardStaffProps = {
   youtube?: string;
 };
 
-export type LayoutProps = {
-  title: string;
-  displayNavbar?: boolean;
-  children: ReactNode;
-  session?: any;
-};
-
 export type MemberType = {
   address: string;
   birth_date: string;

@@ -9,7 +9,7 @@ import { GoogleCircleFilled, MailFilled } from '@ant-design/icons';
 const Page = () => {
   return (
     <div className="flex justify-center items-center h-full">
-      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden lg:w-1/2">
+      <div className="flex bg-white dark:bg-gray-800 text-gray-700  dark:text-white rounded-lg shadow-lg overflow-hidden lg:w-1/2">
         <div
           className="hidden lg:block lg:w-1/2 bg-cover"
           style={{
@@ -18,7 +18,7 @@ const Page = () => {
           }}
         ></div>
         <div className="w-full p-8 lg:w-1/2 space-y-12">
-          <h2 className="text-2xl font-semibold text-gray-700 text-center">
+          <h2 className="text-2xl font-semibold text-center">
             Connexion à votre compte
           </h2>
 
@@ -45,9 +45,7 @@ const Page = () => {
           </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 lg:w-1/4"></span>
-            <span className="text-xs text-center text-gray-500 uppercase">
-              ou
-            </span>
+            <span className="text-xs text-center uppercase">ou</span>
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
           <ConfigProvider
@@ -64,14 +62,14 @@ const Page = () => {
               block
               icon={<MailFilled />}
             >
-              Se connecter avec son mail
+              Se connecter avec mail
             </Button>
           </ConfigProvider>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 md:w-1/4"></span>
             <Link
               href="/membership"
-              className="text-xs text-gray-500 uppercase underline hover:text-red-600 cursor-pointer"
+              className="text-xs uppercase underline hover:text-red-600 cursor-pointer"
             >
               ou inscrivez-vous
             </Link>

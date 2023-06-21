@@ -90,7 +90,7 @@ export const SignIn = ({
   }
 
   return (
-    <section className="grid sm:grid-cols-12 sm:gap-12 py-6 bg-white rounded-lg shadow-lg overflow-hidden mx-auto">
+    <section className="grid sm:grid-cols-12 sm:gap-12 py-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden mx-auto">
       <div className="flex items-center justify-center col-span-12">
         <div className="flex rounded-lg overflow-hidden  w-full">
           <div className="w-full p-8 space-y-12">
@@ -141,7 +141,7 @@ export const SignIn = ({
                     <input
                       type="text"
                       id="email"
-                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
               ${errors.email && 'border-red-600'}`}
                       {...register('email')}
                       placeholder=" "
@@ -165,7 +165,7 @@ export const SignIn = ({
                     <input
                       type={`${passwordVisible ? 'text' : 'password'}`}
                       id="pwd"
-                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
       ${errors.pwd && 'border-red-600'}`}
                       {...register('pwd')}
                       placeholder=" "
@@ -198,7 +198,7 @@ export const SignIn = ({
                     <input
                       type={`${cPasswordVisible ? 'text' : 'password'}`}
                       id="cpwd"
-                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
+                      className={`${'block py-2.5 px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer'}
       ${errors.cpwd && 'border-red-600'}`}
                       {...register('cpwd')}
                       placeholder=" "

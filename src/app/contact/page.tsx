@@ -41,36 +41,33 @@ export default function Contact() {
   }
 
   return (
-    <div className='flex justify-center h-full'>
+    <div className="flex justify-center h-full">
       <div
-        className='hidden md:block h-full bg-cover w-2/3'
+        className="hidden md:block h-full bg-cover w-2/3"
         style={{
           backgroundImage:
             'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
         }}
       ></div>
 
-      <div className='md:w-1/2 flex w-full items-center justify-center'>
+      <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-gray-800 dark:text-gray-100">
         {!confirmationSend && (
-          <div className='w-11/12'>
-            <form action='' className='' onSubmit={formik.handleSubmit}>
-              <p className='leading-relaxed mb-5 text-gray-600'>
+          <div className="w-11/12">
+            <form action="" className="" onSubmit={formik.handleSubmit}>
+              <p className="leading-relaxed mb-5 ">
                 Une question concernant l&apos;adhésion ? un évènement ? un bon
                 plan à partager? Passer une vitesse, déposer un message et
-                accélérer jusqu&apos;à cliquer sur &quot;envoyer&quot; ^_^
+                accélérer jusqu&apos;à cliquer sur Envoyer
               </p>
 
-              <div className='relative mb-4'>
-                <label
-                  htmlFor='first_name'
-                  className='leading-7 text-sm text-gray-600'
-                >
+              <div className="relative mb-4">
+                <label htmlFor="first_name" className="leading-7 text-sm">
                   Nom
                 </label>
                 <input
-                  type='text'
-                  name='first_name'
-                  placeholder='Alain'
+                  type="text"
+                  name="first_name"
+                  placeholder="Alain"
                   onChange={formik.handleChange}
                   value={formik.values.first_name}
                   className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
@@ -79,22 +76,19 @@ export default function Contact() {
                     'border-red-600'
                   }`}
                 />
-                <span className='text-red-600 text-xs'>
+                <span className="text-red-600 text-xs">
                   {formik.errors.first_name}
                 </span>
               </div>
 
-              <div className='relative mb-4'>
-                <label
-                  htmlFor='email'
-                  className='leading-7 text-sm text-gray-600'
-                >
+              <div className="relative mb-4">
+                <label htmlFor="email" className="leading-7 text-sm">
                   Email
                 </label>
                 <input
-                  type='text'
-                  name='email'
-                  placeholder='alain.proviste@club306.fr'
+                  type="text"
+                  name="email"
+                  placeholder="alain.proviste@club306.fr"
                   onChange={formik.handleChange}
                   value={formik.values.email}
                   className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
@@ -103,45 +97,42 @@ export default function Contact() {
                     'border-red-600'
                   }`}
                 />
-                <span className='text-red-600 text-xs'>
+                <span className="text-red-600 text-xs">
                   {formik.errors.email}
                 </span>
               </div>
 
-              <div className='relative mb-4'>
-                <label
-                  htmlFor='message'
-                  className='leading-7 text-sm text-gray-600'
-                >
+              <div className="relative mb-4">
+                <label htmlFor="message" className="leading-7 text-sm">
                   Message
                 </label>
                 <textarea
-                  typeof='text'
-                  name='msg'
-                  placeholder='Veuillez saisir votre message ici...'
+                  typeof="text"
+                  name="msg"
+                  placeholder="Veuillez saisir votre message ici..."
                   onChange={formik.handleChange}
                   value={formik.values.msg}
                   className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
                     formik.errors.msg && formik.touched.msg && 'border-red-600'
                   }`}
                 ></textarea>
-                <span className='text-red-600 text-xs'>
+                <span className="text-red-600 text-xs">
                   {formik.errors.msg}
                 </span>
               </div>
 
-              <div className='flex justify-center items-center'>
+              <div className="flex justify-center items-center">
                 <input
-                  className='text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg'
-                  type='submit'
-                  value='Envoyer'
+                  className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
+                  type="submit"
+                  value="Envoyer"
                 />
               </div>
             </form>
           </div>
         )}
         {confirmationSend && (
-          <p className='leading-relaxed mb-5 text-gray-600 text-center'>
+          <p className="leading-relaxed mb-5 text-gray-600 text-center">
             Merci pour votre message. L&apos;équipe s&apos;organise au mieux
             afin d&apos;apporter une réponse dans les 24 heures. Sportivement
           </p>
