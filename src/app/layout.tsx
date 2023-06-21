@@ -1,18 +1,24 @@
 'use client';
 import { StyleProvider } from '@ant-design/cssinjs';
-import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
-import { LayoutProps } from './types/Components';
+import { Footer } from '@/components/Footer';
+import { Navbar } from '@/components/Navbar';
+// import { NewNavbar } from '@/components/NewNavbar';
 import './globals.css';
 import Providers from '@/components/Providers';
+import { ReactNode } from 'react';
+
+interface LayoutProps {
+  children: ReactNode;
+}
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html lang="fr">
+    <html lang="fr" className="light">
       <body>
         <StyleProvider hashPriority="high">
           <div className=" flex flex-col h-screen">
             <Providers>
+              {/* <NewNavbar /> */}
               <Navbar />
               <main className="flex-1 ">{children}</main>
               <Footer />

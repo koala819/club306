@@ -47,7 +47,7 @@ export const Paypal = ({
             </h1>
 
             <p className="flex items-center  mb-2">
-              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0">
+              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0 dark:bg-gray-800">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -64,7 +64,7 @@ export const Paypal = ({
             </p>
 
             <p className="flex items-center  mb-2">
-              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0">
+              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0 dark:bg-gray-800">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -81,7 +81,7 @@ export const Paypal = ({
             </p>
 
             <p className="flex items-center  mb-2">
-              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0">
+              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0 dark:bg-gray-800">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -98,7 +98,7 @@ export const Paypal = ({
             </p>
 
             <p className="flex items-center  mb-6">
-              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400  rounded-full flex-shrink-0">
+              <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 rounded-full flex-shrink-0 dark:bg-gray-800">
                 <svg
                   fill="none"
                   stroke="currentColor"
