@@ -40,7 +40,7 @@ export const CardStaff = ({
           </div>
         </div>
 
-        <div className="mx-2 mt-4 text-justify dark:text-blue-gray-400">
+        <div className="mx-2 mt-4 text-justify dark:text-gray-300">
           {content}
         </div>
 

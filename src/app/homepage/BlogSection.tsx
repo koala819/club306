@@ -29,18 +29,18 @@ export const BlogSection = ({ articles }: ArticlesProps) => {
                       />
                     </div>
                     <div className="p-6">
-                      <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+                      <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 dark:text-gray-200 mb-1">
                         {article.data.dateEvent}
                       </h2>
-                      <div className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-blue-gray-400">
+                      <div className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-gray-400">
                         {article.data.title[0].text}
                       </div>
-                      <div className="leading-relaxed mb-3">
+                      <div className="leading-relaxed mb-3 dark:text-gray-200">
                         {article.data.description[0].text}
                       </div>
                       <div className="flex items-center flex-wrap ">
                         <Link
-                          className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323] dark:text-white dark:hover:text-blue-500"
+                          className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323] dark:text-orange-600 dark:hover:text-orange-300"
                           href={`article/${article.uid}`}
                         >
                           Lire Plus

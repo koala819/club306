@@ -9,9 +9,9 @@ interface Props {
 
 const Providers = (props: Props) => {
   return (
-    <SessionProvider>
-      <ThemeProvider attribute="class">{props.children}</ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider attribute="class">
+      <SessionProvider>{props.children}</SessionProvider>
+    </ThemeProvider>
   );
 };
 
