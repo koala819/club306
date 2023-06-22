@@ -121,13 +121,13 @@ export const Slider = () => {
                     </a>
                   </div>
                   <div className="h-16 flex items-center justify-center">
-                    <p className="text-gray-700 text-base text-center">
+                    <p className="text-gray-700 text-base text-center dark:text-gray-400">
                       {partner.remise}
                     </p>
                   </div>
                 </div>
                 <button
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-white dark:text-black dark:hover:bg-gray-900 dark:hover:text-white"
+                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
                   onClick={() => displayPresent(partner.title)}
                 >
                   <svg
