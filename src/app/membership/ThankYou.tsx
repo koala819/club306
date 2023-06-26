@@ -97,7 +97,7 @@ export const ThankYou = ({
   return (
     <section>
       {!isRegistered && (
-        <div className="flex flex-col justify-center items-center space-y-2 bg-white p-8 rounded-lg shadow-lg">
+        <div className="flex flex-col justify-center items-center space-y-2 bg-white dark:bg-gray-800 dark:text-white p-8 rounded-lg shadow-lg">
           <ClipLoader
             loading={true}
             size={50}
@@ -110,7 +110,7 @@ export const ThankYou = ({
       )}
 
       {isRegistered && (
-        <div className="flex flex-col justify-center items-center space-y-8 bg-white p-8 rounded-lg shadow-lg">
+        <div className="flex flex-col justify-center items-center space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
           {session ? (
             <Image
               alt="picture user"

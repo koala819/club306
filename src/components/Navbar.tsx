@@ -1,10 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import picture306 from '../../public/images/logoClub306.png';
 import Avp from '../../public/images/Logo_AVP.png';
 import Link from 'next/link';
-import styles from '../styles/Navbar.module.css';
+import styles from './Navbar.module.css';
 import { signOut, useSession } from 'next-auth/react';
 import { checkForStartSession } from '@/lib/supabase';
 import { CiMail } from 'react-icons/ci';
@@ -21,6 +22,8 @@ export const Navbar = () => {
   const { data: session } = useSession();
   const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  console.log('theme', resolvedTheme);
 
   useEffect(() => {
     if (session?.user !== undefined) {
@@ -42,11 +45,17 @@ export const Navbar = () => {
   return (
     <div className="relative ">
       <nav
-        className="flex px-4 md:shadow-lg items-center
-            dark:bg-gray-900 dark:border-gray-700  bg-white"
+        className="flex px-4 md:shadow-lg items-center"
         style={{
-          backgroundColor: registeredMember ? '#ADA075' : '#F7F9FF',
-          color: '#3B578E',
+          backgroundColor: registeredMember
+            ? resolvedTheme === 'dark'
+              ? '#6a6145'
+              : '#ADA075'
+            : resolvedTheme !== 'dark'
+            ? '#F7F9FF'
+            : '#2b2c2e',
+          // color: '#3B578E',
+          color: resolvedTheme === 'dark' ? '#FFF' : '#3B578E',
         }}
       >
         <div className="justify-between px-4 mx-auto  md:items-center md:flex md:px-8 w-full">
@@ -76,7 +85,7 @@ export const Navbar = () => {
               </div>
               <div className="md:hidden ">
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  className="p-2 text-gray-700 dark:text-white rounded-md outline-none focus:border-gray-400 focus:border"
                   onClick={() => {
                     setNavbar(!navbar);
                     setIsNavOpen((prev) => !prev);
@@ -120,7 +129,7 @@ export const Navbar = () => {
                     }}
                   >
                     <svg
-                      className="h-8 w-8 text-gray-600"
+                      className="h-8 w-8 text-gray-600 dark:text-white"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -445,8 +454,10 @@ export const Navbar = () => {
                   <ul
                     className={` ${
                       registeredMember
-                        ? 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
-                        : 'bg-[#d1d9f1bb] rounded-none'
+                        ? resolvedTheme === 'dark'
+                          ? 'bg-[#6a6145] rounded-xl border-[#6E654B] border-2'
+                          : 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
+                        : 'bg-[#d1d9f1bb] dark:bg-[#2b2c2e] rounded-none'
                     } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
                   >
                     <Link href="/club">
@@ -471,24 +482,6 @@ export const Navbar = () => {
                         le Staff
                       </li>
                     </Link>
-                    {/* <li
-                      className={
-                        registeredMember
-                          ? styles.aNormalRegister
-                          : styles.aNormal
-                      }
-                    >
-                      <Link href="/rules">Règlement du Club</Link>
-                    </li>
-                    <li
-                      className={
-                        registeredMember
-                          ? styles.aNormalRegister
-                          : styles.aNormal
-                      }
-                    >
-                      <Link href="/press">Revue de presse</Link>
-                    </li> */}
                   </ul>
                 </li>
                 {/* <li
@@ -563,10 +556,12 @@ export const Navbar = () => {
                   </div>
                   {/* <ul className="bg-[#f5f5dca2] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg rounded-3xl"> */}
                   <ul
-                    className={`${
+                    className={` ${
                       registeredMember
-                        ? 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
-                        : 'bg-[#d1d9f1bb]  rounded-none'
+                        ? resolvedTheme === 'dark'
+                          ? 'bg-[#6a6145] rounded-xl border-[#6E654B] border-2'
+                          : 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
+                        : 'bg-[#d1d9f1bb] dark:bg-[#2b2c2e] rounded-none'
                     } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
                   >
                     {registeredMember ? (
@@ -615,6 +610,19 @@ export const Navbar = () => {
                     )}
                   </ul>
                 </li>
+                {/* <li className="relative parent">
+                  <button
+                    onClick={() =>
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                    }
+                  >
+                    {resolvedTheme === 'dark' ? (
+                      <HiMoon size={26} className="h-5 w-5 text-orange-300" />
+                    ) : (
+                      <HiSun size={26} className="h-5 w-5 text-slate-800" />
+                    )}
+                  </button>
+                </li> */}
               </ul>
             </div>
           </div>

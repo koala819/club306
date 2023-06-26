@@ -1,38 +1,46 @@
 import { RichText } from 'prismic-reactjs';
 import { Layout } from '@/components/Layout';
+import { Navbar } from '@/components/Navbar';
 import type { GetServerSidePropsContext } from 'next';
 import { createClient } from '../../prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import Providers from '@/components/Providers';
 
 export default function Article({ article }: any) {
+  const { resolvedTheme, setTheme } = useTheme();
+
   return (
     <Layout title="Article">
-      <div className="w-2/3 mx-auto">
-        <h1 className="text-3xl uppercase font-bold opacity-50 my-10">
-          {RichText.render(article.data.title)}
-        </h1>
-        <div className="flex justify-center">
-          <Image
-            className="shadow-xl mb-10"
-            src={article.data.featureImageUrl.url}
-            alt=""
-            width="1000"
-            height="1000"
-          />
+      <Providers>
+        <Navbar />
+        <div className="w-2/3 mx-auto ">
+          <h1 className="text-3xl uppercase font-bold opacity-50 my-10">
+            {RichText.render(article.data.title)}
+          </h1>
+          <div className="flex justify-center">
+            <Image
+              className="shadow-xl mb-10"
+              src={article.data.featureImageUrl.url}
+              alt=""
+              width="1000"
+              height="1000"
+            />
+          </div>
+          <h1 className="text-lg opacity-75">
+            {RichText.render(article.data.paragraphes)}
+          </h1>
+          <div className="text-center my-12">
+            <Link
+              href="/blog"
+              className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
+            >
+              Retour &nbsp; 👈
+            </Link>
+          </div>
         </div>
-        <h1 className="text-lg opacity-75">
-          {RichText.render(article.data.paragraphes)}
-        </h1>
-        <div className="text-center my-12">
-          <Link
-            href="/blog"
-            className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
-          >
-            Retour &nbsp; 👈
-          </Link>
-        </div>
-      </div>
+      </Providers>
     </Layout>
   );
 }

@@ -10,10 +10,12 @@ import 'react-vertical-timeline-component/style.min.css';
 import { GoFlame, GoRuby } from 'react-icons/go';
 import { GiPartyPopper } from 'react-icons/gi';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 export default function Event() {
   const { data: session } = useSession();
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (!session) {
@@ -42,7 +44,10 @@ export default function Event() {
           />
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            contentStyle={{
+              background: resolvedTheme === 'dark' ? 'rgb(33, 150, 243)' : '',
+              color: resolvedTheme === 'dark' ? '#fff' : '',
+            }}
             contentArrowStyle={{
               borderLeft: '7px solid  rgb(33, 150, 243)',
             }}
@@ -83,7 +88,10 @@ export default function Event() {
           />
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            contentStyle={{
+              background: resolvedTheme === 'dark' ? 'rgb(33, 150, 243)' : '',
+              color: resolvedTheme === 'dark' ? '#fff' : '',
+            }}
             contentArrowStyle={{
               borderLeft: '7px solid  rgb(33, 150, 243)',
             }}
@@ -110,7 +118,10 @@ export default function Event() {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            // contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            contentStyle={{
+              background: resolvedTheme === 'dark' ? 'rgb(33, 150, 243)' : '',
+              color: resolvedTheme === 'dark' ? '#fff' : '',
+            }}
             contentArrowStyle={{
               borderLeft: '7px solid  rgb(33, 150, 243)',
             }}

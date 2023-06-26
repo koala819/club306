@@ -27,7 +27,7 @@ export const Summary = ({
 
   return (
     <>
-      <div className="bg-gray-100 p-8">
+      <div className="bg-gray-100 p-8 dark:bg-gray-800">
         <h2 className="text-2xl font-bold mb-4">Résumé </h2>
 
         {/* Personal Info */}
@@ -78,7 +78,10 @@ export const Summary = ({
                 Ton Garage
               </h3>
               {vehicles.map((vehicle, index) => (
-                <div key={index} className="bg-gray-400 p-4 space-y-2">
+                <div
+                  key={index}
+                  className="bg-gray-400 p-4 space-y-2 dark:bg-gray-900"
+                >
                   <span className="font-bold">Voiture {index + 1}:</span>{' '}
                   <div key={index} className=" p-4">
                     <div>
