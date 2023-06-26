@@ -14,8 +14,6 @@ import { MdEventNote } from 'react-icons/md';
 import { FaHouseUser } from 'react-icons/fa';
 import { TbCirclesRelation } from 'react-icons/tb';
 import { RiLogoutCircleLine } from 'react-icons/ri';
-import { HiMoon, HiSun } from 'react-icons/hi';
-import { ConfigProvider, Switch } from 'antd';
 
 export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -25,7 +23,8 @@ export const Navbar = () => {
   const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-  const [input, setInput] = useState(true);
+  console.log('theme', resolvedTheme);
+
   useEffect(() => {
     if (session?.user !== undefined) {
       if (Object.keys(session?.user).length !== 0) {
@@ -374,38 +373,6 @@ export const Navbar = () => {
                         )}
                       </ul>
                     </li>
-                    <li className="flex text-center no-decoration p-4">
-                      <div className="flex space-x-2">
-                        <HiSun
-                          size={26}
-                          className=" text-[#3B578E] dark:text-white"
-                        />
-                        <ConfigProvider
-                          theme={{
-                            token: {
-                              colorPrimary: 'bg-green-300',
-                            },
-                          }}
-                        >
-                          <Switch
-                            checked={!input}
-                            // checkedChildren="Dark"
-                            // unCheckedChildren="Light"
-
-                            onClick={() =>
-                              setTheme(
-                                resolvedTheme === 'dark' ? 'light' : 'dark'
-                              )
-                            }
-                            onChange={() => {
-                              setInput(!input);
-                            }}
-                          />
-                        </ConfigProvider>
-
-                        <HiMoon size={26} className="text-orange-300" />
-                      </div>
-                    </li>
 
                     {/* {registeredMember && (
                       <li onClick={() => setTutorialOpen((prev) => !prev)}>
@@ -656,36 +623,6 @@ export const Navbar = () => {
                     )}
                   </button>
                 </li> */}
-                <li className="flex text-center no-decoration p-4">
-                  <div className="flex space-x-2">
-                    <HiSun
-                      size={26}
-                      className=" text-[#3B578E] dark:text-white"
-                    />
-                    <ConfigProvider
-                      theme={{
-                        token: {
-                          colorPrimary: 'bg-green-300',
-                        },
-                      }}
-                    >
-                      <Switch
-                        checked={!input}
-                        // checkedChildren="Dark"
-                        // unCheckedChildren="Light"
-
-                        onClick={() =>
-                          setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-                        }
-                        onChange={() => {
-                          setInput(!input);
-                        }}
-                      />
-                    </ConfigProvider>
-
-                    <HiMoon size={26} className="text-orange-300" />
-                  </div>
-                </li>
               </ul>
             </div>
           </div>
