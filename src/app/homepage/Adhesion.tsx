@@ -12,7 +12,7 @@ export const Adhesion = () => {
   });
   const renderContent = () => {
     return (
-      <section className="container w-screen bg-[#D7DEED] border-0 h-32 sm:flex justify-center items-center mx-auto">
+      <section className="container w-screen bg-[#D7DEED] border-0 h-32 sm:flex justify-center items-center mx-auto dark:bg-gray-800">
         <div className="flex justify-center lg:w-2/3 sm:w-2/3 items-center">
           <span className="lg:text-3xl text-xl font-extrabold ">
             Rejoignez nous en 30 secondes

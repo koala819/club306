@@ -14,8 +14,10 @@ import {
 import { Infos } from './Infos';
 import { Garage } from './Garage';
 import { Subscription } from './Subscription';
+import { useTheme } from 'next-themes';
 
 export default function Idg() {
+  const { resolvedTheme } = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
   const [member, setMember] = useState<Member | undefined>(undefined);
@@ -112,7 +114,7 @@ export default function Idg() {
             style={{ height: '74vh' }}
           >
             <div
-              className="w-11/12 2xl:w-3/4 bg-white mx-auto rounded-2xl mt-2 sm:mt-0 shadow-xl  shadow-slate-300/60"
+              className="w-11/12 2xl:w-3/4 bg-white dark:bg-gray-800 mx-auto rounded-2xl mt-2 sm:mt-0 shadow-xl  shadow-slate-300/60"
               style={{
                 height: window.innerWidth <= 768 ? '95%' : '75%',
                 display: 'grid',
@@ -123,9 +125,13 @@ export default function Idg() {
                   <div className="items-center justify-center w-full">
                     <ul className="flex">
                       <li
-                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none ${
+                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none hover:cursor-pointer ${
                           activeTab === 'Mes Infos'
-                            ? 'bg-blue-800'
+                            ? resolvedTheme === 'dark'
+                              ? 'bg-gray-800 hover:cursor-auto'
+                              : 'bg-blue-800'
+                            : resolvedTheme === 'dark'
+                            ? 'bg-gray-500 hover:bg-gray-700'
                             : 'bg-gray-400 hover:bg-gray-700'
                         }`}
                         onClick={() => handleTabClick('Mes Infos')}
@@ -136,9 +142,13 @@ export default function Idg() {
                         )}
                       </li>
                       <li
-                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none ${
+                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none hover:cursor-pointer ${
                           activeTab === 'Mon Garage'
-                            ? 'bg-blue-800'
+                            ? resolvedTheme === 'dark'
+                              ? 'bg-gray-800 hover:cursor-auto'
+                              : 'bg-blue-800'
+                            : resolvedTheme === 'dark'
+                            ? 'bg-gray-500 hover:bg-gray-700'
                             : 'bg-gray-400 hover:bg-gray-700'
                         }`}
                         onClick={() => handleTabClick('Mon Garage')}
@@ -149,9 +159,13 @@ export default function Idg() {
                         )}
                       </li>
                       <li
-                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none ${
+                        className={`p-5 flex-1 flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white focus:ring-4 focus:outline-none hover:cursor-pointer ${
                           activeTab === 'Mon Adhésion'
-                            ? 'bg-blue-800'
+                            ? resolvedTheme === 'dark'
+                              ? 'bg-gray-800 hover:cursor-auto'
+                              : 'bg-blue-800'
+                            : resolvedTheme === 'dark'
+                            ? 'bg-gray-500 hover:bg-gray-700'
                             : 'bg-gray-400 hover:bg-gray-700'
                         }`}
                         onClick={() => handleTabClick('Mon Adhésion')}

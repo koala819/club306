@@ -47,7 +47,7 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
       className="flex items-center justify-center lg:col-span-7 lg:px-8 xl:col-span-6"
     >
       {isLoading ? (
-        <div className="flex flex-col justify-center items-center space-y-2 bg-white p-8 rounded-lg shadow-lg">
+        <div className="flex flex-col justify-center items-center space-y-2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
           <ClipLoader
             loading={true}
             size={50}
@@ -66,7 +66,6 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
               Rejoins nous dans l&apos;aventure Peugeot 306.
             </p>
           </div>
-
           {step == 1 && (
             <PersonalInfos
               setStep={setStep}

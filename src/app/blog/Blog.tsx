@@ -10,8 +10,8 @@ export const Blog = ({ articles }: ArticlesProps) => {
         <div className="flex flex-wrap -m-4">
           {articles !== undefined &&
             articles.map((article: ArticleProps) => (
-              <div className="p-4 md:w-1/3" key={article.uid}>
-                <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+              <div className="p-4 md:w-1/3 " key={article.uid}>
+                <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden dark:bg-gray-800">
                   <Image
                     className="lg:h-48 md:h-36 w-full object-cover object-center"
                     src={article.data.featureImageUrl.url}
@@ -23,7 +23,7 @@ export const Blog = ({ articles }: ArticlesProps) => {
                     <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
                       {article.data.dateEvent}
                     </h2>
-                    <div className="title-font text-lg font-medium text-gray-900 mb-3">
+                    <div className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-blue-gray-400">
                       {article.data.title[0].text}
                     </div>
                     <div className="leading-relaxed mb-3">
@@ -31,7 +31,7 @@ export const Blog = ({ articles }: ArticlesProps) => {
                     </div>
                     <div className="flex items-center flex-wrap ">
                       <Link
-                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover: hover:text-[#DB2323]"
+                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323]  dark:text-white dark:hover:text-blue-500"
                         href={`/article/${article.uid}`}
                       >
                         Lire la suite
