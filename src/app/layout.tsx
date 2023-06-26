@@ -2,7 +2,7 @@
 import { StyleProvider } from '@ant-design/cssinjs';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
-// import { NewNavbar } from '@/components/NewNavbar';
+import { ThemeProvider } from 'next-themes';
 import './globals.css';
 import Providers from '@/components/Providers';
 import { ReactNode } from 'react';
