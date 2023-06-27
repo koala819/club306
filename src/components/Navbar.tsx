@@ -23,7 +23,6 @@ export const Navbar = () => {
   const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-  console.log('theme', resolvedTheme);
 
   useEffect(() => {
     if (session?.user !== undefined) {
