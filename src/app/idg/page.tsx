@@ -62,45 +62,30 @@ export default function Idg() {
         setMember(() => memberData);
       }
 
-      getMemberCars(member?.id).then(async (data) => {
-        if (data !== null) {
-          if (data) {
-            if (Array.isArray(data)) {
+      member?.id !== undefined &&
+        getMemberCars(member?.id).then(async (cars: any) => {
+          if (cars) {
+            if (Array.isArray(cars)) {
               const carData: Car[] = [];
-              for (let i = 0; i < data.length; i++) {
+              for (let i = 0; i < cars.length; i++) {
+                console.log('cars', cars[i]);
                 const carData_Object: Car = {
-                  color: await getCarColor(data[i].color_id).then((data) => {
-                    if (data) {
-                      return { name: data.nom, hexa: data.hexa };
-                    } else {
-                      return { name: null, hexa: null };
-                    }
-                  }),
-                  finition: data[i].finition,
-                  immatriculation: data[i].immatriculation,
-                  min: data[i].min,
-                  model: data[i].modele,
+                  color: {
+                    name: cars[i].color_name.name,
+                    hexa: cars[i].hexa.hexa,
+                  },
+                  finition: cars[i].finition.name,
+                  immatriculation: cars[i].immatriculation,
+                  min: cars[i].min,
+                  model: cars[i].model.name,
                 };
+                console.log('car data', carData_Object);
                 carData.push(carData_Object);
                 setCars(() => carData);
               }
             }
           }
-          // console.log('min:', membersCars.min);
-          // console.log('modele:', membersCars.modele);
-
-          // console.log('carData_Array', data[0].members_cars?.[0]);
-          // const carData: Car = {
-          //   color: data[0]?.members_cars?.[0]?.color_id,
-          //   finition: data[0].members_cars?.[0].finition,
-          //   immatriculation: data[0].members_cars?.[0].immatriculation,
-          //   min: data[0].members_cars?.[0].min,
-          //   model: data[0].members_cars?.[0].model,
-          // };
-          // setCar(() => carData);
-          // console.log('car', car);
-        }
-      });
+        });
     };
     fetchData();
   }, [member?.address]);
@@ -233,7 +218,7 @@ export default function Idg() {
     zip_code: string;
   }
 
-  interface Car {
+  type Car = {
     color: {
       name: string | null;
       hexa: string | null;
@@ -242,5 +227,5 @@ export default function Idg() {
     immatriculation: string;
     min: string;
     model: string;
-  }
+  };
 }

@@ -9,7 +9,7 @@ interface Props {
 
 const Providers = (props: Props) => {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider enableSystem attribute="class">
       <SessionProvider>{props.children}</SessionProvider>
     </ThemeProvider>
   );

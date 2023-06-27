@@ -66,7 +66,6 @@ export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
               Rejoins nous dans l&apos;aventure Peugeot 306.
             </p>
           </div>
-
           {step == 1 && (
             <PersonalInfos
               setStep={setStep}

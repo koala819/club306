@@ -45,6 +45,7 @@ export const SignIn = ({
       .required('Le mot de passe est obligatoire')
       .oneOf([yup.ref('pwd')], 'Les mots de passe doivent être identiques'),
   });
+
   const {
     register,
     handleSubmit,
