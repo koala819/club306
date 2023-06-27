@@ -158,21 +158,20 @@ async function getIdModel(name) {
   }
 }
 
-async function getMemberCars(idMember) {
+async function getMemberCars(memberId) {
   try {
     const { data, error } = await supabase
       .from('cars')
       .select(
-        `members_cars (member_id, modele, finition, min, immatriculation, color_id)`
+        `min, immatriculation, model:car_model_id (name), finition:car_finition_id (name), hexa:car_color_id(hexa), color_name:car_color_id(name)`
       )
-      .eq('member_id', idMember)
-      .single();
+      .eq('member_id', memberId);
+    // .single();
 
     if (error) {
       throw new Error(error.message);
     }
-
-    return data.members_cars;
+    return data;
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
