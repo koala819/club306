@@ -84,6 +84,7 @@ async function getAllColors() {
     return null;
   }
 }
+
 async function getAllFinitions() {
   try {
     return await supabase.from('car_finitions').select('*');
@@ -102,13 +103,13 @@ async function getAllModels() {
   }
 }
 
-async function getCarColor(idColor) {
+async function getHexaCarColor(colorName) {
   try {
     const { data, error } = await supabase
       .from('car_colors')
-      .select('*')
-      .eq('id', idColor)
-      .single();
+      .select('hexa')
+      .eq('name', colorName);
+
     if (error) {
       throw new Error(error.message);
     }
@@ -139,6 +140,18 @@ async function getIdFinition(name) {
       .select('id')
       .eq('name', name)
       .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getIdMemberFromImmatriculation(immatriculation) {
+  try {
+    return await supabase
+      .from('cars')
+      .select('member_id')
+      .eq('immatriculation', immatriculation);
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
@@ -185,6 +198,18 @@ async function getMemberId() {
       .select('id')
       .order('id', { ascending: false })
       .limit(1);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return null;
+  }
+}
+
+async function getMemberName(id) {
+  try {
+    return await supabase
+      .from('members')
+      .select('first_name, last_name')
+      .eq('id', id);
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
@@ -358,6 +383,191 @@ async function sendMailRecordDb(personalInfo, setIsRegistered) {
   );
 }
 
+async function sendMailUpdateCarInIdg(
+  oldValue,
+  newValue,
+  immatriculation,
+  type
+) {
+  try {
+    const idMember = await getIdMemberFromImmatriculation(immatriculation);
+    try {
+      const memberName = await getMemberName(idMember.data[0].member_id);
+      const dataSendMail = {
+        first_name: memberName.data[0].first_name,
+        last_name: memberName.data[0].last_name,
+        old_value: oldValue,
+        new_value: newValue,
+        type: type,
+        from: 'updateCarInfo',
+      };
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(dataSendMail),
+      };
+      await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
+        (response) => {
+          response.status === 200 && setIsRegistered(true);
+        }
+      );
+    } catch (error) {
+      return new Response(JSON.stringify(error), {
+        status: 406,
+        statusText: 'Error to retrieve member name from id',
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error to retrieve member id from immat',
+    });
+  }
+}
+
+async function updateCarColor(value, immatriculation) {
+  try {
+    const { data, error } = await supabase
+      .from('cars')
+      .update({ car_color_id: value })
+      .filter('immatriculation', 'eq', immatriculation);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Car Color updated successfully :)',
+        headers: {
+          value,
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update car color',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
+async function updateCarFinition(value, immatriculation) {
+  try {
+    const { data, error } = await supabase
+      .from('cars')
+      .update({ car_finition_id: value })
+      .filter('immatriculation', 'eq', immatriculation);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Car Finition updated successfully :)',
+        headers: {
+          value,
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update car finition',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
+async function updateCarImmatriculation(value, immatriculation) {
+  try {
+    const { data, error } = await supabase
+      .from('cars')
+      .update({ immatriculation: value })
+      .filter('immatriculation', 'eq', immatriculation);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Immatriculation updated successfully :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update Immatriculation',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
+async function updateCarMin(value, immatriculation) {
+  try {
+    const { data, error } = await supabase
+      .from('cars')
+      .update({ min: value })
+      .filter('immatriculation', 'eq', immatriculation);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Type Mine updated successfully :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update type mine',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
+async function updateCarModel(value, immatriculation) {
+  console.log('value', value);
+  try {
+    const { data, error } = await supabase
+      .from('cars')
+      .update({ car_model_id: value })
+      .filter('immatriculation', 'eq', immatriculation);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Car Model updated successfully :)',
+        headers: {
+          value,
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update car model',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 export {
   checkForCanI,
   checkForStartSession,
@@ -366,10 +576,16 @@ export {
   getAllColors,
   getAllFinitions,
   getAllModels,
-  getCarColor,
+  getHexaCarColor,
   getMemberCars,
   getMemberId,
   ourPartners,
   record,
   returnMemberInfo,
+  sendMailUpdateCarInIdg,
+  updateCarColor,
+  updateCarFinition,
+  updateCarImmatriculation,
+  updateCarMin,
+  updateCarModel,
 };
