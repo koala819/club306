@@ -1,6 +1,6 @@
 'use client';
 // import React from 'react';
-import { Button } from 'antd';
+// import { Button } from 'antd';
 import { AiFillStar } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import styles from './reactIntersectionObserver.module.css';
@@ -19,7 +19,7 @@ export const Adhesion = () => {
           </span>
         </div>
         <div className="w-full sm:w-1/3 lg:w-1/3 md:w-1/2 flex justify-center items-center">
-          <Button
+          {/* <Button
             type="primary"
             className="success"
             size="large"
@@ -27,7 +27,7 @@ export const Adhesion = () => {
             icon={<AiFillStar size={22} />}
           >
             Adhérer
-          </Button>
+          </Button> */}
         </div>
       </section>
     );

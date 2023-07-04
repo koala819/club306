@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Button } from 'antd';
+// import { Button } from 'antd';
 import { BsPatchPlus } from 'react-icons/bs';
 import { Adhesion } from './Adhesion';
 import styles from './reactIntersectionObserver.module.css';
@@ -24,7 +24,7 @@ export const Presentation = () => {
               Le club a été créé suite à un besoin exprimé par de nombreuses
               personnes qui sont membres de forums ou de groupes.
             </p>
-            <Button
+            {/* <Button
               type="primary"
               className="success"
               size="large"
@@ -32,7 +32,7 @@ export const Presentation = () => {
               icon={<BsPatchPlus size={20} />}
             >
               En savoir plus ...
-            </Button>
+            </Button> */}
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
             <Image

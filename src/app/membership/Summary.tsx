@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Button, ConfigProvider } from 'antd';
+// import { Button, ConfigProvider } from 'antd';
 import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 import { PersonalInfo, Vehicles } from '@/app/models';
 
@@ -110,7 +110,7 @@ export const Summary = ({
         </div>
       </div>
       <div className="flex  w-full justify-between mt-4">
-        <ConfigProvider
+        {/* <ConfigProvider
           theme={{
             token: {
               fontSize: 18,
@@ -135,7 +135,7 @@ export const Summary = ({
               Suivant
             </Button>
           )}
-        </ConfigProvider>
+        </ConfigProvider> */}
       </div>
     </>
   );
