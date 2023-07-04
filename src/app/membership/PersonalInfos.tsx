@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-// import { Button, ConfigProvider, DatePicker, theme } from 'antd';
+import { Button, ConfigProvider, DatePicker, theme } from 'antd';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { PersonalInfo } from '@/app/models';
@@ -23,7 +23,7 @@ export const PersonalInfos = ({
   personalInfo: PersonalInfo;
 }) => {
   const { resolvedTheme } = useTheme();
-  // const { defaultAlgorithm, darkAlgorithm } = theme;
+  const { defaultAlgorithm, darkAlgorithm } = theme;
 
   const schema: yup.ObjectSchema<PersonalInfo> = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
@@ -273,7 +273,7 @@ export const PersonalInfos = ({
           >
             Date de Naissance<span className="text-red-500">*</span>
           </span>
-          {/* <Controller
+          <Controller
             control={control}
             name={'birth_date'}
             render={({ field, fieldState }) => {
@@ -305,7 +305,7 @@ export const PersonalInfos = ({
                 </ConfigProvider>
               );
             }}
-          /> */}
+          />
         </div>
 
         {/* CHECKBOXES */}
@@ -445,7 +445,7 @@ export const PersonalInfos = ({
 
         {/* SUBMIT BUTTON */}
         <div className="col-span-6 mt-8">
-          {/* <ConfigProvider
+          <ConfigProvider
             theme={{
               token: {
                 fontSize: 18,
@@ -461,7 +461,7 @@ export const PersonalInfos = ({
             >
               <span>Suivant</span>
             </Button>
-          </ConfigProvider> */}
+          </ConfigProvider>
         </div>
       </div>
     </form>

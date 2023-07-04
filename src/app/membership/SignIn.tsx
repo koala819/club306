@@ -7,7 +7,7 @@ import {
   MailFilled,
 } from '@ant-design/icons';
 import { signIn, useSession } from 'next-auth/react';
-// import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -96,47 +96,45 @@ export const SignIn = ({
         <div className="flex rounded-lg overflow-hidden  w-full">
           <div className="w-full p-8 space-y-12">
             {!watch && (
-              <span>Se connecter avec Google</span>
-              // <ConfigProvider
-              //   theme={{
-              //     token: {
-              //       fontSize: 18,
-              //     },
-              //   }}
-              // >
-              //   <Button
-              //     onClick={() => {
-              //       handleSignIn();
-              //     }}
-              //     type="primary"
-              //     size="large"
-              //     block
-              //     icon={<GoogleCircleFilled />}
-              //   >
-              //     Se connecter avec Google
-              //   </Button>
-              // </ConfigProvider>
+              <ConfigProvider
+                theme={{
+                  token: {
+                    fontSize: 18,
+                  },
+                }}
+              >
+                <Button
+                  onClick={() => {
+                    handleSignIn();
+                  }}
+                  type="primary"
+                  size="large"
+                  block
+                  icon={<GoogleCircleFilled />}
+                >
+                  Se connecter avec Google
+                </Button>
+              </ConfigProvider>
             )}
             <div>
               {!watch ? (
-                // <ConfigProvider
-                //   theme={{
-                //     token: {
-                //       fontSize: 18,
-                //     },
-                //   }}
-                // >
-                //   <Button
-                //     onClick={handleLoginClick}
-                //     type="primary"
-                //     size="large"
-                //     block
-                //     icon={<MailFilled />}
-                //   >
-                //     Se connecter avec son mail
-                //   </Button>
-                // </ConfigProvider>
-                <span>Se connecter avec son mail</span>
+                <ConfigProvider
+                  theme={{
+                    token: {
+                      fontSize: 18,
+                    },
+                  }}
+                >
+                  <Button
+                    onClick={handleLoginClick}
+                    type="primary"
+                    size="large"
+                    block
+                    icon={<MailFilled />}
+                  >
+                    Se connecter avec son mail
+                  </Button>
+                </ConfigProvider>
               ) : (
                 <form className="space-y-8">
                   {/* EMAIL */}
@@ -173,14 +171,14 @@ export const SignIn = ({
                       {...register('pwd')}
                       placeholder=" "
                     />
-                    {/* <Button
+                    <Button
                       style={{ width: 80 }}
                       onClick={() =>
                         setPasswordVisible((prevState) => !prevState)
                       }
                     >
                       {passwordVisible ? 'Cacher' : 'Afficher'}
-                    </Button> */}
+                    </Button>
                     <label
                       htmlFor="pwd"
                       className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
@@ -206,14 +204,14 @@ export const SignIn = ({
                       {...register('cpwd')}
                       placeholder=" "
                     />
-                    {/* <Button
+                    <Button
                       style={{ width: 80 }}
                       onClick={() =>
                         setCPasswordVisible((prevState) => !prevState)
                       }
                     >
                       {cPasswordVisible ? 'Cacher' : 'Afficher'}
-                    </Button> */}
+                    </Button>
                     <label
                       htmlFor="cpwd"
                       className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
@@ -231,7 +229,7 @@ export const SignIn = ({
                   )}
                   {/* BUTTONS RECORD & CANCEL */}
                   <div className="flex  w-full justify-between mt-4">
-                    {/* <Button
+                    <Button
                       onClick={handleCancelLoginClick}
                       type="primary"
                       size="large"
@@ -247,7 +245,7 @@ export const SignIn = ({
                       icon={<CheckCircleFilled />}
                     >
                       Enregistrer
-                    </Button> */}
+                    </Button>
                   </div>
                 </form>
               )}

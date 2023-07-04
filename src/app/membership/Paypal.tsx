@@ -1,6 +1,6 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { PersonalInfo } from '../models';
-// import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import { LeftCircleFilled } from '@ant-design/icons';
 
 export const Paypal = ({
@@ -150,7 +150,7 @@ export const Paypal = ({
         </div>
       </section>
       <div className="flex  w-full justify-between mt-4">
-        {/* <ConfigProvider
+        <ConfigProvider
           theme={{
             token: {
               fontSize: 18,
@@ -165,7 +165,7 @@ export const Paypal = ({
           >
             Précédent
           </Button>
-        </ConfigProvider> */}
+        </ConfigProvider>
       </div>
     </>
   );
