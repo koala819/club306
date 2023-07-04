@@ -3,7 +3,7 @@ import React from 'react';
 import { signInGoogle } from '@/lib/signInGoogle';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { Button, ConfigProvider } from 'antd';
+// import { Button, ConfigProvider } from 'antd';
 import { GoogleCircleFilled, MailFilled } from '@ant-design/icons';
 
 const Page = () => {
@@ -23,7 +23,7 @@ const Page = () => {
           </h2>
 
           <div>
-            <ConfigProvider
+            {/* <ConfigProvider
               theme={{
                 token: {
                   fontSize: 18,
@@ -41,14 +41,14 @@ const Page = () => {
               >
                 Se connecter avec Google
               </Button>
-            </ConfigProvider>
+            </ConfigProvider> */}
           </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 lg:w-1/4"></span>
             <span className="text-xs text-center uppercase">ou</span>
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
-          <ConfigProvider
+          {/* <ConfigProvider
             theme={{
               token: {
                 fontSize: 18,
@@ -64,7 +64,7 @@ const Page = () => {
             >
               Se connecter avec mail
             </Button>
-          </ConfigProvider>
+          </ConfigProvider> */}
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 md:w-1/4"></span>
             <Link

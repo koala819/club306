@@ -9,7 +9,7 @@ import {
   getAllModels,
 } from '../../lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/app/models';
-import { Button, ConfigProvider } from 'antd';
+// import { Button, ConfigProvider } from 'antd';
 import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 
 export const Garage = ({
@@ -395,7 +395,7 @@ export const Garage = ({
         ))}
       </div>
       <div className="flex  w-full justify-between mt-4">
-        <ConfigProvider
+        {/* <ConfigProvider
           theme={{
             token: {
               fontSize: 18,
@@ -418,7 +418,7 @@ export const Garage = ({
           >
             Suivant
           </Button>
-        </ConfigProvider>
+        </ConfigProvider> */}
       </div>
     </>
   );
