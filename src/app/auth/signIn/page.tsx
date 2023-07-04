@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { MailPwd } from '@/app/models';
 import { signIn } from 'next-auth/react';
-// import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import { LeftCircleFilled } from '@ant-design/icons';
 
 const LoginPage = () => {
@@ -124,32 +124,32 @@ const LoginPage = () => {
               </div>
 
               <div className="flex  w-full justify-between mt-4">
-                {/* <ConfigProvider
+                <ConfigProvider
                   theme={{
                     token: {
                       fontSize: 18,
                     },
                   }}
-                > */}
-                <Link href="/login">
-                  {/* <Button
+                >
+                  <Link href="/login">
+                    <Button
                       type="primary"
                       size="large"
                       danger
                       icon={<LeftCircleFilled />}
                     >
                       Précédent
-                    </Button> */}
-                </Link>
+                    </Button>
+                  </Link>
 
-                {/* <Button
+                  <Button
                     onClick={handleSubmit(onSubmit)}
                     type="primary"
                     size="large"
                   >
                     Connexion
                   </Button>
-                </ConfigProvider> */}
+                </ConfigProvider>
               </div>
             </form>
           </div>

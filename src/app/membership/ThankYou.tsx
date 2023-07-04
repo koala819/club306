@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MailPwd, PersonalInfo, Vehicles } from '../models';
 import { getMemberId, record } from '@/lib/supabase';
 import { RxAvatar } from 'react-icons/rx';
-// import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import { TrophyFilled } from '@ant-design/icons';
 import Link from 'next/link';
 
@@ -147,7 +147,7 @@ export const ThankYou = ({
               )
             }
           >
-            {/* <ConfigProvider
+            <ConfigProvider
               theme={{
                 token: {
                   fontSize: 18,
@@ -157,7 +157,7 @@ export const ThankYou = ({
               <Button type="primary" size="large" icon={<TrophyFilled />}>
                 <span>Terminer</span>
               </Button>
-            </ConfigProvider> */}
+            </ConfigProvider>
           </Link>
         </div>
       )}
