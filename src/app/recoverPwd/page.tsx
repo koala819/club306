@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { change_pwd } from '@/lib/validate';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { HiThumbUp } from 'react-icons/hi';
 
 export default function RecoverPwd() {
   const [pwdChanged, setIsPopupOpen] = useState(false);
@@ -47,18 +48,20 @@ export default function RecoverPwd() {
   return (
     <div className="flex h-full items-center justify-center">
       {/* <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0"> */}
-      <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
+      <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8 flex justify-center items-center flex-col space-y-4">
         <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           {pwdChanged
-            ? 'Mot de Passe changé avec succès :)'
+            ? 'Mot de Passe changé avec succès'
             : 'Saisir le nouveau Mot de Passe'}
         </h2>
         {pwdChanged ? (
-          <Link
-            href="login"
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-8"
-          >
-            Fin
+          <Link href="/login">
+            <button
+              className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+              type="submit"
+            >
+              Retour <HiThumbUp className="ml-2" size={22} />
+            </button>
           </Link>
         ) : (
           <form
@@ -104,12 +107,14 @@ export default function RecoverPwd() {
               <span className="text-red-600 text-xs">{formik.errors.cpwd}</span>
             </div>
 
-            <button
-              type="submit"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-8"
-            >
-              Changer le mot de passe
-            </button>
+            <div className="flex justify-center items-center">
+              <button
+                className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                type="submit"
+              >
+                Confirmer
+              </button>
+            </div>
           </form>
         )}
       </div>

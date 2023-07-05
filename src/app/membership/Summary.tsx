@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import { Button, ConfigProvider } from 'antd';
-import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
+// import { Button, ConfigProvider } from 'antd';
+// import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
+import { TiArrowBack } from 'react-icons/ti';
 import { PersonalInfo, Vehicles } from '@/app/models';
 
 export const Summary = ({
@@ -110,32 +111,23 @@ export const Summary = ({
         </div>
       </div>
       <div className="flex  w-full justify-between mt-4">
-        <ConfigProvider
-          theme={{
-            token: {
-              fontSize: 18,
-            },
+        <button
+          className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+          onClick={() => {
+            handleGoBack();
           }}
         >
-          <Button
-            onClick={handleGoBack}
-            type="primary"
-            size="large"
-            icon={<LeftCircleFilled />}
+          <TiArrowBack size={22} className="mr-2" />
+          Précédent
+        </button>
+        {vehicles.length >= 1 && (
+          <button
+            className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+            onClick={handleNext}
           >
-            Précédent
-          </Button>
-          {vehicles.length >= 1 && (
-            <Button
-              onClick={handleNext}
-              type="primary"
-              size="large"
-              icon={<RightCircleFilled />}
-            >
-              Suivant
-            </Button>
-          )}
-        </ConfigProvider>
+            Continuer
+          </button>
+        )}
       </div>
     </>
   );

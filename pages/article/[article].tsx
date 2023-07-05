@@ -15,10 +15,10 @@ export default function Article({ article }: any) {
     <Layout title="Article">
       <Providers>
         <Navbar />
-        <div className="w-2/3 mx-auto ">
-          <h1 className="text-3xl uppercase font-bold opacity-50 my-10">
+        <div className="w-2/3 mx-auto flex justify-center items-center flex-col space-y-10 mt-4 mb-4">
+          <div className="text-3xl uppercase font-bold opacity-50">
             {RichText.render(article.data.title)}
-          </h1>
+          </div>
           <div className="flex justify-center">
             <Image
               className="shadow-xl mb-10"
@@ -28,17 +28,15 @@ export default function Article({ article }: any) {
               height="1000"
             />
           </div>
-          <h1 className="text-lg opacity-75">
+          <div className="text-lg opacity-75">
             {RichText.render(article.data.paragraphes)}
-          </h1>
-          <div className="text-center my-12">
-            <Link
-              href="/blog"
-              className="text-white bg-blue-500 border-0 py-4 px-6 focus:outline-none hover:bg-[#DB2323] rounded text-lg"
-            >
-              Retour &nbsp; 👈
-            </Link>
           </div>
+
+          <Link href="/blog">
+            <button className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg">
+              Retour &nbsp; 👈
+            </button>
+          </Link>
         </div>
       </Providers>
     </Layout>

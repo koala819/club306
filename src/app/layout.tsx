@@ -5,7 +5,7 @@ import { Navbar } from '@/components/Navbar';
 import '@/app/globals.css';
 import Providers from '@/components/Providers';
 import { ReactNode } from 'react';
-import 'antd/dist/reset.css';
+// import 'antd/dist/reset.css';
 
 interface LayoutProps {
   children: ReactNode;

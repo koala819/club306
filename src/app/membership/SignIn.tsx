@@ -1,13 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  GoogleCircleFilled,
-  MailFilled,
-} from '@ant-design/icons';
+// import {
+//   CheckCircleFilled,
+//   CloseCircleFilled,
+//   GoogleCircleFilled,
+//   MailFilled,
+// } from '@ant-design/icons';
 import { signIn, useSession } from 'next-auth/react';
-import { Button, ConfigProvider } from 'antd';
+// import { Button, ConfigProvider } from 'antd';
+import { FcGoogle } from 'react-icons/fc';
+import { IoMdMail } from 'react-icons/io';
+import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
+import { TiArrowBack } from 'react-icons/ti';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -94,47 +98,29 @@ export const SignIn = ({
     <section className="grid sm:grid-cols-12 sm:gap-12 py-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden mx-auto">
       <div className="flex items-center justify-center col-span-12">
         <div className="flex rounded-lg overflow-hidden  w-full">
-          <div className="w-full p-8 space-y-12">
+          <div className="w-full p-8 space-y-12 flex justify-center items-center flex-col">
             {!watch && (
-              <ConfigProvider
-                theme={{
-                  token: {
-                    fontSize: 18,
-                  },
+              <button
+                className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
+                onClick={() => {
+                  handleSignIn();
                 }}
               >
-                <Button
-                  onClick={() => {
-                    handleSignIn();
-                  }}
-                  type="primary"
-                  size="large"
-                  block
-                  icon={<GoogleCircleFilled />}
-                >
-                  Se connecter avec Google
-                </Button>
-              </ConfigProvider>
+                <FcGoogle size={22} className="mr-2" />
+                S'enregistrer avec Google
+              </button>
             )}
             <div>
               {!watch ? (
-                <ConfigProvider
-                  theme={{
-                    token: {
-                      fontSize: 18,
-                    },
+                <button
+                  className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
+                  onClick={() => {
+                    handleLoginClick();
                   }}
                 >
-                  <Button
-                    onClick={handleLoginClick}
-                    type="primary"
-                    size="large"
-                    block
-                    icon={<MailFilled />}
-                  >
-                    Se connecter avec son mail
-                  </Button>
-                </ConfigProvider>
+                  <IoMdMail size={22} className="mr-2" />
+                  S'enregistrer avec E-mail
+                </button>
               ) : (
                 <form className="space-y-8">
                   {/* EMAIL */}
@@ -171,14 +157,18 @@ export const SignIn = ({
                       {...register('pwd')}
                       placeholder=" "
                     />
-                    <Button
-                      style={{ width: 80 }}
+                    <span
+                      className="flex items-center px-2 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED] dark:text-white"
                       onClick={() =>
                         setPasswordVisible((prevState) => !prevState)
                       }
                     >
-                      {passwordVisible ? 'Cacher' : 'Afficher'}
-                    </Button>
+                      {passwordVisible ? (
+                        <AiOutlineEyeInvisible size={25} />
+                      ) : (
+                        <AiOutlineEye size={25} />
+                      )}
+                    </span>
                     <label
                       htmlFor="pwd"
                       className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
@@ -204,14 +194,18 @@ export const SignIn = ({
                       {...register('cpwd')}
                       placeholder=" "
                     />
-                    <Button
-                      style={{ width: 80 }}
+                    <span
+                      className="flex items-center px-2 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED] dark:text-white"
                       onClick={() =>
                         setCPasswordVisible((prevState) => !prevState)
                       }
                     >
-                      {cPasswordVisible ? 'Cacher' : 'Afficher'}
-                    </Button>
+                      {cPasswordVisible ? (
+                        <AiOutlineEyeInvisible size={25} />
+                      ) : (
+                        <AiOutlineEye size={25} />
+                      )}
+                    </span>
                     <label
                       htmlFor="cpwd"
                       className={`${'peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'} ${
@@ -228,24 +222,22 @@ export const SignIn = ({
                     </span>
                   )}
                   {/* BUTTONS RECORD & CANCEL */}
-                  <div className="flex  w-full justify-between mt-4">
-                    <Button
-                      onClick={handleCancelLoginClick}
-                      type="primary"
-                      size="large"
-                      danger
-                      icon={<CloseCircleFilled />}
+                  <div className="flex  w-full justify-between mt-4 space-x-4">
+                    <button
+                      className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+                      onClick={() => {
+                        handleCancelLoginClick();
+                      }}
                     >
-                      Annuler
-                    </Button>
-                    <Button
+                      <TiArrowBack size={22} className="mr-2" />
+                      Précédent
+                    </button>
+                    <button
+                      className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
                       onClick={handleSubmit(handleAddMailInfos)}
-                      type="primary"
-                      size="large"
-                      icon={<CheckCircleFilled />}
                     >
-                      Enregistrer
-                    </Button>
+                      Continuer
+                    </button>
                   </div>
                 </form>
               )}

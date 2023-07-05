@@ -7,8 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { MailPwd } from '@/app/models';
 import { signIn } from 'next-auth/react';
-import { Button, ConfigProvider } from 'antd';
-import { LeftCircleFilled } from '@ant-design/icons';
+import { TiArrowBack } from 'react-icons/ti';
 
 const LoginPage = () => {
   const [show, setShow] = useState({ password: false });
@@ -57,7 +56,7 @@ const LoginPage = () => {
               Connexion avec votre e-mail
             </h2>
 
-            <form className="space-y-8">
+            <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
               {/* EMAIL */}
               <div className="mt-4">
                 <label
@@ -124,32 +123,18 @@ const LoginPage = () => {
               </div>
 
               <div className="flex  w-full justify-between mt-4">
-                <ConfigProvider
-                  theme={{
-                    token: {
-                      fontSize: 18,
-                    },
-                  }}
+                <Link href="/login">
+                  <button className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg">
+                    <TiArrowBack size={22} className="mr-2" />
+                    Précédent
+                  </button>
+                </Link>
+                <button
+                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                  type="submit"
                 >
-                  <Link href="/login">
-                    <Button
-                      type="primary"
-                      size="large"
-                      danger
-                      icon={<LeftCircleFilled />}
-                    >
-                      Précédent
-                    </Button>
-                  </Link>
-
-                  <Button
-                    onClick={handleSubmit(onSubmit)}
-                    type="primary"
-                    size="large"
-                  >
-                    Connexion
-                  </Button>
-                </ConfigProvider>
+                  Connexion
+                </button>
               </div>
             </form>
           </div>
