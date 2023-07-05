@@ -1,0 +1,6 @@
+.contactIcon {
+  cursor: pointer;
+}
+.contactIcon:hover {
+  fill: #ef4c4c;
+}

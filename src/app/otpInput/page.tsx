@@ -2,7 +2,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFormik } from 'formik';
-import Link from 'next/link';
 import { rst_pwd } from '@/lib/validate';
 import { checkMail } from '@/lib/supabase';
 import { signIn } from 'next-auth/react';
