@@ -3,8 +3,10 @@ import React from 'react';
 import { signInGoogle } from '@/lib/signInGoogle';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { Button, ConfigProvider } from 'antd';
-import { GoogleCircleFilled, MailFilled } from '@ant-design/icons';
+// import { Button, ConfigProvider } from 'antd';
+// import { GoogleCircleFilled, MailFilled } from '@ant-design/icons';
+import { FcGoogle } from 'react-icons/fc';
+import { IoMdMail } from 'react-icons/io';
 
 const Page = () => {
   return (
@@ -22,49 +24,33 @@ const Page = () => {
             Connexion à votre compte
           </h2>
 
-          <div>
-            <ConfigProvider
-              theme={{
-                token: {
-                  fontSize: 18,
-                },
+          <div className="flex justify-center">
+            <button
+              className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
+              onClick={() => {
+                signInGoogle();
               }}
             >
-              <Button
-                onClick={() => {
-                  signInGoogle();
-                }}
-                type="primary"
-                size="large"
-                block
-                icon={<GoogleCircleFilled />}
-              >
-                Se connecter avec Google
-              </Button>
-            </ConfigProvider>
+              <FcGoogle size={22} className="mr-2" />
+              Connexion avec Google
+            </button>
           </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 lg:w-1/4"></span>
             <span className="text-xs text-center uppercase">ou</span>
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
-          <ConfigProvider
-            theme={{
-              token: {
-                fontSize: 18,
-              },
-            }}
-          >
-            <Button
-              onClick={() => signIn()}
-              type="primary"
-              size="large"
-              block
-              icon={<MailFilled />}
+          <div className="flex justify-center">
+            <button
+              className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
+              onClick={() => {
+                signIn();
+              }}
             >
-              Se connecter avec mail
-            </Button>
-          </ConfigProvider>
+              <IoMdMail size={22} className="mr-2" />
+              Connexion avec E-mail
+            </button>
+          </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 md:w-1/4"></span>
             <Link

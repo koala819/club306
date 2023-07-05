@@ -27,5 +27,6 @@ module.exports = withBundleAnalyzer({
     ],
   },
   reactStrictMode: true,
+  transpilePackages: ['antd'],
   swcMinify: true,
 });

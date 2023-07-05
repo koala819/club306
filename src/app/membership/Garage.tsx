@@ -9,8 +9,7 @@ import {
   getAllModels,
 } from '../../lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/app/models';
-import { Button, ConfigProvider } from 'antd';
-import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
+import { TiArrowBack } from 'react-icons/ti';
 
 export const Garage = ({
   setStep,
@@ -349,7 +348,7 @@ export const Garage = ({
           ) : (
             <button
               type="submit"
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600"
             >
               Ajouter une 306
             </button>
@@ -394,31 +393,22 @@ export const Garage = ({
           </div>
         ))}
       </div>
-      <div className="flex  w-full justify-between mt-4">
-        <ConfigProvider
-          theme={{
-            token: {
-              fontSize: 18,
-            },
+      <div className="flex w-full justify-between mt-4">
+        <button
+          className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+          onClick={() => {
+            handleGoBack();
           }}
         >
-          <Button
-            onClick={handleGoBack}
-            type="primary"
-            size="large"
-            icon={<LeftCircleFilled />}
-          >
-            Précédent
-          </Button>
-          <Button
-            onClick={handleNext}
-            type="primary"
-            size="large"
-            icon={<RightCircleFilled />}
-          >
-            Suivant
-          </Button>
-        </ConfigProvider>
+          <TiArrowBack size={22} className="mr-2" />
+          Précédent
+        </button>
+        <button
+          className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+          onClick={handleNext}
+        >
+          Continuer
+        </button>
       </div>
     </>
   );

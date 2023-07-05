@@ -9,7 +9,12 @@ interface Props {
 
 const Providers = (props: Props) => {
   return (
-    <ThemeProvider enableSystem attribute="class">
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      // disableTransitionOnChange
+    >
       <SessionProvider>{props.children}</SessionProvider>
     </ThemeProvider>
   );

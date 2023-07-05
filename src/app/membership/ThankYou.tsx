@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 import { MailPwd, PersonalInfo, Vehicles } from '../models';
 import { getMemberId, record } from '@/lib/supabase';
 import { RxAvatar } from 'react-icons/rx';
-import { Button, ConfigProvider } from 'antd';
-import { TrophyFilled } from '@ant-design/icons';
+import { GiFinishLine } from 'react-icons/gi';
+// import { Button, ConfigProvider } from 'antd';
+// import { TrophyFilled } from '@ant-design/icons';
 import Link from 'next/link';
 
 export const ThankYou = ({
@@ -147,7 +148,7 @@ export const ThankYou = ({
               )
             }
           >
-            <ConfigProvider
+            {/* <ConfigProvider
               theme={{
                 token: {
                   fontSize: 18,
@@ -157,7 +158,14 @@ export const ThankYou = ({
               <Button type="primary" size="large" icon={<TrophyFilled />}>
                 <span>Terminer</span>
               </Button>
-            </ConfigProvider>
+            </ConfigProvider> */}
+            <button
+              className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+              type="submit"
+            >
+              <GiFinishLine className="mr-2" size={26} />
+              Terminer
+            </button>
           </Link>
         </div>
       )}

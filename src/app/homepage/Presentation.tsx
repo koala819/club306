@@ -1,11 +1,11 @@
 'use client';
 import Image from 'next/image';
-import { Button } from 'antd';
 import { BsPatchPlus } from 'react-icons/bs';
 import { Adhesion } from './Adhesion';
 import styles from './reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';
 import presentationPicture from '../../../public/images/presentationPicture.jpg';
+import Link from 'next/link';
 
 export const Presentation = () => {
   const { ref, inView } = useInView({
@@ -24,15 +24,12 @@ export const Presentation = () => {
               Le club a été créé suite à un besoin exprimé par de nombreuses
               personnes qui sont membres de forums ou de groupes.
             </p>
-            <Button
-              type="primary"
-              className="success"
-              size="large"
-              href="/club"
-              icon={<BsPatchPlus size={20} />}
-            >
-              En savoir plus ...
-            </Button>
+            <Link href="/club">
+              <button className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg">
+                <BsPatchPlus size={22} className="mr-2" />
+                En savoir plus ...
+              </button>
+            </Link>
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
             <Image
