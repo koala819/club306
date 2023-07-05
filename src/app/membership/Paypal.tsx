@@ -1,7 +1,8 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { TiArrowBack } from 'react-icons/ti';
 import { PersonalInfo } from '../models';
-import { Button, ConfigProvider } from 'antd';
-import { LeftCircleFilled } from '@ant-design/icons';
+// import { Button, ConfigProvider } from 'antd';
+// import { LeftCircleFilled } from '@ant-design/icons';
 
 export const Paypal = ({
   setStep,
@@ -150,22 +151,15 @@ export const Paypal = ({
         </div>
       </section>
       <div className="flex  w-full justify-between mt-4">
-        <ConfigProvider
-          theme={{
-            token: {
-              fontSize: 18,
-            },
+        <button
+          className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+          onClick={() => {
+            handleGoBack();
           }}
         >
-          <Button
-            onClick={handleGoBack}
-            type="primary"
-            size="large"
-            icon={<LeftCircleFilled />}
-          >
-            Précédent
-          </Button>
-        </ConfigProvider>
+          <TiArrowBack size={22} className="mr-2" />
+          Précédent
+        </button>
       </div>
     </>
   );

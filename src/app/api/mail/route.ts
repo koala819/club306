@@ -1,5 +1,11 @@
 import nodemailer from 'nodemailer';
-import { mailContact, recordDb, sendOTP, welcomeNewMember } from './mails';
+import {
+  mailContact,
+  recordDb,
+  sendOTP,
+  updateCarInfo,
+  welcomeNewMember,
+} from './mails';
 
 export async function POST(req: Request) {
   try {
@@ -46,15 +52,6 @@ export async function POST(req: Request) {
           html: mailContact(body.firstName, body.message),
         };
         break;
-      case 'recordDataBase':
-        mailOptions = {
-          from: 'supabase-info@club306.fr',
-          to: 'secretariat@club306.fr, x.genolhac@gmail.com',
-          subject: `🎉🚀👤 Le nouveau membre ${body.first_name} ${body.last_name} vient de s'inscrire 👤🚀🎉`,
-          text: `Enregsitrement d'un nouveau membre ${body.first_name} ${body.last_name} !`,
-          html: recordDb(body.first_name, body.last_name),
-        };
-        break;
       case 'newMember':
         mailOptions = {
           from: 'contact@club306.fr',
@@ -64,6 +61,31 @@ export async function POST(req: Request) {
           html: welcomeNewMember(body.first_name),
         };
         break;
+      case 'recordDataBase':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'secretariat@club306.fr, x.genolhac@gmail.com',
+          subject: `🎉🚀👤 Le nouveau membre ${body.first_name} ${body.last_name} vient de s'inscrire 👤🚀🎉`,
+          text: `Enregsitrement d'un nouveau membre ${body.first_name} ${body.last_name} !`,
+          html: recordDb(body.first_name, body.last_name),
+        };
+        break;
+      case 'updateCarInfo':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'president@club306.fr, x.genolhac@gmail.com',
+          subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type}`,
+          text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} !`,
+          html: updateCarInfo(
+            body.first_name,
+            body.last_name,
+            body.type,
+            body.old_value,
+            body.new_value
+          ),
+        };
+        break;
+
       case 'rstPwd':
         mailOptions = {
           from: 'contact@club306.fr',

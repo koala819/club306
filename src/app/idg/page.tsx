@@ -5,11 +5,7 @@ import { useEffect, useState } from 'react';
 import { IoCarSport } from 'react-icons/io5';
 import { MdAccountBox } from 'react-icons/md';
 import { SiFreelancer } from 'react-icons/si';
-import {
-  returnMemberInfo,
-  getMemberCars,
-  getCarColor,
-} from '../../lib/supabase';
+import { returnMemberInfo, getMemberCars } from '../../lib/supabase';
 
 import { Infos } from './Infos';
 import { Garage } from './Garage';
@@ -68,7 +64,6 @@ export default function Idg() {
             if (Array.isArray(cars)) {
               const carData: Car[] = [];
               for (let i = 0; i < cars.length; i++) {
-                console.log('cars', cars[i]);
                 const carData_Object: Car = {
                   color: {
                     name: cars[i].color_name.name,
@@ -79,7 +74,6 @@ export default function Idg() {
                   min: cars[i].min,
                   model: cars[i].model.name,
                 };
-                console.log('car data', carData_Object);
                 carData.push(carData_Object);
                 setCars(() => carData);
               }

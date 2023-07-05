@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box } from './Box';
 import { HiPencil } from 'react-icons/hi';
+import { getHexaCarColor, sendMailUpdateCarInIdg } from '@/lib/supabase';
 
 export const Garage = ({
   carColor,
@@ -12,20 +13,26 @@ export const Garage = ({
   carsNumber,
   displayCar,
 }: {
-  carColor: string | undefined | null;
-  immatriculation: string | undefined;
-  model: string | undefined;
-  finition: string | undefined;
-  colorName: string | undefined | null;
-  min: string | undefined;
-  carsNumber: number | undefined;
-  displayCar: any;
+  carColor: string | null | undefined;
+  immatriculation: string | null | undefined;
+  model: string | null | undefined;
+  finition: string | null | undefined;
+  colorName: string | null | undefined;
+  min: string | null | undefined;
+  carsNumber: number | null | undefined;
+  displayCar: any | null | undefined;
 }) => {
   const [viewCar, setViewCar] = useState(0);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
   const [displayBox, setDisplayBox] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
+  const [updatedMin, setUpdatedMin] = useState(min);
+  const [updatedImmat, setUpdatedImmat] = useState(immatriculation);
+  const [updatedModel, setUpdatedModel] = useState(model);
+  const [updatedFinition, setUpdatedFinition] = useState(finition);
+  const [updatedColorName, setUpdatedColorName] = useState(colorName);
+  const [updatedColorHexa, setUpdatedColorHexa] = useState(carColor);
 
   const handleEditClick = (value: string | undefined | null) => {
     setDisplayBox(true);
@@ -39,6 +46,59 @@ export const Garage = ({
     }
   };
 
+  const handleMinUpdate = (updatedValue: string) => {
+    sendMailUpdateCarInIdg(
+      updatedMin,
+      updatedValue,
+      updatedImmat,
+      'Le Type Mine'
+    );
+    setUpdatedMin(() => updatedValue);
+  };
+
+  const handleImmatriculationUpdate = (updatedValue: string) => {
+    sendMailUpdateCarInIdg(
+      updatedImmat,
+      updatedValue,
+      updatedValue,
+      "L'Immatriculation"
+    );
+    setUpdatedImmat(() => updatedValue);
+  };
+
+  const handleModelUpdate = (updatedValue: string) => {
+    sendMailUpdateCarInIdg(
+      updatedModel,
+      updatedValue,
+      updatedImmat,
+      'Le Modèle'
+    );
+    setUpdatedModel(() => updatedValue);
+  };
+
+  const handleFinitionUpdate = (updatedValue: string) => {
+    sendMailUpdateCarInIdg(
+      updatedFinition,
+      updatedValue,
+      updatedImmat,
+      'La Finition'
+    );
+    setUpdatedFinition(() => updatedValue);
+  };
+
+  const handleColorUpdate = async (updatedValue: string) => {
+    sendMailUpdateCarInIdg(
+      updatedColorName,
+      updatedValue,
+      updatedImmat,
+      'La Couleur'
+    );
+    setUpdatedColorName(() => updatedValue);
+    console.log('updatedValue', updatedValue);
+    const newHexa = await getHexaCarColor(updatedValue);
+    newHexa !== null && setUpdatedColorHexa(() => newHexa[0].hexa);
+  };
+
   return (
     <div
       className=" flex justify-center items-center"
@@ -47,7 +107,17 @@ export const Garage = ({
       }}
     >
       {displayBox && (
-        <Box setDisplayBox={setDisplayBox} modifyValue={modifyValue} />
+        <Box
+          setDisplayBox={setDisplayBox}
+          modifyValue={modifyValue}
+          editingIndex={editingIndex}
+          immatriculation={updatedImmat || ''}
+          handleMinUpdate={handleMinUpdate}
+          handleImmatriculationUpdate={handleImmatriculationUpdate}
+          handleModelUpdate={handleModelUpdate}
+          handleFinitionUpdate={handleFinitionUpdate}
+          handleColorUpdate={handleColorUpdate}
+        />
       )}
       <div className=" text-gray-800 dark:text-white overflow-hidden border-4 rounded-2xl shadow-lg w-11/12">
         <div className="flex ">
@@ -59,7 +129,7 @@ export const Garage = ({
                 viewBox="0 0 58 23.57"
               >
                 <defs>
-                  <style>{`.cls-1{fill:#${carColor};fill-rule:evenodd`}</style>
+                  <style>{`.cls-1{fill:#${updatedColorHexa};fill-rule:evenodd`}</style>
                 </defs>
                 <path
                   className="cls-1"
@@ -74,11 +144,11 @@ export const Garage = ({
               <ul>
                 <li
                   className="mb-2 bg-white dark:bg-gray-800 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                  onClick={() => handleMobileBoxClick(immatriculation)}
+                  onClick={() => handleMobileBoxClick(updatedMin)}
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      Immatriculation
+                      <span className="w-1/3">Type Mine</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
@@ -87,13 +157,11 @@ export const Garage = ({
                         }}
                         onMouseLeave={() => setEditing(false)}
                       >
-                        <span className="text-green-500">
-                          {immatriculation}
-                        </span>
+                        <span className="text-green-500">{updatedMin}</span>
                         {editing && editingIndex === 0 && (
                           <button
                             className="absolute right-0 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                            onClick={() => handleEditClick(immatriculation)}
+                            onClick={() => handleEditClick(updatedMin)}
                           >
                             <HiPencil />
                           </button>
@@ -104,11 +172,11 @@ export const Garage = ({
                 </li>
                 <li
                   className="mb-2 bg-white dark:bg-gray-800 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                  onClick={() => handleMobileBoxClick(model)}
+                  onClick={() => handleMobileBoxClick(updatedImmat)}
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      Modele
+                      <span className="w-1/3">Immatriculation</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
@@ -117,11 +185,13 @@ export const Garage = ({
                         }}
                         onMouseLeave={() => setEditing(false)}
                       >
-                        <span className="text-green-500">{model}</span>
+                        <span className="text-green-500 uppercase">
+                          {updatedImmat}
+                        </span>
                         {editing && editingIndex === 1 && (
                           <button
                             className="absolute right-0 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                            onClick={() => handleEditClick(model)}
+                            onClick={() => handleEditClick(updatedImmat)}
                           >
                             <HiPencil />
                           </button>
@@ -132,11 +202,11 @@ export const Garage = ({
                 </li>
                 <li
                   className="mb-2 bg-white dark:bg-gray-800 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                  onClick={() => handleMobileBoxClick(finition)}
+                  onClick={() => handleMobileBoxClick(updatedModel)}
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      Finition
+                      <span className="w-1/3">Modele</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
@@ -145,11 +215,11 @@ export const Garage = ({
                         }}
                         onMouseLeave={() => setEditing(false)}
                       >
-                        <span className="text-green-500">{finition}</span>
+                        <span className="text-green-500">{updatedModel}</span>
                         {editing && editingIndex === 2 && (
                           <button
                             className="absolute right-0 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                            onClick={() => handleEditClick(finition)}
+                            onClick={() => handleEditClick(updatedModel)}
                           >
                             <HiPencil />
                           </button>
@@ -160,11 +230,11 @@ export const Garage = ({
                 </li>
                 <li
                   className="mb-2 bg-white dark:bg-gray-800 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                  onClick={() => handleMobileBoxClick(colorName)}
+                  onClick={() => handleMobileBoxClick(updatedFinition)}
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      Couleur
+                      <span className="w-1/3">Finition</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
@@ -173,11 +243,13 @@ export const Garage = ({
                         }}
                         onMouseLeave={() => setEditing(false)}
                       >
-                        <span className="text-green-500">{colorName}</span>
+                        <span className="text-green-500">
+                          {updatedFinition}
+                        </span>
                         {editing && editingIndex === 3 && (
                           <button
                             className="absolute right-0 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                            onClick={() => handleEditClick(colorName)}
+                            onClick={() => handleEditClick(updatedFinition)}
                           >
                             <HiPencil />
                           </button>
@@ -188,11 +260,11 @@ export const Garage = ({
                 </li>
                 <li
                   className="mb-2 bg-white dark:bg-gray-800 p-3 shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                  onClick={() => handleMobileBoxClick(min)}
+                  onClick={() => handleMobileBoxClick(updatedColorName)}
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      MIN
+                      <span className="w-1/3">Couleur</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
@@ -201,11 +273,13 @@ export const Garage = ({
                         }}
                         onMouseLeave={() => setEditing(false)}
                       >
-                        <span className="text-green-500">{min}</span>
+                        <span className="text-green-500">
+                          {updatedColorName}
+                        </span>
                         {editing && editingIndex === 4 && (
                           <button
                             className="absolute right-0 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                            onClick={() => handleEditClick(min)}
+                            onClick={() => handleEditClick(updatedColorName)}
                           >
                             <HiPencil />
                           </button>
@@ -222,6 +296,7 @@ export const Garage = ({
           <div className="px-5 pb-2">
             <div className="flex">
               {carsNumber !== undefined &&
+                carsNumber !== null &&
                 carsNumber > 0 &&
                 Array.from(Array(carsNumber).keys()).map((car, index) => (
                   <div className="flex-1 group " key={index}>
