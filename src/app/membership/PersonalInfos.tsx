@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
-import { Button, ConfigProvider, DatePicker, theme } from 'antd';
+import { DateField, DatePicker } from '@/components/ui/date-picker';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { PersonalInfo } from '@/app/models';
@@ -9,9 +9,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import dayjs from 'dayjs';
-import locale from 'antd/locale/fr_FR';
-import { RightCircleFilled } from '@ant-design/icons';
 import { useTheme } from 'next-themes';
+import { DateValue } from 'react-aria';
 
 export const PersonalInfos = ({
   setStep,
@@ -23,7 +22,6 @@ export const PersonalInfos = ({
   personalInfo: PersonalInfo;
 }) => {
   const { resolvedTheme } = useTheme();
-  const { defaultAlgorithm, darkAlgorithm } = theme;
 
   const schema: yup.ObjectSchema<PersonalInfo> = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
@@ -276,35 +274,22 @@ export const PersonalInfos = ({
           <Controller
             control={control}
             name={'birth_date'}
-            render={({ field, fieldState }) => {
-              return (
-                <ConfigProvider
-                  locale={locale}
-                  theme={{
-                    algorithm:
-                      resolvedTheme === 'dark'
-                        ? darkAlgorithm
-                        : defaultAlgorithm,
+            render={({ field, fieldState }) => (
+              <>
+                <DatePicker
+                  onChange={(date: Date | DateValue) => {
+                    field.onChange(date as Date);
                   }}
                 >
-                  <DatePicker
-                    format={'DD/MM/YYYY'}
-                    className={`${'rounded-lg border focus:border-indigo-600 w-full h-9'}
-                    ${errors.birth_date && 'border-red-600'}`}
-                    placeholder={'DD/MM/YYYY'}
-                    value={field.value ? dayjs(field.value) : null}
-                    onChange={(date) => {
-                      field.onChange(dayjs(date).toDate());
-                    }}
-                  />
-                  {fieldState.error ? (
-                    <span className="text-red-500 font-mono text-xs">
-                      {fieldState.error?.message}
-                    </span>
-                  ) : null}
-                </ConfigProvider>
-              );
-            }}
+                  <DateField />
+                </DatePicker>
+                {fieldState.error ? (
+                  <span className="text-red-500 font-mono text-xs">
+                    {fieldState.error?.message}
+                  </span>
+                ) : null}
+              </>
+            )}
           />
         </div>
 
@@ -389,7 +374,11 @@ export const PersonalInfos = ({
               >
                 <span>
                   Je m&apos;engage, en adhérant au Club à respecter{' '}
-                  <Link href="/rules" className="underline hover:text-red-600">
+                  <Link
+                    href="/rules"
+                    target="_blank"
+                    className="underline hover:text-red-600"
+                  >
                     les termes de ses statuts et de son règlement
                   </Link>
                   .
@@ -424,6 +413,7 @@ export const PersonalInfos = ({
                   connaissant de la &nbsp;
                   <Link
                     href="/privacy"
+                    target="_blank"
                     className="underline hover:text-red-600"
                   >
                     politique de confidentialité
@@ -444,24 +434,13 @@ export const PersonalInfos = ({
         </section>
 
         {/* SUBMIT BUTTON */}
-        <div className="col-span-6 mt-8">
-          <ConfigProvider
-            theme={{
-              token: {
-                fontSize: 18,
-              },
-            }}
+        <div className="flex justify-center col-span-6 mt-8">
+          <button
+            className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+            onClick={handleSubmit(handleAddPersonalInfos)}
           >
-            <Button
-              onClick={handleSubmit(handleAddPersonalInfos)}
-              type="primary"
-              size="large"
-              block
-              icon={<RightCircleFilled />}
-            >
-              <span>Suivant</span>
-            </Button>
-          </ConfigProvider>
+            Continuer
+          </button>
         </div>
       </div>
     </form>

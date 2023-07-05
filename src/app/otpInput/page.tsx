@@ -5,6 +5,8 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { rst_pwd } from '@/lib/validate';
 import { checkMail } from '@/lib/supabase';
+import { signIn } from 'next-auth/react';
+import { TiArrowBack } from 'react-icons/ti';
 
 export default function OtpInput() {
   const [confirmationSend, setConfirmationSend] = useState<boolean>(false);
@@ -81,20 +83,22 @@ export default function OtpInput() {
               </span>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center space-x-4">
               <button
-                type="submit"
-                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+                onClick={() => {
+                  signIn();
+                }}
               >
-                Changer le mot de passe
+                <TiArrowBack size={22} className="mr-2" />
+                Précédent
               </button>
-              &nbsp;
-              <Link
-                href="/"
-                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              <button
+                className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                type="submit"
               >
-                Annuler
-              </Link>
+                Continuer
+              </button>
             </div>
           </form>
         </div>
@@ -133,15 +137,12 @@ export default function OtpInput() {
                   </div>
 
                   <div className="flex flex-col space-y-5">
-                    <div>
-                      <a
-                        onClick={() => verfiyOTP()}
-                        className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white  text-sm shadow-sm"
-                      >
-                        Continuer pour changer mon mot de passe
-                      </a>
+                    <div
+                      className="flex items-center px-4 py-4 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg justify-center"
+                      onClick={() => verfiyOTP()}
+                    >
+                      Continuer
                     </div>
-
                     <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                       <p>Vous n&apos;avez pas reçu le code ?</p>{' '}
                       <a

@@ -1,8 +1,8 @@
 'use client';
-import { Button } from 'antd';
 import { AiFillStar } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import styles from './reactIntersectionObserver.module.css';
+import Link from 'next/link';
 
 export const Adhesion = () => {
   const { ref, inView } = useInView({
@@ -18,15 +18,12 @@ export const Adhesion = () => {
           </span>
         </div>
         <div className="w-full sm:w-1/3 lg:w-1/3 md:w-1/2 flex justify-center items-center">
-          <Button
-            type="primary"
-            className="success"
-            size="large"
-            href="/membership"
-            icon={<AiFillStar size={22} />}
-          >
-            Adhérer
-          </Button>
+          <Link href="/membership">
+            <button className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg">
+              <AiFillStar size={22} className="mr-2" />
+              Adhérer
+            </button>
+          </Link>
         </div>
       </section>
     );
