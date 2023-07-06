@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -10,7 +10,7 @@ import { signIn } from 'next-auth/react';
 import { TiArrowBack } from 'react-icons/ti';
 
 const LoginPage = () => {
-  const [show, setShow] = useState({ password: false });
+  const [showPwd, setShowPwd] = useState(false);
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -36,7 +36,7 @@ const LoginPage = () => {
       email: values.email,
       password: values.pwd,
       redirect: true,
-      callbackUrl: '/idg',
+      callbackUrl: '/',
     });
   }
 
@@ -100,7 +100,7 @@ const LoginPage = () => {
                 </div>
                 <div className="my-3 flex border rounded-xl">
                   <input
-                    type={`${show.password ? 'text' : 'password'}`}
+                    type={`${showPwd ? 'text' : 'password'}`}
                     id="pwd"
                     className={`${'bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none'}
                       ${errors.pwd && 'border-red-600'}`}
@@ -108,11 +108,13 @@ const LoginPage = () => {
                   />
                   <span
                     className="flex items-center px-2 text-[#3B578E] hover:text-[#DB2323] active:text-[#D7DEED] dark:text-white"
-                    onClick={() =>
-                      setShow({ ...show, password: !show.password })
-                    }
+                    onClick={() => setShowPwd((prevState) => !prevState)}
                   >
-                    <AiOutlineEye size={25} />
+                    {showPwd ? (
+                      <AiOutlineEye size={25} />
+                    ) : (
+                      <AiOutlineEyeInvisible size={25} />
+                    )}
                   </span>
                 </div>
                 {errors.pwd && (

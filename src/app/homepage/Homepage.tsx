@@ -21,7 +21,6 @@ export const Homepage = ({ articles }: ArticlesProps) => {
           setRegisteredMember(response);
         });
       } else {
-        console.log('we have a standard account with login / pwd');
         setRegisteredMember(true);
       }
     }

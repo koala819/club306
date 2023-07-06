@@ -31,15 +31,11 @@ export const Navbar = () => {
           setRegisteredMember(response);
         });
       } else {
-        console.log('we have a standard account with login / pwd');
+        // console.log('we have a standard account with login / pwd');
         setRegisteredMember(true);
       }
     }
   }, [session]);
-
-  // if (session) {
-  //   setRegisteredMember(true);
-  // }
 
   return (
     <div className="relative ">

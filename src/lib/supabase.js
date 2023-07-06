@@ -65,7 +65,6 @@ async function checkRegisteredMember(credentialsProvider) {
     if (
       await bcrypt.compare(credentialsProvider?.password, data[0]?.password)
     ) {
-      console.log('Great Job !!! User has been founded :)');
       return 'find';
     }
     console.error('Error to check if member is registered in our db');
@@ -358,7 +357,6 @@ async function returnMemberInfo(mail) {
     console.error(error);
     return false;
   }
-
   return data;
 }
 
