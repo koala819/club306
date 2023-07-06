@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box } from './Box';
 import { HiPencil } from 'react-icons/hi';
 import { getHexaCarColor, sendMailUpdateCarInIdg } from '@/lib/supabase';
-import { DisplaySVG } from './DisplaySVG';
+import { DisplaySVG } from './DisplaySvg';
 
 export const Garage = ({
   carColor,
