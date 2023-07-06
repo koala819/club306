@@ -43,13 +43,10 @@ export default function Idg() {
         const memberData: Member = {
           address: response[0].address,
           birth_date: response[0].birth_date,
-          car_color: response[0].car_color,
-          car_model: response[0].car_model,
           created_at: response[0].created_at,
           first_name: response[0].first_name,
           email: response[0].email,
           id: response[0].id,
-          immatriculation: response[0].immatriculation,
           last_name: response[0].last_name,
           phone: response[0].phone,
           town: response[0].town,
@@ -168,6 +165,7 @@ export default function Idg() {
                       town={member?.town}
                       email={member?.email}
                       phone={member?.phone}
+                      id={member?.id}
                     />
                   )}
                   {activeTab === 'Mon Garage' && (
@@ -199,13 +197,11 @@ export default function Idg() {
   interface Member {
     address: string;
     birth_date: string;
-    car_color: string;
-    car_model: string;
     created_at: string;
     email: string;
     first_name: string;
     id: number;
-    immatriculation: string;
+
     last_name: string;
     phone: string;
     town: string;
