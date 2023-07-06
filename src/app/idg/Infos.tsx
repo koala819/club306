@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { FaCity } from 'react-icons/fa';
 import { IoMdMailOpen } from 'react-icons/io';
 import { MdPhoneAndroid } from 'react-icons/md';
+import { GiCarWheel } from 'react-icons/gi';
 
 export const Infos = ({
   firstName,
@@ -12,6 +13,7 @@ export const Infos = ({
   address,
   zipCode,
   town,
+  id,
 }: {
   firstName: string | undefined;
   lastName: string | undefined;
@@ -20,6 +22,7 @@ export const Infos = ({
   address: string | undefined;
   zipCode: string | undefined;
   town: string | undefined;
+  id: number | undefined;
 }) => {
   return (
     <div
@@ -43,6 +46,12 @@ export const Infos = ({
             <h2 className="text-xl font-medium">
               {firstName} &nbsp; {lastName}
             </h2>
+          </div>
+          <div className="flex">
+            <GiCarWheel size={26} />
+            <p className="text-base font-medium text-gray-400 flex justify-center w-full">
+              {id !== undefined && id <= 100 ? '00' + id : id}
+            </p>
           </div>
           <div>
             <FaCity size={26} />
