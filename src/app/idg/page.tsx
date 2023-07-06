@@ -172,7 +172,7 @@ export default function Idg() {
                     <Garage
                       carColor={cars?.[viewCar].color.hexa}
                       immatriculation={cars?.[viewCar].immatriculation}
-                      model={cars?.[viewCar].model}
+                      modelName={cars?.[viewCar].model}
                       finition={cars?.[viewCar].finition}
                       colorName={cars?.[viewCar].color.name}
                       min={cars?.[viewCar].min}

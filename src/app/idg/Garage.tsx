@@ -1,12 +1,14 @@
+'use client';
 import { useState } from 'react';
 import { Box } from './Box';
 import { HiPencil } from 'react-icons/hi';
 import { getHexaCarColor, sendMailUpdateCarInIdg } from '@/lib/supabase';
+import { DisplaySVG } from './DisplaySVG';
 
 export const Garage = ({
   carColor,
   immatriculation,
-  model,
+  modelName,
   finition,
   colorName,
   min,
@@ -15,7 +17,7 @@ export const Garage = ({
 }: {
   carColor: string | null | undefined;
   immatriculation: string | null | undefined;
-  model: string | null | undefined;
+  modelName: string | null | undefined;
   finition: string | null | undefined;
   colorName: string | null | undefined;
   min: string | null | undefined;
@@ -29,7 +31,7 @@ export const Garage = ({
   const [modifyValue, setModifyValue] = useState('');
   const [updatedMin, setUpdatedMin] = useState(min);
   const [updatedImmat, setUpdatedImmat] = useState(immatriculation);
-  const [updatedModel, setUpdatedModel] = useState(model);
+  const [updatedModel, setUpdatedModel] = useState(modelName);
   const [updatedFinition, setUpdatedFinition] = useState(finition);
   const [updatedColorName, setUpdatedColorName] = useState(colorName);
   const [updatedColorHexa, setUpdatedColorHexa] = useState(carColor);
@@ -94,7 +96,6 @@ export const Garage = ({
       'La Couleur'
     );
     setUpdatedColorName(() => updatedValue);
-    console.log('updatedValue', updatedValue);
     const newHexa = await getHexaCarColor(updatedValue);
     newHexa !== null && setUpdatedColorHexa(() => newHexa[0].hexa);
   };
@@ -123,20 +124,7 @@ export const Garage = ({
         <div className="flex ">
           <div className="w-1/2 flex items-center justify-center">
             <div className="w-11/12 bg-gradient-to-br from-slate-100 to-gray-300 pt-12 pb-12 px-4 text-white rounded-2xl">
-              <svg
-                data-name="Calque 1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 58 23.57"
-              >
-                <defs>
-                  <style>{`.cls-1{fill:#${updatedColorHexa};fill-rule:evenodd`}</style>
-                </defs>
-                <path
-                  className="cls-1"
-                  d="M46.16,31.12a5.33,5.33,0,1,1-5.33,5.33,5.33,5.33,0,0,1,5.33-5.33ZM3.38,38.23h.8a6.13,6.13,0,0,1-.26-1.78,6.31,6.31,0,0,1,10.89-4.34H33.93a.25.25,0,0,1,0,.49H15.23a6.32,6.32,0,0,1,1.31,3.85,6.13,6.13,0,0,1-.26,1.78H40.1a6.3,6.3,0,0,1-.2-1H20.25A.25.25,0,0,1,20,37a.25.25,0,0,1,.25-.25h19.6v-.31a6.31,6.31,0,1,1,12.62,0,6.13,6.13,0,0,1-.26,1.78H55c4,0,4,0,4-4.72a8.92,8.92,0,0,0,0-.91H55.43a.25.25,0,1,1,0-.49h3.44c-1.11-6-9.55-5.93-14.18-7-3.23-.76-8-6.86-18.61-6.86H8.89c-1.47,0-5.61,5.78-5.61,7.6,0,4.44-2.28,3-2.28,5.61v.68H3.15a.25.25,0,0,1,0,.49H1c0,5.12.15,5.63,2.37,5.63ZM27.71,25.82V19.73c-.54,0-1.07-.05-1.63-.05H17.36v6.14Zm.49-6.05v6.05H42.63c-.53-.28-1-.6-1.51-.9-1.22-.78-2.41-1.57-3.69-2.28a22.5,22.5,0,0,0-9.23-2.87ZM16.87,25.82V19.68h-3.1a12.91,12.91,0,0,0-2.51,2.77,12.18,12.18,0,0,0-1.79,3.37Zm-6.64,5.3A5.33,5.33,0,1,1,4.9,36.45a5.33,5.33,0,0,1,5.33-5.33Zm0,2.44a2.89,2.89,0,1,1-2.89,2.89,2.89,2.89,0,0,1,2.89-2.89Zm35.93,0a2.89,2.89,0,1,1-2.89,2.89,2.9,2.9,0,0,1,2.89-2.89Z"
-                  transform="translate(-1 -18.22)"
-                />
-              </svg>
+              <DisplaySVG name={modelName} color={updatedColorHexa} />
             </div>
           </div>
           <div className="w-1/2 flex items-center justify-center h-full mt-4">
