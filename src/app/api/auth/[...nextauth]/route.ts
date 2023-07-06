@@ -2,6 +2,7 @@ import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { checkRegisteredMember } from '@/lib/supabase';
+import { User } from 'next-auth';
 
 const handler = NextAuth({
   providers: [
@@ -19,7 +20,11 @@ const handler = NextAuth({
         const { email, password } = credentials as any;
         const result = await checkRegisteredMember({ email, password });
         if (result === 'find') {
-          return email;
+          const user: User = {
+            id: '1',
+            email: email,
+          };
+          return user;
         } else {
           throw new Error('Identifiants invalides');
         }

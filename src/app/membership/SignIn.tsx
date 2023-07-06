@@ -201,9 +201,9 @@ export const SignIn = ({
                       }
                     >
                       {cPasswordVisible ? (
-                        <AiOutlineEyeInvisible size={25} />
-                      ) : (
                         <AiOutlineEye size={25} />
+                      ) : (
+                        <AiOutlineEyeInvisible size={25} />
                       )}
                     </span>
                     <label
