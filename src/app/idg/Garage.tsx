@@ -124,8 +124,7 @@ export const Garage = ({
         <div className="flex ">
           <div className="w-1/2 flex items-center justify-center">
             <div className="w-11/12 bg-gradient-to-br from-slate-100 to-gray-300 pt-12 pb-12 px-4 text-white rounded-2xl">
-              {/* <DisplaySVG name={modelName} color={updatedColorHexa} />
-              {modelName === '3 Portes' && <div>3</div>} */}
+              <DisplaySVG name={modelName} color={updatedColorHexa} />
             </div>
           </div>
           <div className="w-1/2 flex items-center justify-center h-full mt-4">
