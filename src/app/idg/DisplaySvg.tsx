@@ -1,5 +1,4 @@
 'use client';
-
 export const DisplaySVG = ({
   name,
   color,
@@ -8,7 +7,7 @@ export const DisplaySVG = ({
   color: string | null | undefined;
 }) => {
   return (
-    <>
+    <div>
       {name === 'Break' && (
         <svg
           id="Break"
@@ -115,6 +114,6 @@ export const DisplaySVG = ({
           />
         </svg>
       )}
-    </>
+    </div>
   );
 };
