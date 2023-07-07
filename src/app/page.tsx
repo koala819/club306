@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '../../prismicio';
 import { Homepage } from './homepage/Homepage';
 
-export default async function RootPage() {
+export default function RootPage() {
   const [mappedArticles, setMappedArticles] = useState<any>([]);
 
   useEffect(() => {
