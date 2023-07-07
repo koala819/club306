@@ -37,7 +37,7 @@ export const DisplaySVG = ({
           />
         </svg>
       )}
-      {name === '3 Portes' && (
+      {(name === '3 Portes' || name === '5 Portes') && (
         <svg
           id="Break"
           xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export const DisplaySVG = ({
           </g>
         </svg>
       )}
-      {name === '5 Portes' && (
+      {name === 'Sedan' && (
         <svg
           id="Break"
           xmlns="http://www.w3.org/2000/svg"
