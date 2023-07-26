@@ -26,12 +26,12 @@ export const Infos = ({
 }) => {
   return (
     <div
-      className="flex justify-center items-center h-full"
+      className="flex justify-center items-center "
       style={{
         height: window.innerWidth <= 768 ? '64vh' : '50vh',
       }}
     >
-      <div className="flex flex-col items-center w-full max-w-xs p-4 bg-gray-100 dark:bg-gray-900 rounded-3xl md:flex-row">
+      <div className="flex flex-col items-center p-4 md:pr-32 bg-gray-100 dark:bg-gray-900 rounded-3xl md:flex-row">
         <div className="-mt-16 md:-my-16 md:-ml-32">
           <Image
             className="w-auto h-32 lg:h-48"
@@ -48,25 +48,35 @@ export const Infos = ({
             </h2>
           </div>
           <div className="flex">
-            <GiCarWheel size={26} />
-            <p className="text-base font-medium text-gray-400 flex justify-center w-full">
+            <div className="mr-4">
+              <GiCarWheel size={26} />
+            </div>
+            <p className="text-gray-400 text-lg font-extrabold">
               {id !== undefined && id <= 100 ? '00' + id : id}
             </p>
           </div>
-          <div>
-            <FaCity size={26} />
-            <p className="text-base font-medium text-gray-400">{address}</p>
-            <p className="text-base font-medium text-gray-400">
-              {zipCode} &nbsp; {town}
-            </p>
+          <div className="flex">
+            <div className="mr-4">
+              <FaCity size={26} />
+            </div>
+            <div>
+              <p className="text-base font-medium text-gray-400">{address}</p>
+              <p className="text-base font-medium text-gray-400">
+                {zipCode} &nbsp; {town}
+              </p>
+            </div>
           </div>
           <div className="flex">
-            <MdPhoneAndroid size={26} />
-            <p className="text-base font-medium text-gray-400">&nbsp;{phone}</p>
+            <div className="mr-4">
+              <MdPhoneAndroid size={26} />
+            </div>
+            <p className="text-base font-medium text-gray-400">{phone}</p>
           </div>
           <div className="flex">
-            <IoMdMailOpen size={26} />
-            <p className="text-base font-medium text-gray-400">&nbsp;{email}</p>
+            <div className="mr-4">
+              <IoMdMailOpen size={26} />
+            </div>
+            <p className="text-base font-medium text-gray-400">{email}</p>
           </div>
         </div>
       </div>
