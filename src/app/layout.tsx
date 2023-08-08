@@ -1,29 +1,31 @@
 'use client';
-// import { StyleProvider } from '@ant-design/cssinjs';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import '@/app/globals.css';
 import Providers from '@/components/Providers';
 import { ReactNode } from 'react';
-// import 'antd/dist/reset.css';
 
 interface LayoutProps {
   children: ReactNode;
+  hideNavbar?: boolean;
+  hideFooter?: boolean;
 }
 
-export default function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({
+  children,
+  hideNavbar = false,
+  hideFooter = false,
+}: LayoutProps) {
   return (
-    <html lang="fr" className="light">
+    <html lang="fr" className="light" suppressHydrationWarning>
       <body>
-        {/* <StyleProvider hashPriority="high"> */}
         <div className=" flex flex-col h-screen">
           <Providers>
-            <Navbar />
+            {!hideNavbar && <Navbar />}
             <main className="flex-1 ">{children}</main>
-            <Footer />
+            {!hideFooter && <Footer />}
           </Providers>
         </div>
-        {/* </StyleProvider> */}
       </body>
     </html>
   );
