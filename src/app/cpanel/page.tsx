@@ -21,31 +21,13 @@ export default function CPanel() {
     /* USER REGISTERED */
     return (
       <RootLayout hideNavbar hideFooter>
-        <section className="grid h-screen w-screen">
-          {/* TOP NAVIGATION  */}
-          <nav className="bg-blue-500 p-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-white text-xl font-semibold">
-                ADMINISTRATION CLUB 306
-              </h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-white">{session?.user?.name}</span>
-              <div className="text-white text-2xl pr-4">
-                <button
-                  type="button"
-                  onClick={() => signOut()}
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
-          </nav>
-
+        <div className="flex h-screen">
           {/* SIDE NAVIGATION  */}
-          <aside className="bg-gray-800 text-white w-64 min-h-screen p-4">
+          <aside className="hidden md:block bg-gray-800 text-white w-64 p-4 min-h-screen">
             <nav>
+              <div className="flex justify-between px-6 p-2 hover:bg-gray-700">
+                <p className="text-sm leading-5  uppercase">Home</p>
+              </div>
               <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full">
                 <button
                   onClick={showMenu1}
@@ -426,10 +408,42 @@ export default function CPanel() {
                     </li>
                   </ul>
                 </li>
+                <li className="flex justify-center">
+                  <div className="text-white text-2xl pr-4">
+                    <button
+                      type="button"
+                      onClick={() => signOut()}
+                      className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </li>
               </ul>
             </nav>
           </aside>
-        </section>
+          <div className="flex flex-col flex-1">
+            {/* TOP NAVIGATION  */}
+            <nav className="bg-blue-500 p-4 flex">
+              {/* BURGER MENU */}
+              <div className="md:hidden bg-gray-800 text-white p-4 w-1/4 flex items-center justify-center">
+                <p>MB</p>
+              </div>
+              <div className="flex items-center justify-center md:justify-center w-full">
+                <h1 className="text-white text-xl font-semibold">
+                  ADMINISTRATION CLUB 306
+                </h1>
+              </div>
+              <div className="hidden md:flex items-center space-x-4 md:w-1/4 justify-end">
+                <span className="text-white">{session?.user?.name}</span>
+              </div>
+            </nav>
+            {/* Main */}
+            <div className="flex-grow bg-gray-100 p-4 ">
+              <div>HELLO World</div>
+            </div>
+          </div>
+        </div>
       </RootLayout>
     );
   }
