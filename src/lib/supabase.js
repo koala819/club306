@@ -75,6 +75,218 @@ async function checkRegisteredMember(credentialsProvider) {
   }
 }
 
+async function countCars() {
+  const { data, error } = await supabase
+    .from('cars')
+    .select('count', { count: 'exact' });
+
+  if (error) {
+    console.error(error);
+  } else {
+    const nbCars = data[0].count;
+    return nbCars;
+  }
+}
+
+async function countCarsByModel() {
+  const carModelCounts = {};
+
+  try {
+    const { data: count1, error: error1 } = await supabase
+      .from('cars')
+      .select('count', { count: 'exact' })
+      .eq('car_model_id', 1);
+
+    if (error1) {
+      console.log('error1', error1);
+    } else {
+      carModelCounts[1] = count1[0].count || 0;
+    }
+
+    const { data: count2, error: error2 } = await supabase
+      .from('cars')
+      .select('count', { count: 'exact' })
+      .eq('car_model_id', 2);
+
+    if (error2) {
+      console.error(error2);
+    } else {
+      carModelCounts[2] = count2[0].count || 0;
+    }
+
+    const { data: count3, error: error3 } = await supabase
+      .from('cars')
+      .select('count', { count: 'exact' })
+      .eq('car_model_id', 3);
+
+    if (error3) {
+      console.error(error3);
+    } else {
+      carModelCounts[3] = count3[0].count || 0;
+    }
+    const { data: count4, error: error4 } = await supabase
+      .from('cars')
+      .select('count', { count: 'exact' })
+      .eq('car_model_id', 4);
+
+    if (error4) {
+      console.error(error4);
+    } else {
+      carModelCounts[4] = count4[0].count || 0;
+    }
+
+    const { data: count5, error: error5 } = await supabase
+      .from('cars')
+      .select('count', { count: 'exact' })
+      .eq('car_model_id', 5);
+
+    if (error5) {
+      console.error(error5);
+    } else {
+      carModelCounts[5] = count5[0].count || 0;
+    }
+
+    return carModelCounts;
+  } catch (error) {
+    console.error(error);
+    return carModelCounts;
+  }
+}
+
+async function countMembers() {
+  const { data, error } = await supabase
+    .from('members')
+    .select('count', { count: 'exact' });
+
+  if (error) {
+    console.error(error);
+  } else {
+    const nbMembers = data[0].count;
+    return nbMembers;
+  }
+}
+
+async function countMembersByAge() {
+  let result = {
+    emailsAge0to18: [],
+    age_18_30: 0,
+    age_30_40: 0,
+    age_40_50: 0,
+    age_more_50: 0,
+  };
+
+  try {
+    const { data: members, error: errorMembers } = await supabase
+      .from('members')
+      .select(`birth_date, email`);
+
+    if (errorMembers) {
+      throw errorMembers;
+    }
+    const currentDate = new Date();
+
+    const emailsAge0to18 = members
+      .filter((member) => {
+        const birthDate = new Date(member.birth_date);
+        const age = currentDate.getFullYear() - birthDate.getFullYear();
+        return age >= 0 && age <= 18;
+      })
+      .map((member) => member.email);
+
+    const age_18_30 = members.filter((member) => {
+      const birthDate = new Date(member.birth_date);
+      const age = currentDate.getFullYear() - birthDate.getFullYear();
+      return age > 18 && age <= 30;
+    }).length;
+
+    const age_30_40 = members.filter((member) => {
+      const birthDate = new Date(member.birth_date);
+      const age = currentDate.getFullYear() - birthDate.getFullYear();
+      return age > 30 && age <= 40;
+    }).length;
+
+    const age_40_50 = members.filter((member) => {
+      const birthDate = new Date(member.birth_date);
+      const age = currentDate.getFullYear() - birthDate.getFullYear();
+      return age > 40 && age <= 50;
+    }).length;
+
+    const age_more_50 = members.filter((member) => {
+      const birthDate = new Date(member.birth_date);
+      const age = currentDate.getFullYear() - birthDate.getFullYear();
+      return age > 50;
+    }).length;
+
+    result = {
+      emailsAge0to18,
+      age_18_30,
+      age_30_40,
+      age_40_50,
+      age_more_50,
+    };
+    return result;
+  } catch (error) {
+    console.error('Error retrieving age statistics', error.message);
+    return result;
+  }
+}
+
+async function countMembersByCountry() {
+  const countryCounts = {};
+  try {
+    const { data: members, error } = await supabase
+      .from('members')
+      .select('country');
+
+    if (error) {
+      console.log('error with count members by country', error);
+      return countryCounts;
+    } else {
+      for (const member of members) {
+        const country = member.country;
+        if (countryCounts[country]) {
+          countryCounts[country]++;
+        } else {
+          countryCounts[country] = 1;
+        }
+      }
+      return countryCounts;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function countMembersByMonth() {
+  const countsByMonth = {};
+
+  try {
+    const { data, error } = await supabase.from('members').select('created_at');
+
+    if (error) {
+      console.log('error count members by created_at', error);
+    } else {
+      data.forEach((member) => {
+        const createdAt = new Date(member.created_at);
+        const monthYearKey = `${
+          createdAt.getMonth() + 1
+        }-${createdAt.getFullYear()}`;
+
+        if (countsByMonth[monthYearKey]) {
+          countsByMonth[monthYearKey]++;
+        } else {
+          countsByMonth[monthYearKey] = 1;
+        }
+      });
+
+      return countsByMonth;
+    }
+  } catch (error) {
+    console.error(error);
+    return countsByMonth;
+  }
+}
+
 async function getAllColors() {
   try {
     return await supabase.from('car_colors').select('*');
@@ -571,6 +783,12 @@ export {
   checkForStartSession,
   checkMail,
   checkRegisteredMember,
+  countCars,
+  countCarsByModel,
+  countMembers,
+  countMembersByAge,
+  countMembersByCountry,
+  countMembersByMonth,
   getAllColors,
   getAllFinitions,
   getAllModels,
