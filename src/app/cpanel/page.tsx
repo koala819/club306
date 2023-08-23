@@ -2,63 +2,13 @@
 import { useSession, signOut } from 'next-auth/react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import RootLayout from '@/app/layout';
-import { useEffect, useState } from 'react';
-import {
-  countCars,
-  countCarsByModel,
-  countMembers,
-  countMembersByAge,
-  countMembersByCountry,
-  countMembersByMonth,
-} from '@/lib/supabase';
+import { useState } from 'react';
+import Home from './Home';
 
 export default function CPanel() {
   const { data: session, status } = useSession();
+  const [displayHome, setDisplayHome] = useState(false);
   const [menuMember, setMenuMember] = useState(false);
-  const [nbMembers, setNbMembers] = useState(null);
-  const [nbMembersByAge, setNbMembersByAge] = useState<MemberStats>({
-    emailsAge0to18: [],
-    age_18_30: 0,
-    age_30_40: 0,
-    age_40_50: 0,
-    age_more_50: 0,
-  });
-  const [nbMembersByMonths, setNbMembersByMonths] = useState({});
-  const [nbMembersByCountry, setNbMembersByCountry] = useState({});
-
-  const [nbCars, setNbCars] = useState(null);
-  const [nbCarsByType, setNbCarsByType] = useState({
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-  });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setNbMembers(await countMembers());
-        setNbCars(await countCars());
-        setNbCarsByType(await countCarsByModel());
-        const result = await countMembersByAge();
-        if (result) {
-          setNbMembersByAge(result);
-        }
-
-        const countMembersByCountrys = await countMembersByCountry();
-        countMembersByCountrys !== undefined &&
-          setNbMembersByCountry(countMembersByCountrys);
-        const countMembersByMonths = await countMembersByMonth();
-        countMembersByMonths !== undefined &&
-          setNbMembersByMonths(countMembersByMonths);
-      } catch (error) {
-        console.log('error fetch data', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   // if (Object.keys(nbMembersByAge).length !== 0) {
   //   console.log('members by age', nbMembersByAge);
@@ -85,7 +35,12 @@ export default function CPanel() {
           <aside className="hidden md:block bg-gray-800 text-white w-64 p-4 min-h-screen">
             <nav>
               <div className="flex justify-between px-6 p-2 hover:bg-gray-700">
-                <p className="text-sm leading-5  uppercase">Home</p>
+                <button
+                  onClick={() => setDisplayHome(true)}
+                  className="text-sm leading-5  uppercase"
+                >
+                  Home
+                </button>
               </div>
               <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full">
                 <button
@@ -498,98 +453,7 @@ export default function CPanel() {
               </div>
             </nav>
             {/* Main */}
-            <div className="flex-grow bg-gray-100 p-4 ">
-              <div>
-                {nbMembers !== null && <p>Nombre de membres : {nbMembers}</p>}
-              </div>
-              <div>
-                {nbCars !== null && <p>Nombre de voitures : {nbCars}</p>}
-              </div>
-              <div>
-                {nbCarsByType !== null && (
-                  <p>Nombre de 3 portes : {nbCarsByType[1]}</p>
-                )}
-              </div>
-              <div>
-                {nbCarsByType !== null && (
-                  <p>Nombre de 5 portes : {nbCarsByType[2]}</p>
-                )}
-              </div>
-              <div>
-                {nbCarsByType !== null && (
-                  <p>Nombre de Break : {nbCarsByType[3]}</p>
-                )}
-              </div>
-              <div>
-                {nbCarsByType !== null && (
-                  <p>Nombre de Cabriolet : {nbCarsByType[4]}</p>
-                )}
-              </div>
-              <div>
-                {nbCarsByType !== null && (
-                  <p>Nombre de Sedan : {nbCarsByType[5]}</p>
-                )}
-              </div>
-              <div>
-                {Object.keys(nbMembersByMonths).length !== 0 && (
-                  <ul>
-                    {Object.entries<number>(nbMembersByMonths)
-                      .sort(([keyA], [keyB]) => {
-                        return keyA.localeCompare(keyB);
-                      })
-                      .map(([monthYearKey, count], index) => (
-                        <li key={index}>
-                          Mois {monthYearKey}: {count}
-                        </li>
-                      ))}
-                  </ul>
-                )}
-              </div>
-              <div>
-                {Object.keys(nbMembersByCountry).length !== 0 && (
-                  <ul>
-                    {Object.entries<number>(nbMembersByCountry)
-                      .sort(([keyA], [keyB]) => {
-                        return keyA.localeCompare(keyB);
-                      })
-                      .map(([country, count], index) => (
-                        <li key={index}>
-                          pays {country}: {count}
-                        </li>
-                      ))}
-                  </ul>
-                )}
-              </div>
-              {nbMembersByAge !== null && (
-                <div>
-                  <p>
-                    Nombre de membres ayant moins de 18 ans :{' '}
-                    {nbMembersByAge.emailsAge0to18.length}
-                    <ul>
-                      {nbMembersByAge.emailsAge0to18.map((mail, index) => (
-                        <li key={index}>email : {mail}</li>
-                      ))}
-                    </ul>
-                  </p>
-                  <p>
-                    Nombre de membres entre 18 et 30 ans :{' '}
-                    {nbMembersByAge.age_18_30}
-                  </p>
-                  <p>
-                    Nombre de membres entre 30 et 40 ans :{' '}
-                    {nbMembersByAge.age_30_40}
-                  </p>
-                  <p>
-                    Nombre de membres entre 40 et 50 ans :{' '}
-                    {nbMembersByAge.age_40_50}
-                  </p>
-                  <p>
-                    Nombre de membres de plus de 50 ans :{' '}
-                    {nbMembersByAge.age_more_50}
-                  </p>
-                </div>
-              )}
-            </div>
+            {displayHome && <Home />}
           </div>
         </div>
       </RootLayout>
@@ -605,14 +469,6 @@ export default function CPanel() {
       />
     </section>
   );
-
-  interface MemberStats {
-    emailsAge0to18: string[];
-    age_18_30: number;
-    age_30_40: number;
-    age_40_50: number;
-    age_more_50: number;
-  }
 
   // async function onSubmit(values: any) {
   //   const data = {

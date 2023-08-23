@@ -257,6 +257,7 @@ async function countMembersByCountry() {
   }
 }
 
+/** @returns {{ [key: string]: number }} */
 async function countMembersByMonth() {
   const countsByMonth = {};
 
