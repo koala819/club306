@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { countMembersByCountry } from '@/lib/supabase';
-import France from './France';
-import UK from './UK';
-import Belgium from './Belgium';
-import Netherlands from './Netherlands';
+import France from './flags/France';
+import UK from './flags/UK';
+import Belgium from './flags/Belgium';
+import Netherlands from './flags/Netherlands';
 
-export default function Country() {
+export default function Members() {
   const [nbMembersByCountry, setNbMembersByCountry] = useState({});
 
   useEffect(() => {
