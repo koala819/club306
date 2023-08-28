@@ -11,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { number } from 'yup';
 
 Chartjs.register(
   CategoryScale,
@@ -22,7 +21,7 @@ Chartjs.register(
   Legend
 );
 
-export default function Barchart() {
+export default function InscriptionByMonth() {
   const [chartData, setChartData] = useState({
     labels: [''],
     datasets: [{ label: '', data: [] as number[] }],
@@ -44,7 +43,9 @@ export default function Barchart() {
     };
 
     fetchData();
+  }, []);
 
+  useEffect(() => {
     if (Object.keys(nbMembersByMonths).length !== 0) {
       const labels = Object.keys(nbMembersByMonths).sort((keyA, keyB) => {
         return keyA.localeCompare(keyB);
@@ -63,22 +64,22 @@ export default function Barchart() {
           },
         ],
       });
-    }
 
-    setChartOptions({
-      responsive: true,
-      maintainAspectRatio: true,
-      plugins: {
-        legend: {
-          position: 'top',
+      setChartOptions({
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          // title: {
+          //   display: true,
+          //   text: 'Nombre de membres par mois',
+          // },
         },
-        // title: {
-        //   display: true,
-        //   text: 'Nombre de membres par mois',
-        // },
-      },
-    });
-  }, [nbMembersByMonths as any]);
+      });
+    }
+  }, [nbMembersByMonths]);
 
   return (
     <div>

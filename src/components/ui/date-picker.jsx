@@ -15,9 +15,6 @@ import {
   DateFieldStateOptions,
   useDateFieldState,
   useDatePickerState,
-  type DateFieldState,
-  type DatePickerStateOptions,
-  type DateSegment,
 } from 'react-stately';
 
 import { cn } from '@/lib/utils';
@@ -30,13 +27,9 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover';
  * DatePicker
  * -----------------------------------------------------------------------------------------------*/
 
-interface DatePickerProps<T extends DateValue = DateValue>
-  extends DatePickerStateOptions<T> {
-  children?: React.ReactNode;
-}
-export function DatePicker({ children, ...props }: DatePickerProps) {
+export function DatePicker({ children, ...props }) {
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = React.useState();
   const state = useDatePickerState({
     shouldCloseOnSelect: true,
     ...props,
@@ -94,11 +87,7 @@ export function DatePicker({ children, ...props }: DatePickerProps) {
  * DateField
  * -----------------------------------------------------------------------------------------------*/
 
-interface DateFieldProps<T extends DateValue = DateValue>
-  extends Omit<DateFieldStateOptions<T>, 'locale' | 'createCalendar'> {
-  locale?: string;
-}
-export function DateField(props: DateFieldProps) {
+export function DateField(props) {
   const { locale } = useLocale();
   const state = useDateFieldState({
     ...props,
@@ -125,11 +114,7 @@ export function DateField(props: DateFieldProps) {
  * DateSegment
  * -----------------------------------------------------------------------------------------------*/
 
-interface DateSegmentProps {
-  segment: DateSegment;
-  state: DateFieldState;
-}
-function DateSegment({ segment, state }: DateSegmentProps) {
+function DateSegment({ segment, state }) {
   const ref = React.useRef(null);
   const { segmentProps } = useDateSegment(segment, state, ref);
 

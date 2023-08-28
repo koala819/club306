@@ -168,7 +168,7 @@ async function countMembers() {
 
 async function countMembersByAge() {
   let result = {
-    emailsAge0to18: [],
+    age_0_18: [],
     age_18_30: 0,
     age_30_40: 0,
     age_40_50: 0,
@@ -185,7 +185,7 @@ async function countMembersByAge() {
     }
     const currentDate = new Date();
 
-    const emailsAge0to18 = members
+    const age_0_18 = members
       .filter((member) => {
         const birthDate = new Date(member.birth_date);
         const age = currentDate.getFullYear() - birthDate.getFullYear();
@@ -218,7 +218,7 @@ async function countMembersByAge() {
     }).length;
 
     result = {
-      emailsAge0to18,
+      age_0_18,
       age_18_30,
       age_30_40,
       age_40_50,

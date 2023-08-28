@@ -4,7 +4,6 @@ import {
   getLocalTimeZone,
   getWeeksInMonth,
   isToday,
-  type CalendarDate,
 } from '@internationalized/date';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
@@ -13,14 +12,8 @@ import {
   useCalendarCell,
   useCalendarGrid,
   useLocale,
-  type AriaCalendarGridProps,
-  type DateValue,
 } from 'react-aria';
-import {
-  useCalendarState,
-  type CalendarState,
-  type CalendarStateOptions,
-} from 'react-stately';
+import { useCalendarState } from 'react-stately';
 
 import { cn } from '@/lib/utils';
 
@@ -30,12 +23,7 @@ import { Button } from './button';
  * Calendar
  * -----------------------------------------------------------------------------------------------*/
 
-interface CalendarProps<T extends DateValue = DateValue>
-  extends Omit<CalendarStateOptions<T>, 'locale' | 'createCalendar'> {
-  locale?: string;
-}
-
-export function Calendar(props: CalendarProps) {
+export function Calendar(props) {
   const { locale } = useLocale();
   const state = useCalendarState({ ...props, locale, createCalendar });
   const { calendarProps, prevButtonProps, nextButtonProps, title } =
@@ -69,10 +57,7 @@ export function Calendar(props: CalendarProps) {
  * CalendarGrid
  * -----------------------------------------------------------------------------------------------*/
 
-interface CalendarGridProps extends AriaCalendarGridProps {
-  state: CalendarState;
-}
-function CalendarGrid({ state, ...props }: CalendarGridProps) {
+function CalendarGrid({ state, ...props }) {
   const { locale } = useLocale();
   const { gridProps, headerProps, weekDays } = useCalendarGrid(props, state);
 
@@ -116,12 +101,7 @@ function CalendarGrid({ state, ...props }: CalendarGridProps) {
  * CalendarCell
  * -----------------------------------------------------------------------------------------------*/
 
-interface CalendarCellProps {
-  state: CalendarState;
-  date: CalendarDate;
-}
-
-function CalendarCell({ state, date }: CalendarCellProps) {
+function CalendarCell({ state, date }) {
   const ref = React.useRef(null);
   const {
     cellProps,

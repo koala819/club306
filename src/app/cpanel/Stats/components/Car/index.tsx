@@ -1,10 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { DisplaySVG } from '../../../idg/DisplaySvg';
-import { countCars, countCarsByModel, countMembers } from '@/lib/supabase';
+import { DisplaySVG } from '@/app/idg/DisplaySvg';
+import { countCars, countCarsByModel } from '@/lib/supabase';
 
 export default function Car() {
-  const [nbMembers, setNbMembers] = useState(null);
   const [nbCars, setNbCars] = useState(null);
   const [nbCarsByType, setNbCarsByType] = useState({
     1: null,
@@ -17,7 +16,6 @@ export default function Car() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setNbMembers(await countMembers());
         setNbCars(await countCars());
         setNbCarsByType(await countCarsByModel());
       } catch (error) {
@@ -29,29 +27,8 @@ export default function Car() {
   }, []);
 
   return (
-    <div className="flex flex-wrap text-center bg-slate-400 items-center">
-      <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
-        <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="text-[#174191] w-12 h-12 mb-3 inline-block"
-            viewBox="0 0 24 24"
-          >
-            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
-          </svg>
-          <h2 className="title-font font-medium text-3xl text-gray-900">
-            {nbMembers}
-          </h2>
-          <p className="leading-relaxed">Membres</p>
-        </div>
-      </div>
-      <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+    <div className="flex flex-wrap text-center  items-center">
+      <div className="p-4 md:w-1/2 w-full">
         <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
           <DisplaySVG name="3 Portes" color="174191" />
           <h2 className="title-font font-medium text-3xl text-gray-900">
@@ -60,7 +37,7 @@ export default function Car() {
           <p className="leading-relaxed">Véhicules</p>
         </div>
       </div>
-      <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+      <div className="p-4 md:w-1/2 w-full">
         <div className="grid grid-cols-2 gap-4">
           {/* Première ligne */}
           <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">

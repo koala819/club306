@@ -5,14 +5,14 @@ export default function Netherlands() {
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        shape-rendering="geometricPrecision"
-        text-rendering="geometricPrecision"
-        image-rendering="optimizeQuality"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        shapeRendering="geometricPrecision"
+        textRendering="geometricPrecision"
+        imageRendering="optimizeQuality"
+        fillRule="evenodd"
+        clipRule="evenodd"
         viewBox="0 0 43.06 29.96"
       >
-        <g fill-rule="nonzero">
+        <g fillRule="nonzero">
           <path
             fill="#21468B"
             d="M43.06 20v7.59c0 1.3-1.06 2.37-2.37 2.37H2.37C1.06 29.96 0 28.89 0 27.59V20h43.06z"
