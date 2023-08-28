@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { signOut } from 'next-auth/react';
+import picture306 from '../../../../public/images/logoClub306_blanc.png';
 
 export default function Side() {
   const [menuMember, setMenuMember] = useState(false);
@@ -9,12 +11,30 @@ export default function Side() {
     setMenuMember(!menuMember);
   };
   return (
-    <aside className="hidden md:block bg-gray-800 text-white w-64 p-4 min-h-screen">
-      <nav>
-        <Link href="/cpanel/Stats">
-          <ul className="space-y-2">
+    <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
+      <div className="flex items-center justify-center mt-4">
+        <Link href="/cpanel">
+          <Image
+            src={picture306}
+            alt="logo club 306"
+            width={120}
+            height={23}
+            style={{
+              width: '50%',
+              height: 'auto',
+            }}
+          />
+        </Link>
+      </div>
+      <nav className="mt-16 ">
+        <h1 className="text-xl font-bold text-center ">Dashboard</h1>
+      </nav>
+      <nav className="mt-16">
+        <h1 className="text-xl font-bold text-center mb-8">Liens Utiles</h1>
+        <ul className="space-y-8">
+          <Link href="/cpanel/Stats">
             <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
                   <i className="fas fa-calendar-alt mr-2"></i>
                   <span>Statistiques</span>
@@ -22,8 +42,10 @@ export default function Side() {
                 <i className="fas fa-chevron-down text-xs"></i>
               </div>
             </li>
-          </ul>
-        </Link>
+          </Link>
+        </ul>
+      </nav>
+      {/* <nav>
         <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full">
           <button
             onClick={showMenu1}
@@ -414,7 +436,7 @@ export default function Side() {
             </div>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </aside>
   );
 }

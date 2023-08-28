@@ -68,7 +68,7 @@ export default function Members() {
                       {country === 'Angleterre' && <UK />}
                       {country === 'Belgique' && <Belgium />}
                       {country === 'Hollande' && <Netherlands />}
-                      <h2 className="title-font font-medium text-3xl text-gray-900">
+                      <h2 className="title-font font-medium text-xl xl:text-xl text-gray-900">
                         {count} membres
                       </h2>
                       <p className="leading-relaxed">en {country}</p>
