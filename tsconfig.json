@@ -33,7 +33,8 @@
     "src/app/privacy/privacy.old",
     "src/app/cpanel/components",
     "src/app/cpanel/components/Barchart",
-    "src/components/ui/calendar.jsx"
+    "src/components/ui/calendar.jsx",
+    "src/components/ui/date-picker.jsx"
   ],
   "exclude": ["node_modules"]
 }
