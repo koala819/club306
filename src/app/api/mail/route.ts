@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import {
+  addNewCar,
   mailContact,
   recordDb,
   sendOTP,
@@ -50,6 +51,24 @@ export async function POST(req: Request) {
           subject: `🌟📧🔎 Un nouveau message à lire : ${body.firstName} nous a écrit 🔍📧🌟`,
           text: `${body.message}.<br> Adresse mail ${body.email} pour répondre.`,
           html: mailContact(body.firstName, body.message),
+        };
+        break;
+      case 'newCar':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'x.genolhac@gmail.com',
+          // bcc: 'x.genolhac@gmail.com',
+          subject: `🔎 Le membre ${body.first_name} ${body.last_name} s'est ajouté une nouvelle voiture`,
+          text: `Le membre ${body.first_name} ${body.last_name} a créé une nouvelle voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color} et le modèle ${body.model}.`,
+          html: addNewCar(
+            body.first_name,
+            body.last_name,
+            body.color,
+            body.immatriculation,
+            body.finition,
+            body.model,
+            body.mine
+          ),
         };
         break;
       case 'newMember':

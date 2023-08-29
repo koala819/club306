@@ -6,6 +6,53 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 );
 
+async function addCar(vehicles, memberId) {
+  try {
+    const responses = await Promise.all([
+      ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
+      ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
+      ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
+    ]);
+
+    const colorIds = responses
+      .slice(0, vehicles.length)
+      .map((res) => res.data[0].id);
+    const finitionIds = responses
+      .slice(vehicles.length, vehicles.length * 2)
+      .map((res) => res.data[0].id);
+    const modelIds = responses
+      .slice(vehicles.length * 2)
+      .map((res) => res.data[0].id);
+
+    const { data, error } = await supabase.from('cars').upsert([
+      {
+        member_id: memberId,
+        car_model_id: modelIds[0],
+        car_finition_id: finitionIds[0],
+        car_color_id: colorIds[0],
+        immatriculation: vehicles[0].immatriculation,
+      },
+    ]);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Car added successfully :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to add new car',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function checkForCanI(lastName, firstName) {
   return await supabase
     .from('members')
@@ -594,6 +641,51 @@ async function sendMailRecordDb(personalInfo, setIsRegistered) {
   );
 }
 
+async function sendMailNewCarCPanel(newCar, memberId) {
+  try {
+    const memberName = await getMemberName(memberId);
+    const dataSendMail = {
+      first_name: memberName.data[0].first_name,
+      last_name: memberName.data[0].last_name,
+      color: newCar.color,
+      finition: newCar.finition,
+      immatriculation: newCar.immatriculation,
+      mine: newCar.mine,
+      model: newCar.model,
+      from: 'newCar',
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(dataSendMail),
+    };
+    const { data, error } = await fetch(
+      `${process.env.CLIENT_URL}/api/mail`,
+      options
+    );
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! send email successfully :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to send email',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error to retrieve member id from immat',
+    });
+  }
+}
+
 async function sendMailUpdateCarInIdg(
   oldValue,
   newValue,
@@ -780,6 +872,7 @@ async function updateCarModel(value, immatriculation) {
 }
 
 export {
+  addCar,
   checkForCanI,
   checkForStartSession,
   checkMail,
@@ -799,6 +892,7 @@ export {
   ourPartners,
   record,
   returnMemberInfo,
+  sendMailNewCarCPanel,
   sendMailUpdateCarInIdg,
   updateCarColor,
   updateCarFinition,

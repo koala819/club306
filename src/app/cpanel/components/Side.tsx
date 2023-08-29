@@ -2,14 +2,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signOut } from 'next-auth/react';
 import picture306 from '../../../../public/images/logoClub306_blanc.png';
 
 export default function Side() {
-  const [menuMember, setMenuMember] = useState(false);
-  const showMenu1 = () => {
-    setMenuMember(!menuMember);
-  };
   return (
     <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
       <div className="flex items-center justify-center mt-4">
