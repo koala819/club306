@@ -124,7 +124,7 @@ export default function Top() {
                   </h2>
                 </div>
               </div>
-              <Link href="#">
+              <Link href="/cpanel/AddCar">
                 <p className="hover:bg-gray-800 hover:text-white">
                   Ajouter une voiture
                 </p>

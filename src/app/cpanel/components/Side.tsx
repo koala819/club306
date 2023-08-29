@@ -29,7 +29,7 @@ export default function Side() {
       <nav className="mt-16 ">
         <h1 className="text-xl font-bold text-center mb-8">Dashboard</h1>
         <ul className="space-y-8">
-          <Link href="#">
+          <Link href="/cpanel/AddCar">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
