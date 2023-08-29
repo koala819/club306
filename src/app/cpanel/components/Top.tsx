@@ -1,8 +1,16 @@
 'use client';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { AiOutlineLogout } from 'react-icons/ai';
+import Link from 'next/link';
 
 export default function Top() {
   const { data: session, status } = useSession();
+  const [isMenuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!isMenuVisible);
+  };
 
   return (
     <nav className="p-4 flex border-b-2 border-gray-400 text-blue-600">
@@ -13,7 +21,11 @@ export default function Top() {
       <div className="flex items-center justify-center md:justify-center w-full"></div>
       <div className="hidden md:flex items-center space-x-4 md:w-1/4 justify-end">
         <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center border-2 border-yellow-200">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -5 84 84">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="-10 -5 84 84"
+            onClick={toggleMenu}
+          >
             <g data-name="Business Man">
               <path
                 d="M55.26 42.26 39 35l-5 7h-4l-5-7-16.3 7.37A8.012 8.012 0 0 0 4 49.66v12.59a.75.75 0 0 0 .75.75h54.5a.75.75 0 0 0 .75-.75V49.57a8.012 8.012 0 0 0-4.74-7.31z"
@@ -67,6 +79,54 @@ export default function Top() {
             </g>
           </svg>
         </div>
+        {/* Menu Items */}
+        {isMenuVisible && (
+          <div className="absolute mt-64 right-4 bg-white border border-gray-300 w-64 shadow-lg text-gray-800">
+            <div className="p-2">
+              <div className="flex items-center justify-center mb-8 mt-2">
+                <div className="w-1/4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="-10 -5 84 84"
+                    className="w-10 h-10 bg-gray-100 rounded-full"
+                  ></svg>
+                </div>
+                <div className="w-3/4 ">
+                  <h1>{session?.user?.name}</h1>
+                  <h2
+                    className="text-gray-300"
+                    style={{
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    {session?.user?.email}
+                  </h2>
+                </div>
+              </div>
+              <Link href="#">
+                <p className="hover:bg-gray-800 hover:text-white">
+                  Ajouter une voiture
+                </p>
+              </Link>
+              <hr className="my-2 border-gray-300" />
+              <div className="flex items-center">
+                <div className="text-white text-2xl pr-4">
+                  <button
+                    type="button"
+                    onClick={() => signOut()}
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  >
+                    Se déconnecter
+                    <AiOutlineLogout size={20} className="ml-2" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

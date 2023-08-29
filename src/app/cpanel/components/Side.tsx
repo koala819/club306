@@ -27,7 +27,20 @@ export default function Side() {
         </Link>
       </div>
       <nav className="mt-16 ">
-        <h1 className="text-xl font-bold text-center ">Dashboard</h1>
+        <h1 className="text-xl font-bold text-center mb-8">Dashboard</h1>
+        <ul className="space-y-8">
+          <Link href="#">
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                <div className="flex items-center">
+                  <i className="fas fa-calendar-alt mr-2"></i>
+                  <span>Ajouter une voiture</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+            </li>
+          </Link>
+        </ul>
       </nav>
       <nav className="mt-16">
         <h1 className="text-xl font-bold text-center mb-8">Liens Utiles</h1>
