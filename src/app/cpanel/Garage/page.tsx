@@ -2,7 +2,8 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/app/idg/DisplaySvg';
-import Tab from './Tab';
+import Tab from './components/Tab';
+import DeleteCar from './components/DeleteCar';
 import RootLayout from '@/app/layout';
 import CustomLayout from '../layout';
 import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
@@ -71,9 +72,27 @@ export default function Garage() {
               ? "Votre Garage est composé d'une voiture"
               : `Votre Garage est composé de ${cars?.length} voitures`}
           </h1>
-          <h1 className="text-3xl font-semibold text-center mb-4">
-            Voiture n° {currentCarIndex + 1}
-          </h1>
+          <div className="flex my-4 justify-center">
+            {currentCarIndex > 0 && (
+              <button
+                onClick={handlePrevCar}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+              >
+                Précédent
+              </button>
+            )}
+            <h1 className="text-3xl font-semibold text-center mb-4 mr-2">
+              Voiture n° {currentCarIndex + 1}
+            </h1>
+            {cars !== undefined && currentCarIndex < cars?.length - 1 && (
+              <button
+                onClick={handleNextCar}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Suivant
+              </button>
+            )}
+          </div>
 
           <div className="w-1/3 bg-gray-200 mb-8 p-4">
             {cars !== undefined && (
@@ -111,6 +130,10 @@ export default function Garage() {
                         <td>{cars[currentCarIndex].immatriculation}</td>
                       </tr>
                       <tr>
+                        <td className="font-semibold">Mine:</td>
+                        <td>{cars[currentCarIndex].min}</td>
+                      </tr>
+                      <tr>
                         <td className="font-semibold">Modèle:</td>
                         <td>{cars[currentCarIndex].model}</td>
                       </tr>
@@ -136,22 +159,11 @@ export default function Garage() {
             )}
           </div>
           <div className="mt-4">
-            {currentCarIndex > 0 && (
-              <button
-                onClick={handlePrevCar}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
-              >
-                Précédent
-              </button>
-            )}
-            {cars !== undefined && currentCarIndex < cars?.length - 1 && (
-              <button
-                onClick={handleNextCar}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              >
-                Suivant
-              </button>
-            )}
+            {cars !== undefined &&
+              cars.length >= 2 &&
+              member?.id !== undefined && (
+                <DeleteCar memberId={member?.id} car={cars[currentCarIndex]} />
+              )}
           </div>
         </div>
       </CustomLayout>

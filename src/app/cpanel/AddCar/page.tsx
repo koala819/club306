@@ -53,7 +53,6 @@ export default function AddCar() {
       const response = await addCar([data], member?.id);
       if (response !== undefined && response.status === 200) {
         const response = await sendMailNewCarCPanel(data, member?.id);
-        console.log('response email', response);
         if (response !== undefined && response.status === 200) {
           alert('Enregistrement avec succès !');
           setDisplayLoader(false);

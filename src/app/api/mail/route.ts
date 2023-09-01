@@ -3,6 +3,7 @@ import {
   addNewCar,
   mailContact,
   recordDb,
+  removeCar,
   sendOTP,
   updateCarInfo,
   welcomeNewMember,
@@ -78,6 +79,25 @@ export async function POST(req: Request) {
           bcc: 'x.genolhac@gmail.com',
           subject: 'Bienvenue au club 306',
           html: welcomeNewMember(body.first_name),
+        };
+        break;
+      case 'oldCar':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'x.genolhac@gmail.com',
+          // bcc: 'x.genolhac@gmail.com',
+          subject: `🏛 Le membre ${body.first_name} ${body.last_name} a supprimé une voiture🚧`,
+          text: `Le membre ${body.first_name} ${body.last_name} a supprimé voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color}, le modèle ${body.model} et pour la raison ${body.reason}.`,
+          html: removeCar(
+            body.first_name,
+            body.last_name,
+            body.color,
+            body.immatriculation,
+            body.finition,
+            body.model,
+            body.mine,
+            body.reason
+          ),
         };
         break;
       case 'recordDataBase':

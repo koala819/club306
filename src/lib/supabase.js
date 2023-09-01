@@ -13,7 +13,6 @@ async function addCar(vehicles, memberId) {
       ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
       ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
     ]);
-
     const colorIds = responses
       .slice(0, vehicles.length)
       .map((res) => res.data[0].id);
@@ -31,6 +30,7 @@ async function addCar(vehicles, memberId) {
         car_finition_id: finitionIds[0],
         car_color_id: colorIds[0],
         immatriculation: vehicles[0].immatriculation,
+        min: vehicles[0].mine,
       },
     ]);
 
@@ -79,6 +79,33 @@ async function checkForStartSession(dataFromAccountGoogle) {
     //   callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
     // });
     return false;
+  }
+}
+
+async function checkImmatInMuseum(immat) {
+  try {
+    const { data, error } = await supabase
+      .from('museum')
+      .select('*')
+      .filter('immatriculation', 'eq', immat)
+      .single();
+
+    if (!data) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Immatriculation not exist in museum :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error), {
+      status: 404,
+      statusText: 'Immatriculation déjà existante !',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
   }
 }
 
@@ -335,6 +362,42 @@ async function countMembersByMonth() {
   }
 }
 
+async function deleteCar(car, memberId, reason) {
+  try {
+    const response = await recordCarInMuseum(car, memberId, reason);
+    if (response !== undefined && response.status === 404) {
+      return new Response(JSON.stringify(), {
+        status: 404,
+        statusText: 'Immatriculation déjà existante !',
+      });
+    }
+
+    if (response !== undefined && response.status === 200) {
+      const { data, error } = await supabase
+        .from('cars')
+        .delete()
+        .eq('immatriculation', car.immatriculation);
+
+      if (!error) {
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          statusText: 'Great Job !!! Car successfully removed :)',
+        });
+      }
+
+      return new Response(JSON.stringify(error.message), {
+        status: 405,
+        statusText: 'Error to remove car :(',
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function getAllColors() {
   try {
     return await supabase.from('car_colors').select('*');
@@ -542,6 +605,59 @@ async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
   });
 }
 
+async function recordCarInMuseum(car, memberId, reason) {
+  try {
+    const response = await checkImmatInMuseum(car.immatriculation);
+
+    if (response !== undefined && response.status === 404) {
+      return new Response(JSON.stringify(), {
+        status: 404,
+        statusText: 'Immatriculation déjà existante !',
+      });
+    }
+
+    if (response !== undefined && response.status === 200) {
+      const responses = await Promise.all([
+        getIdColor(car.color.name),
+        getIdFinition(car.finition),
+        getIdModel(car.model),
+      ]);
+      const idColor = responses[0].data[0].id;
+      const idFinition = responses[1].data[0].id;
+      const idModel = responses[2].data[0].id;
+
+      const { data, error } = await supabase.from('museum').upsert([
+        {
+          member_id: memberId,
+          car_model_id: idModel,
+          car_finition_id: idFinition,
+          car_color_id: idColor,
+          immatriculation: car.immatriculation,
+          min: car.min,
+          reason: reason,
+          deleted_at: new Date(),
+        },
+      ]);
+      if (!error) {
+        return new Response(JSON.stringify(data), {
+          status: 200,
+          statusText: 'Great Job !!! Car added successfully in museum :)',
+        });
+      }
+
+      return new Response(JSON.stringify(error.message), {
+        status: 405,
+        statusText: 'Error to add new car in museum :(',
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function recordMember(
   personalInfo,
   vehicles,
@@ -653,6 +769,52 @@ async function sendMailNewCarCPanel(newCar, memberId) {
       mine: newCar.mine,
       model: newCar.model,
       from: 'newCar',
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(dataSendMail),
+    };
+    const { data, error } = await fetch(
+      `${process.env.CLIENT_URL}/api/mail`,
+      options
+    );
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! send email successfully :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to send email',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error to retrieve member id from immat',
+    });
+  }
+}
+
+async function sendMailRemoveCarCPanel(oldCar, memberId, reason) {
+  try {
+    const memberName = await getMemberName(memberId);
+    const dataSendMail = {
+      first_name: memberName.data[0].first_name,
+      last_name: memberName.data[0].last_name,
+      color: oldCar.color.name,
+      finition: oldCar.finition,
+      immatriculation: oldCar.immatriculation,
+      mine: oldCar.min,
+      model: oldCar.model,
+      reason: reason,
+      from: 'oldCar',
     };
 
     const options = {
@@ -883,6 +1045,7 @@ export {
   countMembersByAge,
   countMembersByCountry,
   countMembersByMonth,
+  deleteCar,
   getAllColors,
   getAllFinitions,
   getAllModels,
@@ -893,6 +1056,7 @@ export {
   record,
   returnMemberInfo,
   sendMailNewCarCPanel,
+  sendMailRemoveCarCPanel,
   sendMailUpdateCarInIdg,
   updateCarColor,
   updateCarFinition,
