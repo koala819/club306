@@ -112,7 +112,8 @@ export async function POST(req: Request) {
       case 'updateCarInfo':
         mailOptions = {
           from: 'supabase-info@club306.fr',
-          to: 'president@club306.fr, x.genolhac@gmail.com',
+          // to: 'president@club306.fr, x.genolhac@gmail.com',
+          to: 'x.genolhac@gmail.com',
           subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type}`,
           text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} !`,
           html: updateCarInfo(

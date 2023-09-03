@@ -802,6 +802,68 @@ async function sendMailNewCarCPanel(newCar, memberId) {
   }
 }
 
+async function sendMailUpdatePartCar(
+  immatriculation,
+  newValue,
+  oldValue,
+  partOfCar
+) {
+  try {
+    const idMember = await getIdMemberFromImmatriculation(immatriculation);
+    if (idMember.status === 200) {
+      try {
+        const memberName = await getMemberName(idMember.data[0].member_id);
+        if (idMember.status === 200) {
+          const dataSendMail = {
+            first_name: memberName.data[0].first_name,
+            last_name: memberName.data[0].last_name,
+            old_value: oldValue,
+            new_value: newValue,
+            type: partOfCar,
+            from: 'updateCarInfo',
+          };
+          const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify(dataSendMail),
+          };
+          try {
+            const mailResponse = await fetch(
+              `${process.env.CLIENT_URL}/api/mail`,
+              options
+            );
+            if (mailResponse.status === 200) {
+              console.log('mailResponse', mailResponse);
+              return new Response(JSON.stringify(mailResponse), {
+                status: 200,
+                statusText: 'Great Job !!! send email successfully :)',
+              });
+            }
+          } catch (error) {
+            return new Response(JSON.stringify(error), {
+              status: 405,
+              statusText: 'Error to send email',
+            });
+          }
+        }
+      } catch (error) {
+        return new Response(JSON.stringify(error), {
+          status: 406,
+          statusText: 'Error to retrieve member name from id',
+        });
+      }
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 407,
+      statusText: 'Error to retrieve member id from immat',
+    });
+  }
+}
+
 async function sendMailRemoveCarCPanel(oldCar, memberId, reason) {
   try {
     const memberName = await getMemberName(memberId);
@@ -1004,7 +1066,6 @@ async function updateCarMin(value, immatriculation) {
 }
 
 async function updateCarModel(value, immatriculation) {
-  console.log('value', value);
   try {
     const { data, error } = await supabase
       .from('cars')
@@ -1056,6 +1117,7 @@ export {
   record,
   returnMemberInfo,
   sendMailNewCarCPanel,
+  sendMailUpdatePartCar,
   sendMailRemoveCarCPanel,
   sendMailUpdateCarInIdg,
   updateCarColor,
