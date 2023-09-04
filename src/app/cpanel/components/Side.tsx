@@ -62,6 +62,17 @@ export default function Side() {
               </div>
             </li>
           </Link>
+          <Link href="/cpanel/Colors">
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                <div className="flex items-center">
+                  <i className="fas fa-calendar-alt mr-2"></i>
+                  <span>Couleurs</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+            </li>
+          </Link>
         </ul>
       </nav>
       {/* <nav>

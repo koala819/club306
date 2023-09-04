@@ -723,6 +723,34 @@ async function recordMember(
   );
 }
 
+async function recordModifyColorInCpanel(oldColor, newColor) {
+  try {
+    const newColorGoodFormat = newColor.slice(1);
+
+    const { data, error } = await supabase
+      .from('car_colors')
+      .update({ hexa: newColorGoodFormat })
+      .eq('hexa', oldColor);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Color successfully modify :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to modify the color',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function returnMemberInfo(mail) {
   const { data, error } = await supabase
     .from('members')
@@ -1115,6 +1143,7 @@ export {
   getMemberId,
   ourPartners,
   record,
+  recordModifyColorInCpanel,
   returnMemberInfo,
   sendMailNewCarCPanel,
   sendMailUpdatePartCar,
