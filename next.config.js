@@ -10,9 +10,14 @@ module.exports = withBundleAnalyzer({
     MAIL_PWD: process.env.MAIL_PWD,
     USR_CHECK_DB: process.env.USR_CHECK_DB,
     USR_CHECK_DB2: process.env.USR_CHECK_DB2,
+    GCP_CLIENT_ID: process.env.GCP_CLIENT_ID,
+    GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
+    GCP_REFRESH_TOKEN: process.env.GCP_REFRESH_TOKEN,
+    DRIVE_FOLDER_ID: process.env.DRIVE_FOLDER_ID,
   },
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   images: {
     domains: [
