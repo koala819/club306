@@ -14,6 +14,7 @@ module.exports = withBundleAnalyzer({
     GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
     GCP_REFRESH_TOKEN: process.env.GCP_REFRESH_TOKEN,
     DRIVE_FOLDER_ID: process.env.DRIVE_FOLDER_ID,
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
   },
   experimental: {
     appDir: true,

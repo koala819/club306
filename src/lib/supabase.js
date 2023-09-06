@@ -149,6 +149,41 @@ async function checkRegisteredMember(credentialsProvider) {
   }
 }
 
+async function createNewPartner(value, imageName) {
+  try {
+    const { data, error } = await supabase.from('partners_codePromo').insert({
+      title: value.title,
+      code: value.code,
+      site: value.site,
+      remise: value.remise,
+      linkImg:
+        'https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/' +
+        imageName,
+      alt: imageName.slice(0, -4),
+    });
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Partner created successfully :)',
+        headers: {
+          value,
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to create partner',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function countCars() {
   const { data, error } = await supabase
     .from('cars')
@@ -390,6 +425,32 @@ async function deleteCar(car, memberId, reason) {
         statusText: 'Error to remove car :(',
       });
     }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
+async function deleteParner(partnerId) {
+  try {
+    const { data, error } = await supabase
+      .from('partners_codePromo')
+      .delete()
+      .eq('id', partnerId);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Partner successfully removed :)',
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to remove Partner :(',
+    });
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 406,
@@ -1122,6 +1183,50 @@ async function updateCarModel(value, immatriculation) {
   }
 }
 
+async function updatePartner(value, id, imageName) {
+  try {
+    const updateData = {
+      title: value.title,
+      code: value.code,
+      site: value.site,
+      remise: value.remise,
+    };
+
+    // Si imageName est fourni, ajoutez le lien de l'image
+    if (imageName) {
+      updateData.linkImg =
+        'https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/' +
+        imageName;
+      updateData.alt = imageName.slice(0, -4);
+    }
+
+    const { data, error } = await supabase
+      .from('partners_codePromo')
+      .update(updateData)
+      .filter('id', 'eq', id);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Partner updated successfully :)',
+        headers: {
+          value,
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update partner',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 export {
   addCar,
   checkForCanI,
@@ -1134,7 +1239,9 @@ export {
   countMembersByAge,
   countMembersByCountry,
   countMembersByMonth,
+  createNewPartner,
   deleteCar,
+  deleteParner,
   getAllColors,
   getAllFinitions,
   getAllModels,
@@ -1154,4 +1261,5 @@ export {
   updateCarImmatriculation,
   updateCarMin,
   updateCarModel,
+  updatePartner,
 };

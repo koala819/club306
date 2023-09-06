@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import moment from 'moment-timezone';
 import RootLayout from '@/app/layout';
-import CustomLayout from '../layout';
+import CustomLayout from '../../layout';
 import { backupTable, listFilesInFolder } from '@/lib/backupSupabase';
 import ClipLoader from 'react-spinners/ClipLoader';
 

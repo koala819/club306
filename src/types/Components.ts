@@ -66,11 +66,11 @@ export type MemberType = {
 };
 
 export interface PartnerInfoType {
-  id: number;
-  title: string;
-  code: string;
-  linkImg: string;
-  remise: string;
-  site: string;
-  alt: string;
+  id?: number;
+  title?: string;
+  code?: string;
+  linkImg?: string;
+  remise?: string;
+  site?: string;
+  alt?: string;
 }

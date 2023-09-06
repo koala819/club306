@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { PhotoshopPicker } from 'react-color';
 import { getAllColors } from '@/lib/supabase';
 import RootLayout from '@/app/layout';
-import CustomLayout from '../layout';
+import CustomLayout from '../../layout';
 import { Color } from '@/app/models';
 import { recordModifyColorInCpanel } from '@/lib/supabase';
 

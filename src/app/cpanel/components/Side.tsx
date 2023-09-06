@@ -71,9 +71,9 @@ export default function Side() {
         </ul>
       </nav>
       <nav className="mt-16">
-        <h1 className="text-xl font-bold text-center mb-8">Liens Utiles</h1>
+        <h1 className="text-xl font-bold text-center mb-8">Administration</h1>
         <ul className="space-y-8">
-          <Link href="/cpanel/Stats">
+          <Link href="/cpanel/admin/Stats">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -84,7 +84,7 @@ export default function Side() {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/Colors">
+          <Link href="/cpanel/admin/Colors">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -95,7 +95,18 @@ export default function Side() {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/Supabase">
+          <Link href="/cpanel/admin/Partners">
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                <div className="flex items-center">
+                  <i className="fas fa-calendar-alt mr-2"></i>
+                  <span>Nos Partenaires</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+            </li>
+          </Link>
+          <Link href="/cpanel/admin/Supabase">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">

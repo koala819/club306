@@ -5,7 +5,7 @@ import Car from './components/Car';
 import Members from './components/Members';
 import Age from './components/Age';
 import RootLayout from '@/app/layout';
-import CustomLayout from '../layout';
+import CustomLayout from '../../layout';
 
 export default function Home() {
   useEffect(() => {
