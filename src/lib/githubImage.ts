@@ -1,12 +1,11 @@
 import axios from 'axios';
+const { Octokit } = require('@octokit/core');
 
-async function uploadImageToGitHub(imageUrl: string) {
+async function uploadImageToGitHub(imageUrl: string, path: string) {
   const githubToken = process.env.GITHUB_TOKEN;
-  const path = 'good.jpg';
   const apiUrl = `https://api.github.com/repos/koala819/Unlimitd_front/contents/${path}`;
 
   try {
-    // Fetch the image using the provided URL
     const response = await fetch(imageUrl);
 
     if (!response.ok) {
@@ -17,7 +16,6 @@ async function uploadImageToGitHub(imageUrl: string) {
 
     const reader = new FileReader();
 
-    // Define a Promise to handle the FileReader load event
     const readerPromise = new Promise<string>((resolve, reject) => {
       reader.onload = () => {
         const arrayBuffer = reader.result as ArrayBuffer;
@@ -27,16 +25,14 @@ async function uploadImageToGitHub(imageUrl: string) {
         resolve(base64Image);
       };
 
-      // Handle FileReader errors
       reader.onerror = () => {
         reject(new Error('Error reading image file.'));
       };
     });
 
-    // Start reading the blob as an ArrayBuffer
     reader.readAsArrayBuffer(blob);
 
-    const base64Image = await readerPromise; // Wait for the reader to finish
+    const base64Image = await readerPromise;
 
     const responseAxiosPut = await axios.put(
       apiUrl,
@@ -64,31 +60,71 @@ async function uploadImageToGitHub(imageUrl: string) {
   }
 }
 
-async function deleteImageFromGitHub(apiUrl: string) {
-  const githubToken = process.env.GITHUB_TOKEN;
-  // const apiUrl = `https://api.github.com/repos/koala819/Unlimitd_front/contents/${imagePath}`;
-  console.log('apiUrl', apiUrl);
-  try {
-    const responseAxiosDelete = await axios.delete(apiUrl, {
-      headers: {
-        Authorization: `token ${githubToken}`,
-      },
-    });
+async function deletePictureFromGitHub(githubUrl: string) {
+  const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+  });
+  const parts = githubUrl.split('/');
+  const username = parts[3];
+  const repository = parts[4];
+  const filePath = parts[6];
+  const githubContentURL = `/repos/${username}/${repository}/contents/${filePath}`;
 
-    if (responseAxiosDelete.status === 204) {
-      return new Response('Image deleted from GitHub', {
-        status: 200,
-        statusText: 'Image deleted from GitHub with success',
-      });
-    } else {
-      throw new Error('Failed to delete image from GitHub');
+  try {
+    const { data, error } = await octokit.request(`GET ${githubContentURL}`);
+
+    const fileDetails = data;
+    const blobSHA = fileDetails.sha;
+
+    if (!error) {
+      try {
+        const { data, error } = await octokit.request(
+          `DELETE ${githubContentURL}`,
+
+          {
+            owner: 'OWNER',
+            repo: 'REPO',
+            path: 'PATH',
+            message: 'my commit message',
+            committer: {
+              name: 'Monalisa Octocat',
+              email: 'octocat@github.com',
+            },
+            sha: blobSHA,
+            headers: {
+              'X-GitHub-Api-Version': '2022-11-28',
+            },
+          }
+        );
+
+        if (!error) {
+          return new Response(JSON.stringify(data), {
+            status: 200,
+            statusText: 'Picture deleted from GitHub with success',
+          });
+        }
+
+        return new Response(JSON.stringify(error.message), {
+          status: 405,
+          statusText: 'Error to delete picture from GitHub',
+        });
+      } catch (error) {
+        return new Response(JSON.stringify(error), {
+          status: 405,
+          statusText: 'Error deleting image from GitHub',
+        });
+      }
     }
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to retrieve image from GitHub',
+    });
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 405,
-      statusText: 'Error deleting image from GitHub',
+      statusText: 'Error with octokit request',
     });
   }
 }
 
-export { deleteImageFromGitHub, uploadImageToGitHub };
+export { deletePictureFromGitHub, uploadImageToGitHub };

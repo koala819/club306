@@ -18,7 +18,6 @@ import CustomLayout from '../layout';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function AddCar() {
-  // const [editIndex, setEditIndex] = useState<number | null>(null);
   const [displayLoader, setDisplayLoader] = useState(false);
   const { data: session } = useSession();
   const [member, setMember] = useState<Member | undefined>(undefined);

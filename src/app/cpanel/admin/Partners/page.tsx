@@ -1,13 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import ClipLoader from 'react-spinners/ClipLoader';
 import RootLayout from '@/app/layout';
 import CustomLayout from '../../layout';
 import { ourPartners } from '@/lib/supabase';
 import { PartnerInfoType } from '@/types/Components';
 import EditPartner from './components/EditPartner';
 import { deleteParner } from '@/lib/supabase';
-import { deleteImageFromGitHub } from '@/lib/githubImage';
+import { deletePictureFromGitHub } from '@/lib/githubImage';
 
 export default function OurPartners() {
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
@@ -16,6 +17,7 @@ export default function OurPartners() {
   const [selectedPartner, setSelectedPartner] =
     useState<PartnerInfoType | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [displayLoader, setDisplayLoader] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,11 +53,11 @@ export default function OurPartners() {
 
   const handleDeleteClick = async (partner: PartnerInfoType) => {
     if (partner.linkImg !== null && partner.linkImg !== undefined) {
-      const response = await deleteImageFromGitHub(partner.linkImg);
-      console.log('response', response);
-      if (response.status === 200) {
+      setDisplayLoader(true);
+      const response = await deletePictureFromGitHub(partner.linkImg);
+
+      if (response !== undefined && response.status === 200) {
         const response = await deleteParner(partner.id);
-        console.log('response', response);
 
         if (response.status === 200) {
           window.location.reload();
@@ -74,16 +76,19 @@ export default function OurPartners() {
     setIsEditing(false);
   };
 
-  // const handleSavePartner = (editedPartner: PartnerInfoType) => {
-  //   console.log('save partner', editedPartner);
-  //   // Vous pouvez implémenter la logique pour sauvegarder le partenaire ici
-  //   setIsEditing(false);
-  //   // Si vous souhaitez ajouter un nouveau partenaire, vous pouvez également gérer cela ici
-  // };
-
   return (
     <RootLayout hideFooter hideNavbar>
       <CustomLayout>
+        {displayLoader && (
+          <section className="fixed grid h-screen w-screen place-items-center bg-white top-0 left-0 z-[1000]">
+            <ClipLoader
+              loading={true}
+              size={50}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </section>
+        )}
         <div className="mb-4 text-right">
           <button
             onClick={handleAddNewPartner}
@@ -131,12 +136,7 @@ export default function OurPartners() {
               ))}
         </div>
         {isEditing && (
-          <EditPartner
-            partner={selectedPartner}
-            // onEdit={handleSavePartner}
-            // onAdd={handleSavePartner}
-            onCancel={handleCancelClick}
-          />
+          <EditPartner partner={selectedPartner} onCancel={handleCancelClick} />
         )}
       </CustomLayout>
     </RootLayout>

@@ -1,37 +1,25 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useForm, Controller } from 'react-hook-form';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { PartnerInfoType } from '@/types/Components';
 import { uploadImageToGitHub } from '@/lib/githubImage';
 import { createNewPartner, updatePartner } from '@/lib/supabase';
 
 interface EditPartnerProps {
-  partner?: PartnerInfoType | null; // Partenaire à éditer (facultatif)
-  // onEdit?: (partner: PartnerInfoType) => void; // Fonction appelée lors de l'édition
-  // onAdd?: (partner: PartnerInfoType) => void; // Fonction appelée lors de l'ajout
-  onCancel?: () => void; // Fonction appelée lors de l'annulation
+  partner?: PartnerInfoType | null;
+  onCancel?: () => void;
 }
 
-const EditPartner: React.FC<EditPartnerProps> = ({
-  partner,
-  // onEdit,
-  // onAdd,
-  onCancel,
-}) => {
-  // const [editedPartner, setEditedPartner] = useState<PartnerInfoType | null>(
-  //   partner || null
-  // );
+const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
   const [editedImage, setEditedImage] = useState<File | null>(null);
+  const [displayLoader, setDisplayLoader] = useState(false);
   const { handleSubmit, control, formState } = useForm({
     defaultValues: {
       title: partner?.title || '',
       site: partner?.site || '',
       code: partner?.code || '',
       remise: partner?.remise || '',
-      // title: editedPartner?.title || '',
-      // site: editedPartner?.site || '',
-      // code: editedPartner?.code || '',
-      // remise: editedPartner?.remise || '',
       image: '',
     },
   });
@@ -66,6 +54,7 @@ const EditPartner: React.FC<EditPartnerProps> = ({
   };
 
   const onSubmit = async (data: any) => {
+    setDisplayLoader(true);
     // Cas pour éditer un partenaire avec image
     if (data.image === '' && editedImage) {
       const response = await updatePartner(data, partner?.id, editedImage.name);
@@ -83,20 +72,20 @@ const EditPartner: React.FC<EditPartnerProps> = ({
           window.location.reload();
         }
       } else if (onCancel) {
+        setDisplayLoader(false);
         onCancel();
       }
     }
     // Cas pour ajouter un nouveau partenaire
     else if (editedImage) {
-      console.log('cas pour ajouter un nouveau partenaire', data);
+      const imagePath = data.image;
+      const imageName = imagePath.substring(imagePath.lastIndexOf('\\') + 1);
 
       const response = await uploadImageToGitHub(
-        URL.createObjectURL(editedImage)
+        URL.createObjectURL(editedImage),
+        imageName
       );
       if (response.status === 200) {
-        console.log('data to save', data);
-        const imagePath = data.image;
-        const imageName = imagePath.substring(imagePath.lastIndexOf('\\') + 1);
         const response = await createNewPartner(data, imageName);
         if (response.status === 200) {
           window.location.reload();
@@ -105,42 +94,32 @@ const EditPartner: React.FC<EditPartnerProps> = ({
         onCancel();
       }
     }
-    // if (editedPartner) {
-    //   if (editedImage) {
-    //     editedPartner.linkImg = URL.createObjectURL(editedImage);
-    //   }
-    //   // if (partner) {
-    //   //   // Si le partenaire existe, on appelle la fonction onEdit pour l'éditer
-    //   //   if (onEdit) {
-    //   //     onEdit(editedPartner);
-    //   //   }
-    //   // } else {
-    //   //   // Si le partenaire n'existe pas, on appelle la fonction onAdd pour l'ajouter
-    //   //   if (onAdd) {
-    //   //     onAdd(editedPartner);
-    //   //   }
-    //   // }
-    // }
-    // if (onCancel) {
-    //   onCancel(); // Annule l'édition ou l'ajout après la sauvegarde si onCancel existe
-    // }
   };
 
   function checkBeforeSaveInDB(anciennesValeurs: any, nouvellesValeurs: any) {
-    // Comparez les propriétés titre, site, remise et code entre les anciennes et les nouvelles valeurs
     const proprietesAComparer = ['title', 'site', 'remise', 'code'];
 
     for (const propriete of proprietesAComparer) {
       if (anciennesValeurs[propriete] !== nouvellesValeurs[propriete]) {
-        return true; // Si au moins une valeur est modifiée, retournez true
+        return true;
       }
     }
 
-    return false; // Si aucune valeur n'est modifiée, retournez false
+    return false;
   }
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+      {displayLoader && (
+        <section className="fixed grid h-screen w-screen place-items-center bg-white top-0 left-0 z-[1000]">
+          <ClipLoader
+            loading={true}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </section>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-white p-4 rounded shadow-lg flex flex-col items-center">
           <h2 className="text-xl font-semibold mb-4">

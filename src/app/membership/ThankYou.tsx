@@ -83,7 +83,6 @@ export const ThankYou = ({
       body: JSON.stringify(data),
     };
 
-    console.log('options', options);
 
     await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
       (response: Response) => {
