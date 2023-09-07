@@ -468,6 +468,29 @@ async function getAllColors() {
   }
 }
 
+async function getAllEvents(year) {
+  try {
+    const { data, error } = await supabase
+      .from('event')
+      .select('*')
+      .eq('year', year);
+
+    if (!error) {
+      return data;
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to get events :(',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
+  }
+}
+
 async function getAllFinitions() {
   try {
     return await supabase.from('car_finitions').select('*');
@@ -483,6 +506,26 @@ async function getAllModels() {
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
+  }
+}
+
+async function getAllThemesEvent() {
+  try {
+    const { data, error } = await supabase.from('event_theme').select('*');
+
+    if (!error) {
+      return data;
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to get themes event :(',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+    });
   }
 }
 
@@ -1243,8 +1286,10 @@ export {
   deleteCar,
   deleteParner,
   getAllColors,
+  getAllEvents,
   getAllFinitions,
   getAllModels,
+  getAllThemesEvent,
   getHexaCarColor,
   getMemberCars,
   getMemberId,

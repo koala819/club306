@@ -34,7 +34,8 @@
     "src/app/cpanel/components",
     "src/app/cpanel/components/Barchart",
     "src/components/ui/calendar.jsx",
-    "src/components/ui/date-picker.jsx"
+    "src/components/ui/date-picker.jsx",
+    "src/app/cpanel/Event/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

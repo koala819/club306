@@ -57,6 +57,17 @@ export default function Side() {
               </div>
             </li>
           </Link>
+          <Link href="/cpanel/Event">
+            <li className="opcion-con-desplegable">
+              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                <div className="flex items-center">
+                  <i className="fas fa-calendar-alt mr-2"></i>
+                  <span>Saison {new Date().getFullYear()}</span>
+                </div>
+                <i className="fas fa-chevron-down text-xs"></i>
+              </div>
+            </li>
+          </Link>
           <Link href="/cpanel/Partners">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
