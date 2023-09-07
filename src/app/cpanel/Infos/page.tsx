@@ -40,12 +40,7 @@ export default function Infos() {
   return (
     <RootLayout hideNavbar hideFooter>
       <CustomLayout>
-        <div
-          className="flex justify-center items-center "
-          style={{
-            height: window.innerWidth <= 768 ? '64vh' : '50vh',
-          }}
-        >
+        <div className="flex justify-center items-center mt-16">
           <div className="flex flex-col items-center p-4 md:pr-32 bg-gray-100 dark:bg-gray-900 rounded-3xl md:flex-row">
             <div className="-mt-16 md:-my-16 md:-ml-32">
               <Image
