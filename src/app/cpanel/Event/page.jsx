@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { getAllEvents, getAllThemesEvent } from '@/lib/supabase';
-import('moment/locale/fr'); // Importer la locale française
-
+import('moment/locale/fr');
 import RootLayout from '@/app/layout';
 import CustomLayout from '../layout';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -101,7 +100,6 @@ export default function Event() {
         ) : (
           <ClipLoader />
         )}
-        {/* <TimelineX /> */}
       </CustomLayout>
     </RootLayout>
   );
