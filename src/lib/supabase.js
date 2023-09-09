@@ -53,6 +53,46 @@ async function addCar(vehicles, memberId) {
   }
 }
 
+async function cancelEvent(month) {
+  console.log('month', month);
+  try {
+    const { data, error } = await supabase
+      .from('event')
+      .update({
+        title: '',
+        description: '',
+        dates: '',
+        theme: 3,
+      })
+      .filter('month', 'eq', month);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Event had been successfully cancelled :)',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to cancel the event',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function checkForCanI(lastName, firstName) {
   return await supabase
     .from('members')
@@ -1226,6 +1266,46 @@ async function updateCarModel(value, immatriculation) {
   }
 }
 
+async function updateEvent(value, month, theme) {
+  try {
+    const { data, error } = await supabase
+      .from('event')
+      .update({
+        title: value.title,
+        description: value.description,
+        dates: value.dates,
+        theme: theme,
+      })
+      .filter('month', 'eq', month);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Car Model updated successfully :)',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update car model',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function updatePartner(value, id, imageName) {
   try {
     const updateData = {
@@ -1272,6 +1352,7 @@ async function updatePartner(value, id, imageName) {
 
 export {
   addCar,
+  cancelEvent,
   checkForCanI,
   checkForStartSession,
   checkMail,
@@ -1306,5 +1387,6 @@ export {
   updateCarImmatriculation,
   updateCarMin,
   updateCarModel,
+  updateEvent,
   updatePartner,
 };
