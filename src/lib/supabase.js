@@ -53,8 +53,56 @@ async function addCar(vehicles, memberId) {
   }
 }
 
+async function addThemeEvent(name, color, background) {
+  try {
+    const { data, error } = await supabase
+      .from('event_theme')
+      .select('*')
+      .filter('name', 'eq', name);
+
+    if (data && data.length > 0) {
+      return new Response(JSON.stringify(data), {
+        status: 405,
+        statusText: 'Error to add theme event',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } else {
+      try {
+        const { data, error } = await supabase
+          .from('event_theme')
+          .insert({ name: name, color: color, background: background });
+
+        if (!error) {
+          return new Response(JSON.stringify(data), {
+            status: 200,
+            statusText: 'Great Job !!! New Event Theme successfully created :)',
+          });
+        }
+        return new Response(JSON.stringify(error.message), {
+          status: 405,
+          statusText: 'Error to create a new Event Theme :(',
+        });
+      } catch (error) {
+        return new Response(JSON.stringify(error), {
+          status: 406,
+          statusText: 'Error with supabase request',
+        });
+      }
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function cancelEvent(month) {
-  console.log('month', month);
   try {
     const { data, error } = await supabase
       .from('event')
@@ -114,10 +162,6 @@ async function checkForStartSession(dataFromAccountGoogle) {
   if (registeredMember?.length !== 0) {
     return true;
   } else {
-    console.log('no registration in database');
-    // await signOut({
-    //   callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
-    // });
     return false;
   }
 }
@@ -247,7 +291,6 @@ async function countCarsByModel() {
       .eq('car_model_id', 1);
 
     if (error1) {
-      console.log('error1', error1);
     } else {
       carModelCounts[1] = count1[0].count || 0;
     }
@@ -388,7 +431,6 @@ async function countMembersByCountry() {
       .select('country');
 
     if (error) {
-      console.log('error with count members by country', error);
       return countryCounts;
     } else {
       for (const member of members) {
@@ -414,7 +456,6 @@ async function countMembersByMonth() {
     const { data, error } = await supabase.from('members').select('created_at');
 
     if (error) {
-      console.log('error count members by created_at', error);
     } else {
       data.forEach((member) => {
         const createdAt = new Date(member.created_at);
@@ -507,7 +548,6 @@ async function deleteThemeEvent(id) {
       .filter('theme', 'eq', id);
 
     if (data && data.length > 0) {
-      console.log('impossible de supprimer le theme car il est encore utilisé');
       return new Response(JSON.stringify(data), {
         status: 405,
         statusText: 'Error to delete theme event',
@@ -775,7 +815,6 @@ async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
       member_id: memberId,
       vehicles: updatedVehicles,
     };
-    // console.log('vehiclesData', vehiclesData);
 
     const options = {
       method: 'POST',
@@ -785,7 +824,6 @@ async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
 
     fetch(`${process.env.CLIENT_URL}/api/recordCars`, options).then(
       async (response) => {
-        // console.log('response', response);
         if (response.status === 200) {
           sendMailRecordDb(personalInfo, setIsRegistered);
         } else {
@@ -895,7 +933,6 @@ async function recordMember(
       phone,
     };
   }
-  // console.log('memberData', memberData);
 
   const options = {
     method: 'POST',
@@ -1060,7 +1097,6 @@ async function sendMailUpdatePartCar(
               options
             );
             if (mailResponse.status === 200) {
-              console.log('mailResponse', mailResponse);
               return new Response(JSON.stringify(mailResponse), {
                 status: 200,
                 statusText: 'Great Job !!! send email successfully :)',
@@ -1447,6 +1483,7 @@ async function updateThemeEvent(color, name, item) {
 
 export {
   addCar,
+  addThemeEvent,
   cancelEvent,
   checkForCanI,
   checkForStartSession,

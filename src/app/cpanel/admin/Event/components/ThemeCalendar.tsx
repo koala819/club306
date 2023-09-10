@@ -3,7 +3,11 @@ import { getAllThemesEvent } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 // import { Controller, useForm } from 'react-hook-form';
 import { PhotoshopPicker } from 'react-color';
-import { deleteThemeEvent, updateThemeEvent } from '@/lib/supabase';
+import {
+  addThemeEvent,
+  deleteThemeEvent,
+  updateThemeEvent,
+} from '@/lib/supabase';
 
 export default function TemeCalendar() {
   const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([]);
@@ -53,20 +57,31 @@ export default function TemeCalendar() {
   };
 
   async function onDelete() {
-    // console.log('onDelete with id', editedThemeEvent.id);
     const responseDelete = await deleteThemeEvent(editedThemeEvent.id);
-    console.log('responseDelete', responseDelete);
     if (responseDelete !== undefined && responseDelete.status === 200) {
-      alert("le theme de l'événement a bien été supprimé");
+      alert("Le theme de l'événement a bien été supprimé");
       window.location.reload();
     } else if (responseDelete !== undefined && responseDelete.status === 405) {
-      alert('impossible de supprimer le theme car il est encore utilisé');
+      alert('Impossible de supprimer le theme car il est encore utilisé');
+    }
+  }
+
+  async function onAdd() {
+    const responseAdd = await addThemeEvent(
+      editedThemeEvent.name,
+      editedThemeEvent.color,
+      editedThemeEvent.background
+    );
+    if (responseAdd !== undefined && responseAdd.status === 200) {
+      alert("Un nouveau theme d'événement a été créé");
+      window.location.reload();
+    } else if (responseAdd !== undefined && responseAdd.status === 405) {
+      alert('Impossible de créer un nouveau theme car le nom existe déjà !');
     }
   }
 
   function handleClose() {
     setIsEditing(false);
-    // reset();
   }
 
   const handleColorChange = (newColor: { hex: string }) => {
@@ -123,6 +138,12 @@ export default function TemeCalendar() {
               id="editedTitle"
               placeholder="Titre"
               defaultValue={editedThemeEvent.name}
+              onChange={(e) => {
+                setEditedThemeEvent((prevThemeEvent) => ({
+                  ...prevThemeEvent,
+                  name: e.target.value,
+                }));
+              }}
               className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
@@ -158,8 +179,11 @@ export default function TemeCalendar() {
             ></div>
           </div>
           <div className="flex justify-center space-x-2">
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-              Créer nouvelle couleur
+            <button
+              onClick={() => onAdd()}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Créer nouveau theme
             </button>
             <button
               onClick={() => onUpdate()}
