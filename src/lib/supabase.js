@@ -499,6 +499,58 @@ async function deleteParner(partnerId) {
   }
 }
 
+async function deleteThemeEvent(id) {
+  try {
+    const { data, error } = await supabase
+      .from('event')
+      .select('*')
+      .filter('theme', 'eq', id);
+
+    if (data && data.length > 0) {
+      console.log('impossible de supprimer le theme car il est encore utilisé');
+      return new Response(JSON.stringify(data), {
+        status: 405,
+        statusText: 'Error to delete theme event',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } else {
+      try {
+        const { data, error } = await supabase
+          .from('event_theme')
+          .delete()
+          .eq('id', id);
+
+        if (!error) {
+          return new Response(JSON.stringify(data), {
+            status: 200,
+            statusText: 'Great Job !!! Event Theme successfully removed :)',
+          });
+        }
+
+        return new Response(JSON.stringify(error.message), {
+          status: 405,
+          statusText: 'Error to remove Event Theme :(',
+        });
+      } catch (error) {
+        return new Response(JSON.stringify(error), {
+          status: 406,
+          statusText: 'Error with supabase request',
+        });
+      }
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function getAllColors() {
   try {
     return await supabase.from('car_colors').select('*');
@@ -1333,7 +1385,7 @@ async function updatePartner(value, id, imageName) {
         status: 200,
         statusText: 'Great Job !!! Partner updated successfully :)',
         headers: {
-          value,
+          'Content-Type': 'application/json',
         },
       });
     }
@@ -1341,11 +1393,54 @@ async function updatePartner(value, id, imageName) {
     return new Response(JSON.stringify(error.message), {
       status: 405,
       statusText: 'Error to update partner',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 406,
       statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
+async function updateThemeEvent(color, name, item) {
+  try {
+    const { data, error } = await supabase
+      .from('event_theme')
+      .update({
+        ...(item === 'background' ? { background: color } : { color: color }),
+      })
+      .filter('name', 'eq', name);
+
+    if (!error) {
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        statusText: 'Great Job !!! Theme event updated successfully :)',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    return new Response(JSON.stringify(error.message), {
+      status: 405,
+      statusText: 'Error to update theme event',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   }
 }
@@ -1366,6 +1461,7 @@ export {
   createNewPartner,
   deleteCar,
   deleteParner,
+  deleteThemeEvent,
   getAllColors,
   getAllEvents,
   getAllFinitions,
@@ -1389,4 +1485,5 @@ export {
   updateCarModel,
   updateEvent,
   updatePartner,
+  updateThemeEvent,
 };

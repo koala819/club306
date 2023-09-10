@@ -1,6 +1,6 @@
 'use client';
-import { useSession } from 'next-auth/react';
-import ClipLoader from 'react-spinners/ClipLoader';
+// import { useSession } from 'next-auth/react';
+// import ClipLoader from 'react-spinners/ClipLoader';
 import Side from './components/Side';
 import Top from './components/Top';
 
@@ -9,7 +9,7 @@ export default function CustomLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
 
   // if (
   //   status === 'authenticated' &&
