@@ -6,14 +6,14 @@ import { createClient } from '../../prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import Providers from '@/components/Providers';
+import Provider from '@/components/Provider';
 
 export default function Article({ article }: any) {
   const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <Layout title="Article">
-      <Providers>
+      <Provider>
         <Navbar />
         <div className="w-2/3 mx-auto flex justify-center items-center flex-col space-y-10 mt-4 mb-4">
           <div className="text-3xl uppercase font-bold opacity-50">
@@ -38,7 +38,7 @@ export default function Article({ article }: any) {
             </button>
           </Link>
         </div>
-      </Providers>
+      </Provider>
     </Layout>
   );
 }
