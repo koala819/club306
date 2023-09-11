@@ -7,7 +7,7 @@ import { SupabaseAdapter } from '@auth/supabase-adapter';
 import { Adapter } from 'next-auth/adapters';
 import type { AuthOptions } from 'next-auth';
 
-export const authOptions: AuthOptions = {
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID || '',
@@ -52,8 +52,6 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/auth/signIn',
   },
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };
