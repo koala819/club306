@@ -32,12 +32,13 @@ const LoginPage = () => {
   });
 
   async function onSubmit(values: { email: string; pwd: string }) {
-    await signIn('credentials', {
+    const response = await signIn('credentials', {
       email: values.email,
       password: values.pwd,
-      redirect: true,
-      callbackUrl: '/',
+      // redirect: true,
+      // callbackUrl: '/',
     });
+    console.log('response', response);
   }
 
   return (

@@ -207,29 +207,33 @@ async function checkMail(mail) {
   return data.length > 0;
 }
 
-async function checkRegisteredMember(credentialsProvider) {
-  const { data, error } = await supabase
-    .from('members')
-    .select('*')
-    .eq('email', credentialsProvider?.email)
-    .limit(1);
+async function checkRegisteredMember(email) {
+  try {
+    const { data, error } = await supabase
+      .from('members')
+      .select('id')
+      .eq('email', email)
+      .limit(1);
 
-  if (error) {
-    //throw new Error(error);
-    console.error('Error to check if member is registered in our db', error);
-  }
-
-  if (data.length > 0) {
-    if (
-      await bcrypt.compare(credentialsProvider?.password, data[0]?.password)
-    ) {
-      return 'find';
+    if (data.length > 0) {
+      const dataJson = JSON.stringify(data);
+      return new Response(dataJson, {
+        status: 200,
+        statusText: 'We find someone :)',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
-    console.error('Error to check if member is registered in our db');
-    return null;
-  } else {
-    console.error('Error to check if member is registered in our db');
-    return null;
+    return false;
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
 

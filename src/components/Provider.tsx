@@ -3,11 +3,11 @@ import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
 import React, { ReactNode } from 'react';
 
-interface Props {
-  children: ReactNode;
-}
-
-const Providers = (props: Props) => {
+export default function Provider({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactNode {
   return (
     <ThemeProvider
       attribute="class"
@@ -15,9 +15,7 @@ const Providers = (props: Props) => {
       enableSystem
       // disableTransitionOnChange
     >
-      <SessionProvider>{props.children}</SessionProvider>
+      <SessionProvider>{children}</SessionProvider>
     </ThemeProvider>
   );
-};
-
-export default Providers;
+}
