@@ -98,6 +98,18 @@ export default function Supabase() {
             backup table cars
           </button>
           <button
+            onClick={() => recordMembers('event')}
+            className="mt-4 ml-4 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+          >
+            backup table event
+          </button>
+          <button
+            onClick={() => recordMembers('event_theme')}
+            className="mt-4 ml-4 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+          >
+            backup table event_theme
+          </button>
+          <button
             onClick={() => recordMembers('members')}
             className="mt-4 ml-4 bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
           >
