@@ -81,6 +81,21 @@ export default function Garage() {
     value !== undefined && value !== null && setModifyValue(() => value);
   };
 
+  function isColorDark(hexColor: string): boolean {
+    const red = parseInt(hexColor.slice(0, 2), 16);
+    const green = parseInt(hexColor.slice(2, 4), 16);
+    const blue = parseInt(hexColor.slice(4, 6), 16);
+
+    // Calculer la luminance selon la formule relative à la perception humaine
+    const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
+
+    // Si la luminance est inférieure à 128, la couleur est considérée comme foncée
+    return luminance < 128;
+  }
+
+  const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
+  const isDark = carColor !== null && isColorDark(carColor);
+
   return (
     <RootLayout hideNavbar hideFooter>
       <CustomLayout>
@@ -112,7 +127,11 @@ export default function Garage() {
             )}
           </div>
 
-          <div className="w-1/3 bg-gray-200 mb-8 p-4">
+          <div
+            className={`w-1/3 bg-gray-200 mb-8 p-4 rounded-lg ${
+              isDark ? 'bg-gray-200' : 'bg-gray-500'
+            }`}
+          >
             {cars !== undefined && (
               <DisplaySVG
                 name={cars[currentCarIndex].model}
