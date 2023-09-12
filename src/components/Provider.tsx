@@ -1,13 +1,13 @@
 'use client';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export default function Provider({
   children,
 }: {
-  children: React.ReactNode;
-}): React.ReactNode {
+  children: ReactNode;
+}): ReactNode {
   return (
     <ThemeProvider
       attribute="class"
