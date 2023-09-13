@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { NextResponse } from 'next/server';
 import {
   addNewCar,
   mailContact,
@@ -12,10 +13,11 @@ import {
 export async function POST(req: Request) {
   try {
     if (!req.body)
-      return new Response(JSON.stringify("Don't have form data...!"), {
+      return NextResponse.json({
+        message: "Don't have form data...!",
         status: 403,
-        statusText: "Don't have form data...!",
       });
+
     const email = process.env.MAIL_USER;
     const pass = process.env.MAIL_PWD;
 
@@ -146,15 +148,14 @@ export async function POST(req: Request) {
     }
 
     await transporter.sendMail(mailOptions);
-
-    return new Response(JSON.stringify('GOOD'), {
+    return NextResponse.json({
+      message: 'Great Job !!! Send the email successfully :)',
       status: 200,
-      statusText: 'Send the email with success',
     });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 407,
-      statusText: 'Error to send the email',
+  } catch (error: Error | any) {
+    return NextResponse.json({
+      statusText: error.message,
+      status: 406,
     });
   }
 }

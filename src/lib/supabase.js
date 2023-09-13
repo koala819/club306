@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcryptjs';
+import { NextResponse } from 'next/server';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -207,25 +208,45 @@ async function checkMail(mail) {
   return data.length > 0;
 }
 
-async function checkRegisteredMember(email) {
+async function checkRegisteredMember(email, pwd) {
   try {
     const { data, error } = await supabase
       .from('members')
-      .select('id')
+      .select('id, first_name, last_name, password')
       .eq('email', email)
       .limit(1);
+    if (error) {
+      // Gérer l'erreur de la requête Supabase ici
+      console.log('erreur', error);
+    } else if (data.length === 0) {
+      // Aucun utilisateur trouvé avec cet e-mail
+      console.log('Aucun utilisateur');
+    } else {
+      const userData = data[0];
+      const hashedPassword = userData.password; // Récupérez le mot de passe haché depuis la base de données
+      const passwordMatch = await bcrypt.compare(pwd, hashedPassword);
 
-    if (data.length > 0) {
-      const dataJson = JSON.stringify(data);
-      return new Response(dataJson, {
-        status: 200,
-        statusText: 'We find someone :)',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      if (passwordMatch) {
+        // Le mot de passe correspond, vous pouvez autoriser la connexion ici
+        console.log('Mot de passe correspond');
+        const dataJson = JSON.stringify(userData);
+        return new Response(dataJson, {
+          status: 200,
+          statusText: 'We find someone :)',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      } else {
+        console.log('Mot de passe incorrect');
+        // Le mot de passe ne correspond pas
+        // Gérer le cas d'authentification incorrecte ici
+      }
     }
-    return false;
+    // if (data.length > 0) {
+
+    // }
+    // return false;
   } catch (error) {
     return new Response(JSON.stringify(error), {
       status: 406,
@@ -782,22 +803,48 @@ async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*');
 }
 
-async function record(
-  personalInfo,
-  vehicles,
-  email,
-  memberId,
-  setIsRegistered
-) {
-  recordMember(personalInfo, vehicles, email, memberId, setIsRegistered);
+async function record(personalInfo, vehicles, email, memberId) {
+  const rspRecMember = await recordMember(personalInfo, email, memberId);
+  const dataRecMember = await rspRecMember.json();
+  if (dataRecMember.status !== 200) {
+    return NextResponse.json({
+      message: dataRecMember.statusText,
+      status: dataRecMember.status,
+    });
+  }
+
+  const rspRecCar = await recordCar(vehicles, memberId);
+  const dataRecCar = await rspRecCar.json();
+  if (dataRecCar.status !== 200) {
+    return NextResponse.json({
+      message: dataRecCar.statusText,
+      status: dataRecCar.status,
+    });
+  }
+  const rspSendMail = await sendMailRecordDb(personalInfo);
+  const dataSendMail = await rspSendMail.json();
+  if (dataSendMail.status !== 200) {
+    return NextResponse.json({
+      message: dataRecCar.statusText,
+      status: dataRecCar.status,
+    });
+  }
+
+  return NextResponse.json({
+    message:
+      'Great Job !!! User and car have created successfully with send the mail :)',
+    status: 200,
+  });
 }
 
-async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
-  Promise.all([
+async function recordCar(vehicles, memberId) {
+  const responses = await Promise.all([
     ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
     ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
     ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
-  ]).then((responses) => {
+  ]);
+
+  if (responses !== undefined) {
     const colorIds = responses
       .slice(0, vehicles.length)
       .map((res) => res.data[0].id);
@@ -815,32 +862,41 @@ async function recordCar(setIsRegistered, vehicles, memberId, personalInfo) {
       model: modelIds[index],
     }));
 
-    const vehiclesData = {
-      member_id: memberId,
-      vehicles: updatedVehicles,
-    };
-
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(vehiclesData),
-    };
-
-    fetch(`${process.env.CLIENT_URL}/api/recordCars`, options).then(
-      async (response) => {
-        if (response.status === 200) {
-          sendMailRecordDb(personalInfo, setIsRegistered);
-        } else {
-          alert(
-            'Erreur dans le traitement des données, veuillez nous contacter et nous excuser pour la gêne occasionnée, merci de nous indiquer\n\n le code erreur : ' +
-              response.status +
-              "\n\net le message d'erreur : " +
-              response.statusText
-          );
+    const insertionPromises = updatedVehicles.map(async (vehicle) => {
+      const { immatriculation, mine, model, color, finition } = vehicle;
+      try {
+        const { error } = await supabase.from('cars').insert({
+          car_color_id: color,
+          car_finition_id: finition,
+          car_model_id: model,
+          immatriculation: immatriculation,
+          member_id: memberId,
+          min: mine,
+        });
+        if (error) {
+          return NextResponse.json({
+            statusText: error.message,
+            status: 409,
+          });
         }
+        return NextResponse.json({
+          message: 'Great Job !!! Car(s) has created successfully :)',
+          status: 200,
+        });
+      } catch (error) {
+        return NextResponse.json({
+          statusText: error.message,
+          status: 406,
+        });
       }
-    );
-  });
+    });
+
+    const results = await Promise.all(insertionPromises);
+    if (results[0] && results[0].status === 200) {
+      return results[0];
+    }
+    return results;
+  }
 }
 
 async function recordCarInMuseum(car, memberId, reason) {
@@ -896,14 +952,19 @@ async function recordCarInMuseum(car, memberId, reason) {
   }
 }
 
-async function recordMember(
-  personalInfo,
-  vehicles,
-  email,
-  memberId,
-  setIsRegistered
-) {
-  const { phone, ...rest } = personalInfo;
+async function recordMember(personalInfo, email, memberId) {
+  const {
+    address,
+    birth_date,
+    // email,
+    first_name,
+    last_name,
+    // member_id,
+    // pwd,
+    phone,
+    town,
+    zip_code,
+  } = personalInfo;
   const countryCodes = {
     33: 'France',
     32: 'Belgique',
@@ -915,49 +976,38 @@ async function recordMember(
 
   const countryCode = phone.substring(0, 2);
   const country = countryCodes[countryCode] || '';
-  let memberData;
-
-  if (email.pwd) {
-    //Member is registered with email and password
-    memberData = {
-      ...rest,
-      email: email.email,
-      pwd: email.pwd,
-      member_id: memberId,
+  console.log('birth_date', birth_date);
+  try {
+    const { error } = await supabase.from('members').insert({
+      id: memberId,
+      address,
+      birth_date,
       country,
+      email: email.email === undefined ? email : email.email,
+      first_name: first_name.charAt(0).toUpperCase() + first_name.slice(1),
+      last_name: last_name.toUpperCase(),
+      password: email.pwd,
       phone,
-    };
-  } else {
-    //Member is registered with Google
-    memberData = {
-      ...rest,
-      email,
-      member_id: memberId,
-      country,
-      phone,
-    };
-  }
-
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(memberData),
-  };
-
-  await fetch(`${process.env.CLIENT_URL}/api/recordMember`, options).then(
-    (response) => {
-      if (response.status === 200) {
-        recordCar(setIsRegistered, vehicles, memberId, personalInfo);
-      } else {
-        alert(
-          'Erreur dans le traitement des données, veuillez nous contacter et nous excuser pour la gêne occasionnée, merci de nous indiquer\n\n le code erreur : ' +
-            response.status +
-            "\n\net le message d'erreur : " +
-            response.statusText
-        );
-      }
+      town,
+      zip_code,
+    });
+    if (error) {
+      return NextResponse.json({
+        statusText: error.message,
+        status: 409,
+      });
     }
-  );
+
+    return NextResponse.json({
+      message: 'Great Job !!! User has created successfully :)',
+      status: 200,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      statusText: error.message,
+      status: 406,
+    });
+  }
 }
 
 async function recordModifyColorInCpanel(oldColor, newColor) {
@@ -1001,7 +1051,7 @@ async function returnMemberInfo(mail) {
   return data;
 }
 
-async function sendMailRecordDb(personalInfo, setIsRegistered) {
+async function sendMailRecordDb(personalInfo) {
   const dataSendMail = {
     first_name: personalInfo.first_name,
     last_name: personalInfo.last_name,
@@ -1015,11 +1065,26 @@ async function sendMailRecordDb(personalInfo, setIsRegistered) {
     },
     body: JSON.stringify(dataSendMail),
   };
-  await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
-    (response) => {
-      response.status === 200 && setIsRegistered(true);
+  try {
+    const response = await fetch(`${process.env.CLIENT_URL}/api/mail`, options);
+
+    if (response.status === 200) {
+      return NextResponse.json({
+        message: 'Great Job !!! Mail had been send successfully :)',
+        status: 200,
+      });
     }
-  );
+
+    return NextResponse.json({
+      message: 'Error to send mail',
+      status: 409,
+    });
+  } catch (error) {
+    return {
+      statusText: error.message,
+      status: 406,
+    };
+  }
 }
 
 async function sendMailNewCarCPanel(newCar, memberId) {

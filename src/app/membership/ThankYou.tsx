@@ -2,13 +2,12 @@
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MailPwd, PersonalInfo, Vehicles } from '../models';
 import { getMemberId, record } from '@/lib/supabase';
 import { RxAvatar } from 'react-icons/rx';
 import { GiFinishLine } from 'react-icons/gi';
-// import { Button, ConfigProvider } from 'antd';
-// import { TrophyFilled } from '@ant-design/icons';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export const ThankYou = ({
@@ -22,19 +21,22 @@ export const ThankYou = ({
 }) => {
   const { data: session } = useSession();
   const [isRegistered, setIsRegistered] = useState(false);
-  //useRef est utilisé comme hack pour eviter que useEffect soit exécuté plusieurs fois
-  const isExecutedRef = useRef(false);
+  const [tmpMemberId, setTmpMemberId] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
-      const tmpMemberId = await getMemberId();
+      const resultMemberId = await getMemberId();
+      resultMemberId?.data !== null &&
+        setTmpMemberId(() => resultMemberId?.data[0].id);
+    };
 
-      if (
-        !isExecutedRef.current &&
-        tmpMemberId !== null &&
-        tmpMemberId.data !== null
-      ) {
-        /*GOOGLE USER*/
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (tmpMemberId !== null) {
         if (session) {
           const storedPersonalInfo = JSON.parse(
             sessionStorage.getItem('personalInfo') || '{}'
@@ -42,30 +44,47 @@ export const ThankYou = ({
           const storedVehicles = JSON.parse(
             sessionStorage.getItem('vehicles') || '[]'
           ) as Vehicles[];
-          record(
+          const response = await record(
             storedPersonalInfo,
             storedVehicles,
             session?.user?.email,
-            tmpMemberId.data[0].id + 1,
-            setIsRegistered
+            tmpMemberId + 1
           );
+          const data = await response.json();
+          if (data.status !== 200) {
+            alert(
+              'Erreur pour vous enregistrer, merci de contacter le staff svp  et communiquer cette erreur : \n\n\n' +
+                data.message +
+                "\n\n Sans le message de l'erreur, il nous sera difficile de vous aider !!!"
+            );
+            router.push('/contact');
+          } else {
+            setIsRegistered(true);
+          }
         } else {
           /*USER WITH MAIL & PWD*/
-          record(
+          const response = await record(
             personalInfo,
             vehicles,
             mailInfo,
-            tmpMemberId.data[0].id + 1,
-            setIsRegistered
+            tmpMemberId + 1
           );
+          const data = await response.json();
+          if (data.status !== 200) {
+            alert(
+              'Erreur pour vous enregistrer, merci de contacter le staff svp  et communiquer cette erreur : \n\n\n' +
+                data.message +
+                "\n\n Sans le message de l'erreur, il nous sera difficile de vous aider !!!"
+            );
+            router.push('/contact');
+          } else {
+            setIsRegistered(true);
+          }
         }
-
-        isExecutedRef.current = true; // Définir la valeur de isExecutedRef à true une fois que le useEffect a été exécuté
       }
     };
-
     fetchData();
-  }, [session]);
+  }, [tmpMemberId]);
 
   async function sendWelcomeMail(firstName: string, mail: string) {
     const data = {
@@ -82,7 +101,6 @@ export const ThankYou = ({
       },
       body: JSON.stringify(data),
     };
-
 
     await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
       (response: Response) => {
