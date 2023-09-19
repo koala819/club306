@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import RootLayout from '@/app/layout';
 import CustomLayout from '../layout';
-import { DisplaySVG } from '@/app/idg/DisplaySvg';
+import { DisplaySVG } from '@/components/DisplaySvg';
 
 export default function Home() {
   // const { data: session, status } = useSession();

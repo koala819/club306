@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { DisplaySVG } from '@/app/idg/DisplaySvg';
+import { DisplaySVG } from '@/components/DisplaySvg';
 import { countCars, countCarsByModel } from '@/lib/supabase';
 
 export default function Car() {

@@ -104,8 +104,8 @@ export const Slider = () => {
                 <div className="flex w-full justify-center">
                   <Image
                     loading="lazy"
-                    src={partner.linkImg}
-                    alt={partner.alt}
+                    src={partner.linkImg || ''}
+                    alt={partner.alt || ''}
                     width={1000}
                     height={1000}
                   />
@@ -127,7 +127,7 @@ export const Slider = () => {
                 </div>
                 <button
                   className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
-                  onClick={() => displayPresent(partner.title)}
+                  onClick={() => displayPresent(partner.title || '')}
                 >
                   <svg
                     fill="#000000"

@@ -3,7 +3,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { createContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-
+import { Database } from '@/types/supabase';
 type SupabaseContext = {
   supabase: SupabaseClient;
 };

@@ -14,7 +14,7 @@ import { FaHouseUser } from 'react-icons/fa';
 import { TbCirclesRelation } from 'react-icons/tb';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 
-export const Navbar = ({ withMember }: { withMember: boolean }) => {
+export const Navbar = ({ withMember }: { withMember?: boolean }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);

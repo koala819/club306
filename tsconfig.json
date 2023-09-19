@@ -35,7 +35,8 @@
     "src/components/ui/calendar.jsx",
     "src/components/ui/date-picker.jsx",
     "src/app/(dash)/cpanel/Event/page.jsx",
-    "src/app/api/auth/[...auth0]/OLDroute.js"
+    "src/app/api/auth/[...auth0]/OLDroute.js",
+    "src/app/api/mail/route.js"
   ],
   "exclude": ["node_modules"]
 }

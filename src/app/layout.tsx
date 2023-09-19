@@ -6,7 +6,7 @@ import '@/app/globals.css';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 // import Provider from '@/components/Provider';
-import AuthProvider from '@/components/common/AuthProvider';
+import AuthProvider from '@/components/AuthProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 

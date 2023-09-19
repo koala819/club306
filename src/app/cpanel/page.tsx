@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import RootLayout from '@/app/layout';
 import CustomLayout from './layout';
-import { DisplaySVG } from '@/app/idg/DisplaySvg';
+import { DisplaySVG } from '@/components/DisplaySvg';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ClipLoader from 'react-spinners/ClipLoader';

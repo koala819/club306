@@ -1,7 +1,7 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { DisplaySVG } from '@/app/idg/DisplaySvg';
+import { DisplaySVG } from '@/components/DisplaySvg';
 import Tab from './components/Tab';
 import DeleteCar from './components/DeleteCar';
 
