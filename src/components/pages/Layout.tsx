@@ -1,4 +1,4 @@
-import '@/app/globals.css';
+import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 
 export const Layout = ({ children, session }: any) => {

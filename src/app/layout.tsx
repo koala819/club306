@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Montserrat } from 'next/font/google';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import '@/app/globals.css';
+import '@/styles/globals.css';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 // import Provider from '@/components/Provider';

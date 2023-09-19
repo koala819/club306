@@ -5,7 +5,6 @@ import pictureField from '../../../public/images/rassemblement306.jpg';
 import pictureYellow from '../../../public/images/306Jaune.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
-import '../globals.css';
 
 export default function Presentation() {
   return (
