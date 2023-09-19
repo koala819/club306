@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { ArticleProps, ArticlesProps } from '../types/Components';
+import { ArticleProps, ArticlesProps } from '@/types/Components';
 import Link from 'next/link';
 
 export const Blog = ({ articles }: ArticlesProps) => {

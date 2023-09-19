@@ -10,7 +10,6 @@ import { checkForStartSession, ourPartners } from '../../lib/supabase';
 import Image from 'next/image';
 
 export const Slider = () => {
-  // const { data: session } = useSession();
   const [registredMember, setRegistredMember] = useState(false);
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
     null

@@ -4,7 +4,6 @@ import { Presentation } from './Presentation';
 import { BlogSection } from './BlogSection';
 import { Partners } from './Partners';
 import Alert from './Alert';
-import { ArticlesProps } from '@/types/Components';
 import { useEffect, useState } from 'react';
 import { createClient } from '../../prismicio';
 
@@ -17,7 +16,7 @@ export function Homepage({ withMember }: { withMember: boolean }) {
       const client = createClient();
       const articles = await client.getByTag('index');
       setMappedArticles(
-        articles.results.map((article) => ({
+        articles.results.map((article: any) => ({
           uid: article.uid,
           data: {
             featureImageUrl: article.data.featureImageUrl,
