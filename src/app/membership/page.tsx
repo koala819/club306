@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Step } from './Step';
-import { Form } from './Form';
+import { Step } from '@/components/membership/Step';
+import { Form } from '@/components/membership/Form';
 
 export default function Page() {
   const [step, setStep] = useState(1);

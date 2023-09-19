@@ -1,5 +1,5 @@
 'use client';
-import { CardStaff } from './CardStaff';
+import { CardStaff } from '@/components/CardStaff';
 
 export default function Staff() {
   const StaffMember = [
