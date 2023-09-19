@@ -15,7 +15,7 @@ import { TiArrowBack } from 'react-icons/ti';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { MailPwd, PersonalInfo, Vehicles } from '@/app/models';
+import { MailPwd, PersonalInfo, Vehicles } from '@/types/models';
 import bcrypt from 'bcryptjs';
 
 export const SignIn = ({

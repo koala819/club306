@@ -8,7 +8,7 @@ import { Summary } from './Summary';
 import { Paypal } from './Paypal';
 import { SignIn } from './SignIn';
 import { ThankYou } from './ThankYou';
-import { MailPwd, PersonalInfo, Vehicles } from '@/app/models';
+import { MailPwd, PersonalInfo, Vehicles } from '@/types/models';
 
 export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
   const { data: session } = useSession();

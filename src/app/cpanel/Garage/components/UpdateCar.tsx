@@ -11,7 +11,7 @@ import {
   updateCarMin,
   updateCarModel,
 } from '@/lib/supabase';
-import { Color, Finition, Model } from '@/app/models';
+import { Color, Finition, Model } from '@/types/models';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function UpdateCar({

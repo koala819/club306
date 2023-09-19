@@ -1,6 +1,6 @@
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { TiArrowBack } from 'react-icons/ti';
-import { PersonalInfo } from '../models';
+import { PersonalInfo } from '@/types/models';
 // import { Button, ConfigProvider } from 'antd';
 // import { LeftCircleFilled } from '@ant-design/icons';
 

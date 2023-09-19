@@ -12,7 +12,7 @@ import {
   returnMemberInfo,
   sendMailNewCarCPanel,
 } from '@/lib/supabase';
-import { Color, Finition, Model, Vehicles } from '@/app/models';
+import { Color, Finition, Model, Vehicles } from '@/types/models';
 // import RootLayout from '@/app/layout';
 // import CustomLayout from '../layout';
 import ClipLoader from 'react-spinners/ClipLoader';

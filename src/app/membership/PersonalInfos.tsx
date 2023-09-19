@@ -4,7 +4,7 @@ import React from 'react';
 import { DateField, DatePicker } from '@/components/ui/date-picker';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { PersonalInfo } from '@/app/models';
+import { PersonalInfo } from '@/types/models';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';

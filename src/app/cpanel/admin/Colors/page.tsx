@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { PhotoshopPicker } from 'react-color';
 import { getAllColors } from '@/lib/supabase';
-import { Color } from '@/app/models';
+import { Color } from '@/types/models';
 import { recordModifyColorInCpanel } from '@/lib/supabase';
 
 export default function Colors() {

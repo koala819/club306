@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { useEffect, useState } from 'react';
-import { MailPwd, PersonalInfo, Vehicles } from '../models';
+import { MailPwd, PersonalInfo, Vehicles } from '@/types/models';
 import { getMemberId, record } from '@/lib/supabase';
 import { RxAvatar } from 'react-icons/rx';
 import { GiFinishLine } from 'react-icons/gi';

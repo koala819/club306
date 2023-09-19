@@ -8,7 +8,7 @@ import {
   getAllFinitions,
   getAllModels,
 } from '../../lib/supabase';
-import { Color, Finition, Model, Vehicles } from '@/app/models';
+import { Color, Finition, Model, Vehicles } from '@/types/models';
 import { TiArrowBack } from 'react-icons/ti';
 
 export const Garage = ({

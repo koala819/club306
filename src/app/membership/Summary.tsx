@@ -3,7 +3,7 @@ import React from 'react';
 // import { Button, ConfigProvider } from 'antd';
 // import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 import { TiArrowBack } from 'react-icons/ti';
-import { PersonalInfo, Vehicles } from '@/app/models';
+import { PersonalInfo, Vehicles } from '@/types/models';
 
 export const Summary = ({
   setStep,
