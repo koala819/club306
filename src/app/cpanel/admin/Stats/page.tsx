@@ -4,8 +4,6 @@ import InscriptionByMonth from './components/InscriptionByMonth';
 import Car from './components/Car';
 import Members from './components/Members';
 import Age from './components/Age';
-import RootLayout from '@/app/layout';
-import CustomLayout from '../../layout';
 
 export default function Home() {
   useEffect(() => {
@@ -20,21 +18,17 @@ export default function Home() {
   }, []);
 
   return (
-    <RootLayout hideNavbar hideFooter>
-      <CustomLayout>
-        <div className="flex-grow bg-gray-100 p-4 ">
-          <section className="text-gray-600 body-font">
-            <div
-            // className="container px-5 py-24 "
-            >
-              <Members />
-              <Car />
-              <InscriptionByMonth />
-              <Age />
-            </div>
-          </section>
+    <div className="flex-grow bg-gray-100 p-4 ">
+      <section className="text-gray-600 body-font">
+        <div
+        // className="container px-5 py-24 "
+        >
+          <Members />
+          <Car />
+          <InscriptionByMonth />
+          <Age />
         </div>
-      </CustomLayout>
-    </RootLayout>
+      </section>
+    </div>
   );
 }

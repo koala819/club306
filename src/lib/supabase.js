@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
 async function addCar(vehicles, memberId) {
@@ -210,51 +210,52 @@ async function checkMail(mail) {
 
 async function checkRegisteredMember(email, pwd) {
   try {
-    const { data, error } = await supabase
-      .from('members')
-      .select('id, first_name, last_name, password')
-      .eq('email', email)
-      .limit(1);
-    if (error) {
-      // Gérer l'erreur de la requête Supabase ici
-      console.log('erreur', error);
-    } else if (data.length === 0) {
-      // Aucun utilisateur trouvé avec cet e-mail
-      console.log('Aucun utilisateur');
-    } else {
-      const userData = data[0];
-      const hashedPassword = userData.password; // Récupérez le mot de passe haché depuis la base de données
-      const passwordMatch = await bcrypt.compare(pwd, hashedPassword);
+    const { data: signInData, error: signInError } =
+      await supabase.auth.signInWithPassword({
+        email: email,
+        password: pwd,
+      });
 
-      if (passwordMatch) {
-        // Le mot de passe correspond, vous pouvez autoriser la connexion ici
-        console.log('Mot de passe correspond');
-        const dataJson = JSON.stringify(userData);
-        return new Response(dataJson, {
-          status: 200,
-          statusText: 'We find someone :)',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-      } else {
-        console.log('Mot de passe incorrect');
-        // Le mot de passe ne correspond pas
-        // Gérer le cas d'authentification incorrecte ici
-      }
+    if (signInError) {
+      return {
+        statusText: signInError.message,
+        status: signInError.status,
+      };
     }
-    // if (data.length > 0) {
 
-    // }
-    // return false;
+    try {
+      const { data, error } = await supabase
+        .from('members')
+        .select('*')
+        .eq('email', signInData.user.email)
+        .limit(1);
+
+      if (error) {
+        return {
+          statusText: error.message,
+          status: error.status,
+        };
+      }
+
+      return {
+        statusText: {
+          id: data[0].id,
+          email: signInData.user.email,
+          name: data[0].last_name + ' ' + data[0].first_name,
+        },
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        statusText: error.message,
+        status: 407,
+      };
+    }
   } catch (error) {
-    return new Response(JSON.stringify(error), {
+    return {
+      statusText: error.message,
       status: 406,
-      statusText: 'Error with supabase request',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    };
   }
 }
 
@@ -797,6 +798,20 @@ async function getMemberName(id) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
   }
+}
+
+function getTokenFromSupabase(access_token) {
+  const options = {};
+
+  if (access_token) {
+    options.global = {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    };
+  }
+
+  return supabase;
 }
 
 async function ourPartners() {
@@ -1576,6 +1591,7 @@ export {
   getHexaCarColor,
   getMemberCars,
   getMemberId,
+  getTokenFromSupabase,
   ourPartners,
   record,
   recordModifyColorInCpanel,

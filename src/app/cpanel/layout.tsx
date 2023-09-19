@@ -1,4 +1,3 @@
-'use client';
 // import { useSession } from 'next-auth/react';
 // import ClipLoader from 'react-spinners/ClipLoader';
 import Side from './components/Side';
@@ -18,15 +17,17 @@ export default function CustomLayout({
   // ) {
   /* USER REGISTERED */
   return (
-    <section>
-      <div className="flex h-screen">
-        <Side />
-        <div className="flex flex-col flex-1">
-          <Top />
-          {children}
+    <html lang="fr" suppressHydrationWarning>
+      <body>
+        <div className="flex h-screen">
+          <Side />
+          <div className="flex flex-col flex-1">
+            <Top />
+            {children}
+          </div>
         </div>
-      </div>
-    </section>
+      </body>
+    </html>
   );
   // }
   // return (

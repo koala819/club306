@@ -11,7 +11,7 @@ export interface Finition {
 
 export interface MailPwd {
   email: string;
-  pwd: string;
+  pwd?: string;
   cpwd?: string;
 }
 

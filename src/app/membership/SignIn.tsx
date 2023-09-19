@@ -62,10 +62,14 @@ export const SignIn = ({
     const { email, pwd } = data;
 
     try {
-      const hashedPwd = await bcrypt.hash(pwd, 12);
-      const mailInfoWithHashedPwd: MailPwd = { email, pwd: hashedPwd };
-      setMailInfo(mailInfoWithHashedPwd);
-      setStep((s: number) => s + 1);
+      if (typeof pwd === 'string') {
+        const hashedPwd = await bcrypt.hash(pwd, 12);
+        const mailInfoWithHashedPwd: MailPwd = { email, pwd: hashedPwd };
+        setMailInfo(mailInfoWithHashedPwd);
+        setStep((s: number) => s + 1);
+      } else {
+        console.error('Invalid password:', pwd);
+      }
     } catch (error) {
       console.error('Error hashing password:', error);
     }

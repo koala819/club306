@@ -6,7 +6,7 @@ import picture306 from '../../public/images/logoClub306.png';
 import Avp from '../../public/images/Logo_AVP.png';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
-import { signOut, useSession } from 'next-auth/react';
+// import { signOut, useSession } from 'next-auth/react';
 import { checkForStartSession } from '@/lib/supabase';
 import { CiMail } from 'react-icons/ci';
 import { IoIosContact } from 'react-icons/io';
@@ -19,23 +19,23 @@ export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
-  useEffect(() => {
-    if (session?.user !== undefined) {
-      if (Object.keys(session?.user).length !== 0) {
-        checkForStartSession(session).then((response) => {
-          setRegisteredMember(response);
-        });
-      } else {
-        // console.log('we have a standard account with login / pwd');
-        setRegisteredMember(true);
-      }
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session?.user !== undefined) {
+  //     if (Object.keys(session?.user).length !== 0) {
+  //       checkForStartSession(session).then((response) => {
+  //         setRegisteredMember(response);
+  //       });
+  //     } else {
+  //       // console.log('we have a standard account with login / pwd');
+  //       setRegisteredMember(true);
+  //     }
+  //   }
+  // }, [session]);
 
   return (
     <div className="relative ">
@@ -628,7 +628,7 @@ export const Navbar = () => {
 };
 
 async function _handleGoogleSignout() {
-  await signOut({
-    callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
-  });
+  // await signOut({
+  //   callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
+  // });
 }

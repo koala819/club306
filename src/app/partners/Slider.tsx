@@ -11,7 +11,7 @@ import { checkForStartSession, ourPartners } from '../../lib/supabase';
 import Image from 'next/image';
 
 export const Slider = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [registredMember, setRegistredMember] = useState(false);
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
     null
@@ -45,17 +45,17 @@ export const Slider = () => {
     },
   ];
 
-  useEffect(() => {
-    if (session?.user !== undefined) {
-      if (Object.keys(session?.user).length !== 0) {
-        checkForStartSession(session).then((response) => {
-          setRegistredMember(response);
-        });
-      } else {
-        setRegistredMember(true);
-      }
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session?.user !== undefined) {
+  //     if (Object.keys(session?.user).length !== 0) {
+  //       checkForStartSession(session).then((response) => {
+  //         setRegistredMember(response);
+  //       });
+  //     } else {
+  //       setRegistredMember(true);
+  //     }
+  //   }
+  // }, [session]);
 
   useEffect(() => {
     const fetchData = async () => {

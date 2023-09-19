@@ -1,29 +1,43 @@
-'use client';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
-import '@/app/globals.css';
-import Provider from '@/components/Provider';
 import { ReactNode } from 'react';
 import { Montserrat } from 'next/font/google';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import '@/app/globals.css';
+import { Footer } from '@/components/Footer';
+import { Navbar } from '@/components/Navbar';
+// import Provider from '@/components/Provider';
+import AuthProvider from '@/components/common/AuthProvider';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
   hideNavbar = false,
   hideFooter = false,
 }: LayoutProps) {
   // const session = getServerSession(authOptions);
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || '';
 
   return (
     <html lang="fr" className="light" suppressHydrationWarning>
       <body className={`${montserrat.className}  min-h-screen min-w-screen`}>
         <div className=" flex flex-col h-screen">
-          <Provider>
-            {!hideNavbar && <Navbar />}
+          {/* <Provider> */}
+          {!hideNavbar && <Navbar />}
+          <AuthProvider accessToken={accessToken}>
             <main className="flex-1 ">{children}</main>
-            {!hideFooter && <Footer />}
-          </Provider>
+          </AuthProvider>
+          {/* <main className="flex-1 ">{children}</main> */}
+          {!hideFooter && <Footer />}
+          {/* </Provider> */}
         </div>
       </body>
     </html>

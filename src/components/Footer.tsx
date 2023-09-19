@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { BsFacebook } from 'react-icons/bs';
 import { RiInstagramFill, RiCopyleftLine } from 'react-icons/ri';
-import { useSession } from 'next-auth/react';
-import { checkForStartSession } from '@/lib/supabase';
 
-export const Footer = () => {
-  const [registeredMember, setRegisteredMember] = useState(false);
-  const { data: session } = useSession();
+export const Footer = async () => {
+  const supabase = createServerComponentClient({ cookies });
 
-  useEffect(() => {
-    if (session?.user !== undefined) {
-      if (Object.keys(session?.user).length !== 0) {
-        checkForStartSession(session).then((response) => {
-          setRegisteredMember(response);
-        });
-      } else {
-        console.log('we have a standard account with login / pwd');
-        setRegisteredMember(true);
-      }
-    }
-  }, [session]);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div>
       <footer
         // className="relative bg-[#3B578E] text-white pt-4"
         className={`relative  text-white pt-4 ${
-          registeredMember
+          user
             ? 'bg-[#ADA075] dark:bg-[#6a6145]'
             : 'bg-[#3B578E] dark:bg-[#2b2c2e]'
         }`}

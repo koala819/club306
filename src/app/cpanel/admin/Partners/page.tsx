@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ClipLoader from 'react-spinners/ClipLoader';
-import RootLayout from '@/app/layout';
-import CustomLayout from '../../layout';
 import { ourPartners } from '@/lib/supabase';
 import { PartnerInfoType } from '@/types/Components';
 import EditPartner from './components/EditPartner';
@@ -77,68 +75,66 @@ export default function OurPartners() {
   };
 
   return (
-    <RootLayout hideFooter hideNavbar>
-      <CustomLayout>
-        {displayLoader && (
-          <section className="fixed grid h-screen w-screen place-items-center bg-white top-0 left-0 z-[1000]">
-            <ClipLoader
-              loading={true}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </section>
-        )}
-        <div className="mb-4 text-right">
-          <button
-            onClick={handleAddNewPartner}
-            className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded"
-          >
-            Ajouter un nouveau partenaire
-          </button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {partnerData !== null &&
-            partnerData
-              .slice()
-              .sort((a, b) => (a.title ?? '').localeCompare(b.title ?? ''))
-              .map((partner) => (
-                <div
-                  key={partner.id}
-                  className="border border-gray-300 rounded p-4"
-                >
-                  <Image
-                    src={partner.linkImg || ''}
-                    alt={partner.alt || ''}
-                    className="w-full h-auto mb-2"
-                    width={1000}
-                    height={1000}
-                  />
-                  <h3 className="text-lg font-semibold">{partner.title}</h3>
-                  <p className="text-gray-600">{partner.site}</p>
-                  <p className="text-gray-700">Code: {partner.code}</p>
-                  <p className="text-green-600">Remise: {partner.remise}</p>
-                  <div className="flex justify-center">
-                    <button
-                      onClick={() => handleEditClick(partner)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mt-2"
-                    >
-                      Modifier
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(partner)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded mt-2 ml-4"
-                    >
-                      Supprimer
-                    </button>
-                  </div>
+    <>
+      {displayLoader && (
+        <section className="fixed grid h-screen w-screen place-items-center bg-white top-0 left-0 z-[1000]">
+          <ClipLoader
+            loading={true}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </section>
+      )}
+      <div className="mb-4 text-right">
+        <button
+          onClick={handleAddNewPartner}
+          className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded"
+        >
+          Ajouter un nouveau partenaire
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {partnerData !== null &&
+          partnerData
+            .slice()
+            .sort((a, b) => (a.title ?? '').localeCompare(b.title ?? ''))
+            .map((partner) => (
+              <div
+                key={partner.id}
+                className="border border-gray-300 rounded p-4"
+              >
+                <Image
+                  src={partner.linkImg || ''}
+                  alt={partner.alt || ''}
+                  className="w-full h-auto mb-2"
+                  width={1000}
+                  height={1000}
+                />
+                <h3 className="text-lg font-semibold">{partner.title}</h3>
+                <p className="text-gray-600">{partner.site}</p>
+                <p className="text-gray-700">Code: {partner.code}</p>
+                <p className="text-green-600">Remise: {partner.remise}</p>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => handleEditClick(partner)}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded mt-2"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    onClick={() => handleDeleteClick(partner)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded mt-2 ml-4"
+                  >
+                    Supprimer
+                  </button>
                 </div>
-              ))}
-        </div>
-        {isEditing && (
-          <EditPartner partner={selectedPartner} onCancel={handleCancelClick} />
-        )}
-      </CustomLayout>
-    </RootLayout>
+              </div>
+            ))}
+      </div>
+      {isEditing && (
+        <EditPartner partner={selectedPartner} onCancel={handleCancelClick} />
+      )}
+    </>
   );
 }

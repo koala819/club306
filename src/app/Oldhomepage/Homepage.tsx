@@ -8,28 +8,26 @@ import Alert from '@/components/Alert';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { checkForStartSession } from '@/lib/supabase';
-import Page from './test';
 
 export const Homepage = ({ articles }: ArticlesProps) => {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
   const [registeredMember, setRegisteredMember] = useState(false);
   const [displayBox, setDisplayBox] = useState(true);
 
-  // useEffect(() => {
-  //   if (session?.user !== undefined) {
-  //     if (Object.keys(session?.user).length !== 0) {
-  //       checkForStartSession(session).then((response) => {
-  //         setRegisteredMember(response);
-  //       });
-  //     } else {
-  //       setRegisteredMember(true);
-  //     }
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    if (session?.user !== undefined) {
+      if (Object.keys(session?.user).length !== 0) {
+        checkForStartSession(session).then((response) => {
+          setRegisteredMember(response);
+        });
+      } else {
+        setRegisteredMember(true);
+      }
+    }
+  }, [session]);
 
   return (
     <div>
-      {/* <Page /> */}
       {registeredMember && displayBox && (
         <Alert setDisplayBox={setDisplayBox} />
       )}

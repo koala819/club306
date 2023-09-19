@@ -5,7 +5,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import Link from 'next/link';
 
 export default function Top() {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const [isMenuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -110,7 +110,7 @@ export default function Top() {
                   ></svg>
                 </div>
                 <div className="w-3/4 ">
-                  <h1>{session?.user?.name}</h1>
+                  <h1>{'session?.user?.name'}</h1>
                   <h2
                     className="text-gray-300"
                     style={{
@@ -120,7 +120,7 @@ export default function Top() {
                       maxWidth: '100%',
                     }}
                   >
-                    {session?.user?.email}
+                    {'session?.user?.email'}
                   </h2>
                 </div>
               </div>
