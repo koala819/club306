@@ -29,16 +29,6 @@ export default function Login() {
               'url(https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/login_background.jpg)',
           }}
         ></div>
-        {/* <div className="w-full p-8 lg:w-1/2 space-y-12">
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
-        providers={['google']}
-        localization={{
-          variables: fr,
-        }}
-      />
-    </div> */}
         <div className="w-full p-8 lg:w-1/2 space-y-12">
           <h2 className="text-2xl font-semibold text-center">
             Connexion à votre compte
@@ -47,7 +37,6 @@ export default function Login() {
           <div className="flex justify-center">
             <button
               className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
-              //   onClick={signInGoogle}
               onClick={handleSignInGoogle}
             >
               <FcGoogle size={22} className="mr-2" />
@@ -60,17 +49,17 @@ export default function Login() {
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
           <div className="flex justify-center">
-            <button
-              className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
-              // onClick={handleSignIn}
-              // onClick={handleSignInWithLoginPwd}
-              onClick={() => {
-                signIn();
-              }}
-            >
-              <IoMdMail size={22} className="mr-2" />
-              Connexion avec E-mail
-            </button>
+            <Link href="/signIn">
+              <button
+                className="flex items-center px-4 py-2 border-blue-600 border text-blue-600 bg-white rounded-lg duration-150 hover:bg-blue-100 active:shadow-lg"
+                // onClick={() => {
+                //   signIn();
+                // }}
+              >
+                <IoMdMail size={22} className="mr-2" />
+                Connexion avec E-mail
+              </button>
+            </Link>
           </div>
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 md:w-1/4"></span>
