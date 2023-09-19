@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { contact_validate } from '../../lib/validate';
+import { contact_validate } from '@/lib/validate';
 
 export default function Contact() {
   const [confirmationSend, setConfirmationSend] = useState<boolean>(false);

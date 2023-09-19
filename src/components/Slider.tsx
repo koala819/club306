@@ -5,7 +5,7 @@ import 'react-slideshow-image/dist/styles.css';
 import styles from '@/styles/Slider.module.css';
 import { PartnerInfoType } from '@/types/Components';
 
-import { checkForStartSession, ourPartners } from '../../lib/supabase';
+import { checkForStartSession, ourPartners } from '@/lib/supabase';
 
 import Image from 'next/image';
 

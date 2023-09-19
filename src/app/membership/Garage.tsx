@@ -3,11 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {
-  getAllColors,
-  getAllFinitions,
-  getAllModels,
-} from '../../lib/supabase';
+import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/types/models';
 import { TiArrowBack } from 'react-icons/ti';
 
