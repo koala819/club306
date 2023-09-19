@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdMail } from 'react-icons/io';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';

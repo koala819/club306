@@ -31,12 +31,20 @@ export default async function RootLayout({
       <body className={`${montserrat.className}  min-h-screen min-w-screen`}>
         <div className=" flex flex-col h-screen">
           {/* <Provider> */}
-          {!hideNavbar && <Navbar />}
+          {!hideNavbar && session ? (
+            <Navbar withMember={true} />
+          ) : (
+            <Navbar withMember={false} />
+          )}
           <AuthProvider accessToken={accessToken}>
             <main className="flex-1 ">{children}</main>
           </AuthProvider>
           {/* <main className="flex-1 ">{children}</main> */}
-          {!hideFooter && <Footer />}
+          {!hideFooter && session ? (
+            <Footer withMember={true} />
+          ) : (
+            <Footer withMember={false} />
+          )}
           {/* </Provider> */}
         </div>
       </body>

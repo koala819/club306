@@ -1,35 +1,19 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { createClient } from '../../prismicio';
-import { Homepage } from './homepage/Homepage';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { Homepage } from '@/components/Homepage';
 
-export default function RootPage() {
-  const [mappedArticles, setMappedArticles] = useState<any>([]);
+export default async function RootPage() {
+  const supabase = createServerComponentClient({ cookies });
 
-  useEffect(() => {
-    async function handle() {
-      const client = createClient();
-      const articles = await client.getByTag('index');
-      setMappedArticles(
-        articles.results.map((article) => ({
-          uid: article.uid,
-          data: {
-            featureImageUrl: article.data.featureImageUrl,
-            dateEvent: article.data.dateEvent,
-            title: article.data.title,
-            description: article.data.description,
-          },
-        }))
-      );
-    }
-    handle();
-  }, []);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <div>
       <title>Home</title>
       <meta name="description" content="My homepage" />
-      <Homepage articles={mappedArticles} />
+      {user ? <Homepage withMember={true} /> : <Homepage withMember={false} />}
     </div>
   );
 }

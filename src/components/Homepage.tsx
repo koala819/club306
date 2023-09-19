@@ -1,10 +1,16 @@
 'use client';
+import { Picture306 } from './Picture306';
+import { Presentation } from './Presentation';
+import { BlogSection } from './BlogSection';
+import { Partners } from './Partners';
+import Alert from './Alert';
+import { ArticlesProps } from '@/types/Components';
 import { useEffect, useState } from 'react';
 import { createClient } from '../../prismicio';
-import { Homepage } from './OLDhomepage/Homepage';
 
-export default function RootPage() {
+export function Homepage({ withMember }: { withMember: boolean }) {
   const [mappedArticles, setMappedArticles] = useState<any>([]);
+  const [displayBox, setDisplayBox] = useState(true);
 
   useEffect(() => {
     async function handle() {
@@ -27,9 +33,13 @@ export default function RootPage() {
 
   return (
     <div>
-      <title>Home</title>
-      <meta name="description" content="My homepage" />
-      <Homepage articles={mappedArticles} />
+      {withMember && displayBox && <Alert setDisplayBox={setDisplayBox} />}
+      <div className="hidden md:block">
+        <Picture306 />
+      </div>
+      <Presentation />
+      <BlogSection articles={mappedArticles} />
+      <Partners />
     </div>
   );
 }

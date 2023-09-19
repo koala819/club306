@@ -1,7 +1,7 @@
 'use client';
 import { AiFillStar } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
-import styles from './reactIntersectionObserver.module.css';
+import styles from '@/styles/reactIntersectionObserver.module.css';
 import Link from 'next/link';
 
 export const Adhesion = () => {

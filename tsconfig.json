@@ -30,11 +30,12 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/lib/supabase.js",
-    "src/app/cpanel/components",
-    "src/app/cpanel/components/Barchart",
+    "src/app/(dash)/cpanel/components",
+    "src/app/(dash)/cpanel/components/Barchart",
     "src/components/ui/calendar.jsx",
     "src/components/ui/date-picker.jsx",
-    "src/app/cpanel/Event/page.jsx"
+    "src/app/(dash)/cpanel/Event/page.jsx",
+    "src/app/api/auth/[...auth0]/OLDroute.js"
   ],
   "exclude": ["node_modules"]
 }

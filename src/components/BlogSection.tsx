@@ -2,8 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
-import styles from './reactIntersectionObserver.module.css';
-import { ArticleProps, ArticlesProps } from '../types/Components';
+import styles from '@/styles/reactIntersectionObserver.module.css';
+import { ArticleProps, ArticlesProps } from '@/types/Components';
 
 export const BlogSection = ({ articles }: ArticlesProps) => {
   const { ref, inView } = useInView({

@@ -1,6 +1,6 @@
 'use client';
 import { Slider } from './Slider';
-import styles from '../homepage/reactIntersectionObserver.module.css';
+import styles from '@/styles/reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';
 
 export const Partners = () => {

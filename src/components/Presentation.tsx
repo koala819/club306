@@ -2,9 +2,9 @@
 import Image from 'next/image';
 import { BsPatchPlus } from 'react-icons/bs';
 import { Adhesion } from './Adhesion';
-import styles from './reactIntersectionObserver.module.css';
+import styles from '@/styles/reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';
-import presentationPicture from '../../../public/images/presentationPicture.jpg';
+import presentationPicture from '../../public/images/presentationPicture.jpg';
 import Link from 'next/link';
 
 export const Presentation = () => {

@@ -1,10 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
-import styles from './Slider.module.css';
-import { PartnerInfoType } from '../types/Components';
+import styles from '@/styles/Slider.module.css';
+import { PartnerInfoType } from '@/types/Components';
 
 import { checkForStartSession, ourPartners } from '../../lib/supabase';
 

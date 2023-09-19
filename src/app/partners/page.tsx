@@ -1,5 +1,5 @@
 'use client';
-import { Partners } from './Partners';
+import { Partners } from '@/components/Partners';
 
 export default function PageName() {
   return <Partners />;
