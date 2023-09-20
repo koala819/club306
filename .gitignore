@@ -3,10 +3,11 @@
 # dependencies
 /node_modules
 /.pnp
+/.vscode
 .pnp.js
 .package-lock.json
+pnpm-lock.yaml
 .env.local
-.pnpm-lock.yaml
 
 # testing
 /coverage
