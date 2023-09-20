@@ -1,31 +1,31 @@
 import { FormikErrors } from 'formik';
 
-export function contact_validate(values: any) {
-  const errors: FormikErrors<FormValues> = {};
+// export function contact_validate(values: any) {
+//   const errors: FormikErrors<FormValues> = {};
 
-  if (!values.email) {
-    errors.email = 'Obligatoire';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Adresse email incorrecte';
-  } else if (values.email === 'alain.proviste@club306.fr') {
-    console.log('Veuillez saisir votre adresse mail');
-    errors.email = 'Veuillez saisir votre adresse mail';
-  }
+//   if (!values.email) {
+//     errors.email = 'Obligatoire';
+//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//     errors.email = 'Adresse email incorrecte';
+//   } else if (values.email === 'alain.proviste@club306.fr') {
+//     console.log('Veuillez saisir votre adresse mail');
+//     errors.email = 'Veuillez saisir votre adresse mail';
+//   }
 
-  if (!values.first_name) {
-    errors.first_name = 'Obligatoire';
-  } else if (values.first_name === 'AlainP') {
-    errors.first_name = 'Veuillez saisir votre prénom';
-  }
+//   if (!values.first_name) {
+//     errors.first_name = 'Obligatoire';
+//   } else if (values.first_name === 'AlainP') {
+//     errors.first_name = 'Veuillez saisir votre prénom';
+//   }
 
-  if (!values.msg) {
-    errors.msg = 'Obligatoire';
-  } else if (values.msg.includes('Lorem ipsum')) {
-    errors.msg = 'Veuillez saisir votre message';
-  }
+//   if (!values.msg) {
+//     errors.msg = 'Obligatoire';
+//   } else if (values.msg.includes('Lorem ipsum')) {
+//     errors.msg = 'Veuillez saisir votre message';
+//   }
 
-  return errors;
-}
+//   return errors;
+// }
 
 export default function login_validate(values: any) {
   const errors: FormikErrors<FormValues> = {};
