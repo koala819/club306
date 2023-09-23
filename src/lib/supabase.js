@@ -818,8 +818,8 @@ async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*');
 }
 
-async function record(personalInfo, vehicles, email, memberId) {
-  const rspRecMember = await recordMember(personalInfo, email, memberId);
+async function record(personalInfo, vehicles, email, newMemberId) {
+  const rspRecMember = await recordMember(personalInfo, email, newMemberId);
   const dataRecMember = await rspRecMember.json();
   if (dataRecMember.status !== 200) {
     return NextResponse.json({
@@ -828,7 +828,7 @@ async function record(personalInfo, vehicles, email, memberId) {
     });
   }
 
-  const rspRecCar = await recordCar(vehicles, memberId);
+  const rspRecCar = await recordCar(vehicles, newMemberId);
   const dataRecCar = await rspRecCar.json();
   if (dataRecCar.status !== 200) {
     return NextResponse.json({
@@ -967,19 +967,9 @@ async function recordCarInMuseum(car, memberId, reason) {
   }
 }
 
-async function recordMember(personalInfo, email, memberId) {
-  const {
-    address,
-    birth_date,
-    // email,
-    first_name,
-    last_name,
-    // member_id,
-    // pwd,
-    phone,
-    town,
-    zip_code,
-  } = personalInfo;
+async function recordMember(personalInfo, email, newMemberId) {
+  const { address, birth_date, first_name, last_name, phone, town, zip_code } =
+    personalInfo;
   const countryCodes = {
     33: 'France',
     32: 'Belgique',
@@ -991,17 +981,16 @@ async function recordMember(personalInfo, email, memberId) {
 
   const countryCode = phone.substring(0, 2);
   const country = countryCodes[countryCode] || '';
-  console.log('birth_date', birth_date);
   try {
     const { error } = await supabase.from('members').insert({
-      id: memberId,
+      id: newMemberId,
+      cotisation: true,
       address,
       birth_date,
       country,
-      email: email.email === undefined ? email : email.email,
+      email: email,
       first_name: first_name.charAt(0).toUpperCase() + first_name.slice(1),
       last_name: last_name.toUpperCase(),
-      password: email.pwd,
       phone,
       town,
       zip_code,
