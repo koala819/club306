@@ -1,40 +1,24 @@
+import Link from 'next/link';
+import { DisplaySVG } from '@/components/DisplaySvg';
+
+import CustomLayout from './layout';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 // import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import RootLayout from '@/app/layout';
-import CustomLayout from './layout';
-import { DisplaySVG } from '@/components/DisplaySvg';
+// import RootLayout from '@/app/layout';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-// const NoSSR = dynamic(() => import('./components/No-ssr'), { ssr: false });
-
-export default async function CPanel() {
-  // const [isClient, setIsClient] = useState(false);
-  // const { data: session, status } = useSession();
-
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // console.log('session', session);
-  // return (
-  //   // <RootLayout hideNavbar hideFooter>
-  //   // <CustomLayout>
-
-  //   // </CustomLayout>
-  //   // {/* </RootLayout> */}
-  // );
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (!session) {
-    redirect('/login');
-  }
+export default function Page() {
+  // const supabase = createServerComponentClient({ cookies });
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // if (!session) {
+  //   redirect('/login');
+  // }
 
   return (
     <>

@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-// import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,12 +12,10 @@ import {
   sendMailNewCarCPanel,
 } from '@/lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/types/models';
-// import RootLayout from '@/app/layout';
-// import CustomLayout from '../layout';
+
 import ClipLoader from 'react-spinners/ClipLoader';
-export default function AddCar() {
+export default function AddCar({ session }: any) {
   const [displayLoader, setDisplayLoader] = useState(false);
-  // const { data: session } = useSession();
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
@@ -46,6 +43,7 @@ export default function AddCar() {
   });
 
   const handleAddVehicle = async (data: Vehicles) => {
+    console.log('data', data);
     setDisplayLoader(true);
     try {
       const response = await addCar([data], member?.id);
@@ -60,12 +58,11 @@ export default function AddCar() {
     } catch (error) {
       console.log('Error', error);
     }
-    // reset();
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo('session?.user?.email');
+      const response = await returnMemberInfo(session?.user?.email);
       if (response !== false && response[0] !== undefined) {
         const memberData: Member = {
           id: response[0].id,

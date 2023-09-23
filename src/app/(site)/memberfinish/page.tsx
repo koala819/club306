@@ -9,6 +9,7 @@ export default async function Page() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  console.log('session from Google auth', session);
 
   if (!session) {
     return <WaitSession />;

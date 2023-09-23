@@ -1,43 +1,51 @@
-// import { useSession } from 'next-auth/react';
-// import ClipLoader from 'react-spinners/ClipLoader';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import '@/styles/globals.css';
+import { Montserrat } from 'next/font/google';
 import Side from './components/Side';
 import Top from './components/Top';
+// import RootLayout from '@/app/layout';
 
-export default function CustomLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // const { data: session, status } = useSession();
+// import NoSession from '@/components/cpanel/NoSession';
+import AuthProvider from '@/components/AuthProvider';
 
-  // if (
-  //   status === 'authenticated' &&
-  //   session?.user?.email ===
-  //     (process.env.USR_CHECK_DB || process.env.USR_CHECK_DB2)
-  // ) {
-  /* USER REGISTERED */
+const montserrat = Montserrat({ subsets: ['latin'] });
+
+export default async function CustomLayout({ children }: LayoutProps) {
+  // const supabase = createServerComponentClient({ cookies });
+
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+
+  // const accessToken = session?.access_token || '';
+
+  // if (!session) {
+  //   return (
+  //     <RootLayout hideNavbar hideFooter>
+  //       <></>
+  //     </RootLayout>
+  //   );
+  // }
   return (
-    <html lang="fr" suppressHydrationWarning>
-      <body>
-        <div className="flex h-screen">
-          <Side />
-          <div className="flex flex-col flex-1">
-            <Top />
-            {children}
-          </div>
+    <html>
+      <body
+        className={`${montserrat.className} flex h-screen min-h-screen min-w-screen`}
+      >
+        <Side />
+        <div className="flex flex-col flex-1">
+          <Top />
+          {/* <AuthProvider accessToken={accessToken}> */}
+          <main className="flex-1 ">{children}</main>
+          {/* </AuthProvider> */}
         </div>
       </body>
     </html>
   );
-  // }
-  // return (
-  //   <section className="grid h-screen place-items-center">
-  //     <ClipLoader
-  //       loading={true}
-  //       size={50}
-  //       aria-label="Loading Spinner"
-  //       data-testid="loader"
-  //     />
-  //   </section>
-  // );
+}
+
+interface LayoutProps {
+  children: React.ReactNode;
+  hideNavbar?: boolean;
+  hideFooter?: boolean;
 }

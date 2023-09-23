@@ -13,6 +13,7 @@ export default async function Page() {
   if (!session) {
     return <WaitSession />;
   }
+  console.log('session email & pwd', session);
   return (
     <div className="fixed inset-0 flex justify-center items-center">
       <div className="flex flex-col items-center justify-center  bg-[#ADA075] p-4 rounded-lg shadow-lg text-blue-700">

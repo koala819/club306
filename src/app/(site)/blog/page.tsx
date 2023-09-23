@@ -1,4 +1,4 @@
-import { createClient } from '../../../prismicio';
+import { createClient } from '../../../../prismicio';
 import { Blog } from '@/components/Blog';
 
 export default async function Handle() {

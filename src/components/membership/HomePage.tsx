@@ -19,7 +19,6 @@ export default function HomePage({
         <div className="h-full lg:grid lg:grid-cols-12">
           <Step step={currentStep} />
           <Form step={currentStep} setStep={setStep} session={session} />
-          {/* <Form step={currentStep} setStep={setStep} /> */}
         </div>
       </main>
     </>
