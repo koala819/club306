@@ -7,15 +7,8 @@ import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/types/models';
 import { TiArrowBack } from 'react-icons/ti';
 
-export const Garage = ({
-  setStep,
-  setVehicles,
-  vehicles,
-}: {
-  setStep: any;
-  setVehicles: React.Dispatch<React.SetStateAction<Vehicles[]>>;
-  vehicles: Vehicles[];
-}) => {
+export const Garage = ({ setStep }: any) => {
+  const [vehicles, setVehicles] = useState<Vehicles[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
@@ -42,6 +35,14 @@ export const Garage = ({
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    const storedVehiclesJSON = sessionStorage.getItem('vehicles');
+    if (storedVehiclesJSON) {
+      const storedVehicles = JSON.parse(storedVehiclesJSON);
+      setVehicles(() => storedVehicles);
+    }
+  }, []);
+
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
@@ -54,6 +55,7 @@ export const Garage = ({
   };
 
   const handleNext = () => {
+    sessionStorage.setItem('vehicles', JSON.stringify(vehicles));
     setStep((s: number) => s + 1);
   };
 

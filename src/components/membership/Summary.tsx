@@ -1,19 +1,28 @@
 'use client';
-import React from 'react';
-// import { Button, ConfigProvider } from 'antd';
-// import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
 import { TiArrowBack } from 'react-icons/ti';
 import { PersonalInfo, Vehicles } from '@/types/models';
 
-export const Summary = ({
-  setStep,
-  personalInfo,
-  vehicles,
-}: {
-  setStep: any;
-  personalInfo: PersonalInfo;
-  vehicles: Vehicles[];
-}) => {
+export const Summary = ({ setStep }: any) => {
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>(
+    undefined
+  );
+  const [vehicles, setVehicles] = useState<Vehicles[]>([]);
+
+  useEffect(() => {
+    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
+    if (storedPersonalInfoJSON) {
+      const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON);
+      setPersonalInfo(() => storedPersonalInfo);
+    }
+
+    const storedVehicleJSON = sessionStorage.getItem('vehicles');
+    if (storedVehicleJSON) {
+      const storedVehicle = JSON.parse(storedVehicleJSON);
+      setVehicles(() => storedVehicle);
+    }
+  }, []);
+
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
@@ -38,29 +47,32 @@ export const Summary = ({
           </h3>
           <ul className="space-y-4">
             <li>
-              <span className="font-bold">Nom:</span> {personalInfo.first_name}
+              <span className="font-bold">Nom:</span> {personalInfo?.first_name}
             </li>
             <li>
               <span className="font-bold">Prénom:</span>{' '}
-              {personalInfo.last_name}
+              {personalInfo?.last_name}
             </li>
             <li>
-              <span className="font-bold">Adresse:</span> {personalInfo.address}
+              <span className="font-bold">Adresse:</span>{' '}
+              {personalInfo?.address}
             </li>
             <li>
               <span className="font-bold">Code Postal:</span>{' '}
-              {personalInfo.zip_code}
+              {personalInfo?.zip_code}
             </li>
             <li>
-              <span className="font-bold">Ville:</span> {personalInfo.town}
+              <span className="font-bold">Ville:</span> {personalInfo?.town}
             </li>
             <li>
               <span className="font-bold">Date anniversaire:</span>{' '}
-              {new Date(personalInfo.birth_date).toLocaleDateString('fr-FR')}
+              {new Date(personalInfo?.birth_date || '').toLocaleDateString(
+                'fr-FR'
+              )}
             </li>
             <li>
               <span className="font-bold">Numéro de Téléphone:</span>{' '}
-              {`+${personalInfo.phone.slice(0, 2)} ${personalInfo.phone.slice(
+              {`+${personalInfo?.phone.slice(0, 2)} ${personalInfo?.phone.slice(
                 2
               )}`}
             </li>

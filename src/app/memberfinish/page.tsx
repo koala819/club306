@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import HomePage from '@/components/membership/HomePage';
+import WaitSession from '@/components/membership/WaitSession';
+import ThankYou from '@/components/membership/ThankYou';
 
 export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
@@ -9,5 +10,9 @@ export default async function Page() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  return <HomePage step={1} session={session} />;
+  if (!session) {
+    return <WaitSession />;
+  }
+
+  return <ThankYou session={session} />;
 }

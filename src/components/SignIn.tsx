@@ -6,10 +6,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-// import { signIn } from 'next-auth/react';
 import { TiArrowBack } from 'react-icons/ti';
 
-export default function SignIn() {
+export default function SignIn({ setDisplaySignIn }: any) {
   const [showPwd, setShowPwd] = useState(false);
   const supabase = createClientComponentClient();
 
@@ -34,7 +33,6 @@ export default function SignIn() {
 
   async function onSubmit(values: MailPwd) {
     const { error } = await supabase.auth.signInWithPassword({
-      // const { error } = await supabase.auth.signUp({
       email: values.email,
       password: values.pwd,
     });
@@ -128,12 +126,13 @@ export default function SignIn() {
                 )}
               </div>
               <div className="flex  w-full justify-between mt-4">
-                <Link href="/login">
-                  <button className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg">
-                    <TiArrowBack size={22} className="mr-2" />
-                    Précédent
-                  </button>
-                </Link>
+                <button
+                  className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+                  onClick={() => setDisplaySignIn(false)}
+                >
+                  <TiArrowBack size={22} className="mr-2" />
+                  Précédent
+                </button>
                 <button
                   className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
                   type="submit"

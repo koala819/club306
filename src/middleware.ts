@@ -9,5 +9,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/cpanel/:path*'],
+  matcher: ['/', '/cpanel/:path*', '/memberfinish'],
 };

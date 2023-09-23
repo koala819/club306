@@ -1,16 +1,17 @@
+import { useEffect, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { TiArrowBack } from 'react-icons/ti';
 import { PersonalInfo } from '@/types/models';
-// import { Button, ConfigProvider } from 'antd';
-// import { LeftCircleFilled } from '@ant-design/icons';
 
-export const Paypal = ({
-  setStep,
-  personalInfo,
-}: {
-  setStep: any;
-  personalInfo: PersonalInfo;
-}) => {
+export const Paypal = ({ setStep }: any) => {
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>();
+  useEffect(() => {
+    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
+    if (storedPersonalInfoJSON) {
+      const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON);
+      setPersonalInfo(() => storedPersonalInfo);
+    }
+  }, []);
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
@@ -31,7 +32,7 @@ export const Paypal = ({
               className="font-bol text-[#3B578E]"
               style={{ fontWeight: 'bolder' }}
             >
-              {personalInfo.first_name}&nbsp;{personalInfo.last_name}
+              {personalInfo?.first_name}&nbsp;{personalInfo?.last_name}
             </h1>
             <p>, pour continuer vous devez hadhérer à notre association ^_^</p>
           </div>
@@ -41,7 +42,6 @@ export const Paypal = ({
             <span className="bg-[#3B578E] px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl text-gray-100">
               POPULAIRE
             </span>
-            {/*<h2 className='text-5xl font-bold text-left tracking-wide text-center'>CLUB 306</h2>*/}
             <h1 className="text-5xl leading-none flex items-center pb-4 mb-4 border-b border-[#3B578E]">
               <span>20 € </span>
               <span className="text-lg ml-1 font-normal ">/an</span>
@@ -137,7 +137,6 @@ export const Paypal = ({
                 onCancel={(data) => console.log('commande annulée', data)}
                 onApprove={async (data, actions) => {
                   return actions.order?.capture().then(() => {
-                    /*const name = details.payer.name?.given_name;*/
                     handleNext();
                   });
                 }}
