@@ -96,7 +96,18 @@ export default function Event() {
             )}
         </Timeline>
       ) : (
-        <ClipLoader />
+        <div className="fixed inset-0 flex justify-center items-center">
+          <div className="flex flex-col items-center justify-center  bg-white p-4 rounded-lg shadow-lg text-black">
+            <p className="text-xl font-semibold mb-4">Veuillez patienter</p>
+            <ClipLoader
+              loading={true}
+              size={50}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+            <p className="mt-8 text-black">Chargement des données ...</p>
+          </div>
+        </div>
       )}
     </>
   );

@@ -1,11 +1,9 @@
 'use client';
-import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import Link from 'next/link';
 
-export default function Top() {
-  // const { data: session, status } = useSession();
+export default function Top({ session }: any) {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -110,7 +108,7 @@ export default function Top() {
                   ></svg>
                 </div>
                 <div className="w-3/4 ">
-                  <h1>{'session?.user?.name'}</h1>
+                  <h1>{session?.user?.name}</h1>
                   <h2
                     className="text-gray-300"
                     style={{
@@ -120,7 +118,7 @@ export default function Top() {
                       maxWidth: '100%',
                     }}
                   >
-                    {'session?.user?.email'}
+                    {session?.user?.email}
                   </h2>
                 </div>
               </div>
@@ -134,7 +132,7 @@ export default function Top() {
                 <div className="text-white text-2xl pr-4">
                   <button
                     type="button"
-                    onClick={() => signOut()}
+                    // onClick={() => signOut()}
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                   >
                     Se déconnecter

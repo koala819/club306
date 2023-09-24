@@ -1,33 +1,11 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-// import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import RootLayout from '@/app/layout';
-import CustomLayout from './layout';
+
 import { DisplaySVG } from '@/components/DisplaySvg';
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import ClipLoader from 'react-spinners/ClipLoader';
 
-// const NoSSR = dynamic(() => import('./components/No-ssr'), { ssr: false });
-
-export default async function CPanel() {
-  // const [isClient, setIsClient] = useState(false);
-  // const { data: session, status } = useSession();
-
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // console.log('session', session);
-  // return (
-  //   // <RootLayout hideNavbar hideFooter>
-  //   // <CustomLayout>
-
-  //   // </CustomLayout>
-  //   // {/* </RootLayout> */}
-  // );
+export default async function Page() {
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { session },
@@ -38,7 +16,7 @@ export default async function CPanel() {
 
   return (
     <>
-      <span>Bienvenue </span>
+      <span>Bienvenue {session?.user.user_metadata.name}</span>
       <div className="flex flex-wrap text-center">
         <div className="p-4 md:w-2/3 w-full">
           <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
@@ -59,5 +37,4 @@ export default async function CPanel() {
       </div>
     </>
   );
-  // return <NoSSR />;
 }

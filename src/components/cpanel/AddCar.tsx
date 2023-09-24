@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-// import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,12 +12,10 @@ import {
   sendMailNewCarCPanel,
 } from '@/lib/supabase';
 import { Color, Finition, Model, Vehicles } from '@/types/models';
-// import RootLayout from '@/app/layout';
-// import CustomLayout from '../layout';
+
 import ClipLoader from 'react-spinners/ClipLoader';
-export default function AddCar() {
+export default function AddCar({ session }: any) {
   const [displayLoader, setDisplayLoader] = useState(false);
-  // const { data: session } = useSession();
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
@@ -65,7 +62,7 @@ export default function AddCar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo('session?.user?.email');
+      const response = await returnMemberInfo(session?.user?.email);
       if (response !== false && response[0] !== undefined) {
         const memberData: Member = {
           id: response[0].id,
@@ -142,7 +139,6 @@ export default function AddCar() {
                 id="immatriculation"
                 {...register('immatriculation')}
                 className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                  // errors.immatriculation && editIndex === null
                   errors.immatriculation ? 'border-red-500' : ''
                 }`}
                 placeholder=" "
@@ -150,14 +146,12 @@ export default function AddCar() {
               <label
                 htmlFor="immatriculation"
                 className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  // errors.immatriculation && editIndex === null
                   errors.immatriculation ? 'text-red-500 font-mono text-sm' : ''
                 }`}
               >
                 Immatriculation
               </label>
 
-              {/* {editIndex === null && errors.immatriculation && ( */}
               {errors.immatriculation && (
                 <div className="text-red-500 font-mono text-xs">
                   {errors.immatriculation.message}
@@ -172,7 +166,6 @@ export default function AddCar() {
                 id="mine"
                 {...register('mine')}
                 className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                  // errors.mine && editIndex === null ? 'border-red-500' : ''
                   errors.mine ? 'border-red-500' : ''
                 }`}
                 placeholder=" "
@@ -180,14 +173,12 @@ export default function AddCar() {
               <label
                 htmlFor="mine"
                 className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  // errors.mine && editIndex === null
                   errors.mine ? 'text-red-500 font-mono text-sm' : ''
                 }`}
               >
                 Type Mine
               </label>
 
-              {/* {editIndex === null && errors.mine && ( */}
               {errors.mine && (
                 <div className="text-red-500 font-mono text-xs">
                   {errors.mine.message}
@@ -201,7 +192,6 @@ export default function AddCar() {
                 id="model"
                 {...register('model')}
                 className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                  // errors.model && editIndex === null
                   errors.model
                     ? 'border-red-500 text-red-500 text-sm font-mono'
                     : ''
@@ -219,14 +209,12 @@ export default function AddCar() {
               <label
                 htmlFor="model"
                 className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  // errors.model && editIndex === null
                   errors.model ? 'text-red-500 font-mono text-sm' : ''
                 }`}
               >
                 Modèle
               </label>
 
-              {/* {editIndex === null && errors.model && ( */}
               {errors.model && (
                 <div className="text-red-500 font-mono text-xs">
                   {errors.model.message}
@@ -240,7 +228,6 @@ export default function AddCar() {
                 id="color"
                 {...register('color')}
                 className={`block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer ${
-                  // errors.model && editIndex === null
                   errors.model
                     ? 'border-red-500 text-red-500 text-sm font-mono'
                     : ''
@@ -262,14 +249,12 @@ export default function AddCar() {
               <label
                 htmlFor="color"
                 className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  // errors.color && editIndex === null
                   errors.color ? 'text-red-500 font-mono text-sm' : ''
                 }`}
               >
                 Couleur
               </label>
 
-              {/* {editIndex === null && errors.color && ( */}
               {errors.color && (
                 <div className="text-red-500 font-mono text-xs">
                   {errors.color.message}
@@ -283,7 +268,6 @@ export default function AddCar() {
                 id="finition"
                 {...register('finition')}
                 className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                  // errors.model && editIndex === null
                   errors.model
                     ? 'border-red-500 text-red-500 text-sm font-mono'
                     : ''
@@ -301,14 +285,12 @@ export default function AddCar() {
               <label
                 htmlFor="finition"
                 className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  // errors.finition && editIndex === null
                   errors.finition ? 'text-red-500 font-mono text-sm' : ''
                 }`}
               >
                 Finition
               </label>
 
-              {/* {editIndex === null && errors.finition && ( */}
               {errors.finition && (
                 <div className="text-red-500 font-mono text-xs">
                   {errors.finition.message}

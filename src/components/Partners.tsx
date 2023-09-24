@@ -3,7 +3,7 @@ import { Slider } from './Slider';
 import styles from '@/styles/reactIntersectionObserver.module.css';
 import { useInView } from 'react-intersection-observer';
 
-export const Partners = () => {
+export const Partners = ({ session }: any) => {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
@@ -15,7 +15,7 @@ export const Partners = () => {
           <h1 className="font-bold text-[32px] text-center">Nos Partenaires</h1>
           <div className="w-full flex justify-center">
             <div className="w-3/4">
-              <Slider />
+              <Slider session={session} />
             </div>
           </div>
         </main>

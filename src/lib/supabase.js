@@ -154,18 +154,18 @@ async function checkForCanI(lastName, firstName) {
     .filter('last_name', 'eq', lastName.toUpperCase());
 }
 
-async function checkForStartSession(dataFromAccountGoogle) {
-  const { data: registeredMember } = await supabase
-    .from('members')
-    .select('*')
-    .filter('email', 'eq', dataFromAccountGoogle?.user?.email);
+// async function checkForStartSession(dataFromAccountGoogle) {
+//   const { data: registeredMember } = await supabase
+//     .from('members')
+//     .select('*')
+//     .filter('email', 'eq', dataFromAccountGoogle?.user?.email);
 
-  if (registeredMember?.length !== 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
+//   if (registeredMember?.length !== 0) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 async function checkImmatInMuseum(immat) {
   try {
@@ -1559,7 +1559,7 @@ export {
   addThemeEvent,
   cancelEvent,
   checkForCanI,
-  checkForStartSession,
+  // checkForStartSession,
   checkMail,
   checkRegisteredMember,
   countCars,

@@ -1,15 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styles from '@/styles/Slider.module.css';
 import { PartnerInfoType } from '@/types/Components';
+import { ourPartners } from '@/lib/supabase';
 
-import { checkForStartSession, ourPartners } from '@/lib/supabase';
-
-import Image from 'next/image';
-
-export const Slider = () => {
+export const Slider = ({ session }: { session: any }) => {
   const [registredMember, setRegistredMember] = useState(false);
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
     null
@@ -43,19 +41,10 @@ export const Slider = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (session?.user !== undefined) {
-  //     if (Object.keys(session?.user).length !== 0) {
-  //       checkForStartSession(session).then((response) => {
-  //         setRegistredMember(response);
-  //       });
-  //     } else {
-  //       setRegistredMember(true);
-  //     }
-  //   }
-  // }, [session]);
-
   useEffect(() => {
+    if (session) {
+      setRegistredMember(true);
+    }
     const fetchData = async () => {
       try {
         const response = await ourPartners();
