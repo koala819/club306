@@ -80,7 +80,7 @@ export const SignUp = ({
       provider: 'google',
       options: {
         skipBrowserRedirect: false,
-        redirectTo: 'http://localhost:3000/memberfinish',
+        redirectTo: `${window.location.origin}/memberfinish`,
       },
     });
   };
