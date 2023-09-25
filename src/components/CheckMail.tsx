@@ -51,6 +51,9 @@ export function CheckMail({ setMagikLink }: any) {
     const { error } = await supabase.auth.signUp({
       email: email,
       password: values.pwd,
+      options: {
+        emailRedirectTo: `/cpanel`,
+      },
     });
 
     if (error === null) {

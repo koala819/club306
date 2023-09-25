@@ -1,6 +1,6 @@
 'use client';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdMail } from 'react-icons/io';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import { MailPwd } from '@/types/models';
 import { redirect } from 'next/navigation';
 import ClipLoader from 'react-spinners/ClipLoader';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export const SignUp = ({ session }: any) => {
   // const [watch, setWatch] = useState(false);
@@ -21,19 +22,7 @@ export const SignUp = ({ session }: any) => {
     last_name: '',
   });
   const [waitingVerifEmail, setWaitingVerifEmail] = useState(false);
-
-  useEffect(() => {
-    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
-    if (storedPersonalInfoJSON) {
-      setStoredPersonalInfo(() => JSON.parse(storedPersonalInfoJSON));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (session) {
-      redirect('/memberfinish');
-    }
-  }, [session]);
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const supabase = createClientComponentClient();
 
@@ -51,6 +40,21 @@ export const SignUp = ({ session }: any) => {
       .required('Le mot de passe est obligatoire')
       .oneOf([yup.ref('pwd')], 'Les mots de passe doivent être identiques'),
   });
+
+  const captcha = useRef<HCaptcha | null>(null);
+
+  useEffect(() => {
+    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
+    if (storedPersonalInfoJSON) {
+      setStoredPersonalInfo(() => JSON.parse(storedPersonalInfoJSON));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      redirect('/memberfinish');
+    }
+  }, [session]);
 
   const {
     register,
@@ -77,6 +81,7 @@ export const SignUp = ({ session }: any) => {
         email: email,
         password: pwd,
         options: {
+          captchaToken,
           data: {
             first_name:
               storedPersonalInfo?.first_name +
@@ -86,6 +91,11 @@ export const SignUp = ({ session }: any) => {
           emailRedirectTo: `${process.env.CLIENT_URL}/mailConfirm`,
         },
       });
+
+      if (captcha.current !== null && captcha.current !== undefined) {
+        captcha.current.resetCaptcha();
+      }
+
       setWaitingVerifEmail(true);
     } else {
       alert('Invalid password :\n\n\n' + pwd);
@@ -246,6 +256,14 @@ export const SignUp = ({ session }: any) => {
                       {errors.cpwd.message}
                     </span>
                   )}
+                  {/* CAPTCHA */}
+                  <div className="mt-6">
+                    <HCaptcha
+                      ref={captcha}
+                      sitekey="282edc57-2f8c-4059-b262-ba16af46468a"
+                      onVerify={setCaptchaToken}
+                    />
+                  </div>
                   {/* BUTTONS RECORD & CANCEL */}
                   <div className="flex  w-full justify-end mt-4 space-x-4">
                     {/* <button
