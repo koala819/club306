@@ -212,7 +212,7 @@ async function checkRegisteredMember(email) {
   try {
     const { data, error } = await supabase
       .from('members')
-      .select('*')
+      .select(`first_name, last_name`)
       .eq('email', email)
       .limit(1);
 
@@ -225,6 +225,7 @@ async function checkRegisteredMember(email) {
 
     if (data.length > 0) {
       return {
+        statusText: data,
         status: 200,
       };
     }
