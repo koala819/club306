@@ -14,7 +14,6 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export const SignUp = ({ session }: any) => {
-  // const [watch, setWatch] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [cPasswordVisible, setCPasswordVisible] = useState(false);
   const [storedPersonalInfo, setStoredPersonalInfo] = useState({
@@ -260,7 +259,7 @@ export const SignUp = ({ session }: any) => {
                   <div className="mt-6">
                     <HCaptcha
                       ref={captcha}
-                      sitekey="282edc57-2f8c-4059-b262-ba16af46468a"
+                      sitekey={process.env.HPCAPTCHA_SITEKEY || ''}
                       onVerify={setCaptchaToken}
                     />
                   </div>

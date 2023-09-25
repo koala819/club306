@@ -188,7 +188,7 @@ export function CheckMail({ setMagikLink }: any) {
           <div className="flex items-center justify-center mb-8">
             <HCaptcha
               ref={captcha}
-              sitekey="282edc57-2f8c-4059-b262-ba16af46468a"
+              sitekey={process.env.HPCAPTCHA_SITEKEY || ''}
               onVerify={() => setCaptchaValid(true)}
             />
           </div>

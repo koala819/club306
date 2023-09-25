@@ -9,6 +9,7 @@ module.exports = withBundleAnalyzer({
     GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
     GCP_REFRESH_TOKEN: process.env.GCP_REFRESH_TOKEN,
     GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+    HPCAPTCHA_SITEKEY: process.env.HPCAPTCHA_SITEKEY,
     MAIL_FROM: process.env.MAIL_FROM,
     MAIL_HOST: process.env.MAIL_HOST,
     MAIL_PORT: process.env.MAIL_PORT,
