@@ -272,7 +272,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                           <>
                             <li className={styles.aSubMenuRegister}>
                               <Link
-                                href="/idg"
+                                href="/cpanel"
                                 onClick={() => {
                                   setIsNavOpen(false);
                                   setNavbar(!navbar);
@@ -282,7 +282,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                                 Mon Compte
                               </Link>
                             </li>
-                            <Link
+                            {/* <Link
                               href="/event"
                               onClick={() => {
                                 setIsNavOpen(false);
@@ -307,7 +307,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                                 <TbCirclesRelation size={26} />
                                 Nos Partenaires
                               </Link>
-                            </li>
+                            </li> */}
                             <li
                               className={styles.aSubMenuRegister}
                               onClick={() => _handleGoogleSignout()}
@@ -531,7 +531,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                   >
                     {withMember ? (
                       <>
-                        <Link href="/idg">
+                        <Link href="/cpanel">
                           <li
                             className={`flex justify-between  ${styles.aNormalRegister}`}
                           >
@@ -539,8 +539,8 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                             Mon Compte
                           </li>
                         </Link>
-                        <Link href="/event">
-                          <li
+                        {/* <Link href="/event"> 
+                           <li
                             className={`flex justify-between  ${styles.aNormalRegister}`}
                           >
                             <MdEventNote size={26} />
@@ -554,7 +554,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                             <TbCirclesRelation size={26} />
                             Nos Partenaires
                           </li>
-                        </Link>
+                        </Link> */}
                         <li
                           className={`flex justify-between  ${styles.aNormalRegister}`}
                           onClick={() => _handleGoogleSignout()}

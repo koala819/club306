@@ -44,7 +44,7 @@ export default function Top({ session }: any) {
       <div className="flex items-center justify-center md:justify-center w-full"></div>
       <div className="hidden md:flex items-center space-x-4 md:w-1/4 justify-end">
         <div className="w-16 h-16 rounded-full flex items-center justify-center hover:cursor-pointer ">
-          <IoIosContact size={72} onMouseEnter={toggleMenu} />
+          <IoIosContact size={72} onClick={toggleMenu} />
         </div>
         {/* Menu Items */}
         {isMenuVisible && (
@@ -100,6 +100,11 @@ export default function Top({ session }: any) {
               <Link href="/cpanel/AddCar">
                 <p className="hover:bg-gray-800 hover:text-white mb-2">
                   Nos Partenaires
+                </p>
+              </Link>
+              <Link href="/">
+                <p className="hover:bg-gray-800 hover:text-white mb-2">
+                  Retour au site
                 </p>
               </Link>
 

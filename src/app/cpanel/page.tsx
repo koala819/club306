@@ -26,6 +26,9 @@ export default async function Page() {
         </div>
         <div className="p-4 md:w-1/3 w-full">
           <div className="border-2 border-gray-200 px-4 py-6 rounded-lg w-full">
+            <Link href="/cpanel/Garage">
+              <h1 className="font-bold text-xl">Mon Garage</h1>
+            </Link>
             <Garage session={session} hide={true} />
           </div>
         </div>

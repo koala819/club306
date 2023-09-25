@@ -6,6 +6,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
+
 export default async function CustomLayout({
   children,
 }: {
@@ -22,9 +23,9 @@ export default async function CustomLayout({
       <body className={`${montserrat.className}`}>
         <div className="flex h-screen">
           <Side />
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col flex-1 overflow-hidden">
             <Top session={session} />
-            {children}
+            <div className="overflow-y-auto flex-1 mb-4">{children}</div>
           </div>
         </div>
       </body>

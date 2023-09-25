@@ -7,6 +7,7 @@ import UpdateCar from './Garage/UpdateCar';
 import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
 import { HiPencil } from 'react-icons/hi';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
 
 export default function Garage({
   session,
@@ -129,12 +130,23 @@ export default function Garage({
           )}
           <div className="flex my-4 justify-center">
             {currentCarIndex > 0 && (
-              <button
-                onClick={handlePrevCar}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
-              >
-                Précédent
-              </button>
+              <>
+                {!hide ? (
+                  <button
+                    onClick={handlePrevCar}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
+                  >
+                    Précédent
+                  </button>
+                ) : (
+                  <div
+                    className="flex justify-end w-full hover:cursor-pointer"
+                    onClick={handlePrevCar}
+                  >
+                    <BiSkipPreviousCircle size={32} />
+                  </div>
+                )}
+              </>
             )}
             {!hide && (
               <h1 className="text-3xl font-semibold text-center mb-4 mr-2">
@@ -142,12 +154,23 @@ export default function Garage({
               </h1>
             )}
             {cars !== undefined && currentCarIndex < cars?.length - 1 && (
-              <button
-                onClick={handleNextCar}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              >
-                Suivant
-              </button>
+              <>
+                {!hide ? (
+                  <button
+                    onClick={handleNextCar}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  >
+                    Suivant
+                  </button>
+                ) : (
+                  <div
+                    className="flex justify-end w-full hover:cursor-pointer"
+                    onClick={handleNextCar}
+                  >
+                    <BiSkipNextCircle size={32} />
+                  </div>
+                )}
+              </>
             )}
           </div>
 
