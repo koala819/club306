@@ -24,7 +24,9 @@ export default async function CustomLayout({
         <div className="flex h-screen">
           <Side session={session} />
           <div className="flex flex-col flex-1 overflow-hidden">
-            <Top session={session} />
+            <div className="md:hidden">
+              <Top session={session} />
+            </div>
             <div className="overflow-y-auto flex-1 mb-4">{children}</div>
           </div>
         </div>
