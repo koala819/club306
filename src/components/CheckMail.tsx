@@ -1,21 +1,24 @@
 'use client';
 import { TiArrowBack } from 'react-icons/ti';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { checkRegisteredMember } from '@/lib/supabase';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export function CheckMail({ setMagikLink }: any) {
   const [email, setEmail] = useState('');
   const [newPwd, setNewPwd] = useState(false);
   const [showPwd, setShowPwd] = useState(false);
   const [showCPwd, setShowCPwd] = useState(false);
+  const [captchaValid, setCaptchaValid] = useState(false);
 
   const supabase = createClientComponentClient();
+  const captcha = useRef<HCaptcha | null>(null);
 
   const schema = yup.object().shape({
     pwd: yup
@@ -40,8 +43,14 @@ export function CheckMail({ setMagikLink }: any) {
   async function sendMagikLink(email: string) {
     console.log('sendMagikLink', email);
     const data = await checkRegisteredMember(email);
-    if (data.status !== 200) toast.error("erreur d'adresse mail");
-    else {
+    if (data.status !== 200) {
+      toast.error("erreur d'adresse mail");
+      if (captcha.current !== null && captcha.current !== undefined) {
+        captcha.current.resetCaptcha();
+      }
+      setCaptchaValid(false);
+    } else {
+      setCaptchaValid(true);
       setNewPwd(true);
     }
   }
@@ -175,6 +184,14 @@ export function CheckMail({ setMagikLink }: any) {
               className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
             />
           </div>
+          {/* CAPTCHA */}
+          <div className="flex items-center justify-center mb-8">
+            <HCaptcha
+              ref={captcha}
+              sitekey="282edc57-2f8c-4059-b262-ba16af46468a"
+              onVerify={() => setCaptchaValid(true)}
+            />
+          </div>
           <div className="flex justify-center space-x-4">
             <button
               className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
@@ -185,12 +202,14 @@ export function CheckMail({ setMagikLink }: any) {
               <TiArrowBack size={22} className="mr-2" />
               Précédent
             </button>
-            <button
-              className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-              onClick={() => sendMagikLink(email)}
-            >
-              Envoyer
-            </button>
+            {captchaValid && (
+              <button
+                className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                onClick={() => sendMagikLink(email)}
+              >
+                Envoyer
+              </button>
+            )}
           </div>
         </>
       )}
