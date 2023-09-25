@@ -11,14 +11,15 @@ export default function Login() {
   const supabase = createClientComponentClient();
 
   const handleSignInGoogle = async () => {
-    console.log('handleSignIn');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'mysupabaseapp://google-auth',
+        // skipBrowserRedirect: true,
+        // redirectTo: `${window.location.origin}/cpanel`,
+        redirectTo: 'https://club306.fr',
       },
     });
-    console.log('data', data, ' and error', error);
+    console.log('data', data, 'error', error);
   };
 
   return (

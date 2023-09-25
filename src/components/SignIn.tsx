@@ -7,10 +7,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { TiArrowBack } from 'react-icons/ti';
+import { useRouter } from 'next/navigation';
 
 export default function SignIn({ setDisplaySignIn }: any) {
   const [showPwd, setShowPwd] = useState(false);
   const supabase = createClientComponentClient();
+  const router = useRouter();
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -39,6 +41,9 @@ export default function SignIn({ setDisplaySignIn }: any) {
 
     if (error) {
       console.log('error.message', error.message);
+    } else {
+      console.log('success');
+      router.push('/cpanel');
     }
   }
 

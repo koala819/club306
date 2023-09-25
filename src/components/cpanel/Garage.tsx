@@ -8,7 +8,13 @@ import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
 import { HiPencil } from 'react-icons/hi';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-export default function Garage({ session }: any) {
+export default function Garage({
+  session,
+  hide = false,
+}: {
+  session: any;
+  hide?: boolean;
+}) {
   const [activeTab, setActiveTab] = useState('mesInfos');
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
@@ -109,12 +115,18 @@ export default function Garage({ session }: any) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center mt-4">
-          <h1 className="text-3xl font-semibold text-center mb-16">
-            {cars?.length === 1
-              ? "Votre Garage est composé d'une voiture"
-              : `Votre Garage est composé de ${cars?.length} voitures`}
-          </h1>
+        <div
+          className={`${
+            !hide ? 'flex flex-col items-center justify-center mt-4' : ''
+          }`}
+        >
+          {!hide && (
+            <h1 className="text-3xl font-semibold text-center mb-16">
+              {cars?.length === 1
+                ? "Votre Garage est composé d'une voiture"
+                : `Votre Garage est composé de ${cars?.length} voitures`}
+            </h1>
+          )}
           <div className="flex my-4 justify-center">
             {currentCarIndex > 0 && (
               <button
@@ -124,9 +136,11 @@ export default function Garage({ session }: any) {
                 Précédent
               </button>
             )}
-            <h1 className="text-3xl font-semibold text-center mb-4 mr-2">
-              Voiture n° {currentCarIndex + 1}
-            </h1>
+            {!hide && (
+              <h1 className="text-3xl font-semibold text-center mb-4 mr-2">
+                Voiture n° {currentCarIndex + 1}
+              </h1>
+            )}
             {cars !== undefined && currentCarIndex < cars?.length - 1 && (
               <button
                 onClick={handleNextCar}
@@ -138,230 +152,245 @@ export default function Garage({ session }: any) {
           </div>
 
           <div
-            className={`w-1/3 bg-gray-200 mb-8 p-4 rounded-lg ${
+            className={`${!hide ? 'w-1/3 mb-8 p-4' : ''}  rounded-lg ${
               isDark ? 'bg-gray-200' : 'bg-gray-500'
             }`}
           >
             {cars !== undefined && (
+              // <div className="bg-blue-500 w-full h-full">VOITURE</div>
               <DisplaySVG
                 name={cars[currentCarIndex].model}
                 color={cars[currentCarIndex].color.hexa}
               />
             )}
           </div>
-
-          <div className="w-full bg-gray-200 p-2 mb-4">
-            <div className="flex space-x-4">
-              <Tab
-                label="Mes Infos"
-                isActive={activeTab === 'mesInfos'}
-                onClick={() => setActiveTab('mesInfos')}
-              />
-              <Tab
+          {!hide && (
+            <>
+              <div className="w-full bg-gray-200 p-2 mb-4">
+                <div className="flex space-x-4">
+                  <Tab
+                    label="Mes Infos"
+                    isActive={activeTab === 'mesInfos'}
+                    onClick={() => setActiveTab('mesInfos')}
+                  />
+                  {/* <Tab
                 label="Mon Panier"
                 isActive={activeTab === 'monPanier'}
                 onClick={() => setActiveTab('monPanier')}
-              />
-            </div>
-          </div>
+              /> */}
+                </div>
+              </div>
 
-          <div className="w-full p-4 bg-white border border-gray-300 rounded-lg">
-            {activeTab === 'mesInfos' && (
-              <div>
-                {displayUpdateCar && (
-                  <UpdateCar
-                    setDisplayBox={setDisplayUpdateCar}
-                    modifyValue={modifyValue}
-                    editingIndex={editingIndex}
-                    immatriculation={
-                      (cars !== undefined &&
-                        cars[currentCarIndex].immatriculation) ||
-                      ''
-                    }
-                  />
+              <div className="w-full p-4 bg-white border border-gray-300 rounded-lg">
+                {activeTab === 'mesInfos' && (
+                  <div>
+                    {displayUpdateCar && (
+                      <UpdateCar
+                        setDisplayBox={setDisplayUpdateCar}
+                        modifyValue={modifyValue}
+                        editingIndex={editingIndex}
+                        immatriculation={
+                          (cars !== undefined &&
+                            cars[currentCarIndex].immatriculation) ||
+                          ''
+                        }
+                      />
+                    )}
+                    {cars !== undefined && (
+                      <table className="w-full flex justify-center">
+                        <tbody>
+                          <tr
+                            className=""
+                            onClick={() =>
+                              handleMobileBoxClick(cars[currentCarIndex].min)
+                            }
+                          >
+                            <td className="w-1/5">Mine:</td>
+                            <td
+                              className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
+                              onMouseEnter={() => {
+                                setEditing(true);
+                                setEditingIndex(0);
+                              }}
+                              onMouseLeave={() => setEditing(false)}
+                            >
+                              <span className="text-green-500 uppercase">
+                                {cars !== undefined &&
+                                  cars[currentCarIndex].min}
+                              </span>
+                              {editing && editingIndex === 0 && (
+                                <button
+                                  className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
+                                  onClick={() =>
+                                    handleEditClick(cars[currentCarIndex].min)
+                                  }
+                                >
+                                  <HiPencil />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                          <tr
+                            className=""
+                            onClick={() =>
+                              handleMobileBoxClick(
+                                cars[currentCarIndex].immatriculation
+                              )
+                            }
+                          >
+                            <td className="w-1/5">Immatriculation:</td>
+                            <td
+                              className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
+                              onMouseEnter={() => {
+                                setEditing(true);
+                                setEditingIndex(1);
+                              }}
+                              onMouseLeave={() => setEditing(false)}
+                            >
+                              <span className="text-green-500 uppercase">
+                                {cars !== undefined &&
+                                  cars[currentCarIndex].immatriculation}
+                              </span>
+                              {editing && editingIndex === 1 && (
+                                <button
+                                  className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
+                                  onClick={() =>
+                                    handleEditClick(
+                                      cars[currentCarIndex].immatriculation
+                                    )
+                                  }
+                                >
+                                  <HiPencil />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                          <tr
+                            className=""
+                            onClick={() =>
+                              handleMobileBoxClick(cars[currentCarIndex].model)
+                            }
+                          >
+                            <td className="w-1/5">Modele:</td>
+                            <td
+                              className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
+                              onMouseEnter={() => {
+                                setEditing(true);
+                                setEditingIndex(2);
+                              }}
+                              onMouseLeave={() => setEditing(false)}
+                            >
+                              <span className="text-green-500 uppercase">
+                                {cars !== undefined &&
+                                  cars[currentCarIndex].model}
+                              </span>
+                              {editing && editingIndex === 2 && (
+                                <button
+                                  className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
+                                  onClick={() =>
+                                    handleEditClick(cars[currentCarIndex].model)
+                                  }
+                                >
+                                  <HiPencil />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                          <tr
+                            className=""
+                            onClick={() =>
+                              handleMobileBoxClick(
+                                cars[currentCarIndex].finition
+                              )
+                            }
+                          >
+                            <td className="w-1/5">Finition:</td>
+                            <td
+                              className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
+                              onMouseEnter={() => {
+                                setEditing(true);
+                                setEditingIndex(3);
+                              }}
+                              onMouseLeave={() => setEditing(false)}
+                            >
+                              <span className="text-green-500 uppercase">
+                                {cars !== undefined &&
+                                  cars[currentCarIndex].finition}
+                              </span>
+                              {editing && editingIndex === 3 && (
+                                <button
+                                  className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
+                                  onClick={() =>
+                                    handleEditClick(
+                                      cars[currentCarIndex].finition
+                                    )
+                                  }
+                                >
+                                  <HiPencil />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                          <tr
+                            className=""
+                            onClick={() =>
+                              handleMobileBoxClick(
+                                cars[currentCarIndex].color.name
+                              )
+                            }
+                          >
+                            <td className="w-1/5">Couleur:</td>
+                            <td
+                              className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
+                              onMouseEnter={() => {
+                                setEditing(true);
+                                setEditingIndex(4);
+                              }}
+                              onMouseLeave={() => setEditing(false)}
+                            >
+                              <span className="text-green-500 uppercase">
+                                {cars !== undefined &&
+                                  cars[currentCarIndex].color.name}
+                              </span>
+                              {editing && editingIndex === 4 && (
+                                <button
+                                  className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
+                                  onClick={() =>
+                                    handleEditClick(
+                                      cars[currentCarIndex].color.name
+                                    )
+                                  }
+                                >
+                                  <HiPencil />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    )}
+                  </div>
                 )}
-                {cars !== undefined && (
-                  <table className="w-full flex justify-center">
-                    <tbody>
-                      <tr
-                        className=""
-                        onClick={() =>
-                          handleMobileBoxClick(cars[currentCarIndex].min)
-                        }
-                      >
-                        <td className="w-1/5">Mine:</td>
-                        <td
-                          className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                          onMouseEnter={() => {
-                            setEditing(true);
-                            setEditingIndex(0);
-                          }}
-                          onMouseLeave={() => setEditing(false)}
-                        >
-                          <span className="text-green-500 uppercase">
-                            {cars !== undefined && cars[currentCarIndex].min}
-                          </span>
-                          {editing && editingIndex === 0 && (
-                            <button
-                              className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                              onClick={() =>
-                                handleEditClick(cars[currentCarIndex].min)
-                              }
-                            >
-                              <HiPencil />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                      <tr
-                        className=""
-                        onClick={() =>
-                          handleMobileBoxClick(
-                            cars[currentCarIndex].immatriculation
-                          )
-                        }
-                      >
-                        <td className="w-1/5">Immatriculation:</td>
-                        <td
-                          className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                          onMouseEnter={() => {
-                            setEditing(true);
-                            setEditingIndex(1);
-                          }}
-                          onMouseLeave={() => setEditing(false)}
-                        >
-                          <span className="text-green-500 uppercase">
-                            {cars !== undefined &&
-                              cars[currentCarIndex].immatriculation}
-                          </span>
-                          {editing && editingIndex === 1 && (
-                            <button
-                              className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                              onClick={() =>
-                                handleEditClick(
-                                  cars[currentCarIndex].immatriculation
-                                )
-                              }
-                            >
-                              <HiPencil />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                      <tr
-                        className=""
-                        onClick={() =>
-                          handleMobileBoxClick(cars[currentCarIndex].model)
-                        }
-                      >
-                        <td className="w-1/5">Modele:</td>
-                        <td
-                          className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                          onMouseEnter={() => {
-                            setEditing(true);
-                            setEditingIndex(2);
-                          }}
-                          onMouseLeave={() => setEditing(false)}
-                        >
-                          <span className="text-green-500 uppercase">
-                            {cars !== undefined && cars[currentCarIndex].model}
-                          </span>
-                          {editing && editingIndex === 2 && (
-                            <button
-                              className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                              onClick={() =>
-                                handleEditClick(cars[currentCarIndex].model)
-                              }
-                            >
-                              <HiPencil />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                      <tr
-                        className=""
-                        onClick={() =>
-                          handleMobileBoxClick(cars[currentCarIndex].finition)
-                        }
-                      >
-                        <td className="w-1/5">Finition:</td>
-                        <td
-                          className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                          onMouseEnter={() => {
-                            setEditing(true);
-                            setEditingIndex(3);
-                          }}
-                          onMouseLeave={() => setEditing(false)}
-                        >
-                          <span className="text-green-500 uppercase">
-                            {cars !== undefined &&
-                              cars[currentCarIndex].finition}
-                          </span>
-                          {editing && editingIndex === 3 && (
-                            <button
-                              className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                              onClick={() =>
-                                handleEditClick(cars[currentCarIndex].finition)
-                              }
-                            >
-                              <HiPencil />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                      <tr
-                        className=""
-                        onClick={() =>
-                          handleMobileBoxClick(cars[currentCarIndex].color.name)
-                        }
-                      >
-                        <td className="w-1/5">Couleur:</td>
-                        <td
-                          className="relative shadow-lg rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                          onMouseEnter={() => {
-                            setEditing(true);
-                            setEditingIndex(4);
-                          }}
-                          onMouseLeave={() => setEditing(false)}
-                        >
-                          <span className="text-green-500 uppercase">
-                            {cars !== undefined &&
-                              cars[currentCarIndex].color.name}
-                          </span>
-                          {editing && editingIndex === 4 && (
-                            <button
-                              className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                              onClick={() =>
-                                handleEditClick(
-                                  cars[currentCarIndex].color.name
-                                )
-                              }
-                            >
-                              <HiPencil />
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                {activeTab === 'monPanier' && (
+                  <div>
+                    <table className="w-full">
+                      <tbody>{/* Contenu de l'onglet "Mon Panier" */}</tbody>
+                    </table>
+                  </div>
                 )}
               </div>
-            )}
-            {activeTab === 'monPanier' && (
-              <div>
-                <table className="w-full">
-                  <tbody>{/* Contenu de l'onglet "Mon Panier" */}</tbody>
-                </table>
+              <div className="mt-4">
+                {cars !== undefined &&
+                  cars.length >= 2 &&
+                  member?.id !== undefined && (
+                    <DeleteCar
+                      memberId={member?.id}
+                      car={cars[currentCarIndex]}
+                    />
+                  )}
               </div>
-            )}
-          </div>
-          <div className="mt-4">
-            {cars !== undefined &&
-              cars.length >= 2 &&
-              member?.id !== undefined && (
-                <DeleteCar memberId={member?.id} car={cars[currentCarIndex]} />
-              )}
-          </div>
+            </>
+          )}
         </div>
       )}
     </>

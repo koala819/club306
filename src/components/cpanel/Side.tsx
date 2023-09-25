@@ -1,13 +1,12 @@
-// import { useState } from 'react';
 import Link from 'next/link';
-// import Image from 'next/image';
-// import picture306 from '../../../../public/images/logoClub306_blanc.png';
+import Image from 'next/image';
+import picture306 from '../../../public/images/logoClub306_blanc.png';
 
 export default function Side() {
   return (
     <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
-      {/*<div className="flex items-center justify-center mt-4">
-         <Link href="/cpanel">
+      <div className="flex items-center justify-center mt-4">
+        <Link href="/cpanel">
           <Image
             src={picture306}
             alt="logo club 306"
@@ -18,8 +17,8 @@ export default function Side() {
               height: 'auto',
             }}
           />
-        </Link> 
-      </div>*/}
+        </Link>
+      </div>
       <nav className="mt-16 ">
         <h1 className="text-xl font-bold text-center mb-8">Dashboard</h1>
         <ul className="space-y-8">

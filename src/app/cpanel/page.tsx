@@ -2,6 +2,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import Garage from '@/components/cpanel/Garage';
 
 import { DisplaySVG } from '@/components/DisplaySvg';
 
@@ -16,7 +17,7 @@ export default async function Page() {
 
   return (
     <>
-      <span>Bienvenue {session?.user.user_metadata.name}</span>
+      <span>Bienvenue {session?.user.user_metadata.first_name}</span>
       <div className="flex flex-wrap text-center">
         <div className="p-4 md:w-2/3 w-full">
           <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
@@ -24,14 +25,8 @@ export default async function Page() {
           </div>
         </div>
         <div className="p-4 md:w-1/3 w-full">
-          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-            <span>Ma Voiture</span>
-            <DisplaySVG name="3 Portes" color="174191" />
-            <Link href="/cpanel/Garage">
-              <span className=" hover:bg-gray-800 hover:text-white">
-                Accéder au Garage
-              </span>
-            </Link>
+          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg w-full">
+            <Garage session={session} hide={true} />
           </div>
         </div>
       </div>
