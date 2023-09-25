@@ -208,53 +208,33 @@ async function checkMail(mail) {
   return data.length > 0;
 }
 
-async function checkRegisteredMember(email, pwd) {
+async function checkRegisteredMember(email) {
   try {
-    const { data: signInData, error: signInError } =
-      await supabase.auth.signInWithPassword({
-        email: email,
-        password: pwd,
-      });
+    const { data, error } = await supabase
+      .from('members')
+      .select('*')
+      .eq('email', email)
+      .limit(1);
 
-    if (signInError) {
-      return {
-        statusText: signInError.message,
-        status: signInError.status,
-      };
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('members')
-        .select('*')
-        .eq('email', signInData.user.email)
-        .limit(1);
-
-      if (error) {
-        return {
-          statusText: error.message,
-          status: error.status,
-        };
-      }
-
-      return {
-        statusText: {
-          id: data[0].id,
-          email: signInData.user.email,
-          name: data[0].last_name + ' ' + data[0].first_name,
-        },
-        status: 200,
-      };
-    } catch (error) {
+    if (error) {
       return {
         statusText: error.message,
-        status: 407,
+        status: error.status,
       };
     }
+
+    if (data.length > 0) {
+      return {
+        status: 200,
+      };
+    }
+    return {
+      status: 406,
+    };
   } catch (error) {
     return {
       statusText: error.message,
-      status: 406,
+      status: 407,
     };
   }
 }
