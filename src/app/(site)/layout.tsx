@@ -4,6 +4,7 @@ import { Navbar } from '@/components/Navbar';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import '@/styles/globals.css';
+import { Toaster } from 'react-hot-toast';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -37,6 +38,7 @@ export default async function RootLayout({
             ) : (
               <Footer withMember={false} />
             )}
+            <Toaster position="top-right" />
           </div>
         </div>
       </body>

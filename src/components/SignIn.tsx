@@ -6,10 +6,12 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TiArrowBack } from 'react-icons/ti';
+// import { TiArrowBack } from 'react-icons/ti';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
-export default function SignIn({ setDisplaySignIn }: any) {
+// export default function SignIn({ setDisplaySignIn }: any) {
+export default function SignIn() {
   const [showPwd, setShowPwd] = useState(false);
   const supabase = createClientComponentClient();
   const router = useRouter();
@@ -41,6 +43,7 @@ export default function SignIn({ setDisplaySignIn }: any) {
 
     if (error) {
       console.log('error.message', error.message);
+      toast.error("Erreur d'intentification !");
     } else {
       console.log('success');
       router.push('/cpanel');
@@ -130,14 +133,14 @@ export default function SignIn({ setDisplaySignIn }: any) {
                   </span>
                 )}
               </div>
-              <div className="flex  w-full justify-between mt-4">
-                <button
+              <div className="flex  w-full justify-end mt-4">
+                {/* <button
                   className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
                   onClick={() => setDisplaySignIn(false)}
                 >
                   <TiArrowBack size={22} className="mr-2" />
                   Précédent
-                </button>
+                </button> */}
                 <button
                   className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
                   type="submit"

@@ -25,7 +25,8 @@ export default function Login() {
   return (
     <>
       {displaySignIn ? (
-        <SignIn setDisplaySignIn={setDisplaySignIn} />
+        // <SignIn setDisplaySignIn={setDisplaySignIn} />
+        <SignIn />
       ) : (
         <div className="flex justify-center items-center h-full">
           <div className="flex bg-white dark:bg-gray-800 text-gray-700  dark:text-white rounded-lg shadow-lg overflow-hidden lg:w-1/2">
