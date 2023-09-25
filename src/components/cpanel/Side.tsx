@@ -1,8 +1,21 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import picture306 from '../../../public/images/logoClub306_blanc.png';
+import { onlyStaff } from '@/lib/supabase';
 
-export default function Side() {
+export default function Side({ session }: any) {
+  const [staffMember, setStaffMember] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await onlyStaff(session?.user?.email);
+      setStaffMember(result);
+    }
+    fetchData();
+  }, []);
+
   return (
     <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
       <div className="flex items-center justify-center mt-4">
@@ -79,66 +92,68 @@ export default function Side() {
           </Link>
         </ul>
       </nav>
-      <nav className="mt-16">
-        <h1 className="text-xl font-bold text-center mb-8">Administration</h1>
-        <ul className="space-y-8">
-          <Link href="/cpanel/admin/Stats">
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
-                <div className="flex items-center">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  <span>Statistiques</span>
+      {staffMember && (
+        <nav className="mt-16">
+          <h1 className="text-xl font-bold text-center mb-8">Administration</h1>
+          <ul className="space-y-8">
+            <Link href="/cpanel/admin/Stats">
+              <li className="opcion-con-desplegable">
+                <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                  <div className="flex items-center">
+                    <i className="fas fa-calendar-alt mr-2"></i>
+                    <span>Statistiques</span>
+                  </div>
+                  <i className="fas fa-chevron-down text-xs"></i>
                 </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-            </li>
-          </Link>
-          <Link href="/cpanel/admin/Colors">
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
-                <div className="flex items-center">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  <span>Couleurs</span>
+              </li>
+            </Link>
+            <Link href="/cpanel/admin/Colors">
+              <li className="opcion-con-desplegable">
+                <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                  <div className="flex items-center">
+                    <i className="fas fa-calendar-alt mr-2"></i>
+                    <span>Couleurs</span>
+                  </div>
+                  <i className="fas fa-chevron-down text-xs"></i>
                 </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-            </li>
-          </Link>
-          <Link href="/cpanel/admin/Partners">
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
-                <div className="flex items-center">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  <span>Nos Partenaires</span>
+              </li>
+            </Link>
+            <Link href="/cpanel/admin/Partners">
+              <li className="opcion-con-desplegable">
+                <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                  <div className="flex items-center">
+                    <i className="fas fa-calendar-alt mr-2"></i>
+                    <span>Nos Partenaires</span>
+                  </div>
+                  <i className="fas fa-chevron-down text-xs"></i>
                 </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-            </li>
-          </Link>
-          <Link href="/cpanel/admin/Event">
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
-                <div className="flex items-center">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  <span>Saison {new Date().getFullYear()}</span>
+              </li>
+            </Link>
+            <Link href="/cpanel/admin/Event">
+              <li className="opcion-con-desplegable">
+                <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                  <div className="flex items-center">
+                    <i className="fas fa-calendar-alt mr-2"></i>
+                    <span>Saison {new Date().getFullYear()}</span>
+                  </div>
+                  <i className="fas fa-chevron-down text-xs"></i>
                 </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-            </li>
-          </Link>
-          <Link href="/cpanel/admin/Supabase">
-            <li className="opcion-con-desplegable">
-              <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
-                <div className="flex items-center">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  <span>Base de données</span>
+              </li>
+            </Link>
+            <Link href="/cpanel/admin/Supabase">
+              <li className="opcion-con-desplegable">
+                <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
+                  <div className="flex items-center">
+                    <i className="fas fa-calendar-alt mr-2"></i>
+                    <span>Base de données</span>
+                  </div>
+                  <i className="fas fa-chevron-down text-xs"></i>
                 </div>
-                <i className="fas fa-chevron-down text-xs"></i>
-              </div>
-            </li>
-          </Link>
-        </ul>
-      </nav>
+              </li>
+            </Link>
+          </ul>
+        </nav>
+      )}
       {/* <nav>
         <div className="flex flex-col justify-start items-center px-6 border-b border-gray-600 w-full">
           <button

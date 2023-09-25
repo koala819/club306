@@ -794,6 +794,31 @@ function getTokenFromSupabase(access_token) {
   return supabase;
 }
 
+async function onlyStaff(email) {
+  const { data, error } = await supabase
+    .from('members')
+    .select('id')
+    .eq('email', email);
+
+  if (error) {
+    console.error(error);
+    return false;
+  }
+
+  if (data.length === 0) {
+    console.error('User not found');
+    return false;
+  }
+
+  const memberId = data[0].id;
+
+  if (memberId < 100) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*');
 }
@@ -1561,6 +1586,7 @@ export {
   getMemberCars,
   getMemberId,
   getTokenFromSupabase,
+  onlyStaff,
   ourPartners,
   record,
   recordModifyColorInCpanel,
