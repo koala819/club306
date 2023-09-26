@@ -7,7 +7,7 @@ import {
   sendOTP,
   updateCarInfo,
   welcomeNewMember,
-} from './mails';
+} from '@/lib/mails';
 
 export async function POST(req: Request): Promise<Response> {
   if (!req.body)
