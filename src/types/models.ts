@@ -1,4 +1,4 @@
-export interface ArticleProps {
+interface ArticleProps {
   uid: string | null;
   data: {
     featureImageUrl: { url: string; alt: string };
@@ -8,7 +8,7 @@ export interface ArticleProps {
   };
 }
 
-export interface ArticlesProps {
+interface ArticlesProps {
   articles: {
     uid: string | null;
     data: {
@@ -20,7 +20,7 @@ export interface ArticlesProps {
   }[];
 }
 
-export interface CardStaffProps {
+interface CardStaffProps {
   picture: string;
   name?: string;
   role?: string;
@@ -36,29 +36,43 @@ export interface CardStaffProps {
   youtube?: string;
 }
 
-export interface Color {
+interface Color {
   id: number;
   name: string;
   hexa: string;
 }
 
-export interface Finition {
+interface Finition {
   id: number;
   name: string;
 }
 
-export interface MailPwd {
+interface MailPwd {
   email: string;
   pwd?: string;
   cpwd?: string;
 }
 
-export interface Model {
+interface Member {
+  address: string;
+  birth_date: string;
+  created_at: string;
+  email: string;
+  first_name: string;
+  id: number;
+  country: string;
+  last_name: string;
+  phone: string;
+  town: string;
+  zip_code: string;
+}
+
+interface Model {
   id: number;
   name: string;
 }
 
-export interface PartnerInfoType {
+interface PartnerInfoType {
   id?: number;
   title?: string;
   code?: string;
@@ -68,7 +82,7 @@ export interface PartnerInfoType {
   alt?: string;
 }
 
-export interface PersonalInfo {
+interface PersonalInfo {
   first_name: string;
   last_name: string;
   address: string;
@@ -82,10 +96,24 @@ export interface PersonalInfo {
   checkPrivacyPolicy: boolean | undefined;
 }
 
-export interface Vehicles {
+interface Vehicles {
   immatriculation: string;
   mine: string;
   model: string;
   color: string;
   finition: string;
 }
+
+export type {
+  ArticleProps,
+  ArticlesProps,
+  CardStaffProps,
+  Color,
+  Finition,
+  MailPwd,
+  Member,
+  Model,
+  PartnerInfoType,
+  PersonalInfo,
+  Vehicles,
+};

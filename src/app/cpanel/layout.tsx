@@ -22,17 +22,19 @@ export default async function CustomLayout({
   return (
     <html>
       <body className={`${montserrat.className}`}>
-        <div className="flex h-screen">
-          <Side session={session} />
-          <div className="flex flex-col flex-1 overflow-hidden">
-            <div className="md:hidden">
-              <Top session={session} />
+        <Providers>
+          <div className="">
+            <div className="flex h-screen bg-gray-50 dark:bg-slate-700">
+              <Side session={session} />
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <div className="md:hidden">
+                  <Top session={session} />
+                </div>
+                <main className="overflow-y-auto flex-1 mb-4 ">{children}</main>
+              </div>
             </div>
-            <main className="overflow-y-auto flex-1 mb-4 ">
-              <Providers>{children}</Providers>
-            </main>
           </div>
-        </div>
+        </Providers>
       </body>
     </html>
   );
