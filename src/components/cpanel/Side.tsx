@@ -35,7 +35,7 @@ export default function Side({ session }: any) {
       <nav className="mt-16 ">
         <h1 className="text-xl font-bold text-center mb-8">Dashboard</h1>
         <ul className="space-y-8">
-          <Link href="/cpanel/Infos">
+          <Link href="/cpanel/infos">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function Side({ session }: any) {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/AddCar">
+          <Link href="/cpanel/addCar">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -57,7 +57,7 @@ export default function Side({ session }: any) {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/Garage">
+          <Link href="/cpanel/garage">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -68,7 +68,7 @@ export default function Side({ session }: any) {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/Event">
+          <Link href="/cpanel/event">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -79,7 +79,7 @@ export default function Side({ session }: any) {
               </div>
             </li>
           </Link>
-          <Link href="/cpanel/Partners">
+          <Link href="/cpanel/partners">
             <li className="opcion-con-desplegable">
               <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                 <div className="flex items-center">
@@ -96,7 +96,7 @@ export default function Side({ session }: any) {
         <nav className="mt-16">
           <h1 className="text-xl font-bold text-center mb-8">Administration</h1>
           <ul className="space-y-8">
-            <Link href="/cpanel/admin/Stats">
+            <Link href="/cpanel/admin/stats">
               <li className="opcion-con-desplegable">
                 <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                   <div className="flex items-center">
@@ -107,7 +107,7 @@ export default function Side({ session }: any) {
                 </div>
               </li>
             </Link>
-            <Link href="/cpanel/admin/Colors">
+            <Link href="/cpanel/admin/colors">
               <li className="opcion-con-desplegable">
                 <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                   <div className="flex items-center">
@@ -118,7 +118,7 @@ export default function Side({ session }: any) {
                 </div>
               </li>
             </Link>
-            <Link href="/cpanel/admin/Partners">
+            <Link href="/cpanel/admin/partners">
               <li className="opcion-con-desplegable">
                 <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                   <div className="flex items-center">
@@ -129,7 +129,7 @@ export default function Side({ session }: any) {
                 </div>
               </li>
             </Link>
-            <Link href="/cpanel/admin/Event">
+            <Link href="/cpanel/admin/event">
               <li className="opcion-con-desplegable">
                 <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                   <div className="flex items-center">
@@ -140,7 +140,7 @@ export default function Side({ session }: any) {
                 </div>
               </li>
             </Link>
-            <Link href="/cpanel/admin/Supabase">
+            <Link href="/cpanel/admin/supabase">
               <li className="opcion-con-desplegable">
                 <div className="flex items-center justify-between p-2 hover:bg-white hover:text-gray-800">
                   <div className="flex items-center">

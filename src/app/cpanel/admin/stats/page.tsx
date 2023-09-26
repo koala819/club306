@@ -1,9 +1,9 @@
 'use client';
 import { useEffect } from 'react';
-import InscriptionByMonth from './components/InscriptionByMonth';
-import Car from './components/Car';
-import Members from './components/Members';
-import Age from './components/Age';
+import Car from '@/components/cpanel/stats/Car';
+import Age from '@/components/cpanel/stats/Age';
+import InscriptionByMonth from '@/components/cpanel/stats/InscriptionByMonth';
+import Members from '@/components/cpanel/stats/Members';
 
 export default function Home() {
   useEffect(() => {

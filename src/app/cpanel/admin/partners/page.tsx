@@ -4,7 +4,7 @@ import Image from 'next/image';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ourPartners } from '@/lib/supabase';
 import { PartnerInfoType } from '@/types/models';
-import EditPartner from './components/EditPartner';
+import EditPartner from '@/components/cpanel/partners/EditPartner';
 import { deleteParner } from '@/lib/supabase';
 import { deletePictureFromGitHub } from '@/lib/githubImage';
 

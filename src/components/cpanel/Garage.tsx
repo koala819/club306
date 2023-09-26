@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/DisplaySvg';
-import Tab from './Garage/Tab';
-import DeleteCar from './Garage/DeleteCar';
-import UpdateCar from './Garage/UpdateCar';
+import Tab from './garage/Tab';
+import DeleteCar from './garage/DeleteCar';
+import UpdateCar from './garage/UpdateCar';
 import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
 import { HiPencil } from 'react-icons/hi';
 import ClipLoader from 'react-spinners/ClipLoader';

@@ -35,14 +35,6 @@ export default function Top({ session }: any) {
     }
   };
 
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
-
   async function handleSignout() {
     const supabase = createClientComponentClient();
     const { error } = await supabase.auth.signOut();
@@ -85,27 +77,27 @@ export default function Top({ session }: any) {
                 <h1 className="text-xl font-bold text-center mb-2">
                   Dashboard
                 </h1>
-                <Link href="/cpanel/Infos">
+                <Link href="/cpanel/infos">
                   <p className="hover:bg-gray-800 hover:text-white mb-2">
                     Mes Informations
                   </p>
                 </Link>
-                <Link href="/cpanel/AddCar">
+                <Link href="/cpanel/addCar">
                   <p className="hover:bg-gray-800 hover:text-white mb-2">
                     Ajouter une voiture
                   </p>
                 </Link>
-                <Link href="/cpanel/Garage">
+                <Link href="/cpanel/garage">
                   <p className="hover:bg-gray-800 hover:text-white mb-2">
                     Mon Garage
                   </p>
                 </Link>
-                <Link href="/cpanel/Event">
+                <Link href="/cpanel/event">
                   <p className="hover:bg-gray-800 hover:text-white mb-2">
                     Saison {new Date().getFullYear()}
                   </p>
                 </Link>
-                <Link href="/cpanel/Partners">
+                <Link href="/cpanel/partners">
                   <p className="hover:bg-gray-800 hover:text-white mb-2">
                     Nos Partenaires
                   </p>
@@ -121,27 +113,27 @@ export default function Top({ session }: any) {
                   <h1 className="text-xl font-bold text-center mb-2">
                     Administration
                   </h1>
-                  <Link href="/cpanel/admin/Stats">
+                  <Link href="/cpanel/admin/stats">
                     <p className="hover:bg-red-300 hover:text-black mb-2">
                       Statistiques
                     </p>
                   </Link>
-                  <Link href="/cpanel/admin/Colors">
+                  <Link href="/cpanel/admin/colors">
                     <p className="hover:bg-red-300 hover:text-black mb-2">
                       Couleurs
                     </p>
                   </Link>
-                  <Link href="/cpanel/admin/Partners">
+                  <Link href="/cpanel/admin/partners">
                     <p className="hover:bg-red-300 hover:text-black mb-2">
                       Nos Partenaires
                     </p>
                   </Link>
-                  <Link href="/cpanel/admin/Event">
+                  <Link href="/cpanel/admin/event">
                     <p className="hover:bg-red-300 hover:text-black mb-2">
                       Saison {new Date().getFullYear()}
                     </p>
                   </Link>
-                  <Link href="/cpanel/admin/Supabase">
+                  <Link href="/cpanel/admin/supabase">
                     <p className="hover:bg-red-300 hover:text-black mb-2">
                       Base de données
                     </p>

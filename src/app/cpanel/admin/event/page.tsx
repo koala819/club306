@@ -1,6 +1,6 @@
 'use client';
-import Calendar from './components/Calendar';
-import ThemeCalendar from './components/ThemeCalendar';
+import Calendar from '@/components/cpanel/event/Calendar';
+import ThemeCalendar from '@/components/cpanel/event/ThemeCalendar';
 import { useState } from 'react';
 
 export default function Event() {
