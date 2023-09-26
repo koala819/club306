@@ -1,7 +1,7 @@
 'use client';
 import { Picture306 } from './Picture306';
 import { Presentation } from './Presentation';
-import { BlogSection } from './BlogSection';
+import { BlogSection } from './Blog';
 import { Partners } from './Partners';
 import Alert from './Alert';
 import { useEffect, useState } from 'react';

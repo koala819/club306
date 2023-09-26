@@ -1,23 +1,24 @@
-'use client';
 import Image from 'next/image';
-import { ArticleProps, ArticlesProps } from '@/types/models';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
+import styles from '@/styles/reactIntersectionObserver.module.css';
+import { ArticleProps, ArticlesProps } from '@/types/models';
 
-export const Blog = ({ articles }: ArticlesProps) => {
+function CommonSection({ articles }: ArticlesProps) {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
           {articles !== undefined &&
             articles.map((article: ArticleProps) => (
-              <div className="p-4 md:w-1/3 " key={article.uid}>
+              <div className="p-4 md:w-1/3" key={article.uid}>
                 <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden dark:bg-gray-800">
                   <Image
                     className="lg:h-48 md:h-36 w-full object-cover object-center"
                     src={article.data.featureImageUrl.url}
-                    alt={article.data.featureImageUrl.alt}
-                    width="1000"
-                    height="1000"
+                    alt={article.data.featureImageUrl.alt || 'image'}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    fill
                   />
                   <div className="p-6">
                     <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
@@ -29,9 +30,9 @@ export const Blog = ({ articles }: ArticlesProps) => {
                     <div className="leading-relaxed mb-3">
                       {article.data.description[0].text}
                     </div>
-                    <div className="flex items-center flex-wrap ">
+                    <div className="flex items-center flex-wrap">
                       <Link
-                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323]  dark:text-white dark:hover:text-blue-500"
+                        className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323] dark:text-white dark:hover:text-blue-500"
                         href={`/${article.uid}`}
                       >
                         Lire la suite
@@ -57,9 +58,30 @@ export const Blog = ({ articles }: ArticlesProps) => {
       </div>
     </section>
   );
+}
+
+export const BlogSection = ({ articles }: ArticlesProps) => {
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0.2,
+  });
+
+  const renderContent = () => {
+    return <CommonSection articles={articles} />;
+  };
+
+  return (
+    <div
+      className={
+        inView ? `${styles.slider} ${styles.slider__zoom}` : `${styles.slider}`
+      }
+      ref={ref}
+    >
+      {renderContent()}
+    </div>
+  );
 };
 
-export function linkResolver(document: any) {
-  const xx = '/uid/' + document.uid;
-  console.log('check xx\n\n', xx);
-}
+export const Blog = ({ articles }: ArticlesProps) => {
+  return <CommonSection articles={articles} />;
+};
