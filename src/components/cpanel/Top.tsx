@@ -1,39 +1,199 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import { AiOutlineLogout } from 'react-icons/ai';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { IoIosContact } from 'react-icons/io';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { onlyStaff } from '@/lib/supabase';
+import { checkRegisteredMember, onlyStaff } from '@/lib/supabase';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+  Button,
+  User,
+} from '@nextui-org/react';
+import {
+  AiOutlineCalendar,
+  AiOutlineLogout,
+  AiOutlineUser,
+} from 'react-icons/ai';
+import { FaUserFriends } from 'react-icons/fa';
+import { GiMechanicGarage, GiCash } from 'react-icons/gi';
+import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md';
+import { IoColorPalette } from 'react-icons/io5';
+import { BsDatabaseFillLock } from 'react-icons/bs';
+import { TbHomeHeart } from 'react-icons/tb';
+import { useRouter } from 'next/navigation';
 
 export default function Top({ session }: any) {
-  const [isMenuVisible, setMenuVisible] = useState(false);
   const [staffMember, setStaffMember] = useState(false);
-
-  const menuRef = useRef<HTMLDivElement | null>(null);
+  const [name, setName] = useState('');
+  const router = useRouter();
+  const iconClasses =
+    'text-xl text-default-500 pointer-events-none flex-shrink-0';
 
   useEffect(() => {
     async function fetchData() {
       const result = await onlyStaff(session?.user?.email);
       setStaffMember(result);
+
+      const data = await checkRegisteredMember(session?.user?.email);
+
+      setName(
+        () => data.statusText[0].first_name + ' ' + data.statusText[0].last_name
+      );
     }
     fetchData();
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, []);
 
-  const toggleMenu = () => {
-    setMenuVisible(!isMenuVisible);
-  };
+  const DropdownContent = () => (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button color={'primary'} variant={'shadow'} className="capitalize">
+          <IoIosContact size={80} />
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Custom item styles"
+        disabledKeys={['fake', 'profile']}
+        className="p-3"
+        itemClasses={{
+          base: [
+            'rounded-md',
+            'text-default-500',
+            'transition-opacity',
+            'data-[selectable=true]:focus:bg-default-50',
+            'data-[pressed=true]:opacity-70',
+            'data-[focus-visible=true]:ring-default-500',
+          ],
+        }}
+      >
+        <DropdownSection aria-label="Member Menu" showDivider>
+          <DropdownItem
+            isReadOnly
+            key="profile"
+            className="h-14 gap-2 opacity-100"
+          >
+            <User
+              name={name}
+              description={session?.user?.email}
+              classNames={{
+                name: 'text-default-600',
+                description: 'text-default-500',
+              }}
+            />
+          </DropdownItem>
+          <DropdownItem
+            key="infos"
+            startContent={<AiOutlineUser className={iconClasses} />}
+            onClick={() => router.push('/cpanel/infos')}
+          >
+            Mes Informations
+          </DropdownItem>
+          <DropdownItem
+            key="addCar"
+            startContent={<MdAddToPhotos className={iconClasses} />}
+            onClick={() => router.push('/cpanel/addCar')}
+          >
+            Ajouter une voiture
+          </DropdownItem>
+          <DropdownItem
+            key="garage"
+            startContent={<GiMechanicGarage className={iconClasses} />}
+            onClick={() => router.push('/cpanel/garage')}
+          >
+            Mon Garage
+          </DropdownItem>
+          <DropdownItem
+            key="event"
+            startContent={<AiOutlineCalendar className={iconClasses} />}
+            onClick={() => router.push('/cpanel/event')}
+          >
+            Saison {new Date().getFullYear()}
+          </DropdownItem>
+          <DropdownItem
+            key="partners"
+            startContent={<FaUserFriends className={iconClasses} />}
+            onClick={() => router.push('/cpanel/partners')}
+          >
+            Partenaires
+          </DropdownItem>
+          <DropdownItem
+            key="home"
+            startContent={<TbHomeHeart className={iconClasses} />}
+            onClick={() => router.push('/')}
+          >
+            Retour à l'accueil
+          </DropdownItem>
+        </DropdownSection>
+        {staffMember ? (
+          <DropdownSection aria-label="Only Staff Section" showDivider>
+            <DropdownItem
+              key="stats"
+              startContent={<MdQueryStats className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/stats')}
+            >
+              Statistiques
+            </DropdownItem>
+            <DropdownItem
+              key="colors"
+              startContent={<IoColorPalette className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/colors')}
+            >
+              Gérer les couleurs
+            </DropdownItem>
+            <DropdownItem
+              key="partnersAdmin"
+              startContent={<GiCash className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/partners')}
+            >
+              Partenaires
+            </DropdownItem>
+            <DropdownItem
+              key="eventAdmin"
+              startContent={<MdEditCalendar className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/event')}
+            >
+              Saison {new Date().getFullYear()}
+            </DropdownItem>
+            <DropdownItem
+              key="db"
+              startContent={<BsDatabaseFillLock className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/supabase')}
+            >
+              Base de données
+            </DropdownItem>
+          </DropdownSection>
+        ) : (
+          <DropdownSection aria-label="Fake section">
+            <DropdownItem key="fake"></DropdownItem>
+          </DropdownSection>
+        )}
 
-  const handleClickOutside = (event: any) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setMenuVisible(false);
-    }
-  };
+        <DropdownSection aria-label="SignOut">
+          <DropdownItem
+            key="signOut"
+            startContent={<AiOutlineLogout className={`{iconClasses}`} />}
+            className="text-danger"
+            color="danger"
+            onClick={handleSignout}
+          >
+            Déconnexion
+          </DropdownItem>
+        </DropdownSection>
+      </DropdownMenu>
+    </Dropdown>
+  );
 
   async function handleSignout() {
     const supabase = createClientComponentClient();
@@ -47,116 +207,7 @@ export default function Top({ session }: any) {
     <nav className="p-4 flex border-b-2 border-gray-400 text-[#3B578E] bg-[#ADA075]">
       <div className="flex items-center justify-center md:justify-center w-full"></div>
       <div className="md:hidden flex items-center space-x-4 md:w-1/4 justify-end">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center hover:cursor-pointer ">
-          <IoIosContact size={72} onClick={toggleMenu} />
-        </div>
-        {/* Menu Items */}
-        {isMenuVisible && (
-          <div
-            ref={menuRef}
-            className="absolute z-10 top-20 right-4 bg-white border border-gray-300 w-64 shadow-lg text-gray-800"
-          >
-            <div className="p-2">
-              <div className="flex items-center justify-center ">
-                <div className="w-3/4 ">
-                  <h1>{session?.user?.name}</h1>
-                  <h2
-                    className="text-gray-300"
-                    style={{
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                      maxWidth: '100%',
-                    }}
-                  >
-                    {session?.user?.email}
-                  </h2>
-                </div>
-              </div>
-              <nav className="mt-8 ">
-                <h1 className="text-xl font-bold text-center mb-2">
-                  Dashboard
-                </h1>
-                <Link href="/cpanel/infos">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Mes Informations
-                  </p>
-                </Link>
-                <Link href="/cpanel/addCar">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Ajouter une voiture
-                  </p>
-                </Link>
-                <Link href="/cpanel/garage">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Mon Garage
-                  </p>
-                </Link>
-                <Link href="/cpanel/event">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Saison {new Date().getFullYear()}
-                  </p>
-                </Link>
-                <Link href="/cpanel/partners">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Nos Partenaires
-                  </p>
-                </Link>
-                <Link href="/">
-                  <p className="hover:bg-gray-800 hover:text-white mb-2">
-                    Retour au site
-                  </p>
-                </Link>
-              </nav>
-              {staffMember && (
-                <nav className="mt-8 text-red-500">
-                  <h1 className="text-xl font-bold text-center mb-2">
-                    Administration
-                  </h1>
-                  <Link href="/cpanel/admin/stats">
-                    <p className="hover:bg-red-300 hover:text-black mb-2">
-                      Statistiques
-                    </p>
-                  </Link>
-                  <Link href="/cpanel/admin/colors">
-                    <p className="hover:bg-red-300 hover:text-black mb-2">
-                      Couleurs
-                    </p>
-                  </Link>
-                  <Link href="/cpanel/admin/partners">
-                    <p className="hover:bg-red-300 hover:text-black mb-2">
-                      Nos Partenaires
-                    </p>
-                  </Link>
-                  <Link href="/cpanel/admin/event">
-                    <p className="hover:bg-red-300 hover:text-black mb-2">
-                      Saison {new Date().getFullYear()}
-                    </p>
-                  </Link>
-                  <Link href="/cpanel/admin/supabase">
-                    <p className="hover:bg-red-300 hover:text-black mb-2">
-                      Base de données
-                    </p>
-                  </Link>
-                </nav>
-              )}
-
-              <hr className="my-2 border-gray-300" />
-              <div className="flex items-center">
-                <div className="text-white text-2xl pr-4">
-                  <button
-                    type="button"
-                    onClick={() => handleSignout()}
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                  >
-                    Se déconnecter
-                    <AiOutlineLogout size={20} className="ml-2" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        <DropdownContent />
       </div>
     </nav>
   );

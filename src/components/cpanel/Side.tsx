@@ -17,6 +17,7 @@ import { Tooltip } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import picture306 from '../../../public/images/logoClub306_blanc.png';
 import { onlyStaff } from '@/lib/supabase';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export default function Side({ session }: any) {
   const [staffMember, setStaffMember] = useState(false);
@@ -29,6 +30,14 @@ export default function Side({ session }: any) {
     }
     fetchData();
   }, []);
+
+  async function handleSignout() {
+    const supabase = createClientComponentClient();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.log('error', error);
+    }
+  }
 
   return (
     <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
@@ -123,7 +132,7 @@ export default function Side({ session }: any) {
               href="/"
             >
               <TbHomeHeart className="inline-block text-3xl mr-4" />
-              <span>Site Club 306</span>
+              <span>Accueil du Club 306</span>
             </Link>
           </li>
           {staffMember && (
@@ -209,8 +218,8 @@ export default function Side({ session }: any) {
           <li>
             <Tooltip content="Se déconnecter">
               <button
-                className=" flex items-center justify-center w-full h-full text-[#f31260]"
-                onClick={() => {}}
+                className=" flex items-center justify-center w-full h-full text-red-500"
+                onClick={() => handleSignout()}
               >
                 <AiOutlineLogout size={33} />
               </button>
