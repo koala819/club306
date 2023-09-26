@@ -32,7 +32,7 @@ export const Blog = ({ articles }: ArticlesProps) => {
                     <div className="flex items-center flex-wrap ">
                       <Link
                         className="text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 hover:underline hover:text-[#DB2323]  dark:text-white dark:hover:text-blue-500"
-                        href={`/article/${article.uid}`}
+                        href={`/${article.uid}`}
                       >
                         Lire la suite
                         <svg

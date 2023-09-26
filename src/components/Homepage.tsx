@@ -5,7 +5,7 @@ import { BlogSection } from './BlogSection';
 import { Partners } from './Partners';
 import Alert from './Alert';
 import { useEffect, useState } from 'react';
-import { createClient } from '../../prismicio';
+import { createClient } from '@/prismicio';
 
 export function Homepage({ withMember }: { withMember: boolean }) {
   const [mappedArticles, setMappedArticles] = useState<any>([]);
