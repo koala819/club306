@@ -23,7 +23,7 @@ module.exports = withBundleAnalyzer({
     USR_CHECK_DB2: process.env.USR_CHECK_DB2,
   },
   experimental: {
-    appDir: true,
+    // appDir: true,
     serverActions: true,
   },
   images: {
@@ -38,7 +38,13 @@ module.exports = withBundleAnalyzer({
       'lh3.googleusercontent.com',
     ],
   },
+  // babel: {
+  //   plugins: [
+  //     '@babel/plugin-transform-class-properties',
+  //     '@babel/plugin-proposal-object-rest-spread',
+  //   ],
+  // },
   reactStrictMode: true,
-  transpilePackages: ['antd'],
+  // transpilePackages: ['antd'],
   swcMinify: true,
 });
