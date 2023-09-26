@@ -194,7 +194,7 @@ export const Garage = ({
                 >
                   <div className="flex items-center">
                     <div className="w-full flex flex-col md:flex-row">
-                      <span className="w-1/3">Modele</span>
+                      <span className="w-1/3">Modèle</span>
                       <div
                         className="flex justify-center w-full relative"
                         onMouseEnter={() => {
