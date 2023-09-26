@@ -26,7 +26,7 @@ export function Homepage({ session }: any) {
       </div>
       <div className="flex flex-wrap text-justify">
         <div className="p-4 md:w-2/3 w-full">
-          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg dark:bg-slate-400 text-gray-700 dark:text-gray-950 text-xl leading-relaxed space-y-4">
+          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg dark:bg-slate-500 text-gray-700 dark:text-gray-950 text-xl leading-relaxed space-y-4">
             <p>
               Prépare-toi à plonger dans une expérience extraordinaire,{' '}
               <span className="font-bold">{name}</span>. Notre interface
@@ -53,11 +53,13 @@ export function Homepage({ session }: any) {
           </div>
         </div>
         <div className="p-4 md:w-1/3 w-full">
-          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg w-full dark:bg-slate-400 text-gray-700">
-            <Link href="/cpanel/Garage">
-              <h1 className="font-bold text-xl">Mon Garage</h1>
+          <div className="border-2 border-gray-200 px-4 py-6 rounded-lg w-full dark:bg-slate-500 text-gray-700 dark:text-white">
+            <Link href="/cpanel/garage">
+              <h1 className="font-bold text-xl ml-6">Mon Garage</h1>
             </Link>
-            <Garage session={session} hide={true} />
+            <div className="mt-4 ">
+              <Garage session={session} hide={true} />
+            </div>
           </div>
         </div>
       </div>
