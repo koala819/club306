@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useForm, Controller } from 'react-hook-form';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { PartnerInfoType } from '@/types/Components';
+import { PartnerInfoType } from '@/types/models';
 import { uploadImageToGitHub } from '@/lib/githubImage';
 import { createNewPartner, updatePartner } from '@/lib/supabase';
 

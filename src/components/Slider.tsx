@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import styles from '@/styles/Slider.module.css';
-import { PartnerInfoType } from '@/types/Components';
+import { PartnerInfoType } from '@/types/models';
 import { ourPartners } from '@/lib/supabase';
 
 export const Slider = ({ session }: { session: any }) => {

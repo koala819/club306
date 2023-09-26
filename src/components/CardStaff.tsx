@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { VscGithub } from 'react-icons/vsc';
 import { BsLinkedin, BsYoutube } from 'react-icons/bs';
 import { IoMdMailOpen } from 'react-icons/io';
-import { CardStaffProps } from '@/types/Components';
+import { CardStaffProps } from '@/types/models';
 
 export const CardStaff = ({
   picture,
