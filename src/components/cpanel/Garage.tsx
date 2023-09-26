@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { DisplaySVG } from '@/components/DisplaySvg';
+import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
 import Tab from './garage/Tab';
 import DeleteCar from './garage/DeleteCar';
 import UpdateCar from './garage/UpdateCar';
