@@ -5,7 +5,6 @@ import '@/styles/globals.css';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Providers } from './providers';
-import { MemberContextProvider } from '@/context/cpanel/MemberContext';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -31,11 +30,7 @@ export default async function CustomLayout({
                 <div className="md:hidden">
                   <Top session={session} />
                 </div>
-                <MemberContextProvider>
-                  <main className="overflow-y-auto flex-1 mb-4 ">
-                    {children}
-                  </main>
-                </MemberContextProvider>
+                <main className="overflow-y-auto flex-1 mb-4 ">{children}</main>
               </div>
             </div>
           </div>

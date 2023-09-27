@@ -1,6 +1,5 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
-import { MemberContext } from '@/context/cpanel/MemberContext';
+import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
 import { Loading } from '@/components/cpanel/Loading';
 import DeleteCar from './garage/DeleteCar';
@@ -16,16 +15,13 @@ export default function Garage({
   session: any;
   hide?: boolean;
 }) {
-  const { member, updateMember } = useContext(MemberContext);
-  // const [member, setMember] = useState<Member | undefined>(undefined);
+  const [member, setMember] = useState<Member | undefined>(undefined);
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const [displayUpdateCar, setDisplayUpdateCar] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
-  // const memberContext = useContext(MemberContext);
-  // const member = memberContext ? memberContext.member : undefined;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +30,7 @@ export default function Garage({
         const memberData: Member = {
           id: response[0].id,
         };
-        // setMember(() => memberData);
-        updateMember(() => memberData);
+        setMember(() => memberData);
       }
 
       member?.id !== undefined &&
@@ -394,9 +389,4 @@ interface Car {
   immatriculation: string;
   min: string;
   model: string;
-}
-
-interface MemberContextType {
-  member: any | undefined; // Remplacez 'any' par le type approprié de member
-  updateMember: (newMember: any) => void; // Remplacez 'any' par le type approprié de member
 }
