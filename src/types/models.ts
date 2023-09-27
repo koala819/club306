@@ -54,17 +54,17 @@ interface MailPwd {
 }
 
 interface Member {
-  address: string;
-  birth_date: string;
-  created_at: string;
-  email: string;
-  first_name: string;
+  address?: string;
+  birth_date?: string;
+  created_at?: string;
+  email?: string;
+  first_name?: string;
   id: number;
-  country: string;
-  last_name: string;
-  phone: string;
-  town: string;
-  zip_code: string;
+  country?: string;
+  last_name?: string;
+  phone?: string;
+  town?: string;
+  zip_code?: string;
 }
 
 interface Model {

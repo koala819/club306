@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {
@@ -11,15 +11,20 @@ import {
   returnMemberInfo,
   sendMailNewCarCPanel,
 } from '@/lib/supabase';
-import { Color, Finition, Model, Vehicles } from '@/types/models';
+import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
+import { Loading } from '@/components/cpanel/Loading';
+import { Button, Input, Select, SelectItem } from '@nextui-org/react';
+import { useTheme } from 'next-themes';
+import toast from 'react-hot-toast';
 
-import ClipLoader from 'react-spinners/ClipLoader';
 export default function AddCar({ session }: any) {
-  const [displayLoader, setDisplayLoader] = useState(false);
+  const [displayLoader, setDisplayLoader] = useState(true);
+  const [changeTextDL, setChangeTextDL] = useState('');
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
   const [models, setModels] = useState<Model[]>([]);
+  const { resolvedTheme } = useTheme();
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -34,30 +39,36 @@ export default function AddCar({ session }: any) {
   });
 
   const {
-    register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<Vehicles>({
     resolver: yupResolver(schema),
   });
 
   const handleAddVehicle = async (data: Vehicles) => {
+    setChangeTextDL('Enregistrement des données en base de données...');
     setDisplayLoader(true);
     try {
-      const response = await addCar([data], member?.id);
+      const response = await addCar(data, member?.id);
       if (response !== undefined && response.status === 200) {
         const response = await sendMailNewCarCPanel(data, member?.id);
         if (response !== undefined && response.status === 200) {
-          alert('Enregistrement avec succès !');
           setDisplayLoader(false);
+
+          toast.success('Enregistrement avec succès !');
           reset();
         }
+      } else {
+        setDisplayLoader(false);
+        toast.error(response.statusText);
       }
     } catch (error) {
+      toast.error("Une erreur s'est produite pour enregistrer le véhicule");
+
       console.log('Error', error);
     }
-    // reset();
   };
 
   useEffect(() => {
@@ -104,6 +115,7 @@ export default function AddCar({ session }: any) {
           };
         });
         setModels(fetchedModels);
+        setDisplayLoader(false);
       }
     };
     fetchData();
@@ -111,207 +123,190 @@ export default function AddCar({ session }: any) {
 
   return (
     <>
-      {displayLoader && (
-        <section className="grid h-screen place-items-center">
-          <ClipLoader
-            loading={true}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-        </section>
-      )}
-      {!displayLoader && (
-        <form
-          // onSubmit={
-          //   editIndex !== null
-          //     ? handleSubmit(handleUpdateVehicle)
-          //     : handleSubmit(handleAddVehicle)
-          // }
-          onSubmit={handleSubmit(handleAddVehicle)}
-          className="mx-8 my-12 border-2 border-gray-400 rounded-lg p-8"
-        >
-          <div className="grid grid-cols-6 gap-6   space-y-8">
-            {/* IMMATRICULATION */}
-            <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
-              <input
-                type="text"
-                id="immatriculation"
-                {...register('immatriculation')}
-                className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                  errors.immatriculation ? 'border-red-500' : ''
-                }`}
-                placeholder=" "
-              />
-              <label
-                htmlFor="immatriculation"
-                className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  errors.immatriculation ? 'text-red-500 font-mono text-sm' : ''
-                }`}
-              >
-                Immatriculation
-              </label>
-
-              {errors.immatriculation && (
-                <div className="text-red-500 font-mono text-xs">
-                  {errors.immatriculation.message}
-                </div>
-              )}
-            </div>
-
-            {/* MINE */}
-            <div className="col-span-6 sm:col-span-3 relative z-0">
-              <input
-                type="text"
-                id="mine"
-                {...register('mine')}
-                className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                  errors.mine ? 'border-red-500' : ''
-                }`}
-                placeholder=" "
-              />
-              <label
-                htmlFor="mine"
-                className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  errors.mine ? 'text-red-500 font-mono text-sm' : ''
-                }`}
-              >
-                Type Mine
-              </label>
-
-              {errors.mine && (
-                <div className="text-red-500 font-mono text-xs">
-                  {errors.mine.message}
-                </div>
-              )}
-            </div>
-
-            {/* MODEL */}
-            <div className="col-span-6 sm:col-span-3 relative z-0">
-              <select
-                id="model"
-                {...register('model')}
-                className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                  errors.model
-                    ? 'border-red-500 text-red-500 text-sm font-mono'
-                    : ''
-                }`}
-              >
-                <option value="">Choix du modèle</option>
-                {models
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((model: Model) => (
-                    <option key={model.id} value={model.name}>
-                      {model.name}
-                    </option>
-                  ))}
-              </select>
-              <label
-                htmlFor="model"
-                className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  errors.model ? 'text-red-500 font-mono text-sm' : ''
-                }`}
-              >
-                Modèle
-              </label>
-
-              {errors.model && (
-                <div className="text-red-500 font-mono text-xs">
-                  {errors.model.message}
-                </div>
-              )}
-            </div>
-
-            {/* COLOR */}
-            <div className="col-span-6 sm:col-span-3 relative z-0">
-              <select
-                id="color"
-                {...register('color')}
-                className={`block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer ${
-                  errors.model
-                    ? 'border-red-500 text-red-500 text-sm font-mono'
-                    : ''
-                }`}
-              >
-                <option value="">Choix de la couleur</option>
-                {colors
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((color: Color) => (
-                    <option
-                      key={color.id}
-                      value={color.name}
-                      style={{ backgroundColor: `#${color.hexa}` }}
-                    >
-                      {color.name}
-                    </option>
-                  ))}
-              </select>
-              <label
-                htmlFor="color"
-                className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  errors.color ? 'text-red-500 font-mono text-sm' : ''
-                }`}
-              >
-                Couleur
-              </label>
-
-              {errors.color && (
-                <div className="text-red-500 font-mono text-xs">
-                  {errors.color.message}
-                </div>
-              )}
-            </div>
-
-            {/* FINITION */}
-            <div className="col-span-6 sm:col-span-3 relative z-0">
-              <select
-                id="finition"
-                {...register('finition')}
-                className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                  errors.model
-                    ? 'border-red-500 text-red-500 text-sm font-mono'
-                    : ''
-                }`}
-              >
-                <option value="">Choix de la finition</option>
-                {finitions
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((finition: Finition) => (
-                    <option key={finition.id} value={finition.name}>
-                      {finition.name}
-                    </option>
-                  ))}
-              </select>
-              <label
-                htmlFor="finition"
-                className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                  errors.finition ? 'text-red-500 font-mono text-sm' : ''
-                }`}
-              >
-                Finition
-              </label>
-
-              {errors.finition && (
-                <div className="text-red-500 font-mono text-xs">
-                  {errors.finition.message}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="mt-4">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600"
+      {displayLoader ? (
+        <Loading text={changeTextDL} />
+      ) : (
+        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
+          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg  bg-white dark:bg-slate-500 border-0">
+            <form
+              onSubmit={handleSubmit(handleAddVehicle)}
+              className="mx-8 my-12 border-2 border-gray-400 rounded-lg p-8"
             >
-              Ajouter une 306
-            </button>
+              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 mb-8">
+                {/* IMMATRICULATION */}
+                <div className="w-full md:w-1/2">
+                  <Controller
+                    name="immatriculation"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        type="text"
+                        color={`${
+                          resolvedTheme === 'dark'
+                            ? 'default'
+                            : errors.immatriculation
+                            ? 'danger'
+                            : 'primary'
+                        }`}
+                        variant={'underlined'}
+                        label="Immatriculation"
+                        id="immatriculation"
+                        onChange={onChange}
+                        value={value}
+                      />
+                    )}
+                  />
+                  {errors.immatriculation && (
+                    <p className="text-danger text-xs font-bold">
+                      {errors.immatriculation.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* MINE */}
+                <div className="w-full md:w-1/2">
+                  <Controller
+                    name="mine"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        type="text"
+                        color={`${
+                          resolvedTheme === 'dark'
+                            ? 'default'
+                            : errors.mine
+                            ? 'danger'
+                            : 'primary'
+                        }`}
+                        variant={'underlined'}
+                        label="Type Mine"
+                        id="mine"
+                        onChange={onChange}
+                        value={value}
+                      />
+                    )}
+                  />
+                  {errors.mine && (
+                    <p className="text-danger text-xs font-bold">
+                      {errors.mine.message}
+                    </p>
+                  )}
+                </div>
+              </section>
+
+              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 mb-8">
+                {/* MODEL */}
+                <div className="w-full md:w-1/2">
+                  <Controller
+                    name="model"
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <Select
+                        items={models}
+                        label="Modèle"
+                        onChange={onChange}
+                        color={`${errors.model ? 'danger' : 'primary'}`}
+                        placeholder="Choix du modèle"
+                        className="max-w-xs"
+                      >
+                        {(model) => (
+                          <SelectItem key={model.id} color="primary">
+                            {model.name}
+                          </SelectItem>
+                        )}
+                      </Select>
+                    )}
+                  />
+                  {errors.model && (
+                    <p className="text-danger text-xs font-bold">
+                      {errors.model.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* FINITION */}
+                <div className="w-full md:w-1/2">
+                  <Controller
+                    name="finition"
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <Select
+                        items={finitions}
+                        label="Finition"
+                        onChange={onChange}
+                        color={`${errors.finition ? 'danger' : 'primary'}`}
+                        placeholder="Choix de la finition"
+                        className="max-w-xs"
+                      >
+                        {(finition) => (
+                          <SelectItem key={finition.id} color="primary">
+                            {finition.name}
+                          </SelectItem>
+                        )}
+                      </Select>
+                    )}
+                  />
+                  {errors.finition && (
+                    <p className="text-danger text-xs font-bold">
+                      {errors.finition.message}
+                    </p>
+                  )}
+                </div>
+              </section>
+
+              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 md:pr-16">
+                {/* COLOR */}
+                <div className="w-full md:w-1/2">
+                  <Controller
+                    name="color"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Select
+                        items={colors}
+                        label="Couleur"
+                        onChange={onChange}
+                        value={value}
+                        color={`${errors.color ? 'danger' : 'primary'}`}
+                        placeholder="Choix de la couleur"
+                        className="max-w-xs"
+                      >
+                        {(color) => (
+                          <SelectItem
+                            key={color.id}
+                            color="primary"
+                            startContent={
+                              <div
+                                className="w-6 h-6 rounded-full"
+                                style={{ backgroundColor: `#${color.hexa}` }}
+                              />
+                            }
+                          >
+                            {color.name}
+                          </SelectItem>
+                        )}
+                      </Select>
+                    )}
+                  />
+                  {errors.color && (
+                    <p className="text-danger text-xs font-bold">
+                      {errors.color.message}
+                    </p>
+                  )}
+                </div>
+                <div className="w-full md:w-1/2 flex items-center justify-center">
+                  <Button
+                    color="primary"
+                    variant={resolvedTheme === 'dark' ? 'shadow' : 'ghost'}
+                    type="submit"
+                  >
+                    Ajouter une 306
+                  </Button>
+                </div>
+              </section>
+            </form>
           </div>
-        </form>
+        </div>
       )}
     </>
   );
-}
-
-interface Member {
-  id: number;
 }

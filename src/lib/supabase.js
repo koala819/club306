@@ -9,29 +9,14 @@ const supabase = createClient(
 
 async function addCar(vehicles, memberId) {
   try {
-    const responses = await Promise.all([
-      ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
-      ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
-      ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
-    ]);
-    const colorIds = responses
-      .slice(0, vehicles.length)
-      .map((res) => res.data[0].id);
-    const finitionIds = responses
-      .slice(vehicles.length, vehicles.length * 2)
-      .map((res) => res.data[0].id);
-    const modelIds = responses
-      .slice(vehicles.length * 2)
-      .map((res) => res.data[0].id);
-
     const { data, error } = await supabase.from('cars').upsert([
       {
         member_id: memberId,
-        car_model_id: modelIds[0],
-        car_finition_id: finitionIds[0],
-        car_color_id: colorIds[0],
-        immatriculation: vehicles[0].immatriculation,
-        min: vehicles[0].mine,
+        car_model_id: vehicles.model,
+        car_finition_id: vehicles.finition,
+        car_color_id: vehicles.color,
+        immatriculation: vehicles.immatriculation,
+        min: vehicles.mine,
       },
     ]);
 

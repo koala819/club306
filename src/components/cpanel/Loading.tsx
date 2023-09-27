@@ -1,7 +1,7 @@
 'use client';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-export function Loading() {
+export function Loading({ text }: { text?: string }) {
   return (
     <div className="fixed inset-0 flex justify-center items-center">
       <div className="flex flex-col items-center justify-center bg-white dark:bg-slate-500 p-4 rounded-lg shadow-lg text-black">
@@ -12,7 +12,9 @@ export function Loading() {
           aria-label="Loading Spinner"
           data-testid="loader"
         />
-        <p className="mt-8 text-black">Chargement des données ...</p>
+        <p className="mt-8 text-black">
+          {text ? text : 'Chargement des données ...'}
+        </p>
       </div>
     </div>
   );
