@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { returnMemberInfo } from '@/lib/supabase';
-import Image from 'next/image';
-import ClipLoader from 'react-spinners/ClipLoader';
 import { Input } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
+import { Loading } from '@/components/cpanel/Loading';
 import { Member } from '@/types/models';
 
 export default function Infos({ session }: any) {
@@ -36,18 +36,7 @@ export default function Infos({ session }: any) {
   return (
     <>
       {member === undefined ? (
-        <div className="fixed inset-0 flex justify-center items-center">
-          <div className="flex flex-col items-center justify-center bg-white dark:bg-slate-500 p-4 rounded-lg shadow-lg text-black">
-            <p className="text-xl font-semibold mb-4">Veuillez patienter</p>
-            <ClipLoader
-              loading={true}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-            <p className="mt-8 text-black">Chargement des données ...</p>
-          </div>
-        </div>
+        <Loading />
       ) : (
         <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg  bg-white dark:bg-slate-500 border-0">

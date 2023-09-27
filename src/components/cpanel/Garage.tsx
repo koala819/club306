@@ -1,12 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { MemberContext } from '@/context/cpanel/MemberContext';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
-import Tab from './garage/Tab';
+import { Loading } from '@/components/cpanel/Loading';
 import DeleteCar from './garage/DeleteCar';
 import UpdateCar from './garage/UpdateCar';
 import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
 import { HiPencil } from 'react-icons/hi';
-import ClipLoader from 'react-spinners/ClipLoader';
 import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
 
 export default function Garage({
@@ -16,14 +16,16 @@ export default function Garage({
   session: any;
   hide?: boolean;
 }) {
-  const [activeTab, setActiveTab] = useState('mesInfos');
-  const [member, setMember] = useState<Member | undefined>(undefined);
+  const { member, updateMember } = useContext(MemberContext);
+  // const [member, setMember] = useState<Member | undefined>(undefined);
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const [displayUpdateCar, setDisplayUpdateCar] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editing, setEditing] = useState(false);
+  // const memberContext = useContext(MemberContext);
+  // const member = memberContext ? memberContext.member : undefined;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +34,8 @@ export default function Garage({
         const memberData: Member = {
           id: response[0].id,
         };
-        setMember(() => memberData);
+        // setMember(() => memberData);
+        updateMember(() => memberData);
       }
 
       member?.id !== undefined &&
@@ -73,12 +76,12 @@ export default function Garage({
     }
   };
 
-  const handleMobileBoxClick = (value: string | undefined | null) => {
-    if (window.innerWidth <= 810) {
-      setDisplayUpdateCar(true);
-      value !== undefined && value !== null && setModifyValue(() => value);
-    }
-  };
+  // const handleMobileBoxClick = (value: string | undefined | null) => {
+  //   if (window.innerWidth <= 810) {
+  //     setDisplayUpdateCar(true);
+  //     value !== undefined && value !== null && setModifyValue(() => value);
+  //   }
+  // };
 
   const handleEditClick = (value: string | undefined | null) => {
     setDisplayUpdateCar(true);
@@ -103,18 +106,7 @@ export default function Garage({
   return (
     <>
       {cars === undefined ? (
-        <div className="fixed inset-0 flex justify-center items-center">
-          <div className="flex flex-col items-center justify-center bg-white p-4 dark:bg-slate-500 rounded-lg shadow-lg text-black">
-            <p className="text-xl font-semibold mb-4">Veuillez patienter</p>
-            <ClipLoader
-              loading={true}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-            <p className="mt-8 text-black">Chargement des données ...</p>
-          </div>
-        </div>
+        <Loading />
       ) : (
         <div className={`${hide ? '' : 'w-full lg:w-8/12 px-4 mx-auto mt-6 '}`}>
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
@@ -393,7 +385,7 @@ interface Member {
   id: number;
 }
 
-type Car = {
+interface Car {
   color: {
     name: string | null;
     hexa: string | null;
@@ -402,4 +394,9 @@ type Car = {
   immatriculation: string;
   min: string;
   model: string;
-};
+}
+
+interface MemberContextType {
+  member: any | undefined; // Remplacez 'any' par le type approprié de member
+  updateMember: (newMember: any) => void; // Remplacez 'any' par le type approprié de member
+}
