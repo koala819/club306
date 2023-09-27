@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import picture306 from '../../../public/images/logoClub306_blanc.png';
 import { onlyStaff } from '@/lib/supabase';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export default function Side({ session }: any) {
   const [staffMember, setStaffMember] = useState(false);
@@ -55,7 +56,10 @@ export default function Side({ session }: any) {
           />
         </Link>
       </div>
-      <nav className="bg-cpanel-main-bg-darker mt-8">
+      <div className="flex items-center justify-center mt-8">
+        <ThemeSwitcher />
+      </div>
+      <nav className="bg-cpanel-main-bg-darker mt-2">
         <ul
           className={`pt-0 p-4 flex flex-col ${
             staffMember ? 'gap-2' : 'gap-3'
