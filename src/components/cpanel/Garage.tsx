@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
 import { Loading } from '@/components/cpanel/Loading';
-import DeleteCar from './garage/DeleteCar';
+import DeleteCar from '@/components/cpanel/DeleteCar';
 import { returnMemberInfo } from '@/lib/supabase';
 import { getMemberCars, updateCar } from '@/lib/cpanel/updateCar';
 import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';

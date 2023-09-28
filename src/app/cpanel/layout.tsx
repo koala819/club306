@@ -1,5 +1,5 @@
-import Side from '@/components/cpanel/Side';
-import Top from '@/components/cpanel/Top';
+import Side from '@/components/cpanel/layout/Side';
+import Top from '@/components/cpanel/layout/Top';
 import { Montserrat } from 'next/font/google';
 import '@/styles/globals.css';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';

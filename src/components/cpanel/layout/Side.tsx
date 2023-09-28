@@ -15,7 +15,7 @@ import { BsDatabaseFillLock } from 'react-icons/bs';
 import { TbHomeHeart } from 'react-icons/tb';
 import { Tooltip } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import picture306 from '../../../public/images/logoClub306_blanc.png';
+import picture306 from '../../../../public/images/logoClub306_blanc.png';
 import { onlyStaff } from '@/lib/supabase';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeSwitcher } from './ThemeSwitcher';

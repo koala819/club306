@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { addCar, sendMailNewCarCPanel } from '@/lib/supabase';
+import { addCar } from '@/lib/cpanel/updateCar';
 import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
 import { Loading } from '@/components/cpanel/Loading';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
@@ -47,30 +47,6 @@ export default function AddCar({ session }: any) {
     resolver: yupResolver(schema),
   });
 
-  const handleAddVehicle = async (data: Vehicles) => {
-    setChangeTextDL('Enregistrement des données en base de données...');
-    setDisplayLoader(true);
-    try {
-      const response = await addCar(data, member?.id);
-      if (response !== undefined && response.status === 200) {
-        const response = await sendMailNewCarCPanel(data, member?.id);
-        if (response !== undefined && response.status === 200) {
-          setDisplayLoader(false);
-
-          toast.success('Enregistrement avec succès !');
-          reset();
-        }
-      } else {
-        setDisplayLoader(false);
-        toast.error(response.statusText);
-      }
-    } catch (error) {
-      toast.error("Une erreur s'est produite pour enregistrer le véhicule");
-
-      console.log('Error', error);
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await listPartsCar({
@@ -84,6 +60,26 @@ export default function AddCar({ session }: any) {
     };
     fetchData();
   }, []);
+
+  const handleAddVehicle = async (data: Vehicles) => {
+    setChangeTextDL('Enregistrement des données en base de données...');
+    setDisplayLoader(true);
+
+    try {
+      if (member !== undefined && member.id !== undefined) {
+        const response = await addCar(data, member?.id);
+        const dataResponse = await response.json();
+        if (dataResponse.status === 200) {
+          reset();
+          setDisplayLoader(false);
+          toast.success('Enregistrement avec succès !');
+        }
+      }
+    } catch (error) {
+      toast.error("Une erreur s'est produite pour enregistrer le véhicule");
+      console.log('Error', error);
+    }
+  };
 
   return (
     <>

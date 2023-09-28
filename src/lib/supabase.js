@@ -6,38 +6,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
-async function addCar(vehicles, memberId) {
-  try {
-    const { data, error } = await supabase.from('cars').upsert([
-      {
-        member_id: memberId,
-        car_model_id: vehicles.model,
-        car_finition_id: vehicles.finition,
-        car_color_id: vehicles.color,
-        immatriculation: vehicles.immatriculation,
-        min: vehicles.mine,
-      },
-    ]);
-
-    if (!error) {
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        statusText: 'Great Job !!! Car added successfully :)',
-      });
-    }
-
-    return new Response(JSON.stringify(error.message), {
-      status: 405,
-      statusText: 'Error to add new car',
-    });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error with supabase request',
-    });
-  }
-}
-
 async function addThemeEvent(name, color, background) {
   try {
     const { data, error } = await supabase
@@ -136,46 +104,6 @@ async function checkForCanI(lastName, firstName) {
       firstName.charAt(0).toUpperCase() + firstName.slice(1)
     )
     .filter('last_name', 'eq', lastName.toUpperCase());
-}
-
-// async function checkForStartSession(dataFromAccountGoogle) {
-//   const { data: registeredMember } = await supabase
-//     .from('members')
-//     .select('*')
-//     .filter('email', 'eq', dataFromAccountGoogle?.user?.email);
-
-//   if (registeredMember?.length !== 0) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-
-async function checkImmatInMuseum(immat) {
-  try {
-    const { data, error } = await supabase
-      .from('museum')
-      .select('*')
-      .filter('immatriculation', 'eq', immat)
-      .single();
-
-    if (!data) {
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        statusText: 'Immatriculation not exist in museum :)',
-      });
-    }
-
-    return new Response(JSON.stringify(error), {
-      status: 404,
-      statusText: 'Immatriculation déjà existante !',
-    });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error with supabase request',
-    });
-  }
 }
 
 async function checkMail(mail) {
@@ -466,42 +394,6 @@ async function countMembersByMonth() {
   } catch (error) {
     console.error(error);
     return countsByMonth;
-  }
-}
-
-async function deleteCar(car, memberId, reason) {
-  try {
-    const response = await recordCarInMuseum(car, memberId, reason);
-    if (response !== undefined && response.status === 404) {
-      return new Response(JSON.stringify(), {
-        status: 404,
-        statusText: 'Immatriculation déjà existante !',
-      });
-    }
-
-    if (response !== undefined && response.status === 200) {
-      const { data, error } = await supabase
-        .from('cars')
-        .delete()
-        .eq('immatriculation', car.immatriculation);
-
-      if (!error) {
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          statusText: 'Great Job !!! Car successfully removed :)',
-        });
-      }
-
-      return new Response(JSON.stringify(error.message), {
-        status: 405,
-        statusText: 'Error to remove car :(',
-      });
-    }
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error with supabase request',
-    });
   }
 }
 
@@ -860,59 +752,6 @@ async function recordCar(vehicles, memberId) {
   }
 }
 
-async function recordCarInMuseum(car, memberId, reason) {
-  try {
-    const response = await checkImmatInMuseum(car.immatriculation);
-
-    if (response !== undefined && response.status === 404) {
-      return new Response(JSON.stringify(), {
-        status: 404,
-        statusText: 'Immatriculation déjà existante !',
-      });
-    }
-
-    if (response !== undefined && response.status === 200) {
-      const responses = await Promise.all([
-        getIdColor(car.color.name),
-        getIdFinition(car.finition),
-        getIdModel(car.model),
-      ]);
-      const idColor = responses[0].data[0].id;
-      const idFinition = responses[1].data[0].id;
-      const idModel = responses[2].data[0].id;
-
-      const { data, error } = await supabase.from('museum').upsert([
-        {
-          member_id: memberId,
-          car_model_id: idModel,
-          car_finition_id: idFinition,
-          car_color_id: idColor,
-          immatriculation: car.immatriculation,
-          min: car.min,
-          reason: reason,
-          deleted_at: new Date(),
-        },
-      ]);
-      if (!error) {
-        return new Response(JSON.stringify(data), {
-          status: 200,
-          statusText: 'Great Job !!! Car added successfully in museum :)',
-        });
-      }
-
-      return new Response(JSON.stringify(error.message), {
-        status: 405,
-        statusText: 'Error to add new car in museum :(',
-      });
-    }
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error with supabase request',
-    });
-  }
-}
-
 async function recordMember(personalInfo, email, newMemberId) {
   const { address, birth_date, first_name, last_name, phone, town, zip_code } =
     personalInfo;
@@ -1034,97 +873,6 @@ async function sendMailRecordDb(personalInfo) {
       statusText: error.message,
       status: 406,
     };
-  }
-}
-
-async function sendMailNewCarCPanel(newCar, memberId) {
-  try {
-    const memberName = await getMemberName(memberId);
-    const dataSendMail = {
-      first_name: memberName.data[0].first_name,
-      last_name: memberName.data[0].last_name,
-      color: newCar.color,
-      finition: newCar.finition,
-      immatriculation: newCar.immatriculation,
-      mine: newCar.mine,
-      model: newCar.model,
-      from: 'newCar',
-    };
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(dataSendMail),
-    };
-    const { data, error } = await fetch(
-      `${process.env.CLIENT_URL}/api/mail`,
-      options
-    );
-    if (!error) {
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        statusText: 'Great Job !!! send email successfully :)',
-      });
-    }
-
-    return new Response(JSON.stringify(error.message), {
-      status: 405,
-      statusText: 'Error to send email',
-    });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error to retrieve member id from immat',
-    });
-  }
-}
-
-async function sendMailRemoveCarCPanel(oldCar, memberId, reason) {
-  try {
-    const memberName = await getMemberName(memberId);
-    const dataSendMail = {
-      first_name: memberName.data[0].first_name,
-      last_name: memberName.data[0].last_name,
-      color: oldCar.color.name,
-      finition: oldCar.finition,
-      immatriculation: oldCar.immatriculation,
-      mine: oldCar.min,
-      model: oldCar.model,
-      reason: reason,
-      from: 'oldCar',
-    };
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(dataSendMail),
-    };
-    const { data, error } = await fetch(
-      `${process.env.CLIENT_URL}/api/mail`,
-      options
-    );
-    if (!error) {
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        statusText: 'Great Job !!! send email successfully :)',
-      });
-    }
-
-    return new Response(JSON.stringify(error.message), {
-      status: 405,
-      statusText: 'Error to send email',
-    });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error to retrieve member id from immat',
-    });
   }
 }
 
@@ -1282,7 +1030,6 @@ async function updateThemeEvent(color, name, item) {
 }
 
 export {
-  addCar,
   addThemeEvent,
   cancelEvent,
   checkForCanI,
@@ -1295,7 +1042,6 @@ export {
   countMembersByCountry,
   countMembersByMonth,
   createNewPartner,
-  deleteCar,
   deleteParner,
   deleteThemeEvent,
   getAllColors,
@@ -1304,15 +1050,16 @@ export {
   getAllModels,
   getAllThemesEvent,
   getHexaCarColor,
+  getIdColor,
+  getIdFinition,
   getMemberId,
+  getIdModel,
   getTokenFromSupabase,
   onlyStaff,
   ourPartners,
   record,
   recordModifyColorInCpanel,
   returnMemberInfo,
-  sendMailNewCarCPanel,
-  sendMailRemoveCarCPanel,
   updateCarImmatriculation,
   updateEvent,
   updatePartner,
