@@ -14,7 +14,7 @@ export default function DeleteCar({
     color: { name: string | null; hexa: string | null };
     finition: string;
     immatriculation: string;
-    min: string;
+    mine: string;
     model: string;
   };
 }) {

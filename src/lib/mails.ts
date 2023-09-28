@@ -3635,7 +3635,8 @@ const updateCarInfo = (
   lastName: string,
   type: string,
   oldValue: string,
-  newValue: string
+  newValue: string,
+  immatriculation: string
 ) => {
   return `<!DOCTYPE html>
   <html>
@@ -3853,7 +3854,7 @@ const updateCarInfo = (
                                     font-size: 20px; ">a apporté des modifications sur ${type}</h1>
                                   <h1 class="v-font-size" style="margin: 0px; color: #ffffff; line-height: 140%;
                                     text-align: center; word-wrap: break-word; font-family: 'Montserrat',sans-serif;
-                                    font-size: 20px; ">Il a changé ces valeurs</h1>
+                                    font-size: 20px; ">Il a changé ces valeurs pour son véhicule immatriculé ${immatriculation}</h1>
                                   <p><br>
                                   </p>
                                 </td>
@@ -4365,9 +4366,7 @@ const updateCarInfo = (
       <!--[if mso]></div><![endif]-->
       <!--[if IE]></div><![endif]-->
     </body>
-  </html>
-  
-`;
+  </html>`;
 };
 
 const welcomeNewMember = (firstName: string) => {

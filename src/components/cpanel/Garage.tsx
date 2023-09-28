@@ -3,10 +3,24 @@ import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
 import { Loading } from '@/components/cpanel/Loading';
 import DeleteCar from './garage/DeleteCar';
-import UpdateCar from './garage/UpdateCar';
-import { returnMemberInfo, getMemberCars } from '@/lib/supabase';
-import { HiPencil } from 'react-icons/hi';
+import { returnMemberInfo } from '@/lib/supabase';
+import { getMemberCars, updateCar } from '@/lib/cpanel/updateCar';
 import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Input,
+  Select,
+  SelectItem,
+} from '@nextui-org/react';
+import toast from 'react-hot-toast';
+import { listPartsCar } from '@/lib/cpanel/listPartsCar';
+import { Car, Color, Finition, Member, Model } from '@/types/models';
 
 export default function Garage({
   session,
@@ -18,10 +32,47 @@ export default function Garage({
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
-  const [displayUpdateCar, setDisplayUpdateCar] = useState(false);
-  const [modifyValue, setModifyValue] = useState('');
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [editing, setEditing] = useState(false);
+  const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
+  const isDark = carColor !== null && isColorDark(carColor);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const [value, setValue] = useState('');
+  const [newValue, setNewValue] = useState('');
+  const [newModelSelected, setNewModelSelected] = useState<Set<string>>(
+    new Set([])
+  );
+  const [newFinitionSelected, setNewFinitionSelected] = useState<Set<string>>(
+    new Set([])
+  );
+  const [newColorSelected, setNewColorSelected] = useState<Set<string>>(
+    new Set([])
+  );
+  const [title, setTitle] = useState('');
+  const [colors, setColors] = useState<Color[]>([]);
+  const [finitions, setFinitions] = useState<Finition[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
+  const [immatriculation, setImmatriculation] = useState('');
+
+  const sortedColors = [...colors].sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+
+  const handleSelectionModelChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setNewModelSelected(new Set([e.target.value]));
+  };
+  const handleSelectionFinitionChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setNewFinitionSelected(new Set([e.target.value]));
+  };
+  const handleSelectionColorChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setNewColorSelected(new Set([e.target.value]));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +97,7 @@ export default function Garage({
                   },
                   finition: cars[i].finition.name,
                   immatriculation: cars[i].immatriculation,
-                  min: cars[i].min,
+                  mine: cars[i].min,
                   model: cars[i].model.name,
                 };
                 carData.push(carData_Object);
@@ -59,6 +110,16 @@ export default function Garage({
     fetchData();
   }, [member?.id]);
 
+  useEffect(() => {
+    listPartsCar({
+      session,
+      setMember,
+      setColors,
+      setFinitions,
+      setModels,
+    });
+  }, []);
+
   const handleNextCar = () => {
     if (cars !== undefined && currentCarIndex < cars.length - 1) {
       setCurrentCarIndex(currentCarIndex + 1);
@@ -69,18 +130,6 @@ export default function Garage({
     if (currentCarIndex > 0) {
       setCurrentCarIndex(currentCarIndex - 1);
     }
-  };
-
-  // const handleMobileBoxClick = (value: string | undefined | null) => {
-  //   if (window.innerWidth <= 810) {
-  //     setDisplayUpdateCar(true);
-  //     value !== undefined && value !== null && setModifyValue(() => value);
-  //   }
-  // };
-
-  const handleEditClick = (value: string | undefined | null) => {
-    setDisplayUpdateCar(true);
-    value !== undefined && value !== null && setModifyValue(() => value);
   };
 
   function isColorDark(hexColor: string): boolean {
@@ -95,8 +144,74 @@ export default function Garage({
     return luminance < 128;
   }
 
-  const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
-  const isDark = carColor !== null && isColorDark(carColor);
+  const handleSaveClick = async () => {
+    const commonUpdateCar = async (
+      newName: string,
+      propertyName: string,
+      partName: string,
+      newId?: string
+    ) => {
+      if (newName === '') {
+        toast.error(`Aucune modification de ${propertyName} n'a été faite`);
+        onClose();
+        return;
+      }
+
+      if (newName === value) {
+        toast.error(`Même ${propertyName} saisi`);
+        onClose();
+        return;
+      }
+
+      toast.success('Enregistrement en cours...');
+      onClose();
+
+      const responseUpdateCar = await updateCar(
+        value,
+        newName,
+        immatriculation || value,
+        partName || '',
+        newId || ''
+      );
+      console.log('GARAGE before json', responseUpdateCar);
+
+      if (responseUpdateCar?.status === 200) {
+        toast.success('Enregistrement avec succès !');
+        window.location.reload();
+      } else {
+        toast.error(responseUpdateCar.statusText);
+      }
+    };
+
+    if (title === 'immatriculation') {
+      commonUpdateCar(newValue, 'immatriculation', 'immatriculation');
+    } else if (title === 'mine') {
+      commonUpdateCar(newValue, 'type mine', 'min');
+    } else if (title === 'modèle') {
+      const selectedModelId = Array.from(newModelSelected)[0];
+      const modelId = parseInt(selectedModelId, 10);
+      const model = models.find((m) => m.id === modelId);
+      model !== undefined &&
+        commonUpdateCar(model.name, 'modèle', 'car_model_id', selectedModelId);
+    } else if (title === 'finition') {
+      const selectedFinitionId = Array.from(newFinitionSelected)[0];
+      const finitionId = parseInt(selectedFinitionId, 10);
+      const finition = finitions.find((m) => m.id === finitionId);
+      finition !== undefined &&
+        commonUpdateCar(
+          finition.name,
+          'finition',
+          'car_finition_id',
+          selectedFinitionId
+        );
+    } else if (title === 'couleur') {
+      const selectedColorId = Array.from(newColorSelected)[0];
+      const colorId = parseInt(selectedColorId, 10);
+      const color = colors.find((m) => m.id === colorId);
+      color !== undefined &&
+        commonUpdateCar(color.name, 'couleur', 'car_color_id', selectedColorId);
+    }
+  };
 
   return (
     <>
@@ -194,164 +309,224 @@ export default function Garage({
                   </div>
 
                   <div className="w-full p-4 ">
-                    {displayUpdateCar && (
-                      <UpdateCar
-                        setDisplayBox={setDisplayUpdateCar}
-                        modifyValue={modifyValue}
-                        editingIndex={editingIndex}
-                        immatriculation={
-                          (cars !== undefined &&
-                            cars[currentCarIndex].immatriculation) ||
-                          ''
-                        }
-                      />
-                    )}
+                    {/* MODAL */}
+                    <Modal
+                      backdrop={'blur'}
+                      isOpen={isOpen}
+                      onOpenChange={onOpenChange}
+                      placement="top-center"
+                    >
+                      <ModalContent>
+                        {(onClose) => (
+                          <>
+                            <ModalHeader className="flex flex-col gap-1 capitalize">
+                              {title}
+                            </ModalHeader>
+                            <ModalBody>
+                              {(title === 'immatriculation' ||
+                                title === 'mine') && (
+                                <Input
+                                  type="text"
+                                  color="primary"
+                                  defaultValue={value}
+                                  variant="underlined"
+                                  onValueChange={setNewValue}
+                                />
+                              )}
+                              {title === 'modèle' && (
+                                <Select
+                                  items={models}
+                                  label="Modèle"
+                                  color="primary"
+                                  placeholder="Choix du modèle"
+                                  className="max-w-xs"
+                                  selectedKeys={newModelSelected}
+                                  onChange={handleSelectionModelChange}
+                                >
+                                  {(model) => (
+                                    <SelectItem
+                                      key={model.id}
+                                      color="primary"
+                                      value={model.name}
+                                    >
+                                      {model.name}
+                                    </SelectItem>
+                                  )}
+                                </Select>
+                              )}
+                              {title === 'finition' && (
+                                <Select
+                                  items={finitions}
+                                  label="Finition"
+                                  color="primary"
+                                  placeholder="Choix de la finition"
+                                  className="max-w-xs"
+                                  selectedKeys={newFinitionSelected}
+                                  onChange={handleSelectionFinitionChange}
+                                >
+                                  {(finition) => (
+                                    <SelectItem
+                                      key={finition.id}
+                                      color="primary"
+                                      value={finition.name}
+                                    >
+                                      {finition.name}
+                                    </SelectItem>
+                                  )}
+                                </Select>
+                              )}
+                              {title === 'couleur' && (
+                                <Select
+                                  items={sortedColors}
+                                  label="Couleur"
+                                  color="primary"
+                                  placeholder="Choix de la couleur"
+                                  className="max-w-xs"
+                                  selectedKeys={newColorSelected}
+                                  onChange={handleSelectionColorChange}
+                                >
+                                  {(color) => (
+                                    <SelectItem
+                                      key={color.id}
+                                      color="primary"
+                                      value={color.name}
+                                      startContent={
+                                        <div
+                                          className="w-6 h-6 rounded-full"
+                                          style={{
+                                            backgroundColor: `#${color.hexa}`,
+                                          }}
+                                        />
+                                      }
+                                    >
+                                      {color.name}
+                                    </SelectItem>
+                                  )}
+                                </Select>
+                              )}
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button
+                                color="danger"
+                                variant="ghost"
+                                onPress={onClose}
+                              >
+                                Fermer
+                              </Button>
+                              <Button
+                                color="primary"
+                                onPress={handleSaveClick}
+                                variant="shadow"
+                              >
+                                Enregistrer
+                              </Button>
+                            </ModalFooter>
+                          </>
+                        )}
+                      </ModalContent>
+                    </Modal>
+
+                    {/* ARRAY DISPLAY CAR INFO */}
                     {cars !== undefined && (
                       <>
-                        <div className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                        {/* TYPE MINE */}
+                        <div
+                          className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
+                          onClick={() => {
+                            onOpen();
+                            setValue(cars[currentCarIndex].mine);
+                            setTitle('mine');
+                            setImmatriculation(
+                              cars[currentCarIndex].immatriculation
+                            );
+                          }}
+                        >
                           <p className="text-black font-bold dark:font-normal">
-                            Code Mine :
+                            Type Mine :
                           </p>
-                          <section
-                            className="relative rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                            onMouseEnter={() => {
-                              setEditing(true);
-                              setEditingIndex(0);
-                            }}
-                            onMouseLeave={() => setEditing(false)}
-                          >
-                            <span className="text-primary dark:text-gray-900 uppercase font-bold">
-                              {cars !== undefined && cars[currentCarIndex].min}
-                            </span>
-                            {editing && editingIndex === 0 && (
-                              <button
-                                className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                                onClick={() =>
-                                  handleEditClick(cars[currentCarIndex].min)
-                                }
-                              >
-                                <HiPencil />
-                              </button>
-                            )}
-                          </section>
+                          <p className="text-primary dark:text-gray-900 uppercase font-bold">
+                            {cars !== undefined && cars[currentCarIndex].mine}
+                          </p>
                         </div>
-                        <div className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+
+                        {/* IMMATRICULATION */}
+                        <div
+                          className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
+                          onClick={() => {
+                            onOpen();
+                            setValue(cars[currentCarIndex].immatriculation);
+                            setTitle('immatriculation');
+                          }}
+                        >
                           <p className="text-black font-bold dark:font-normal">
                             Immatriculation :
                           </p>
-                          <section
-                            className="relative rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                            onMouseEnter={() => {
-                              setEditing(true);
-                              setEditingIndex(1);
-                            }}
-                            onMouseLeave={() => setEditing(false)}
-                          >
-                            <span className="text-primary dark:text-gray-900 uppercase font-bold">
-                              {cars !== undefined &&
-                                cars[currentCarIndex].immatriculation}
-                            </span>
-                            {editing && editingIndex === 1 && (
-                              <button
-                                className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                                onClick={() =>
-                                  handleEditClick(
-                                    cars[currentCarIndex].immatriculation
-                                  )
-                                }
-                              >
-                                <HiPencil />
-                              </button>
-                            )}
-                          </section>
+                          <p className="text-primary dark:text-gray-900 uppercase font-bold">
+                            {cars !== undefined &&
+                              cars[currentCarIndex].immatriculation}
+                          </p>
                         </div>
-                        <div className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+
+                        {/* MODEL */}
+                        <div
+                          className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
+                          onClick={() => {
+                            onOpen();
+                            setValue(cars[currentCarIndex].model);
+                            setTitle('modèle');
+                            setImmatriculation(
+                              cars[currentCarIndex].immatriculation
+                            );
+                          }}
+                        >
                           <p className="text-black font-bold dark:font-normal">
                             Modèle :
                           </p>
-                          <section
-                            className="relative rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                            onMouseEnter={() => {
-                              setEditing(true);
-                              setEditingIndex(2);
-                            }}
-                            onMouseLeave={() => setEditing(false)}
-                          >
-                            <span className="text-primary dark:text-gray-900 uppercase font-bold">
-                              {cars !== undefined &&
-                                cars[currentCarIndex].model}
-                            </span>
-                            {editing && editingIndex === 2 && (
-                              <button
-                                className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                                onClick={() =>
-                                  handleEditClick(cars[currentCarIndex].model)
-                                }
-                              >
-                                <HiPencil />
-                              </button>
-                            )}
-                          </section>
+                          <p className="text-primary dark:text-gray-900 uppercase font-bold">
+                            {cars !== undefined && cars[currentCarIndex].model}
+                          </p>
                         </div>
-                        <div className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+
+                        {/* FINITION */}
+                        <div
+                          className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
+                          onClick={() => {
+                            onOpen();
+                            setValue(cars[currentCarIndex].finition);
+                            setTitle('finition');
+                            setImmatriculation(
+                              cars[currentCarIndex].immatriculation
+                            );
+                          }}
+                        >
                           <p className="text-black font-bold dark:font-normal">
                             Finition :
                           </p>
-                          <section
-                            className="relative rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                            onMouseEnter={() => {
-                              setEditing(true);
-                              setEditingIndex(3);
-                            }}
-                            onMouseLeave={() => setEditing(false)}
-                          >
-                            <span className="text-primary dark:text-gray-900 uppercase font-bold">
-                              {cars !== undefined &&
-                                cars[currentCarIndex].finition}
-                            </span>
-                            {editing && editingIndex === 3 && (
-                              <button
-                                className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                                onClick={() =>
-                                  handleEditClick(
-                                    cars[currentCarIndex].finition
-                                  )
-                                }
-                              >
-                                <HiPencil />
-                              </button>
-                            )}
-                          </section>
+                          <p className="text-primary dark:text-gray-900 uppercase font-bold">
+                            {cars !== undefined &&
+                              cars[currentCarIndex].finition}
+                          </p>
                         </div>
-                        <div className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+
+                        {/* COLOR */}
+                        <div
+                          className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
+                          onClick={() => {
+                            onOpen();
+                            setValue(cars[currentCarIndex].color.name || '');
+                            setTitle('couleur');
+                            setImmatriculation(
+                              cars[currentCarIndex].immatriculation
+                            );
+                          }}
+                        >
                           <p className="text-black font-bold dark:font-normal">
                             Couleur :
                           </p>
-                          <section
-                            className="relative rounded cursor-pointer transition-colors border-b-2 border-transparent hover:border-pink-500"
-                            onMouseEnter={() => {
-                              setEditing(true);
-                              setEditingIndex(4);
-                            }}
-                            onMouseLeave={() => setEditing(false)}
-                          >
-                            <span className="text-primary dark:text-gray-900 uppercase font-bold">
-                              {cars !== undefined &&
-                                cars[currentCarIndex].color.name}
-                            </span>
-                            {editing && editingIndex === 4 && (
-                              <button
-                                className="absolute -right-10 top-0 mr-2 bg-blue-500 text-white py-1 px-2 rounded cursor-pointer hover:bg-red-600"
-                                onClick={() =>
-                                  handleEditClick(
-                                    cars[currentCarIndex].color.name
-                                  )
-                                }
-                              >
-                                <HiPencil />
-                              </button>
-                            )}
-                          </section>
+                          <p className="text-primary dark:text-gray-900 uppercase font-bold">
+                            {cars !== undefined &&
+                              cars[currentCarIndex].color.name}
+                          </p>
                         </div>
                       </>
                     )}
@@ -374,19 +549,4 @@ export default function Garage({
       )}
     </>
   );
-}
-
-interface Member {
-  id: number;
-}
-
-interface Car {
-  color: {
-    name: string | null;
-    hexa: string | null;
-  };
-  finition: string;
-  immatriculation: string;
-  min: string;
-  model: string;
 }

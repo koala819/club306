@@ -3,19 +3,13 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {
-  addCar,
-  getAllColors,
-  getAllFinitions,
-  getAllModels,
-  returnMemberInfo,
-  sendMailNewCarCPanel,
-} from '@/lib/supabase';
+import { addCar, sendMailNewCarCPanel } from '@/lib/supabase';
 import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
 import { Loading } from '@/components/cpanel/Loading';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 import toast from 'react-hot-toast';
+import { listPartsCar } from '@/lib/cpanel/listPartsCar';
 
 export default function AddCar({ session }: any) {
   const [displayLoader, setDisplayLoader] = useState(true);
@@ -25,6 +19,12 @@ export default function AddCar({ session }: any) {
   const [finitions, setFinitions] = useState<Finition[]>([]);
   const [models, setModels] = useState<Model[]>([]);
   const { resolvedTheme } = useTheme();
+
+  const sortedColors = [...colors].sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -73,50 +73,14 @@ export default function AddCar({ session }: any) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo(session?.user?.email);
-      if (response !== false && response[0] !== undefined) {
-        const memberData: Member = {
-          id: response[0].id,
-        };
-        setMember(() => memberData);
-      }
-
-      const carColor = await getAllColors();
-      if (carColor !== null && carColor.data !== null) {
-        const fetchedColors: Color[] = carColor.data.map((color: any) => {
-          return {
-            id: color.id,
-            name: color.name,
-            hexa: color.hexa,
-          };
-        });
-        setColors(fetchedColors);
-      }
-
-      const carFinition = await getAllFinitions();
-      if (carFinition !== null && carFinition.data !== null) {
-        const fetchedFinitions: Finition[] = carFinition.data.map(
-          (color: any) => {
-            return {
-              id: color.id,
-              name: color.name,
-            };
-          }
-        );
-        setFinitions(fetchedFinitions);
-      }
-
-      const carModel = await getAllModels();
-      if (carModel !== null && carModel.data !== null) {
-        const fetchedModels: Model[] = carModel.data.map((color: any) => {
-          return {
-            id: color.id,
-            name: color.name,
-          };
-        });
-        setModels(fetchedModels);
-        setDisplayLoader(false);
-      }
+      const response = await listPartsCar({
+        session,
+        setMember,
+        setColors,
+        setFinitions,
+        setModels,
+      });
+      response ? setDisplayLoader(false) : setDisplayLoader(true);
     };
     fetchData();
   }, []);
@@ -262,7 +226,7 @@ export default function AddCar({ session }: any) {
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <Select
-                        items={colors}
+                        items={sortedColors}
                         label="Couleur"
                         onChange={onChange}
                         value={value}

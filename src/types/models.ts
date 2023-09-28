@@ -20,6 +20,17 @@ interface ArticlesProps {
   }[];
 }
 
+interface Car {
+  color: {
+    name: string | null;
+    hexa: string | null;
+  };
+  finition: string;
+  immatriculation: string;
+  mine: string;
+  model: string;
+}
+
 interface CardStaffProps {
   picture: string;
   name?: string;
@@ -107,6 +118,7 @@ interface Vehicles {
 export type {
   ArticleProps,
   ArticlesProps,
+  Car,
   CardStaffProps,
   Color,
   Finition,

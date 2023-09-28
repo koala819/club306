@@ -117,14 +117,15 @@ export async function POST(req: Request): Promise<Response> {
           from: 'supabase-info@club306.fr',
           // to: 'president@club306.fr, x.genolhac@gmail.com',
           to: 'x.genolhac@gmail.com',
-          subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type}`,
-          text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} !`,
+          subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type} de ${body.immatriculation}`,
+          text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} Pour sa voiture avec l'immatriculation : ${body.immatriculation} !`,
           html: updateCarInfo(
             body.first_name,
             body.last_name,
             body.type,
             body.old_value,
-            body.new_value
+            body.new_value,
+            body.immatriculation
           ),
         };
         break;
