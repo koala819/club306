@@ -86,29 +86,30 @@ export default function AddCar({ session }: any) {
       {displayLoader ? (
         <Loading text={changeTextDL} />
       ) : (
-        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg  bg-white dark:bg-slate-500 border-0">
+        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6 flex items-center justify-center">
+          <div className="flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white dark:bg-slate-500 border-0 sm:w-3/4">
             <form
               onSubmit={handleSubmit(handleAddVehicle)}
               className="mx-8 my-12 border-2 border-gray-400 rounded-lg p-8"
             >
-              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 mb-8">
+              <section className="xl:flex w-full space-y-4 xl:space-y-0 xl:space-x-16 mb-8">
                 {/* IMMATRICULATION */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full xl:w-1/2">
                   <Controller
                     name="immatriculation"
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <Input
                         type="text"
-                        color={`${
-                          resolvedTheme === 'dark'
-                            ? 'default'
-                            : errors.immatriculation
-                            ? 'danger'
-                            : 'primary'
-                        }`}
-                        variant={'underlined'}
+                        color="primary"
+                        // color={`${
+                        //   resolvedTheme === 'dark'
+                        //     ? 'default'
+                        //     : errors.immatriculation
+                        //     ? 'danger'
+                        //     : 'primary'
+                        // }`}
+                        variant={'faded'}
                         label="Immatriculation"
                         id="immatriculation"
                         onChange={onChange}
@@ -124,21 +125,22 @@ export default function AddCar({ session }: any) {
                 </div>
 
                 {/* MINE */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full xl:w-1/2">
                   <Controller
                     name="mine"
                     control={control}
                     render={({ field: { onChange, value } }) => (
                       <Input
                         type="text"
-                        color={`${
-                          resolvedTheme === 'dark'
-                            ? 'default'
-                            : errors.mine
-                            ? 'danger'
-                            : 'primary'
-                        }`}
-                        variant={'underlined'}
+                        color="primary"
+                        // color={`${
+                        //   resolvedTheme === 'dark'
+                        //     ? 'default'
+                        //     : errors.immatriculation
+                        //     ? 'danger'
+                        //     : 'primary'
+                        // }`}
+                        variant={'faded'}
                         label="Type Mine"
                         id="mine"
                         onChange={onChange}
@@ -154,9 +156,9 @@ export default function AddCar({ session }: any) {
                 </div>
               </section>
 
-              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 mb-8">
+              <section className="xl:flex w-full space-y-4 xl:space-y-0 xl:space-x-16 mb-8">
                 {/* MODEL */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full xl:w-1/2">
                   <Controller
                     name="model"
                     control={control}
@@ -185,7 +187,7 @@ export default function AddCar({ session }: any) {
                 </div>
 
                 {/* FINITION */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full xl:w-1/2">
                   <Controller
                     name="finition"
                     control={control}
@@ -214,9 +216,9 @@ export default function AddCar({ session }: any) {
                 </div>
               </section>
 
-              <section className="md:flex w-full space-y-4 md:space-y-0 md:space-x-16 md:pr-16">
+              <section className="xl:flex w-full space-y-4 xl:space-y-0 xl:space-x-16 xl:pr-16">
                 {/* COLOR */}
-                <div className="w-full md:w-1/2">
+                <div className="w-full xl:w-1/2">
                   <Controller
                     name="color"
                     control={control}
@@ -253,7 +255,7 @@ export default function AddCar({ session }: any) {
                     </p>
                   )}
                 </div>
-                <div className="w-full md:w-1/2 flex items-center justify-center">
+                <div className="w-full xl:w-1/2 flex items-center justify-center">
                   <Button
                     color="primary"
                     variant={resolvedTheme === 'dark' ? 'shadow' : 'ghost'}

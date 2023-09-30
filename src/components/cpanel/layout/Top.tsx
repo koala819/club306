@@ -23,7 +23,9 @@ import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md';
 import { IoColorPalette } from 'react-icons/io5';
 import { BsDatabaseFillLock } from 'react-icons/bs';
 import { TbHomeHeart } from 'react-icons/tb';
+import { BiMenu } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export default function Top({ session }: any) {
   const [staffMember, setStaffMember] = useState(false);
@@ -50,7 +52,7 @@ export default function Top({ session }: any) {
     <Dropdown>
       <DropdownTrigger>
         <Button color={'primary'} variant={'shadow'} className="capitalize">
-          <IoIosContact size={80} />
+          <BiMenu size={80} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu
@@ -204,9 +206,10 @@ export default function Top({ session }: any) {
   }
 
   return (
-    <nav className="p-4 flex border-b-2 border-gray-400 text-[#3B578E] bg-[#ADA075]">
+    <nav className="p-4 flex border-b-2 border-gray-400 text-[#3B578E] bg-gray-800">
       <div className="flex items-center justify-center md:justify-center w-full"></div>
       <div className="md:hidden flex items-center space-x-4 md:w-1/4 justify-end">
+        <ThemeSwitcher />
         <DropdownContent />
       </div>
     </nav>

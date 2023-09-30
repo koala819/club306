@@ -58,6 +58,8 @@ export default function Garage({
     return nameA.localeCompare(nameB);
   });
 
+  const isMobile = window.innerWidth <= 768;
+
   const handleSelectionModelChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -219,7 +221,7 @@ export default function Garage({
         <Loading />
       ) : (
         <div className={`${hide ? '' : 'w-full lg:w-8/12 px-4 mx-auto mt-6 '}`}>
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
+          <div className="flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
             <div
               className={`${
                 !hide ? 'flex flex-col items-center justify-center mt-4' : ''
@@ -234,33 +236,18 @@ export default function Garage({
               )}
 
               <section className="flex w-full items-center justify-center">
-                <div className="w-1/3 flex justify-center">
-                  {!hide ? (
-                    <button
-                      onClick={() => {
-                        currentCarIndex > 0 && handlePrevCar();
-                      }}
-                      className={`${
-                        !(currentCarIndex > 0)
-                          ? 'bg-gray-50 text-gray-50 dark:bg-slate-500 dark:text-slate-500 hover:cursor-default'
-                          : 'bg-blue-500 text-white px-4 py-2 rounded-md mr-2 dark:bg-blue-900'
-                      }`}
-                    >
-                      Précédent
-                    </button>
-                  ) : (
-                    <div
-                      className="w-1/3 flex justify-center hover:cursor-pointer "
-                      onClick={handlePrevCar}
-                    >
-                      <BiSkipPreviousCircle size={32} />
-                    </div>
-                  )}
+                <div className="w-1/8 xl:w-1/3 flex justify-center">
+                  <div
+                    className="flex justify-center hover:cursor-pointer"
+                    onClick={handlePrevCar}
+                  >
+                    <BiSkipPreviousCircle size={32} />
+                  </div>
                 </div>
 
                 <div
                   className={`${
-                    !hide ? 'w-1/3 mb-8 p-4' : 'w-full'
+                    !hide ? 'w-2/3 xl:w-1/3 mb-8 p-4' : 'w-full'
                   }  rounded-lg ${
                     isDark
                       ? 'bg-gray-50 dark:bg-slate-500'
@@ -275,28 +262,13 @@ export default function Garage({
                   )}
                 </div>
 
-                <div className="w-1/3  flex justify-center">
-                  {!hide ? (
-                    <button
-                      onClick={() => {
-                        currentCarIndex < cars?.length - 1 && handleNextCar();
-                      }}
-                      className={`${
-                        !(currentCarIndex < cars?.length - 1)
-                          ? 'bg-gray-50 text-gray-50 dark:bg-slate-500 dark:text-slate-500 hover:cursor-default'
-                          : 'bg-blue-500 text-white px-4 py-2 rounded-md mr-2 dark:bg-blue-900'
-                      }`}
-                    >
-                      Suivant
-                    </button>
-                  ) : (
-                    <div
-                      className="w-1/3 flex justify-center hover:cursor-pointer"
-                      onClick={handleNextCar}
-                    >
-                      <BiSkipNextCircle size={32} />
-                    </div>
-                  )}
+                <div className="w-1/8 xl:w-1/3 flex justify-center">
+                  <div
+                    className="flex justify-center hover:cursor-pointer"
+                    onClick={handleNextCar}
+                  >
+                    <BiSkipNextCircle size={32} />
+                  </div>
                 </div>
               </section>
 

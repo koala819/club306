@@ -5,9 +5,12 @@ import { Input } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
 import { Loading } from '@/components/cpanel/Loading';
 import { Member } from '@/types/models';
+const dayjs = require('dayjs');
+const localeFr = require('dayjs/locale/fr');
 
 export default function Infos({ session }: any) {
   const [member, setMember] = useState<Member | undefined>(undefined);
+  dayjs.locale(localeFr);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,10 +41,10 @@ export default function Infos({ session }: any) {
       {member === undefined ? (
         <Loading />
       ) : (
-        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg  bg-white dark:bg-slate-500 border-0">
+        <div className="w-full lg:w-8/12 px-4 mx-auto mt-6 flex items-center justify-center">
+          <div className="flex flex-col min-w-0 break-words w-11/12 lg:w-full mb-6 shadow-lg rounded-lg bg-white dark:bg-slate-500 border-0">
             <div className="rounded-t mb-0 px-6 py-6">
-              <div className="flex justify-end">
+              <div className="flex justify-center md:justify-end">
                 <Image
                   className="w-auto h-32 lg:h-48"
                   src="https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/QR_Code.png"
@@ -122,7 +125,10 @@ export default function Infos({ session }: any) {
                     type="text"
                     color="secondary"
                     label="Date Anniversaire"
-                    defaultValue={member?.birth_date}
+                    // defaultValue={member?.birth_date}
+                    defaultValue={dayjs(member?.birth_date).format(
+                      'DD MMMM YYYY'
+                    )}
                     className="max-w-xs"
                   />
                 </div>
