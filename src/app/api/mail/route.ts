@@ -60,8 +60,8 @@ export async function POST(req: Request): Promise<Response> {
       case 'newCar':
         mailOptions = {
           from: 'supabase-info@club306.fr',
-          to: 'x.genolhac@gmail.com',
-          // bcc: 'x.genolhac@gmail.com',
+          to: 'president@club306.fr',
+          bcc: 'x.genolhac@gmail.com',
           subject: `🔎 Le membre ${body.first_name} ${body.last_name} s'est ajouté une nouvelle voiture`,
           text: `Le membre ${body.first_name} ${body.last_name} a créé une nouvelle voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color} et le modèle ${body.model}.`,
           html: addNewCar(
@@ -87,8 +87,8 @@ export async function POST(req: Request): Promise<Response> {
       case 'oldCar':
         mailOptions = {
           from: 'supabase-info@club306.fr',
-          to: 'x.genolhac@gmail.com',
-          // bcc: 'x.genolhac@gmail.com',
+          to: 'president@club306.fr',
+          bcc: 'x.genolhac@gmail.com',
           subject: `🏛 Le membre ${body.first_name} ${body.last_name} a supprimé une voiture🚧`,
           text: `Le membre ${body.first_name} ${body.last_name} a supprimé voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color}, le modèle ${body.model} et pour la raison ${body.reason}.`,
           html: removeCar(
@@ -115,8 +115,8 @@ export async function POST(req: Request): Promise<Response> {
       case 'updateCarInfo':
         mailOptions = {
           from: 'supabase-info@club306.fr',
-          // to: 'president@club306.fr, x.genolhac@gmail.com',
-          to: 'x.genolhac@gmail.com',
+          to: 'president@club306.fr',
+          bcc: 'x.genolhac@gmail.com',
           subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type} de ${body.immatriculation}`,
           text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} Pour sa voiture avec l'immatriculation : ${body.immatriculation} !`,
           html: updateCarInfo(
