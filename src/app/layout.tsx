@@ -1,29 +1,26 @@
-'use client';
-// import { StyleProvider } from '@ant-design/cssinjs';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
-import '@/app/globals.css';
-import Providers from '@/components/Providers';
-import { ReactNode } from 'react';
-// import 'antd/dist/reset.css';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import AuthProvider from '@/components/AuthProvider';
 
-interface LayoutProps {
-  children: ReactNode;
-}
+export const revalidate = 0;
 
-export default function RootLayout({ children }: LayoutProps) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || '';
+
   return (
-    <html lang="fr" className="light">
+    <html>
       <body>
-        {/* <StyleProvider hashPriority="high"> */}
-        <div className=" flex flex-col h-screen">
-          <Providers>
-            <Navbar />
-            <main className="flex-1 ">{children}</main>
-            <Footer />
-          </Providers>
-        </div>
-        {/* </StyleProvider> */}
+        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
       </body>
     </html>
   );

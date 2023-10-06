@@ -1,28 +1,33 @@
 import nodemailer from 'nodemailer';
 import {
+  addNewCar,
   mailContact,
   recordDb,
+  removeCar,
   sendOTP,
   updateCarInfo,
   welcomeNewMember,
-} from './mails';
+} from '@/lib/mails';
 
-export async function POST(req: Request) {
-  try {
-    if (!req.body)
-      return new Response(JSON.stringify("Don't have form data...!"), {
-        status: 403,
-        statusText: "Don't have form data...!",
-      });
-    const email = process.env.MAIL_USER;
-    const pass = process.env.MAIL_PWD;
+export async function POST(req: Request): Promise<Response> {
+  if (!req.body)
+    return new Response(JSON.stringify("Don't have form data...!"), {
+      status: 403,
+      statusText: "Don't have form data...!",
+    });
 
-    const body = await req.json();
-    // console.log('in sendMail check req.body\n', body);
+  const email = process.env.MAIL_USER;
+  const pass = process.env.MAIL_PWD;
+  const host = process.env.MAIL_HOST;
+  const port = process.env.MAIL_PORT;
 
+  const body = await req.json();
+  if (!email || !pass || !host || !port) {
+    console.error('One or more required environment variables are not set.');
+  } else {
     const transporter = nodemailer.createTransport({
-      host: 'mail.club306.fr',
-      port: 465,
+      host: host,
+      port: parseInt(port),
       secure: true,
       auth: {
         user: email,
@@ -52,6 +57,24 @@ export async function POST(req: Request) {
           html: mailContact(body.firstName, body.message),
         };
         break;
+      case 'newCar':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'x.genolhac@gmail.com',
+          // bcc: 'x.genolhac@gmail.com',
+          subject: `🔎 Le membre ${body.first_name} ${body.last_name} s'est ajouté une nouvelle voiture`,
+          text: `Le membre ${body.first_name} ${body.last_name} a créé une nouvelle voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color} et le modèle ${body.model}.`,
+          html: addNewCar(
+            body.first_name,
+            body.last_name,
+            body.color,
+            body.immatriculation,
+            body.finition,
+            body.model,
+            body.mine
+          ),
+        };
+        break;
       case 'newMember':
         mailOptions = {
           from: 'contact@club306.fr',
@@ -59,6 +82,25 @@ export async function POST(req: Request) {
           bcc: 'x.genolhac@gmail.com',
           subject: 'Bienvenue au club 306',
           html: welcomeNewMember(body.first_name),
+        };
+        break;
+      case 'oldCar':
+        mailOptions = {
+          from: 'supabase-info@club306.fr',
+          to: 'x.genolhac@gmail.com',
+          // bcc: 'x.genolhac@gmail.com',
+          subject: `🏛 Le membre ${body.first_name} ${body.last_name} a supprimé une voiture🚧`,
+          text: `Le membre ${body.first_name} ${body.last_name} a supprimé voiture avec immatriculation : ${body.immatriculation}, le type mine : ${body.mine}, la finition ${body.finition}, la couleur ${body.color}, le modèle ${body.model} et pour la raison ${body.reason}.`,
+          html: removeCar(
+            body.first_name,
+            body.last_name,
+            body.color,
+            body.immatriculation,
+            body.finition,
+            body.model,
+            body.mine,
+            body.reason
+          ),
         };
         break;
       case 'recordDataBase':
@@ -73,15 +115,17 @@ export async function POST(req: Request) {
       case 'updateCarInfo':
         mailOptions = {
           from: 'supabase-info@club306.fr',
-          to: 'president@club306.fr, x.genolhac@gmail.com',
-          subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type}`,
-          text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} !`,
+          // to: 'president@club306.fr, x.genolhac@gmail.com',
+          to: 'x.genolhac@gmail.com',
+          subject: `🔎 Le membre ${body.first_name} ${body.last_name} a mis à jour ${body.type} de ${body.immatriculation}`,
+          text: `Le membre ${body.first_name} ${body.last_name} a mis à jour son ${body.type}. Ancienne valeur : ${body.old_value} Nouvelle valeur : ${body.new_value} Pour sa voiture avec l'immatriculation : ${body.immatriculation} !`,
           html: updateCarInfo(
             body.first_name,
             body.last_name,
             body.type,
             body.old_value,
-            body.new_value
+            body.new_value,
+            body.immatriculation
           ),
         };
         break;
@@ -106,15 +150,13 @@ export async function POST(req: Request) {
     }
 
     await transporter.sendMail(mailOptions);
-
     return new Response(JSON.stringify('GOOD'), {
       status: 200,
       statusText: 'Send the email with success',
     });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 407,
-      statusText: 'Error to send the email',
-    });
   }
+  return new Response(JSON.stringify('Something went wrong'), {
+    status: 500,
+    statusText: 'Internal Server Error',
+  });
 }
