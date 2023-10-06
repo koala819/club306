@@ -3,16 +3,28 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 module.exports = withBundleAnalyzer({
   env: {
+    CLIENT_URL: process.env.CLIENT_URL,
+    DRIVE_FOLDER_ID: process.env.DRIVE_FOLDER_ID,
+    GCP_CLIENT_ID: process.env.GCP_CLIENT_ID,
+    GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
+    GCP_REFRESH_TOKEN: process.env.GCP_REFRESH_TOKEN,
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+    HPCAPTCHA_SITEKEY: process.env.HPCAPTCHA_SITEKEY,
+    MAIL_FROM: process.env.MAIL_FROM,
+    MAIL_HOST: process.env.MAIL_HOST,
+    MAIL_PORT: process.env.MAIL_PORT,
+    MAIL_PWD: process.env.MAIL_PWD,
+    MAIL_USER: process.env.MAIL_USER,
+    MAIL_SERVER: process.env.MAIL_SERVER,
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
     PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET,
-    CLIENT_URL: process.env.CLIENT_URL,
-    MAIL_USER: process.env.MAIL_USER,
-    MAIL_PWD: process.env.MAIL_PWD,
+    SUPABASE_JWT_SECRET: process.env.SUPABASE_JWT_SECRET,
     USR_CHECK_DB: process.env.USR_CHECK_DB,
     USR_CHECK_DB2: process.env.USR_CHECK_DB2,
   },
   experimental: {
-    appDir: true,
+    // appDir: true,
+    serverActions: true,
   },
   images: {
     domains: [
@@ -26,7 +38,13 @@ module.exports = withBundleAnalyzer({
       'lh3.googleusercontent.com',
     ],
   },
+  // babel: {
+  //   plugins: [
+  //     '@babel/plugin-transform-class-properties',
+  //     '@babel/plugin-proposal-object-rest-spread',
+  //   ],
+  // },
   reactStrictMode: true,
-  transpilePackages: ['antd'],
+  // transpilePackages: ['antd'],
   swcMinify: true,
 });

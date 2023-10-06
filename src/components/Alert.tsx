@@ -1,6 +1,6 @@
 import { IoIosContact, IoMdCloseCircle } from 'react-icons/io';
 import { IconContext } from 'react-icons';
-import styles from './alert.module.css';
+import styles from '@/styles/alert.module.css';
 import Link from 'next/link';
 
 export default function Alert({

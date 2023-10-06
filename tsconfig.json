@@ -30,9 +30,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/lib/supabase.js",
-    "src/app/privacy/privacy.old",
-    "src/app/cpanel/components",
-    "src/app/cpanel/components/Barchart"
+    "src/app/api/mail/route.js",
+    "src/lib/utils.js"
   ],
   "exclude": ["node_modules"]
 }

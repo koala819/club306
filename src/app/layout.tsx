@@ -1,31 +1,26 @@
-'use client';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
-import '@/app/globals.css';
-import Providers from '@/components/Providers';
-import { ReactNode } from 'react';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import AuthProvider from '@/components/AuthProvider';
 
-interface LayoutProps {
-  children: ReactNode;
-  hideNavbar?: boolean;
-  hideFooter?: boolean;
-}
+export const revalidate = 0;
 
-export default function RootLayout({
+export default async function DashboardLayout({
   children,
-  hideNavbar = false,
-  hideFooter = false,
-}: LayoutProps) {
+}: {
+  children: React.ReactNode;
+}) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const accessToken = session?.access_token || '';
+
   return (
-    <html lang="fr" className="light" suppressHydrationWarning>
+    <html>
       <body>
-        <div className=" flex flex-col h-screen">
-          <Providers>
-            {!hideNavbar && <Navbar />}
-            <main className="flex-1 ">{children}</main>
-            {!hideFooter && <Footer />}
-          </Providers>
-        </div>
+        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -1,13 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import picture306 from '../../public/images/logoClub306.png';
 import Avp from '../../public/images/Logo_AVP.png';
 import Link from 'next/link';
-import styles from './Navbar.module.css';
-import { signOut, useSession } from 'next-auth/react';
-import { checkForStartSession } from '@/lib/supabase';
+import styles from '@/styles/Navbar.module.css';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { CiMail } from 'react-icons/ci';
 import { IoIosContact } from 'react-icons/io';
 import { MdEventNote } from 'react-icons/md';
@@ -15,34 +14,19 @@ import { FaHouseUser } from 'react-icons/fa';
 import { TbCirclesRelation } from 'react-icons/tb';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 
-export const Navbar = () => {
+export const Navbar = ({ withMember }: { withMember?: boolean }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isLeClubOpen, setLeClubOpen] = useState(false);
   const [isMemberOpen, setMemberOpen] = useState(false);
-  const { data: session } = useSession();
-  const [registeredMember, setRegisteredMember] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
-
-  useEffect(() => {
-    if (session?.user !== undefined) {
-      if (Object.keys(session?.user).length !== 0) {
-        checkForStartSession(session).then((response) => {
-          setRegisteredMember(response);
-        });
-      } else {
-        // console.log('we have a standard account with login / pwd');
-        setRegisteredMember(true);
-      }
-    }
-  }, [session]);
 
   return (
     <div className="relative ">
       <nav
         className="flex px-4 md:shadow-lg items-center"
         style={{
-          backgroundColor: registeredMember
+          backgroundColor: withMember
             ? resolvedTheme === 'dark'
               ? '#6a6145'
               : '#ADA075'
@@ -146,9 +130,7 @@ export const Navbar = () => {
                     >
                       <li
                         className={
-                          registeredMember
-                            ? styles.aMobileRegister
-                            : styles.aMobile
+                          withMember ? styles.aMobileRegister : styles.aMobile
                         }
                       >
                         Accueil
@@ -158,9 +140,7 @@ export const Navbar = () => {
                     <li onClick={() => setLeClubOpen((prev) => !prev)}>
                       <div
                         className={
-                          registeredMember
-                            ? styles.aMobileRegister
-                            : styles.aMobile
+                          withMember ? styles.aMobileRegister : styles.aMobile
                         }
                       >
                         <span>le Club</span>
@@ -184,7 +164,7 @@ export const Navbar = () => {
                         >
                           <li
                             className={
-                              registeredMember
+                              withMember
                                 ? styles.aSubMenuRegister
                                 : styles.aSubMenu
                             }
@@ -201,7 +181,7 @@ export const Navbar = () => {
                         >
                           <li
                             className={
-                              registeredMember
+                              withMember
                                 ? styles.aSubMenuRegister
                                 : styles.aSubMenu
                             }
@@ -211,7 +191,7 @@ export const Navbar = () => {
                         </Link>
                         {/* <li
                           className={
-                            registeredMember
+                            withMember
                               ? styles.aSubMenuRegister
                               : styles.aSubMenu
                           }
@@ -220,7 +200,7 @@ export const Navbar = () => {
                         </li>
                         <li
                           className={
-                            registeredMember
+                            withMember
                               ? styles.aSubMenuRegister
                               : styles.aSubMenu
                           }
@@ -232,7 +212,7 @@ export const Navbar = () => {
 
                     {/* <li
                       className={
-                        registeredMember
+                        withMember
                           ? styles.aMobileRegister
                           : styles.aMobile
                       }
@@ -249,9 +229,7 @@ export const Navbar = () => {
                     >
                       <li
                         className={
-                          registeredMember
-                            ? styles.aMobileRegister
-                            : styles.aMobile
+                          withMember ? styles.aMobileRegister : styles.aMobile
                         }
                       >
                         Blog
@@ -266,9 +244,7 @@ export const Navbar = () => {
                     >
                       <li
                         className={
-                          registeredMember
-                            ? styles.aMobileRegister
-                            : styles.aMobile
+                          withMember ? styles.aMobileRegister : styles.aMobile
                         }
                       >
                         Contact
@@ -277,9 +253,7 @@ export const Navbar = () => {
                     <li onClick={() => setMemberOpen((prev) => !prev)}>
                       <div
                         className={
-                          registeredMember
-                            ? styles.aMobileRegister
-                            : styles.aMobile
+                          withMember ? styles.aMobileRegister : styles.aMobile
                         }
                       >
                         <span>Membres</span>
@@ -294,11 +268,11 @@ export const Navbar = () => {
                       <ul
                         className={isMemberOpen ? 'showSubMenu' : 'hideMenuNav'}
                       >
-                        {registeredMember ? (
+                        {withMember ? (
                           <>
                             <li className={styles.aSubMenuRegister}>
                               <Link
-                                href="/idg"
+                                href="/cpanel"
                                 onClick={() => {
                                   setIsNavOpen(false);
                                   setNavbar(!navbar);
@@ -308,7 +282,7 @@ export const Navbar = () => {
                                 Mon Compte
                               </Link>
                             </li>
-                            <Link
+                            {/* <Link
                               href="/event"
                               onClick={() => {
                                 setIsNavOpen(false);
@@ -333,7 +307,7 @@ export const Navbar = () => {
                                 <TbCirclesRelation size={26} />
                                 Nos Partenaires
                               </Link>
-                            </li>
+                            </li> */}
                             <li
                               className={styles.aSubMenuRegister}
                               onClick={() => _handleGoogleSignout()}
@@ -369,7 +343,7 @@ export const Navbar = () => {
                       </ul>
                     </li>
 
-                    {/* {registeredMember && (
+                    {/* {withMember && (
                       <li onClick={() => setTutorialOpen((prev) => !prev)}>
                         <div className={styles.aMobileRegister}>
                           <span>Tutoriels</span>
@@ -388,7 +362,7 @@ export const Navbar = () => {
                         >
                           <li
                             className={
-                              registeredMember
+                              withMember
                                 ? styles.aSubMenuRegister
                                 : styles.aSubMenu
                             }
@@ -397,7 +371,7 @@ export const Navbar = () => {
                           </li>
                           <li
                             className={
-                              registeredMember
+                              withMember
                                 ? styles.aSubMenuRegister
                                 : styles.aSubMenu
                             }
@@ -406,7 +380,7 @@ export const Navbar = () => {
                           </li>
                           <li
                             className={
-                              registeredMember
+                              withMember
                                 ? styles.aSubMenuRegister
                                 : styles.aSubMenu
                             }
@@ -425,7 +399,7 @@ export const Navbar = () => {
                 <Link href="/">
                   <li
                     className={
-                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                      withMember ? styles.aNormalRegister : styles.aNormal
                     }
                   >
                     Accueil
@@ -434,7 +408,7 @@ export const Navbar = () => {
                 <li className="relative parent">
                   <div
                     className={
-                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                      withMember ? styles.aNormalRegister : styles.aNormal
                     }
                   >
                     <span>le Club</span>
@@ -448,7 +422,7 @@ export const Navbar = () => {
                   </div>
                   <ul
                     className={` ${
-                      registeredMember
+                      withMember
                         ? resolvedTheme === 'dark'
                           ? 'bg-[#6a6145] rounded-xl border-[#6E654B] border-2'
                           : 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
@@ -458,9 +432,7 @@ export const Navbar = () => {
                     <Link href="/club">
                       <li
                         className={
-                          registeredMember
-                            ? styles.aNormalRegister
-                            : styles.aNormal
+                          withMember ? styles.aNormalRegister : styles.aNormal
                         }
                       >
                         Présentation
@@ -469,9 +441,7 @@ export const Navbar = () => {
                     <Link href="/club/staff">
                       <li
                         className={
-                          registeredMember
-                            ? styles.aNormalRegister
-                            : styles.aNormal
+                          withMember ? styles.aNormalRegister : styles.aNormal
                         }
                       >
                         le Staff
@@ -481,13 +451,13 @@ export const Navbar = () => {
                 </li>
                 {/* <li
                   className={
-                    registeredMember ? styles.aNormalRegister : styles.aNormal
+                    withMember ? styles.aNormalRegister : styles.aNormal
                   }
                 >
                   <Link href="/documents">Documents</Link>
                 </li> */}
 
-                {/* {registeredMember && (
+                {/* {withMember && (
                   <li className="relative parent">
                     <div className={styles.aNormalRegister}>
                       <span>Tutoriels</span>
@@ -516,7 +486,7 @@ export const Navbar = () => {
                 <Link href="/blog">
                   <li
                     className={
-                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                      withMember ? styles.aNormalRegister : styles.aNormal
                     }
                   >
                     Blog
@@ -526,7 +496,7 @@ export const Navbar = () => {
                 <Link href="/contact">
                   <li
                     className={
-                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                      withMember ? styles.aNormalRegister : styles.aNormal
                     }
                   >
                     <CiMail size={26} className="" />
@@ -536,7 +506,7 @@ export const Navbar = () => {
                 <li className="relative parent">
                   <div
                     className={
-                      registeredMember ? styles.aNormalRegister : styles.aNormal
+                      withMember ? styles.aNormalRegister : styles.aNormal
                     }
                   >
                     <IoIosContact size={26} className="" />
@@ -552,16 +522,16 @@ export const Navbar = () => {
                   {/* <ul className="bg-[#f5f5dca2] child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg rounded-3xl"> */}
                   <ul
                     className={` ${
-                      registeredMember
+                      withMember
                         ? resolvedTheme === 'dark'
                           ? 'bg-[#6a6145] rounded-xl border-[#6E654B] border-2'
                           : 'bg-[#ADA075] rounded-xl border-[#6E654B] border-2'
                         : 'bg-[#d1d9f1bb] dark:bg-[#2b2c2e] rounded-none'
                     } child transition duration-300 md:absolute top-full right-0 md:w-48 md:shadow-lg `}
                   >
-                    {registeredMember ? (
+                    {withMember ? (
                       <>
-                        <Link href="/idg">
+                        <Link href="/cpanel">
                           <li
                             className={`flex justify-between  ${styles.aNormalRegister}`}
                           >
@@ -569,8 +539,8 @@ export const Navbar = () => {
                             Mon Compte
                           </li>
                         </Link>
-                        <Link href="/event">
-                          <li
+                        {/* <Link href="/event"> 
+                           <li
                             className={`flex justify-between  ${styles.aNormalRegister}`}
                           >
                             <MdEventNote size={26} />
@@ -584,7 +554,7 @@ export const Navbar = () => {
                             <TbCirclesRelation size={26} />
                             Nos Partenaires
                           </li>
-                        </Link>
+                        </Link> */}
                         <li
                           className={`flex justify-between  ${styles.aNormalRegister}`}
                           onClick={() => _handleGoogleSignout()}
@@ -628,7 +598,9 @@ export const Navbar = () => {
 };
 
 async function _handleGoogleSignout() {
-  await signOut({
-    callbackUrl: `${process.env.CLIENT_URL}` || `${process.env.CLIENT_URL2}`,
-  });
+  const supabase = createClientComponentClient();
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.log('error', error);
+  }
 }
