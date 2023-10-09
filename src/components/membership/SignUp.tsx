@@ -1,10 +1,7 @@
 'use client';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useRef, useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import { IoMdMail } from 'react-icons/io';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-import { TiArrowBack } from 'react-icons/ti';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
