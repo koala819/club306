@@ -121,6 +121,7 @@ interface PersonalInfo {
   first_name: string;
   last_name: string;
   address: string;
+  email: string;
   zip_code: string;
   town: string;
   birth_date: Date;

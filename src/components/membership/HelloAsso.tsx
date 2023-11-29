@@ -38,7 +38,7 @@ export const HelloAsso = ({ setStep }: any) => {
       payer: {
         firstName: `${personalInfo?.first_name}`,
         lastName: `${personalInfo?.last_name}`,
-        email: 'john.doe@test.com',
+        email: `${personalInfo?.email}`,
         dateOfBirth: `${moment(personalInfo?.birth_date).format('YYYY-MM-DD')}`,
         address: `${personalInfo?.address}`,
         city: `${personalInfo?.town}`,
