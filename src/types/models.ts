@@ -55,7 +55,7 @@ interface CheckoutHelloAsso {
   errorUrl: string;
   returnUrl: string;
   containsDonation: boolean;
-  terms: { amount: number; date: string }[];
+  terms?: { amount: number; date: string }[];
   payer: {
     firstName: string;
     lastName: string;
@@ -67,7 +67,7 @@ interface CheckoutHelloAsso {
     country: string;
     companyName?: string;
   };
-  metadata: any;
+  metadata?: any;
   trackingParameter?: string;
 }
 
