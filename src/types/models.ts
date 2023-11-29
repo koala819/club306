@@ -47,6 +47,30 @@ interface CardStaffProps {
   youtube?: string;
 }
 
+interface CheckoutHelloAsso {
+  totalAmount: number;
+  initialAmount: number;
+  itemName: string;
+  backUrl: string;
+  errorUrl: string;
+  returnUrl: string;
+  containsDonation: boolean;
+  terms: { amount: number; date: string }[];
+  payer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    dateOfBirth: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    country: string;
+    companyName?: string;
+  };
+  metadata: any;
+  trackingParameter?: string;
+}
+
 interface Color {
   id: number;
   name: string;
@@ -120,6 +144,7 @@ export type {
   ArticlesProps,
   Car,
   CardStaffProps,
+  CheckoutHelloAsso,
   Color,
   Finition,
   MailPwd,

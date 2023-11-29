@@ -1,6 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { redirect } from 'next/navigation';
+import { useState } from 'react';
 import { Step } from '@/components/membership/Step';
 import { Form } from '@/components/membership/Form';
 
@@ -12,12 +11,6 @@ export default function HomePage({
   session: any;
 }) {
   const [currentStep, setStep] = useState(step);
-
-  useEffect(() => {
-    if (session) {
-      redirect('/memberfinish');
-    }
-  }, [session]);
 
   return (
     <>
