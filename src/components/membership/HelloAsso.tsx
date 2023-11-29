@@ -1,65 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
-// import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { TiArrowBack } from 'react-icons/ti';
 import { CheckoutHelloAsso, PersonalInfo } from '@/types/models';
-
-async function initializeCheckoutIntent(
-  requestData: CheckoutHelloAsso
-): Promise<any> {
-  try {
-    const token = await getAuthToken(
-      process.env.HELLO_ASSO_CLIENT_ID ?? '',
-      process.env.HELLO_ASSO_CLIENT_SECRET ?? ''
-    );
-
-    const response = await fetch(process.env.HELLO_ASSO_API_URL ?? '', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestData),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error during checkout intent initialization:', error);
-    throw error;
-  }
-}
-
-async function getAuthToken(
-  clientId: string,
-  clientSecret: string
-): Promise<string> {
-  const tokenUrl = 'https://api.helloasso.com/oauth2/token';
-  const response = await fetch(tokenUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      grant_type: 'client_credentials',
-      client_id: clientId,
-      client_secret: clientSecret,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const data = await response.json();
-  return data.access_token;
-}
+import { initializeCheckoutIntent } from '@/lib/helloAsso';
+import moment from 'moment';
+import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code';
 
 export const HelloAsso = ({ setStep }: any) => {
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>();
+  const [displayBtnHelloAsso, setDisplayBtnHelloAsso] =
+    useState<boolean>(false);
+  const [urlHelloAsso, setUrlHelloAsso] = useState<string>('');
 
   useEffect(() => {
     const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
@@ -69,56 +20,47 @@ export const HelloAsso = ({ setStep }: any) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!personalInfo) {
+      return;
+    }
+    const currentYear = new Date().getFullYear();
+    console.log('personalInfo', personalInfo);
+
+    const requestData: CheckoutHelloAsso = {
+      totalAmount: 2000,
+      initialAmount: 2000,
+      itemName: `Adhesion ${currentYear} Club 306`,
+      backUrl: 'https://www.partnertest.com/back.php',
+      errorUrl: 'https://www.partnertest.com/error.php',
+      returnUrl: 'https://www.partnertest.com/return.php',
+      containsDonation: true,
+      payer: {
+        firstName: `${personalInfo?.first_name}`,
+        lastName: `${personalInfo?.last_name}`,
+        email: `${personalInfo?.email}`,
+        dateOfBirth: `${moment(personalInfo?.birth_date).format('YYYY-MM-DD')}`,
+        address: `${personalInfo?.address}`,
+        city: `${personalInfo?.town}`,
+        zipCode: `${personalInfo?.zip_code}`,
+        country: `${getCountryAlpha3Code(personalInfo?.phone)}`,
+      },
+    };
+    initializeCheckoutIntent(requestData)
+      .then((data) => {
+        console.log('url :', data.redirectUrl);
+        setDisplayBtnHelloAsso(true);
+        setUrlHelloAsso(data.redirectUrl);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, [personalInfo]);
+
   const handleGoBack = () => {
     setStep((s: number) => {
       return s - 1;
     });
   };
 
-  const handleNext = () => {
-    setStep((s: number) => s + 1);
-  };
-  const currentYear = new Date().getFullYear();
-
-  const requestData: any = {
-    totalAmount: 2000,
-    initialAmount: 2000,
-    itemName: `Adhesion ${currentYear} Club 306`,
-    backUrl: 'https://www.partnertest.com/back.php',
-    errorUrl: 'https://www.partnertest.com/error.php',
-    returnUrl: 'https://www.partnertest.com/return.php',
-    containsDonation: true,
-    payer: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@test.com',
-      dateOfBirth: '1986-07-06',
-      address: '23 rue du palmier',
-      city: 'Paris',
-      zipCode: '75000',
-      country: 'FRA',
-    },
-    metadata: {
-      reference: 12345,
-      libelle: 'Adhesion Football',
-      userId: 98765,
-      produits: [
-        {
-          id: 56,
-          count: 1,
-        },
-        {
-          id: 78,
-          count: 3,
-        },
-      ],
-    },
-    trackingParameter: '101',
-  };
-
-  initializeCheckoutIntent(requestData)
-    .then((data) => console.log('Checkout Intent Initialized:', data))
-    .catch((error) => console.error('Error:', error));
   return (
     <>
       <section className="lg:flex flex-col justify-between">
@@ -247,6 +189,14 @@ export const HelloAsso = ({ setStep }: any) => {
                 style={{ layout: 'vertical', color: 'blue' }}
               />
             </PayPalScriptProvider> */}
+            {displayBtnHelloAsso && (
+              <button
+                className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                onClick={() => (window.location.href = `${urlHelloAsso}`)}
+              >
+                Continuer
+              </button>
+            )}
             <p className="text-xs  mt-3">
               Rejoins nous dans l&apos;aventure Peugeot 306
             </p>
