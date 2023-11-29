@@ -2,7 +2,8 @@
 import { PersonalInfos } from './PersonalInfos';
 import { Garage } from './Garage';
 import { Summary } from './Summary';
-import { Paypal } from './Paypal';
+// import { Paypal } from './Paypal';
+import { HelloAsso } from './HelloAsso';
 import { SignUp } from './SignUp';
 
 export const Form = ({
@@ -31,7 +32,7 @@ export const Form = ({
         {step == 1 && <PersonalInfos setStep={setStep} />}
         {step == 2 && <Garage setStep={setStep} />}
         {step == 3 && <Summary setStep={setStep} />}
-        {step == 4 && <Paypal setStep={setStep} />}
+        {step == 4 && <HelloAsso setStep={setStep} />}
         {step == 5 && <SignUp session={session} />}
       </div>
     </main>
