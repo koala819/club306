@@ -27,13 +27,20 @@ export const HelloAsso = ({ setStep }: any) => {
     const currentYear = new Date().getFullYear();
     console.log('personalInfo', personalInfo);
 
+    const clientUrl =
+      process.env.CLIENT_URL === 'http://localhost:3000'
+        ? 'https://localhost:3000'
+        : process.env.CLIENT_URL;
+
     const requestData: CheckoutHelloAsso = {
-      totalAmount: 2000,
-      initialAmount: 2000,
+      totalAmount: 50,
+      // totalAmount: 2000,
+      initialAmount: 50,
+      // initialAmount: 2000,
       itemName: `Adhesion ${currentYear} Club 306`,
-      backUrl: 'https://www.partnertest.com/back.php',
-      errorUrl: 'https://www.partnertest.com/error.php',
-      returnUrl: 'https://www.partnertest.com/return.php',
+      backUrl: `${clientUrl}/membership/`,
+      errorUrl: `${clientUrl}/error/`,
+      returnUrl: `${clientUrl}/memberfinish/`,
       containsDonation: true,
       payer: {
         firstName: `${personalInfo?.first_name}`,
@@ -153,42 +160,7 @@ export const HelloAsso = ({ setStep }: any) => {
               </span>
               Etre averti des prochains rassos
             </p>
-            {/* <iframe
-              id="haWidget"
-              allowTransparency={true}
-              scrolling="auto"
-              src="https://www.helloasso.com/associations/club-306-france/paiements/abonnement-annuel/widget"
-              style={{ width: '100%', height: '750px', border: 'none' }}
-              //   style="width: 100%; height: 750px; border: none;"
-            ></iframe> */}
-            {/* <PayPalScriptProvider
-              options={{
-                'client-id': process.env.PAYPAL_CLIENT_ID || 'test',
-                currency: 'EUR',
-              }}
-            >
-              <PayPalButtons
-                createOrder={(data, actions) => {
-                  return actions.order.create({
-                    purchase_units: [
-                      {
-                        amount: {
-                          value: '20.00',
-                          currency_code: 'EUR',
-                        },
-                      },
-                    ],
-                  });
-                }}
-                onCancel={(data) => console.log('commande annulée', data)}
-                onApprove={async (data, actions) => {
-                  return actions.order?.capture().then(() => {
-                    handleNext();
-                  });
-                }}
-                style={{ layout: 'vertical', color: 'blue' }}
-              />
-            </PayPalScriptProvider> */}
+
             {displayBtnHelloAsso && (
               <button
                 className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"

@@ -1,18 +1,30 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+'use client';
+// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { cookies } from 'next/headers';
 import WaitSession from '@/components/membership/WaitSession';
 import ThankYou from '@/components/membership/ThankYou';
+import { useEffect, useState } from 'react';
 
-export default async function Page() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Page() {
+  const [showThankYou, setShowThankYou] = useState(false);
+  // const supabase = createServerComponentClient({ cookies });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paymentCode = params.get('code');
 
-  if (!session) {
-    return <WaitSession />;
-  }
+    if (paymentCode === 'succeeded') {
+      setShowThankYou(true);
+    }
+  }, []);
 
-  return <ThankYou session={session} />;
+  return (
+    <div>
+      {showThankYou ? (
+        <ThankYou /> // Affiche ThankYou si le paiement a réussi
+      ) : (
+        <WaitSession /> // Affiche un autre composant ou message si le paiement n'a pas réussi
+      )}
+    </div>
+  );
 }

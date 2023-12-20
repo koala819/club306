@@ -5,18 +5,24 @@ export async function initializeCheckoutIntent(
 ): Promise<any> {
   try {
     const token = await getAuthToken(
+      // process.env.HELLO_ASSO_CLIENT_ID_SANDBOX ?? '',
+      // process.env.HELLO_ASSO_CLIENT_SECRET_SANDBOX ?? ''
       process.env.HELLO_ASSO_CLIENT_ID ?? '',
       process.env.HELLO_ASSO_CLIENT_SECRET ?? ''
     );
 
-    const response = await fetch(process.env.HELLO_ASSO_API_URL ?? '', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestData),
-    });
+    const response = await fetch(
+      // process.env.HELLO_ASSO_API_URL_SANDBOX ?? '',
+      process.env.HELLO_ASSO_API_URL ?? '',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
