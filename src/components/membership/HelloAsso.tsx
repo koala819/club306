@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import { TiArrowBack } from 'react-icons/ti';
 import { CheckoutHelloAsso, PersonalInfo } from '@/types/models';
-import { initializeCheckoutIntent } from '@/lib/helloAsso';
+// import { initializeCheckoutIntent } from '@/lib/helloAsso';
+import connect from '@/lib/helloAsso/connect';
 import moment from 'moment';
 import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code';
 
@@ -11,6 +12,8 @@ export const HelloAsso = ({ setStep }: any) => {
   const [displayBtnHelloAsso, setDisplayBtnHelloAsso] =
     useState<boolean>(false);
   const [urlHelloAsso, setUrlHelloAsso] = useState<string>('');
+  const [memberIdFromSessionStorage, setMemberIdFromSessionStorage] =
+    useState<string>('');
 
   useEffect(() => {
     const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
@@ -18,14 +21,21 @@ export const HelloAsso = ({ setStep }: any) => {
       const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON);
       setPersonalInfo(() => storedPersonalInfo);
     }
+    const memberIdJSON = sessionStorage.getItem('memberId');
+    if (memberIdJSON) {
+      const storedMemberId = JSON.parse(memberIdJSON);
+      setMemberIdFromSessionStorage(() => storedMemberId);
+    }
   }, []);
+
+  // console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
 
   useEffect(() => {
     if (!personalInfo) {
       return;
     }
     const currentYear = new Date().getFullYear();
-    console.log('personalInfo', personalInfo);
+    // console.log('personalInfo', personalInfo);
 
     const clientUrl =
       process.env.CLIENT_URL === 'http://localhost:3000'
@@ -52,11 +62,23 @@ export const HelloAsso = ({ setStep }: any) => {
         zipCode: `${personalInfo?.zip_code}`,
         country: `${getCountryAlpha3Code(personalInfo?.phone)}`,
       },
+      metadata: {
+        userId: `${memberIdFromSessionStorage}`,
+      },
     };
-    initializeCheckoutIntent(requestData)
+
+    // initializeCheckoutIntent(requestData);
+    connect({
+      requestData,
+      url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
+      method: 'POST',
+    })
       .then((data) => {
-        console.log('url :', data.redirectUrl);
+        // console.log('url :', data.redirectUrl);
         setDisplayBtnHelloAsso(true);
+        // setUrlHelloAsso(
+        //   'https://www.helloasso.com/associations/club-306-france/paiements/club306-re-adhesion-membre-2024'
+        // );
         setUrlHelloAsso(data.redirectUrl);
       })
       .catch((error) => console.error('Error:', error));

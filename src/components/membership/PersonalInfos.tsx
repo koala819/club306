@@ -13,6 +13,7 @@ import { useTheme } from 'next-themes';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { PersonalInfo } from '@/types/models';
 import { getMonth, getYear, months, years } from '@/lib/personalInfos';
+import { getMemberId } from '@/lib/supabase';
 
 export const PersonalInfos = ({ setStep }: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,6 @@ export const PersonalInfos = ({ setStep }: any) => {
   const [formattedBirthDate, setFormattedBirthDate] = useState(new Date());
 
   const { resolvedTheme } = useTheme();
-
   useEffect(() => {
     const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
     if (storedPersonalInfoJSON) {
@@ -86,11 +86,21 @@ export const PersonalInfos = ({ setStep }: any) => {
     resolver: yupResolver(schema),
   });
 
-  const handleAddPersonalInfos = async (data: any) => {
-    setPersonalInfo(data);
-    sessionStorage.setItem('personalInfo', JSON.stringify(data));
-    setStep((s: number) => s + 1);
-  };
+  async function handleAddPersonalInfos(data: any) {
+    try {
+      const memberId = Math.floor(Math.random() * 1000000);
+      setPersonalInfo(data);
+      sessionStorage.setItem('personalInfo', JSON.stringify(data));
+      sessionStorage.setItem('memberId', JSON.stringify(memberId));
+      localStorage.setItem(`personalInfo_${memberId}`, JSON.stringify(data));
+      setStep((s: number) => s + 1);
+    } catch (error) {
+      console.error(
+        "Erreur lors de l'ajout des informations personnelles :",
+        error
+      );
+    }
+  }
 
   const handlePhoneInputChange = () => {
     register('phone');

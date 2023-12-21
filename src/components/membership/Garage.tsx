@@ -13,6 +13,8 @@ export const Garage = ({ setStep }: any) => {
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
   const [models, setModels] = useState<Model[]>([]);
+  const [memberIdFromSessionStorage, setMemberIdFromSessionStorage] =
+    useState<string>('');
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -36,6 +38,12 @@ export const Garage = ({ setStep }: any) => {
   });
 
   useEffect(() => {
+    const memberIdJSON = sessionStorage.getItem('memberId');
+    if (memberIdJSON) {
+      const storedMemberId = JSON.parse(memberIdJSON);
+      setMemberIdFromSessionStorage(() => storedMemberId);
+    }
+
     const storedVehiclesJSON = sessionStorage.getItem('vehicles');
     if (storedVehiclesJSON) {
       const storedVehicles = JSON.parse(storedVehiclesJSON);
@@ -56,6 +64,10 @@ export const Garage = ({ setStep }: any) => {
 
   const handleNext = () => {
     sessionStorage.setItem('vehicles', JSON.stringify(vehicles));
+    localStorage.setItem(
+      `vehicles_${memberIdFromSessionStorage}`,
+      JSON.stringify(vehicles)
+    );
     setStep((s: number) => s + 1);
   };
 
