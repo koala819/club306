@@ -30,10 +30,10 @@ export const Form = ({
           </p>
         </div>
         {step == 1 && <PersonalInfos setStep={setStep} />}
-        {step == 2 && <Garage setStep={setStep} />}
-        {step == 3 && <Summary setStep={setStep} />}
-        {step == 4 && <HelloAsso setStep={setStep} />}
-        {step == 5 && <SignUp session={session} />}
+        {step == 2 && <SignUp setStep={setStep} />}
+        {step == 3 && <Garage setStep={setStep} />}
+        {step == 4 && <Summary setStep={setStep} />}
+        {step == 5 && <HelloAsso setStep={setStep} />}
       </div>
     </main>
   );

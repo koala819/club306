@@ -613,6 +613,23 @@ async function getMemberId() {
   }
 }
 
+async function getTokenConfirmMail(token) {
+  try {
+    const { data, error } = await supabase
+      .from('members')
+      .select(`first_name, last_name, email`)
+      .eq('user_token', token)
+      .limit(1);
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data.length > 0 ? data[0] : null;
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de la requête :", error.message);
+    return false;
+  }
+}
+
 function getTokenFromSupabase(access_token) {
   const options = {};
 
@@ -656,8 +673,8 @@ async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*');
 }
 
-async function record(personalInfo, vehicles, email, newMemberId) {
-  const rspRecMember = await recordMember(personalInfo, email, newMemberId);
+async function record(personalInfo, vehicles, newMemberId, userToken) {
+  const rspRecMember = await recordMember(personalInfo, newMemberId, userToken);
   const dataRecMember = await rspRecMember.json();
   if (dataRecMember.status !== 200) {
     return NextResponse.json({
@@ -752,9 +769,18 @@ async function recordCar(vehicles, memberId) {
   }
 }
 
-async function recordMember(personalInfo, email, newMemberId) {
-  const { address, birth_date, first_name, last_name, phone, town, zip_code } =
-    personalInfo;
+async function recordMember(personalInfo, newMemberId, userToken) {
+  const {
+    address,
+    birth_date,
+    first_name,
+    last_name,
+    phone,
+    town,
+    zip_code,
+    email,
+    pwd,
+  } = personalInfo;
   const countryCodes = {
     33: 'France',
     32: 'Belgique',
@@ -773,12 +799,14 @@ async function recordMember(personalInfo, email, newMemberId) {
       address,
       birth_date,
       country,
-      email: email,
+      email,
+      password: pwd,
       first_name: first_name.charAt(0).toUpperCase() + first_name.slice(1),
       last_name: last_name.toUpperCase(),
       phone,
       town,
       zip_code,
+      user_token: userToken,
     });
     if (error) {
       return NextResponse.json({
@@ -1054,6 +1082,7 @@ export {
   getIdFinition,
   getMemberId,
   getIdModel,
+  getTokenConfirmMail,
   getTokenFromSupabase,
   onlyStaff,
   ourPartners,

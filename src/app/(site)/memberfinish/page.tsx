@@ -1,18 +1,41 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+'use client';
 import WaitSession from '@/components/membership/WaitSession';
-import ThankYou from '@/components/membership/ThankYou';
+import MailConfirm from '@/components/membership/MailConfirm';
+import { useEffect, useState } from 'react';
+import connect from '@/lib/helloAsso/connect';
 
-export default async function Page() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Page() {
+  const [showThankYou, setShowThankYou] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>('');
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paymentCode = params.get('code');
+    const orderId = params.get('checkoutIntentId');
 
-  if (!session) {
-    return <WaitSession />;
-  }
+    async function fetchData() {
+      if (paymentCode === 'succeeded' && orderId) {
+        const result = await connect({
+          url: `https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents/${orderId}`,
+          method: 'GET',
+        });
+        setUserId(result.metadata.userId);
+        setShowThankYou(true);
+      } else {
+        console.log('error in fetchData', paymentCode, orderId);
+      }
+    }
 
-  return <ThankYou session={session} />;
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      {showThankYou ? (
+        <MailConfirm userIdFromlocalStorage={userId} />
+      ) : (
+        <WaitSession />
+      )}
+    </div>
+  );
 }

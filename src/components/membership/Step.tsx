@@ -3,10 +3,10 @@ import Image from 'next/image';
 export const Step = ({ step }: { step: number }) => {
   const stepTitles = [
     'Informations',
+    'Identifiants',
     'Garage',
     'Résumé',
     'Adhésion',
-    'Connexion',
   ];
 
   return (

@@ -121,7 +121,18 @@ interface PersonalInfo {
   first_name: string;
   last_name: string;
   address: string;
+  zip_code: string;
+  town: string;
+  birth_date: Date;
+  phone: string;
   email: string;
+  pwd: string;
+}
+
+interface SchemaPersonalInfo {
+  first_name: string;
+  last_name: string;
+  address: string;
   zip_code: string;
   town: string;
   birth_date: Date;
@@ -130,6 +141,12 @@ interface PersonalInfo {
   checkCertificateHonour: boolean | undefined;
   checkEngagementClub: boolean | undefined;
   checkPrivacyPolicy: boolean | undefined;
+}
+
+interface ThankYouData {
+  first_name: string;
+  last_name: string;
+  email: string;
 }
 
 interface Vehicles {
@@ -153,5 +170,7 @@ export type {
   Model,
   PartnerInfoType,
   PersonalInfo,
+  SchemaPersonalInfo,
+  ThankYouData,
   Vehicles,
 };
