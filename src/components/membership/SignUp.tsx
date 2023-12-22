@@ -1,19 +1,19 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { MailPwd } from '@/types/models';
 import { TiArrowBack } from 'react-icons/ti';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 import bcrypt from 'bcryptjs';
+import toast from 'react-hot-toast';
+import { checkMail } from '@/lib/supabase';
 
 export const SignUp = ({ setStep }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [cPasswordVisible, setCPasswordVisible] = useState(false);
   const [sessionMemberId, setSessionMemberId] = useState<string>();
-  const [captchaToken, setCaptchaToken] = useState('');
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -29,8 +29,6 @@ export const SignUp = ({ setStep }: any) => {
       .required('Le mot de passe est obligatoire')
       .oneOf([yup.ref('pwd')], 'Les mots de passe doivent être identiques'),
   });
-
-  const captcha = useRef<HCaptcha | null>(null);
 
   useEffect(() => {
     const memberIDSessionJSON = sessionStorage.getItem('memberId');
@@ -54,20 +52,26 @@ export const SignUp = ({ setStep }: any) => {
   }
 
   async function handleNext(data: any) {
-    const localStockageJSON = localStorage.getItem(
-      `personalInfo_${sessionMemberId}`
-    );
-    const oldData = localStockageJSON ? JSON.parse(localStockageJSON) : {};
-    const pwdCrypt = await bcrypt.hash(data.pwd, 10);
-    const newData = { ...oldData, pwd: pwdCrypt, email: data.email };
-    localStorage.setItem(
-      `personalInfo_${sessionMemberId}`,
-      JSON.stringify(newData)
-    );
+    const mailExist = await checkMail(data.email.toLowerCase());
 
-    setStep((s: number) => {
-      return s + 1;
-    });
+    if (mailExist) {
+      toast.error('Cet email est déjà utilisé');
+    } else {
+      const localStockageJSON = localStorage.getItem(
+        `personalInfo_${sessionMemberId}`
+      );
+      const oldData = localStockageJSON ? JSON.parse(localStockageJSON) : {};
+      const pwdCrypt = await bcrypt.hash(data.pwd, 10);
+      const newData = { ...oldData, pwd: pwdCrypt, email: data.email };
+      localStorage.setItem(
+        `personalInfo_${sessionMemberId}`,
+        JSON.stringify(newData)
+      );
+
+      setStep((s: number) => {
+        return s + 1;
+      });
+    }
   }
 
   return (
@@ -174,14 +178,7 @@ export const SignUp = ({ setStep }: any) => {
                   {errors.cpwd.message}
                 </span>
               )}
-              {/* CAPTCHA */}
-              <div className="mt-6">
-                <HCaptcha
-                  ref={captcha}
-                  sitekey={process.env.HPCAPTCHA_SITEKEY || ''}
-                  onVerify={setCaptchaToken}
-                />
-              </div>
+
               {/* BUTTONS NEXT & CANCEL */}
               <div className="flex  w-full justify-between mt-4">
                 <button
