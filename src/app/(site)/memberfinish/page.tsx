@@ -1,6 +1,6 @@
 'use client';
 import WaitSession from '@/components/membership/WaitSession';
-import ThankYou from '@/components/membership/ThankYou';
+import MailConfirm from '@/components/membership/MailConfirm';
 import { useEffect, useState } from 'react';
 import connect from '@/lib/helloAsso/connect';
 
@@ -32,7 +32,7 @@ export default function Page() {
   return (
     <div>
       {showThankYou ? (
-        <ThankYou userIdFromlocalStorage={userId} />
+        <MailConfirm userIdFromlocalStorage={userId} />
       ) : (
         <WaitSession />
       )}

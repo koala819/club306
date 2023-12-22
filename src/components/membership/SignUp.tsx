@@ -1,24 +1,19 @@
 'use client';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { MailPwd } from '@/types/models';
-import { redirect } from 'next/navigation';
+import { TiArrowBack } from 'react-icons/ti';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import bcrypt from 'bcryptjs';
 
-export const SignUp = ({ session }: any) => {
+export const SignUp = ({ setStep }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [cPasswordVisible, setCPasswordVisible] = useState(false);
-  const [storedPersonalInfo, setStoredPersonalInfo] = useState({
-    first_name: '',
-    last_name: '',
-  });
+  const [sessionMemberId, setSessionMemberId] = useState<string>();
   const [captchaToken, setCaptchaToken] = useState('');
-
-  const supabase = createClientComponentClient();
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -38,17 +33,11 @@ export const SignUp = ({ session }: any) => {
   const captcha = useRef<HCaptcha | null>(null);
 
   useEffect(() => {
-    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
-    if (storedPersonalInfoJSON) {
-      setStoredPersonalInfo(() => JSON.parse(storedPersonalInfoJSON));
+    const memberIDSessionJSON = sessionStorage.getItem('memberId');
+    if (memberIDSessionJSON) {
+      setSessionMemberId(() => JSON.parse(memberIDSessionJSON));
     }
   }, []);
-
-  useEffect(() => {
-    if (session) {
-      redirect('/memberfinish');
-    }
-  }, [session]);
 
   const {
     register,
@@ -58,38 +47,36 @@ export const SignUp = ({ session }: any) => {
     resolver: yupResolver(schema),
   });
 
-  const handleAddMailInfos = async (values: MailPwd) => {
-    const { email, pwd } = values;
-    if (typeof pwd === 'string') {
-      await supabase.auth.signUp({
-        email: email,
-        password: pwd,
-        options: {
-          captchaToken,
-          data: {
-            first_name:
-              storedPersonalInfo?.first_name +
-              ' ' +
-              storedPersonalInfo?.last_name,
-          },
-          emailRedirectTo: `${process.env.CLIENT_URL}/mailConfirm`,
-        },
-      });
+  function handleGoBack() {
+    setStep((s: number) => {
+      return s - 1;
+    });
+  }
 
-      if (captcha.current !== null && captcha.current !== undefined) {
-        captcha.current.resetCaptcha();
-      }
-    } else {
-      alert('Invalid password :\n\n\n' + pwd);
-    }
-  };
+  async function handleNext(data: any) {
+    const localStockageJSON = localStorage.getItem(
+      `personalInfo_${sessionMemberId}`
+    );
+    const oldData = localStockageJSON ? JSON.parse(localStockageJSON) : {};
+    const pwdCrypt = await bcrypt.hash(data.pwd, 10);
+    const newData = { ...oldData, pwd: pwdCrypt, email: data.email };
+    localStorage.setItem(
+      `personalInfo_${sessionMemberId}`,
+      JSON.stringify(newData)
+    );
+
+    setStep((s: number) => {
+      return s + 1;
+    });
+  }
 
   return (
     <section className="grid sm:grid-cols-12 sm:gap-12 py-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden mx-auto">
       <div className="flex items-center justify-center col-span-12">
         <div className="flex rounded-lg overflow-hidden  w-full">
           <div className="w-full p-8 space-y-12 flex justify-center items-center flex-col">
-            <form className="space-y-8">
+            <form className="space-y-8" onSubmit={handleSubmit(handleNext)}>
+              <h1>Créer vos Identifiants de connexion</h1>
               {/* EMAIL */}
               <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
                 <input
@@ -195,11 +182,21 @@ export const SignUp = ({ session }: any) => {
                   onVerify={setCaptchaToken}
                 />
               </div>
-              {/* BUTTONS RECORD & CANCEL */}
-              <div className="flex  w-full justify-end mt-4 space-x-4">
+              {/* BUTTONS NEXT & CANCEL */}
+              <div className="flex  w-full justify-between mt-4">
+                <button
+                  className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+                  onClick={() => {
+                    handleGoBack();
+                  }}
+                >
+                  <TiArrowBack size={22} className="mr-2" />
+                  Précédent
+                </button>
+
                 <button
                   className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-                  onClick={handleSubmit(handleAddMailInfos)}
+                  type="submit"
                 >
                   Continuer
                 </button>

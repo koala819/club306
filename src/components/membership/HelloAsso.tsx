@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { TiArrowBack } from 'react-icons/ti';
 import { CheckoutHelloAsso, PersonalInfo } from '@/types/models';
-// import { initializeCheckoutIntent } from '@/lib/helloAsso';
 import connect from '@/lib/helloAsso/connect';
 import moment from 'moment';
 import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code';
@@ -16,26 +15,32 @@ export const HelloAsso = ({ setStep }: any) => {
     useState<string>('');
 
   useEffect(() => {
-    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
-    if (storedPersonalInfoJSON) {
-      const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON);
-      setPersonalInfo(() => storedPersonalInfo);
+    async function fetchData() {
+      const memberIdJSON = sessionStorage.getItem('memberId');
+      if (memberIdJSON) {
+        const storedMemberId = JSON.parse(memberIdJSON);
+        setMemberIdFromSessionStorage(() => storedMemberId);
+        return storedMemberId;
+      }
+      return null;
     }
-    const memberIdJSON = sessionStorage.getItem('memberId');
-    if (memberIdJSON) {
-      const storedMemberId = JSON.parse(memberIdJSON);
-      setMemberIdFromSessionStorage(() => storedMemberId);
-    }
+    fetchData().then((storedMemberId) => {
+      const storedPersonalInfoJSON = localStorage.getItem(
+        `personalInfo_${storedMemberId}`
+      );
+      if (storedPersonalInfoJSON) {
+        setPersonalInfo(() => JSON.parse(storedPersonalInfoJSON));
+      }
+    });
   }, []);
 
-  // console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
+  console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
 
   useEffect(() => {
     if (!personalInfo) {
       return;
     }
     const currentYear = new Date().getFullYear();
-    // console.log('personalInfo', personalInfo);
 
     const clientUrl =
       process.env.CLIENT_URL === 'http://localhost:3000'
@@ -67,18 +72,13 @@ export const HelloAsso = ({ setStep }: any) => {
       },
     };
 
-    // initializeCheckoutIntent(requestData);
     connect({
       requestData,
       url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
       method: 'POST',
     })
       .then((data) => {
-        // console.log('url :', data.redirectUrl);
         setDisplayBtnHelloAsso(true);
-        // setUrlHelloAsso(
-        //   'https://www.helloasso.com/associations/club-306-france/paiements/club306-re-adhesion-membre-2024'
-        // );
         setUrlHelloAsso(data.redirectUrl);
       })
       .catch((error) => console.error('Error:', error));
