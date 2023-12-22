@@ -16,10 +16,8 @@ const ThankYou = () => {
   useEffect(() => {
     async function fetchData() {
       const token = searchParams.get('token');
-      //   console.log('token in ThankYou', token);
       if (token) {
         const data = await getTokenConfirmMail(token);
-        // console.log('data in ThankYou', data);
         setStoredPersonalInfo(data);
         setLoading(false);
       }

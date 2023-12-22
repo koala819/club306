@@ -3,7 +3,6 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { useEffect, useState } from 'react';
 import { getMemberId, record } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-// import Link from 'next/link';
 import { PersonalInfo, Vehicles } from '@/types/models';
 import { generateUniqueToken } from '@/lib/generateUniqueToken';
 
@@ -18,9 +17,6 @@ export default function MailConfirm({
   const [storedVehicle, setStoredVehicle] = useState<Vehicles>();
   const router = useRouter();
   const tokenForMember = generateUniqueToken();
-
-  // useEffect(() => {}, []);
-  // console.log('userIdFromlocalStorage', userIdFromlocalStorage);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,18 +42,12 @@ export default function MailConfirm({
     fetchData();
   }, []);
 
-  // console.log('personalInfo in ThankYOU', storedPersonalInfo);
-  // console.log('vehicles in ThankYOU', storedVehicle);
-  // console.log('lastMbrIdFromDB in ThankYOU', lastMbrIdFromDB);
-
   useEffect(() => {
     const fetchData = async () => {
-      // console.log('in fetchData', lastMbrIdFromDB);
       if (lastMbrIdFromDB !== null) {
         const response = await record(
           storedPersonalInfo,
           storedVehicle,
-          // storedPersonalInfo?.email,
           lastMbrIdFromDB + 1,
           tokenForMember
         );
@@ -70,7 +60,7 @@ export default function MailConfirm({
           );
           router.push('/contact');
         } else {
-          console.log('YES RECORD IN DB');
+          console.log('YES RECORD IN DB with ', storedPersonalInfo);
           sendConfirmationMail(
             storedPersonalInfo?.first_name || '',
             storedPersonalInfo?.last_name || '',
@@ -146,24 +136,6 @@ export default function MailConfirm({
               <h1>
                 Cette étape est obligatoire pour valider votre inscription !
               </h1>
-              {/* <Link
-                href="/cpanel"
-                // onClick={() =>
-                //   sendWelcomeMail(
-                //     storedPersonalInfo?.last_name +
-                //       ' ' +
-                //       storedPersonalInfo?.first_name,
-                //     session.user.email
-                //   )
-                // }
-              >
-                <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-                  type="submit"
-                >
-                  Terminer
-                </button>
-              </Link> */}
             </div>
             <p>Vérifiez vos spams</p>
           </>
