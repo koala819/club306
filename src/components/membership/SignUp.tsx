@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import { MailPwd } from '@/types/models';
 import { TiArrowBack } from 'react-icons/ti';
 import bcrypt from 'bcryptjs';
+import toast from 'react-hot-toast';
+import { checkMail } from '@/lib/supabase';
 
 export const SignUp = ({ setStep }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -50,20 +52,26 @@ export const SignUp = ({ setStep }: any) => {
   }
 
   async function handleNext(data: any) {
-    const localStockageJSON = localStorage.getItem(
-      `personalInfo_${sessionMemberId}`
-    );
-    const oldData = localStockageJSON ? JSON.parse(localStockageJSON) : {};
-    const pwdCrypt = await bcrypt.hash(data.pwd, 10);
-    const newData = { ...oldData, pwd: pwdCrypt, email: data.email };
-    localStorage.setItem(
-      `personalInfo_${sessionMemberId}`,
-      JSON.stringify(newData)
-    );
+    const mailExist = await checkMail(data.email.toLowerCase());
 
-    setStep((s: number) => {
-      return s + 1;
-    });
+    if (mailExist) {
+      toast.error('Cet email est déjà utilisé');
+    } else {
+      const localStockageJSON = localStorage.getItem(
+        `personalInfo_${sessionMemberId}`
+      );
+      const oldData = localStockageJSON ? JSON.parse(localStockageJSON) : {};
+      const pwdCrypt = await bcrypt.hash(data.pwd, 10);
+      const newData = { ...oldData, pwd: pwdCrypt, email: data.email };
+      localStorage.setItem(
+        `personalInfo_${sessionMemberId}`,
+        JSON.stringify(newData)
+      );
+
+      setStep((s: number) => {
+        return s + 1;
+      });
+    }
   }
 
   return (
