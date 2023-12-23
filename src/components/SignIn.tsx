@@ -8,8 +8,8 @@ import * as yup from 'yup';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { CheckMail } from '@/components/CheckMail';
+import { checkToken } from '@/lib/supabase';
 
-// export default function SignIn({ setDisplaySignIn }: any) {
 export default function SignIn() {
   const [showPwd, setShowPwd] = useState(false);
   const [magikLink, setMagikLink] = useState(false);
@@ -36,17 +36,26 @@ export default function SignIn() {
   });
 
   async function onSubmit(values: MailPwd) {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: values.email,
-      password: values.pwd,
-    });
+    try {
+      const authorizeConnection = await checkToken();
+      if (!authorizeConnection) {
+        toast.error('Vous devez valider votre email pour vous connecter');
+        return;
+      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.pwd,
+      });
 
-    if (error) {
-      console.log('error.message', error.message);
-      toast.error("Erreur d'intentification !");
-    } else {
-      console.log('success');
-      router.push('/cpanel');
+      if (error) {
+        // console.log('error.message', error.message);
+        toast.error("Erreur d'intentification !");
+      } else {
+        // console.log('success');
+        router.push('/cpanel');
+      }
+    } catch (error: any) {
+      toast.error(error);
     }
   }
 

@@ -152,6 +152,19 @@ async function checkRegisteredMember(email) {
   }
 }
 
+async function checkToken(token) {
+  const { data, error } = await supabase
+    .from('members')
+    .select('*')
+    .filter('user_token', 'eq', token);
+
+  if (error || data.length === 0) {
+    return false;
+  }
+
+  return true;
+}
+
 async function createNewPartner(value, imageName) {
   try {
     const { data, error } = await supabase.from('partners_codePromo').insert({
@@ -1063,6 +1076,7 @@ export {
   checkForCanI,
   checkMail,
   checkRegisteredMember,
+  checkToken,
   countCars,
   countCarsByModel,
   countMembers,

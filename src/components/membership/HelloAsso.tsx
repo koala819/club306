@@ -34,7 +34,7 @@ export const HelloAsso = ({ setStep }: any) => {
     });
   }, []);
 
-  console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
+  // console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
 
   useEffect(() => {
     if (!personalInfo) {
