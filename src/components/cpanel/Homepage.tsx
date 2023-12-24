@@ -4,14 +4,12 @@ import Link from 'next/link';
 import Garage from '@/components/cpanel/Garage';
 import { returnMemberInfo } from '@/lib/supabase';
 
-export function Homepage({ session }: { session: any }) {
+export function Homepage({ userMail }: { userMail: string }) {
   const [name, setName] = useState('');
 
   useEffect(() => {
     async function fetchData() {
-      const { last_name, first_name } = await returnMemberInfo(
-        session?.user?.email
-      );
+      const { last_name, first_name } = await returnMemberInfo(userMail);
 
       setName(() => first_name + ' ' + last_name);
     }
@@ -59,7 +57,7 @@ export function Homepage({ session }: { session: any }) {
               <h1 className="font-bold text-xl ml-6">Mon Garage</h1>
             </Link>
             <div className="mt-4 ">
-              <Garage userMail={session?.user?.email} hide={true} />
+              <Garage userMail={userMail} hide={true} />
             </div>
           </div>
         </div>

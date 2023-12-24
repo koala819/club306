@@ -15,6 +15,12 @@ export default function Page() {
   }, [dataSession]);
 
   return (
-    <>{waitSession ? <WaitSession /> : <Homepage session={dataSession} />}</>
+    <>
+      {waitSession ? (
+        <WaitSession />
+      ) : (
+        <Homepage userMail={dataSession?.user?.email || ''} />
+      )}
+    </>
   );
 }
