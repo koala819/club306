@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Loading } from '@/components/cpanel/Loading';
+
 import {
   Modal,
   ModalContent,
@@ -72,7 +72,7 @@ export default function DeleteCar({
     if (response?.status === 200) {
       onClose();
       toast.success('Suppression de votre 306 avec succès.');
-      // window.location.reload();
+      window.location.reload();
     }
   };
 

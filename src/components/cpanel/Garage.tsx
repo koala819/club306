@@ -21,7 +21,7 @@ import {
 } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { listPartsCar } from '@/lib/cpanel/listPartsCar';
-import { Car, Color, Finition, Model } from '@/types/models';
+import { Car, Color, Finition, Member, Model } from '@/types/models';
 
 export default function Garage({
   userMail,
@@ -30,7 +30,7 @@ export default function Garage({
   userMail: string;
   hide?: boolean;
 }) {
-  // const [member, setMember] = useState<Member | undefined>(undefined);
+  const [memberId, setMemberId] = useState<number>();
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
@@ -81,6 +81,7 @@ export default function Garage({
     const fetchData = async () => {
       const memberId = await transformEmailToId(userMail);
       if (memberId !== null) {
+        setMemberId(() => memberId);
         getMemberCars(memberId).then(async (cars: any) => {
           if (cars) {
             if (Array.isArray(cars)) {
@@ -502,9 +503,9 @@ export default function Garage({
                   <div className="mt-4 mb-4">
                     {cars !== undefined &&
                       cars.length >= 2 &&
-                      member?.id !== undefined && (
+                      memberId !== undefined && (
                         <DeleteCar
-                          memberId={member?.id}
+                          memberId={memberId}
                           car={cars[currentCarIndex]}
                         />
                       )}
