@@ -1,47 +1,24 @@
+'use client';
 import { Montserrat } from 'next/font/google';
-import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-// import { cookies } from 'next/headers';
 import '@/styles/globals.css';
-import { Toaster } from 'react-hot-toast';
+import { SessionProvider } from 'next-auth/react';
+import SiteLayout from '@/components/SiteLayout';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const revalidate = 0;
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const supabase = createServerComponentClient({ cookies });
-
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-
   return (
     <html lang="fr" className="light" suppressHydrationWarning>
       <body className={`${montserrat.className}`}>
-        <div className="min-h-screen min-w-screen">
-          <div className=" flex flex-col h-screen">
-            {/* {session ? (
-              <Navbar withMember={true} />
-            ) : (
-              <Navbar withMember={false} />
-            )} */}
-            <Navbar withMember={false} />
-            <main className="flex-1 ">{children}</main>
-            <Footer withMember={false} />
-            {/* {session ? (
-              <Footer withMember={true} />
-            ) : (
-              <Footer withMember={false} />
-            )} */}
-            <Toaster position="top-right" />
-          </div>
-        </div>
+        <SessionProvider>
+          <SiteLayout>{children}</SiteLayout>
+        </SessionProvider>
       </body>
     </html>
   );

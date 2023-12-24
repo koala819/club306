@@ -1,19 +1,10 @@
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-// import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { BsFacebook } from 'react-icons/bs';
 import { RiInstagramFill, RiCopyleftLine } from 'react-icons/ri';
 
-export const Footer = async ({ withMember }: { withMember: boolean }) => {
-  // const supabase = createServerComponentClient({ cookies });
-
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-
+export const Footer = ({ withMember }: { withMember: boolean }) => {
   return (
     <footer
-      // className="relative bg-[#3B578E] text-white pt-4"
       className={`relative  text-white pt-4 ${
         withMember
           ? 'bg-[#ADA075] dark:bg-[#6a6145]'
@@ -47,45 +38,6 @@ export const Footer = async ({ withMember }: { withMember: boolean }) => {
           </div>
           <div className="w-full lg:w-6/12 px-4">
             <div className="flex flex-wrap items-top mb-6">
-              {/* <div className="w-full lg:w-4/12 px-4 ml-auto">
-                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
-                    Useful Links
-                  </span>
-                  <ul className="list-unstyled">
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/presentation?ref=njs-profile"
-                      >
-                        About Us
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://blog.creative-tim.com?ref=njs-profile"
-                      >
-                        Blog
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.github.com/creativetimofficial?ref=njs-profile"
-                      >
-                        Github
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
-                      >
-                        Free Products
-                      </a>
-                    </li>
-                  </ul>
-                </div> */}
               <div className="w-full lg:w-4/12 px-4 ml-auto">
                 <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
                   Autres ressources
