@@ -58,7 +58,7 @@ export default function Garage({
     return nameA.localeCompare(nameB);
   });
 
-  const isMobile = window.innerWidth <= 768;
+  // const isMobile = window.innerWidth <= 768;
 
   const handleSelectionModelChange = (
     e: React.ChangeEvent<HTMLSelectElement>

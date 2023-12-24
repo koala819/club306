@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -120,29 +121,32 @@ async function checkMail(mail) {
   return data.length > 0;
 }
 
-async function checkRegisteredMember(email) {
+async function checkRegisteredMember(email, password) {
   try {
     const { data, error } = await supabase
       .from('members')
-      .select(`first_name, last_name`)
+      .select('id, email, password')
       .eq('email', email)
-      .limit(1);
+      .single();
 
-    if (error) {
+    if (error || !data) {
       return {
-        statusText: error.message,
-        status: error.status,
+        statusText: 'User not found or error occurred',
+        status: 400,
       };
     }
 
-    if (data.length > 0) {
+    const passwordMatch = await bcrypt.compare(password, data.password);
+    if (!passwordMatch) {
       return {
-        statusText: data,
-        status: 200,
+        statusText: 'Password does not match',
+        status: 401,
       };
     }
+
     return {
-      status: 406,
+      statusText: { id: data.id, email: data.email },
+      status: 200,
     };
   } catch (error) {
     return {
@@ -152,17 +156,18 @@ async function checkRegisteredMember(email) {
   }
 }
 
-async function checkToken(token) {
-  const { data, error } = await supabase
+async function signInWithoutToken(email) {
+  const { data } = await supabase
     .from('members')
     .select('*')
-    .filter('user_token', 'eq', token);
+    .filter('email', 'eq', email);
 
-  if (error || data.length === 0) {
-    return false;
+  const user = data[0];
+  if (user.user_token === '' || user.user_token === null) {
+    return true;
   }
 
-  return true;
+  return false;
 }
 
 async function createNewPartner(value, imageName) {
@@ -487,6 +492,35 @@ async function deleteThemeEvent(id) {
   }
 }
 
+async function deleteToken(email) {
+  try {
+    const { error } = await supabase
+      .from('members')
+      .select('user_token')
+      .eq('email', email);
+
+    if (!error) {
+      return new Response({
+        status: 200,
+        statusText: 'Great Job !!! Token successfully removed :)',
+      });
+    }
+
+    return new Response({
+      status: 405,
+      statusText: 'Error to delete token',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function getAllColors() {
   try {
     return await supabase.from('car_colors').select('*');
@@ -636,6 +670,8 @@ async function getTokenConfirmMail(token) {
     if (error) {
       throw new Error(error.message);
     }
+
+    deleteToken(data[0].email);
     return data.length > 0 ? data[0] : null;
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
@@ -1076,7 +1112,7 @@ export {
   checkForCanI,
   checkMail,
   checkRegisteredMember,
-  checkToken,
+  signInWithoutToken,
   countCars,
   countCarsByModel,
   countMembers,
