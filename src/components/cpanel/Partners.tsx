@@ -16,7 +16,7 @@ import { FaHubspot } from 'react-icons/fa';
 import { ourPartners } from '@/lib/supabase';
 import { PartnerInfoType } from '@/types/models';
 import toast from 'react-hot-toast';
-import { Loading } from '@/components/cpanel/Loading';
+import WaitSession from '@/components/cpanel/WaitSession';
 
 export function Partners() {
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
@@ -61,7 +61,7 @@ export function Partners() {
   return (
     <>
       {partnerData === undefined ? (
-        <Loading />
+        <WaitSession />
       ) : (
         <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
           <div className="flex space-x-4 flex-col w-full mb-6 shadow-lg rounded-lg bg-white dark:bg-slate-500 border-0">
