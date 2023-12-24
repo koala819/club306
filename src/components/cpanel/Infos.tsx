@@ -7,27 +7,28 @@ import { Member } from '@/types/models';
 const dayjs = require('dayjs');
 const localeFr = require('dayjs/locale/fr');
 
-export default function Infos({ session }: any) {
+export default function Infos({ userMail }: { userMail: string }) {
   const [member, setMember] = useState<Member | undefined>(undefined);
   dayjs.locale(localeFr);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo(session?.user?.email);
-
-      if (response !== false && response[0] !== undefined) {
+      console.log('userMail', userMail);
+      const response = await returnMemberInfo(userMail);
+      console.log('response', response);
+      if (response) {
         const memberData: Member = {
-          address: response[0].address,
-          birth_date: response[0].birth_date,
-          created_at: response[0].created_at,
-          first_name: response[0].first_name,
-          email: response[0].email,
-          id: response[0].id,
-          country: response[0].country,
-          last_name: response[0].last_name,
-          phone: response[0].phone,
-          town: response[0].town,
-          zip_code: response[0].zip_code,
+          address: response.address,
+          birth_date: response.birth_date,
+          created_at: response.created_at,
+          first_name: response.first_name,
+          email: response.email,
+          id: response.id,
+          country: response.country,
+          last_name: response.last_name,
+          phone: response.phone,
+          town: response.town,
+          zip_code: response.zip_code,
         };
         setMember(() => memberData);
       }
