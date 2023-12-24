@@ -908,13 +908,14 @@ async function returnMemberInfo(mail) {
   const { data, error } = await supabase
     .from('members')
     .select('*')
-    .filter('email', 'eq', mail);
+    .eq('email', mail)
+    .single();
 
   if (error) {
     console.error(error);
     return false;
   }
-  return data;
+  return data; // 'data' sera un objet ici si trouvé, sinon 'null'
 }
 
 async function sendMailRecordDb(personalInfo) {

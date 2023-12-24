@@ -2,18 +2,20 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Garage from '@/components/cpanel/Garage';
-import { checkRegisteredMember } from '@/lib/supabase';
+import { returnMemberInfo } from '@/lib/supabase';
 
-export function Homepage({ session }: any) {
+export function Homepage({ session }: { session: any }) {
   const [name, setName] = useState('');
+
+  console.log('session', session?.user?.email);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await checkRegisteredMember(session?.user?.email);
-
-      setName(
-        () => data.statusText[0].first_name + ' ' + data.statusText[0].last_name
+      const { last_name, first_name } = await returnMemberInfo(
+        session?.user?.email
       );
+
+      setName(() => first_name + ' ' + last_name);
     }
     fetchData();
   }, []);

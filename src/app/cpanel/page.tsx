@@ -6,6 +6,7 @@ import WaitSession from '@/components/cpanel/WaitSession';
 
 export default function Page() {
   const [waitSession, setWaitSession] = useState(true);
+
   const { data: dataSession } = useSession();
 
   useEffect(() => {
