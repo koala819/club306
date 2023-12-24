@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { returnMemberInfo } from '@/lib/supabase';
-import { Input } from '@nextui-org/react';
-import { Image } from '@nextui-org/react';
+import { Image, Input } from '@nextui-org/react';
 import { Member } from '@/types/models';
 const dayjs = require('dayjs');
 const localeFr = require('dayjs/locale/fr');
@@ -13,9 +12,8 @@ export default function Infos({ userMail }: { userMail: string }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('userMail', userMail);
       const response = await returnMemberInfo(userMail);
-      console.log('response', response);
+
       if (response) {
         const memberData: Member = {
           address: response.address,
@@ -62,7 +60,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="secondary"
                 label="ID membre"
-                defaultValue={
+                placeholder={
                   member?.id !== undefined && member?.id <= 100
                     ? '00' + member?.id.toString()
                     : member?.id.toString()
@@ -77,7 +75,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="email"
                 color="secondary"
                 label="Email"
-                defaultValue={member?.email}
+                placeholder={member?.email}
                 className="max-w-xs"
               />
             </div>
@@ -88,7 +86,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="secondary"
                 label="Prénom"
-                defaultValue={member?.first_name}
+                placeholder={member?.first_name}
                 className="max-w-xs"
               />
             </div>
@@ -99,7 +97,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="secondary"
                 label="Nom"
-                defaultValue={member?.last_name}
+                placeholder={member?.last_name}
                 className="max-w-xs"
               />
             </div>
@@ -110,7 +108,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="secondary"
                 label="Téléphone"
-                defaultValue={`+${member?.phone}`}
+                placeholder={`+${member?.phone}`}
                 className="max-w-xs"
               />
             </div>
@@ -121,8 +119,8 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="secondary"
                 label="Date Anniversaire"
-                // defaultValue={member?.birth_date}
-                defaultValue={dayjs(member?.birth_date).format('DD MMMM YYYY')}
+                // placeholder={member?.birth_date}
+                placeholder={dayjs(member?.birth_date).format('DD MMMM YYYY')}
                 className="max-w-xs"
               />
             </div>
@@ -141,7 +139,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="primary"
                 label="Adresse"
-                defaultValue={member?.address}
+                placeholder={member?.address}
                 className="max-w-xs"
               />
             </div>
@@ -152,7 +150,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="primary"
                 label="Ville"
-                defaultValue={member?.town}
+                placeholder={member?.town}
                 className="max-w-xs"
               />
             </div>
@@ -163,7 +161,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="primary"
                 label="Pays"
-                defaultValue={member?.country}
+                placeholder={member?.country}
                 className="max-w-xs"
               />
             </div>
@@ -174,7 +172,7 @@ export default function Infos({ userMail }: { userMail: string }) {
                 type="text"
                 color="primary"
                 label="Code Postal"
-                defaultValue={member?.zip_code}
+                placeholder={member?.zip_code}
                 className="max-w-xs"
               />
             </div>
