@@ -59,7 +59,7 @@ export function Homepage({ session }: { session: any }) {
               <h1 className="font-bold text-xl ml-6">Mon Garage</h1>
             </Link>
             <div className="mt-4 ">
-              <Garage session={session} hide={true} />
+              <Garage userMail={session?.user?.email} hide={true} />
             </div>
           </div>
         </div>

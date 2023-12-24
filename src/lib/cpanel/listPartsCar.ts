@@ -7,20 +7,20 @@ import {
 import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
 
 export async function listPartsCar({
-  session,
+  userMail,
   setMember,
   setColors,
   setFinitions,
   setModels,
 }: {
-  session: any;
+  userMail: string;
   setMember: any;
   setColors: any;
   setFinitions: any;
   setModels: any;
 }) {
   {
-    const response = await returnMemberInfo(session?.user?.email);
+    const response = await returnMemberInfo(userMail);
     if (response !== false && response[0] !== undefined) {
       const memberData: Member = {
         id: response[0].id,

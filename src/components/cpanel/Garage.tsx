@@ -23,10 +23,10 @@ import { listPartsCar } from '@/lib/cpanel/listPartsCar';
 import { Car, Color, Finition, Member, Model } from '@/types/models';
 
 export default function Garage({
-  session,
+  userMail,
   hide = false,
 }: {
-  session: any;
+  userMail: string;
   hide?: boolean;
 }) {
   const [member, setMember] = useState<Member | undefined>(undefined);
@@ -78,15 +78,13 @@ export default function Garage({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo(session?.user?.email);
-      console.log('response', response);
+      const response = await returnMemberInfo(userMail);
       if (response !== false && response !== undefined) {
         const memberData: Member = {
           id: response.id,
         };
         setMember(() => memberData);
       }
-
       member?.id !== undefined &&
         getMemberCars(member?.id).then(async (cars: any) => {
           if (cars) {
@@ -115,7 +113,7 @@ export default function Garage({
 
   useEffect(() => {
     listPartsCar({
-      session,
+      userMail,
       setMember,
       setColors,
       setFinitions,

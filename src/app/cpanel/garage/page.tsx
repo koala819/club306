@@ -1,13 +1,26 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+'use client';
 import Garage from '@/components/cpanel/Garage';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import WaitSession from '@/components/cpanel/WaitSession';
 
-export default async function Pages() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Page() {
+  const [waitSession, setWaitSession] = useState(true);
+  const { data: dataSession } = useSession();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  useEffect(() => {
+    if (dataSession !== undefined) {
+      setWaitSession(false);
+    }
+  }, [dataSession]);
 
-  return <Garage session={session} />;
+  return (
+    <>
+      {waitSession ? (
+        <WaitSession />
+      ) : (
+        <Garage userMail={dataSession?.user?.email as string} />
+      )}
+    </>
+  );
 }
