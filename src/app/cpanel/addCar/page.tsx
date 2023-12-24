@@ -1,13 +1,25 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+'use client';
 import AddCar from '@/components/cpanel/AddCar';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import WaitSession from '@/components/cpanel/WaitSession';
 
-export default async function Page() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Page() {
+  const [waitSession, setWaitSession] = useState(true);
+  const { data: dataSession } = useSession();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  return <AddCar session={session} />;
+  useEffect(() => {
+    if (dataSession !== undefined) {
+      setWaitSession(false);
+    }
+  }, [dataSession]);
+  return (
+    <>
+      {waitSession ? (
+        <WaitSession />
+      ) : (
+        <AddCar userMail={dataSession?.user?.email || ''} />
+      )}
+    </>
+  );
 }

@@ -5,15 +5,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { addCar } from '@/lib/cpanel/updateCar';
 import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
-import { Loading } from '@/components/cpanel/Loading';
+import WaitSession from '@/components/cpanel/WaitSession';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useTheme } from 'next-themes';
 import toast from 'react-hot-toast';
 import { listPartsCar } from '@/lib/cpanel/listPartsCar';
 
-export default function AddCar({ session }: any) {
+export default function AddCar({ userMail }: { userMail: string }) {
   const [displayLoader, setDisplayLoader] = useState(true);
-  const [changeTextDL, setChangeTextDL] = useState('');
+  // const [changeTextDL, setChangeTextDL] = useState('');
   const [member, setMember] = useState<Member | undefined>(undefined);
   const [colors, setColors] = useState<Color[]>([]);
   const [finitions, setFinitions] = useState<Finition[]>([]);
@@ -50,7 +50,7 @@ export default function AddCar({ session }: any) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await listPartsCar({
-        session,
+        userMail,
         setMember,
         setColors,
         setFinitions,
@@ -62,18 +62,19 @@ export default function AddCar({ session }: any) {
   }, []);
 
   const handleAddVehicle = async (data: Vehicles) => {
-    setChangeTextDL('Enregistrement des données en base de données...');
     setDisplayLoader(true);
 
     try {
-      if (member !== undefined && member.id !== undefined) {
-        const response = await addCar(data, member?.id);
-        const dataResponse = await response.json();
-        if (dataResponse.status === 200) {
-          reset();
-          setDisplayLoader(false);
-          toast.success('Enregistrement avec succès !');
-        }
+      const response = await addCar(data, userMail);
+      const dataResponse = await response.json();
+
+      if (dataResponse.status === 200) {
+        reset();
+        setDisplayLoader(false);
+        toast.success('Enregistrement avec succès !');
+      } else {
+        setDisplayLoader(false);
+        toast.error("Une erreur s'est produite pour enregistrer le véhicule");
       }
     } catch (error) {
       toast.error("Une erreur s'est produite pour enregistrer le véhicule");
@@ -84,7 +85,7 @@ export default function AddCar({ session }: any) {
   return (
     <>
       {displayLoader ? (
-        <Loading text={changeTextDL} />
+        <WaitSession />
       ) : (
         <div className="w-full lg:w-8/12 px-4 mx-auto mt-6 flex items-center justify-center">
           <div className="flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white dark:bg-slate-500 border-0 sm:w-3/4">
