@@ -7,8 +7,6 @@ import { returnMemberInfo } from '@/lib/supabase';
 export function Homepage({ session }: { session: any }) {
   const [name, setName] = useState('');
 
-  console.log('session', session?.user?.email);
-
   useEffect(() => {
     async function fetchData() {
       const { last_name, first_name } = await returnMemberInfo(

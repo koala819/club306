@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
-import { Loading } from '@/components/cpanel/Loading';
+import WaitSession from '@/components/cpanel/WaitSession';
 import DeleteCar from '@/components/cpanel/DeleteCar';
 import { returnMemberInfo } from '@/lib/supabase';
 import { getMemberCars, updateCar } from '@/lib/cpanel/updateCar';
@@ -79,9 +79,10 @@ export default function Garage({
   useEffect(() => {
     const fetchData = async () => {
       const response = await returnMemberInfo(session?.user?.email);
-      if (response !== false && response[0] !== undefined) {
+      console.log('response', response);
+      if (response !== false && response !== undefined) {
         const memberData: Member = {
-          id: response[0].id,
+          id: response.id,
         };
         setMember(() => memberData);
       }
@@ -218,7 +219,7 @@ export default function Garage({
   return (
     <>
       {cars === undefined ? (
-        <Loading />
+        <WaitSession />
       ) : (
         <div className={`${hide ? '' : 'w-full lg:w-8/12 px-4 mx-auto mt-6 '}`}>
           <div className="flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
