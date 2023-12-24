@@ -1,12 +1,9 @@
 import Side from '@/components/cpanel/layout/Side';
-import Top from '@/components/cpanel/layout/Top';
+import BurgerMenu from '@/components/cpanel/layout/BurgerMenu';
 import { Montserrat } from 'next/font/google';
 import '@/styles/globals.css';
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-// import { cookies } from 'next/headers';
 import { Providers } from './providers';
 import { Toaster } from 'react-hot-toast';
-import Layout from '@/components/cpanel/layout/Layout';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -15,24 +12,19 @@ export default async function CustomLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // const supabase = createServerComponentClient({ cookies });
-
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-
   return (
     <html>
       <body className={`${montserrat.className}`}>
         <Providers>
-          {/* <div className="flex h-screen bg-gray-50 dark:bg-slate-700">
-            <Side session={session} />
+          <div className="flex h-screen bg-gray-50 dark:bg-slate-700">
+            <Side />
             <div className="flex flex-col flex-1 overflow-hidden">
-              <div className="md:hidden"><Top session={session} /></div>
+              <div className="md:hidden">
+                <BurgerMenu />
+              </div>
               <main className="overflow-y-auto flex-1 mb-4 ">{children}</main>
             </div>
-          </div> */}
-          <Layout>{children}</Layout>
+          </div>
           <Toaster position="top-right" />
         </Providers>
       </body>

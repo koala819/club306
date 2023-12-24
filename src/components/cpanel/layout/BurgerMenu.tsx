@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { IoIosContact } from 'react-icons/io';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { checkRegisteredMember, onlyStaff } from '@/lib/supabase';
+import { onlyStaff, returnMemberInfo } from '@/lib/supabase';
 import {
   Dropdown,
   DropdownTrigger,
@@ -26,27 +25,31 @@ import { TbHomeHeart } from 'react-icons/tb';
 import { BiMenu } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
 import { ThemeSwitcher } from './ThemeSwitcher';
+import { useSession } from 'next-auth/react';
 
-export default function Top({ session }: any) {
+export default function BurgerMenu() {
   const [staffMember, setStaffMember] = useState(false);
   const [name, setName] = useState('');
   const router = useRouter();
   const iconClasses =
     'text-xl text-default-500 pointer-events-none flex-shrink-0';
+  const { data: dataSession } = useSession();
 
   useEffect(() => {
     async function fetchData() {
-      const result = await onlyStaff(session?.user?.email);
+      const result = await onlyStaff(dataSession?.user?.email);
+      // console.log('onlyStaff', result);
       setStaffMember(result);
 
-      const data = await checkRegisteredMember(session?.user?.email);
-
-      setName(
-        () => data.statusText[0].first_name + ' ' + data.statusText[0].last_name
-      );
+      const data = await returnMemberInfo(dataSession?.user?.email);
+      // console.log('data', data);
+      setName(() => data.first_name + ' ' + data.last_name);
     }
-    fetchData();
-  }, []);
+
+    if (dataSession !== undefined) {
+      fetchData();
+    }
+  }, [dataSession]);
 
   const DropdownContent = () => (
     <Dropdown>
@@ -78,7 +81,7 @@ export default function Top({ session }: any) {
           >
             <User
               name={name}
-              description={session?.user?.email}
+              description={dataSession?.user?.email}
               classNames={{
                 name: 'text-default-600',
                 description: 'text-default-500',

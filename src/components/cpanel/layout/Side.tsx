@@ -25,7 +25,6 @@ import { signOut, useSession } from 'next-auth/react';
 export default function Side() {
   const [staffMember, setStaffMember] = useState(false);
   const path = usePathname();
-  const [waitSession, setWaitSession] = useState(true);
   const { data: dataSession } = useSession();
 
   useEffect(() => {
@@ -34,6 +33,7 @@ export default function Side() {
       console.log('result', result);
       setStaffMember(result);
     }
+
     if (dataSession !== undefined) {
       fetchData();
     }
