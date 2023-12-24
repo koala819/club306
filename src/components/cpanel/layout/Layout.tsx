@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-slate-700">
-      <Side session={dataSession} />
+      <Side />
       <div className="flex flex-col flex-1 overflow-hidden">
         <div className="md:hidden">
           <Top session={dataSession} />

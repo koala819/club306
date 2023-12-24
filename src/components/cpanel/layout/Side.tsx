@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   AiOutlineCalendar,
   AiOutlineLogout,
@@ -19,22 +19,25 @@ import picture306 from '../../../../public/images/logoClub306_blanc.png';
 import { onlyStaff } from '@/lib/supabase';
 // import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { signOut } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
+// import { redirect } from 'next/navigation';
 
-export default function Side({ session }: any) {
+export default function Side() {
   const [staffMember, setStaffMember] = useState(false);
   const path = usePathname();
-  const router = useRouter();
+  const [waitSession, setWaitSession] = useState(true);
+  const { data: dataSession } = useSession();
 
   useEffect(() => {
     async function fetchData() {
-      const result = await onlyStaff(session?.user?.email);
-      // console.log('result', result);
+      const result = await onlyStaff(dataSession?.user?.email);
+      console.log('result', result);
       setStaffMember(result);
     }
-    fetchData();
-  }, []);
+    if (dataSession !== undefined) {
+      fetchData();
+    }
+  }, [dataSession]);
 
   async function handleSignout() {
     signOut({
