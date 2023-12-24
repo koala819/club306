@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { data: dataSession } = useSession();
-  console.log('session in cpanel/Layout', dataSession);
+  // console.log('session in cpanel/Layout', dataSession);
 
   // if (!dataSession) {
   //   redirect('/auth/signIn');

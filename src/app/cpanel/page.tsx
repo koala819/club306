@@ -1,19 +1,23 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-// import { cookies } from 'next/headers';
+'use client';
 import { Homepage } from '@/components/cpanel/Homepage';
-import { cookies } from 'next/headers';
-import { isAuthenticatedUser } from '@/lib/isAuthenticatedUser';
-import { getToken } from 'next-auth/jwt';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import WaitSession from '@/components/cpanel/WaitSession';
 
-export default async function Page(req: any) {
-  // const sessionTokenValue = cookies().get('next-auth.session-token');
-  // console.log('sessionTokenValue', sessionTokenValue);
+export default function Page() {
+  const [waitSession, setWaitSession] = useState(true);
+  const { data: dataSession } = useSession();
 
-  // const supabase = createServerComponentClient({ cookies });
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
+  useEffect(() => {
+    if (dataSession !== undefined) {
+      setWaitSession(false);
+    }
+  }, [dataSession]);
 
-  return <div>WELCOME TO CPanel</div>;
+  return (
+    <>{waitSession ? <WaitSession /> : <Homepage session={dataSession} />}</>
+  );
+
+  // return <div>WELCOME TO CPanel</div>;
   // return <Homepage session={session} />;
 }
