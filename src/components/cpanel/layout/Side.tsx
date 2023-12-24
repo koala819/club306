@@ -37,16 +37,10 @@ export default function Side({ session }: any) {
   }, []);
 
   async function handleSignout() {
-    await signOut().then(() => {
-      console.log('Bye Bye');
-      redirect('/cheval');
+    signOut({
+      redirect: true,
+      callbackUrl: `${process.env.CLIENT_URL}/login`,
     });
-
-    // const supabase = createClientComponentClient();
-    // const { error } = await supabase.auth.signOut();
-    // if (error) {
-    //   console.log('error', error);
-    // }
   }
 
   return (
