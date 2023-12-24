@@ -915,7 +915,7 @@ async function returnMemberInfo(mail) {
     console.error(error);
     return false;
   }
-  return data; // 'data' sera un objet ici si trouvé, sinon 'null'
+  return data;
 }
 
 async function sendMailRecordDb(personalInfo) {

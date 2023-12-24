@@ -13,6 +13,7 @@ export default function Page() {
       setWaitSession(false);
     }
   }, [dataSession]);
+
   return (
     <>
       {waitSession ? (
