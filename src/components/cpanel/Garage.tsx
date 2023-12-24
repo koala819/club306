@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
 import WaitSession from '@/components/cpanel/WaitSession';
 import DeleteCar from '@/components/cpanel/DeleteCar';
-import { returnMemberInfo } from '@/lib/supabase';
-import { getMemberCars, updateCar } from '@/lib/cpanel/updateCar';
+import { getMemberCars } from '@/lib/cpanel/updateCar';
+
+import { transformEmailToId, updateCar } from '@/lib/cpanel/updateCar';
 import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
 import {
   Modal,
@@ -20,7 +21,7 @@ import {
 } from '@nextui-org/react';
 import toast from 'react-hot-toast';
 import { listPartsCar } from '@/lib/cpanel/listPartsCar';
-import { Car, Color, Finition, Member, Model } from '@/types/models';
+import { Car, Color, Finition, Model } from '@/types/models';
 
 export default function Garage({
   userMail,
@@ -29,7 +30,7 @@ export default function Garage({
   userMail: string;
   hide?: boolean;
 }) {
-  const [member, setMember] = useState<Member | undefined>(undefined);
+  // const [member, setMember] = useState<Member | undefined>(undefined);
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
@@ -78,15 +79,9 @@ export default function Garage({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo(userMail);
-      if (response !== false && response !== undefined) {
-        const memberData: Member = {
-          id: response.id,
-        };
-        setMember(() => memberData);
-      }
-      member?.id !== undefined &&
-        getMemberCars(member?.id).then(async (cars: any) => {
+      const memberId = await transformEmailToId(userMail);
+      if (memberId !== null) {
+        getMemberCars(memberId).then(async (cars: any) => {
           if (cars) {
             if (Array.isArray(cars)) {
               const carData: Car[] = [];
@@ -107,14 +102,16 @@ export default function Garage({
             }
           }
         });
+      }
     };
+
     fetchData();
-  }, [member?.id]);
+  }, []);
+  // console.log('member', member);
+  // console.log('cars', cars);
 
   useEffect(() => {
     listPartsCar({
-      userMail,
-      setMember,
       setColors,
       setFinitions,
       setModels,

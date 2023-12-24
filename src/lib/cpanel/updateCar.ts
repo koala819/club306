@@ -448,7 +448,7 @@ async function sendMailUpdatePartCar(
   }
 }
 
-async function transformEmailToId(email: string) {
+export async function transformEmailToId(email: string) {
   try {
     const response = await supabase
       .from('members')

@@ -1,33 +1,16 @@
-import {
-  getAllColors,
-  getAllFinitions,
-  getAllModels,
-  returnMemberInfo,
-} from '@/lib/supabase';
+import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase';
 import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
 
 export async function listPartsCar({
-  userMail,
-  setMember,
   setColors,
   setFinitions,
   setModels,
 }: {
-  userMail: string;
-  setMember: any;
   setColors: any;
   setFinitions: any;
   setModels: any;
 }) {
   {
-    const response = await returnMemberInfo(userMail);
-    if (response !== false && response[0] !== undefined) {
-      const memberData: Member = {
-        id: response[0].id,
-      };
-      setMember(() => memberData);
-    }
-
     const carColor = await getAllColors();
     if (carColor !== null && carColor.data !== null) {
       const fetchedColors: Color[] = carColor.data.map((color: any) => {
