@@ -705,7 +705,7 @@ async function onlyStaff(email) {
   }
 
   if (data.length === 0) {
-    console.error('User not found');
+    // console.error('User not found');
     return false;
   }
 

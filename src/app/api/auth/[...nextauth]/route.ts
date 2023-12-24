@@ -24,7 +24,7 @@ const handler = NextAuth({
           id: result.statusText.id,
           email: result.statusText.email,
         };
-        console.log('yes with user : ', user);
+        // console.log('yes with user : ', user);
         return user;
       },
     }),
