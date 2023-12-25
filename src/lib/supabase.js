@@ -213,6 +213,25 @@ async function checkRegisteredMember(email, password) {
   }
 }
 
+async function confirmMemberShip(email) {
+  try {
+    const { data, error } = await supabase
+      .from('members')
+      .select('cotisation')
+      .eq('email', email)
+      .single();
+
+    if (error || !data) {
+      return false;
+    }
+
+    console.log('data', data);
+    return data.cotisation === true;
+  } catch (error) {
+    return false;
+  }
+}
+
 async function signInWithoutToken(email) {
   const { data } = await supabase
     .from('members')
@@ -1171,8 +1190,8 @@ export {
   checkCurrentYearForCalendar,
   checkForCanI,
   checkMail,
+  confirmMemberShip,
   checkRegisteredMember,
-  signInWithoutToken,
   countCars,
   countCarsByModel,
   countMembers,
@@ -1199,6 +1218,7 @@ export {
   record,
   recordModifyColorInCpanel,
   returnMemberInfo,
+  signInWithoutToken,
   updateCarImmatriculation,
   updateEvent,
   updatePartner,
