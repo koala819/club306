@@ -3,20 +3,17 @@ import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { Toaster } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [session, setSession] = useState(true);
   const { data: dataSession } = useSession();
 
-  useEffect(() => {
-    if (dataSession !== undefined) {
-      setSession(true);
-    }
+  const session = useMemo(() => {
+    return dataSession !== undefined && dataSession !== null;
   }, [dataSession]);
 
   return (
