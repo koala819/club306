@@ -9,25 +9,21 @@ import {
   getAllThemesEvent,
   updateEvent,
 } from '@/lib/supabase';
+import { Events, ThemesEvent } from '@/types/models';
+import toast from 'react-hot-toast';
 
-export default function Calendar() {
+export default function Calendar({ year }: { year: number }) {
   const [updateOrDelete, setUpdateOrDelete] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [events, setEvents] = useState<Events[]>([]);
   const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([]);
-  const [editedEvent, setEditedEvent] = useState({
-    title: '',
-    description: '',
-    dates: '',
-    month: 1,
-    theme: 1,
-  });
+  const [editedEvent, setEditedEvent] = useState<Events>();
   const { handleSubmit, control, formState, setValue, reset } = useForm({
     defaultValues: {
-      title: editedEvent.title,
-      description: editedEvent.description,
-      dates: editedEvent.dates,
-      theme: editedEvent.theme,
+      title: editedEvent?.title,
+      description: editedEvent?.description,
+      dates: editedEvent?.dates,
+      theme: editedEvent?.theme,
     },
   });
   const { errors } = formState;
@@ -35,7 +31,8 @@ export default function Calendar() {
   useEffect(() => {
     moment.locale('fr');
     async function fetch() {
-      const eventResponse = await getAllEvents(new Date().getFullYear());
+      const eventResponse = await getAllEvents(year);
+      console.log('eventResponse', eventResponse);
       if (eventResponse !== undefined && Array.isArray(eventResponse)) {
         setEvents(eventResponse);
       }
@@ -45,7 +42,7 @@ export default function Calendar() {
       }
     }
     fetch();
-  }, []);
+  }, [year]);
 
   const openEditBox = (event: Events) => {
     // console.log('openEditBox', event);
@@ -55,6 +52,7 @@ export default function Calendar() {
       dates: event.dates,
       month: event.month,
       theme: event.theme,
+      year: event.year,
     });
     setValue('title', event.title);
     setValue('description', event.description);
@@ -66,21 +64,41 @@ export default function Calendar() {
   const onUpdate = async (data: any) => {
     const responseOnSubmit = await updateEvent(
       data,
-      editedEvent.month,
-      editedEvent.theme
+      editedEvent?.month,
+      editedEvent?.theme,
+      year
     );
     if (responseOnSubmit.status === 200) {
-      alert("L'événement a bien été modifié");
-      window.location.reload();
+      // Update the local state with the new event data
+      setEvents((prevEvents) => {
+        const updatedEvents = prevEvents.map((event) => {
+          if (event.id === editedEvent?.id) {
+            return { ...event, ...data };
+          }
+          return event;
+        });
+        return updatedEvents;
+      });
+
+      toast.success("L'événement a bien été modifié");
       setIsEditing(false);
     } else {
-      alert("L'événement n'a pas pu être modifié" + responseOnSubmit);
+      toast.error("L'événement n'a pas pu être modifié");
       setIsEditing(false);
     }
   };
+  // if (responseOnSubmit.status === 200) {
+  //   alert("L'événement a bien été modifié");
+  //   window.location.reload();
+  //   setIsEditing(false);
+  // } else {
+  //   alert("L'événement n'a pas pu être modifié" + responseOnSubmit);
+  //   setIsEditing(false);
+  // }
+  // };
 
   async function onDelete() {
-    const response = await cancelEvent(editedEvent.month);
+    const response = await cancelEvent(editedEvent?.month);
     console.log('response', response);
     if (response.status === 200) {
       alert("L'événement a bien été supprimé");
@@ -204,7 +222,7 @@ export default function Calendar() {
               </label>
               <select
                 id="theme"
-                value={editedEvent.theme}
+                value={editedEvent?.theme}
                 onChange={(e) =>
                   setEditedEvent({
                     ...editedEvent,
@@ -214,10 +232,10 @@ export default function Calendar() {
                 className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
                 style={{
                   backgroundColor:
-                    evenThemes.find((theme) => theme.id === editedEvent.theme)
+                    evenThemes.find((theme) => theme.id === editedEvent?.theme)
                       ?.background || '',
                   color:
-                    evenThemes.find((theme) => theme.id === editedEvent.theme)
+                    evenThemes.find((theme) => theme.id === editedEvent?.theme)
                       ?.color || '',
                 }}
               >
@@ -317,19 +335,3 @@ export default function Calendar() {
     </div>
   );
 }
-
-type Events = {
-  id: number;
-  month: number;
-  title: string;
-  description: string;
-  theme: number;
-  dates: string;
-};
-
-type ThemesEvent = {
-  id: number;
-  name: string;
-  background: string;
-  color: string;
-};

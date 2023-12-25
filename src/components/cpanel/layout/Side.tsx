@@ -30,7 +30,7 @@ export default function Side() {
   useEffect(() => {
     async function fetchData() {
       const result = await onlyStaff(dataSession?.user?.email);
-      console.log('result', result);
+      // console.log('result', result);
       setStaffMember(result);
     }
 

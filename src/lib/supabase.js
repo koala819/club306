@@ -7,6 +7,53 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
+async function addNewYearCalendar(nextYear) {
+  try {
+    let hasErrorOccurred = false;
+
+    for (let month = 1; month <= 12; month++) {
+      const { error } = await supabase
+        .from('event')
+        .insert({ year: nextYear, month: month });
+
+      if (error) {
+        console.error('Error inserting month:', month, 'Error:', error.message);
+        hasErrorOccurred = true;
+        break;
+      }
+    }
+
+    if (hasErrorOccurred) {
+      return new Response(
+        JSON.stringify({ message: 'Error with Supabase request' }),
+        {
+          status: 406,
+          statusText: 'Error with Supabase request',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } else {
+      return new Response(JSON.stringify({ message: 'Success' }), {
+        status: 200,
+        statusText: 'Success',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function addThemeEvent(name, color, background) {
   try {
     const { data, error } = await supabase
@@ -93,6 +140,16 @@ async function cancelEvent(month) {
       },
     });
   }
+}
+
+async function checkCurrentYearForCalendar(nextYear) {
+  // console.log('nextYear', nextYear);
+  const { data } = await supabase
+    .from('event')
+    .select('*')
+    .filter('year', 'eq', nextYear);
+
+  return data.length > 0 ? true : false;
 }
 
 async function checkForCanI(lastName, firstName) {
@@ -980,7 +1037,7 @@ async function updateCarImmatriculation(value, immatriculation) {
   }
 }
 
-async function updateEvent(value, month, theme) {
+async function updateEvent(value, month, theme, year) {
   try {
     const { data, error } = await supabase
       .from('event')
@@ -990,7 +1047,7 @@ async function updateEvent(value, month, theme) {
         dates: value.dates,
         theme: theme,
       })
-      .filter('month', 'eq', month);
+      .match({ month: month, year: year });
 
     if (!error) {
       return new Response(JSON.stringify(data), {
@@ -1108,8 +1165,10 @@ async function updateThemeEvent(color, name, item) {
 }
 
 export {
+  addNewYearCalendar,
   addThemeEvent,
   cancelEvent,
+  checkCurrentYearForCalendar,
   checkForCanI,
   checkMail,
   checkRegisteredMember,
