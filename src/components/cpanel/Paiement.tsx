@@ -43,10 +43,10 @@ const Paiement = () => {
         : process.env.CLIENT_URL;
 
     const requestData: CheckoutHelloAsso = {
-      totalAmount: 50,
-      // totalAmount: 2000,
-      initialAmount: 50,
-      // initialAmount: 2000,
+      // totalAmount: 50,
+      totalAmount: 2000,
+      // initialAmount: 50,
+      initialAmount: 2000,
       itemName: `Renouvellement Adhesion ${newYear} Club 306`,
       backUrl: `${clientUrl}/cpanel/`,
       errorUrl: `${clientUrl}/error/`,
