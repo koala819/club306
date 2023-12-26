@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { PersonalInfo, Vehicles } from '@/types/models';
 import { generateUniqueToken } from '@/lib/generateUniqueToken';
 import { toast } from 'react-hot-toast';
+import { sendConfirmationMail } from '@/lib/mail/utils';
 
 export default function MailConfirm({
   userIdFromlocalStorage,
@@ -62,53 +63,25 @@ export default function MailConfirm({
           router.push('/contact');
         } else {
           // console.log('YES RECORD IN DB with ', storedPersonalInfo);
-          sendConfirmationMail(
+          const mailResponse = await sendConfirmationMail(
             storedPersonalInfo?.first_name || '',
             storedPersonalInfo?.last_name || '',
             storedPersonalInfo?.email || '',
             tokenForMember
           );
-          setRecordInDb(true);
+          const finished = await mailResponse.json();
+          if (finished.status === 200) {
+            toast.success('Veuillez consulter votre boite mail');
+            setRecordInDb(true);
+          } else {
+            console.error('Send mail with ERROR ', finished.data);
+          }
         }
       }
     };
 
     fetchData();
   }, [lastMbrIdFromDB]);
-
-  async function sendConfirmationMail(
-    firstName: string,
-    lastName: string,
-    mail: string,
-    token: string
-  ) {
-    const data = {
-      first_name: firstName,
-      last_name: lastName,
-      mail: mail,
-      token: token,
-      from: 'mailConfirm',
-    };
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
-    await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
-      (response: Response) => {
-        if (response.status === 200) {
-          toast.success('Veuillez consulter votre boite mail');
-        } else {
-          console.error('Send mail with ERROR ', response);
-        }
-      }
-    );
-  }
 
   return (
     <div className="flex flex-col items-center justify-center mt-8">
