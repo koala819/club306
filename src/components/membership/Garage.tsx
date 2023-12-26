@@ -413,12 +413,14 @@ export const Garage = ({ setStep }: any) => {
           <TiArrowBack size={22} className="mr-2" />
           Précédent
         </button>
-        <button
-          className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-          onClick={handleNext}
-        >
-          Continuer
-        </button>
+        {vehicles.length > 0 && (
+          <button
+            className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+            onClick={handleNext}
+          >
+            Continuer
+          </button>
+        )}
       </div>
     </>
   );
