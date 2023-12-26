@@ -50,8 +50,6 @@ export default function AddCar({ userMail }: { userMail: string }) {
   useEffect(() => {
     const fetchData = async () => {
       const response = await listPartsCar({
-        userMail,
-        setMember,
         setColors,
         setFinitions,
         setModels,
