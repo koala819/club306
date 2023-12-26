@@ -38,7 +38,7 @@ export default function Page() {
   async function onSubmit(values: MailPwd) {
     try {
       const response = await checkEmptyToken(values.email);
-      console.log('response', response);
+
       if (response) {
         toast.error('Vous devez valider votre email !');
         setMailWithToken(true);
@@ -90,11 +90,7 @@ export default function Page() {
                 'url(https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/login_background.jpg)',
             }}
           ></div>
-          {/* {magikLink ? (
-            <div className="h-96 ml-4 w-full">
-              <CheckMail setMagikLink={setMagikLink} />
-            </div>
-          ) : ( */}
+
           <div className="w-full p-8 lg:w-1/2 space-y-12">
             <h2 className="text-2xl font-semibold text-center">
               Connexion avec votre e-mail
@@ -146,8 +142,7 @@ export default function Page() {
                     </text>
                   ) : (
                     <Link
-                      // href="/otpInput"
-                      href={'#'}
+                      href="/otpInput"
                       className="text-xs text-gray-500 dark:text-gray-200 underline hover:text-red-600 cursor-pointer"
                     >
                       Mot de passe oublié ?
