@@ -1,3 +1,5 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 export const revalidate = 0;
 
 export default async function DashboardLayout({
@@ -7,7 +9,10 @@ export default async function DashboardLayout({
 }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
