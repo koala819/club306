@@ -2,19 +2,10 @@
 import { PersonalInfos } from './PersonalInfos';
 import { Garage } from './Garage';
 import { Summary } from './Summary';
-// import { Paypal } from './Paypal';
 import { HelloAsso } from './HelloAsso';
 import { SignUp } from './SignUp';
 
-export const Form = ({
-  step,
-  setStep,
-  session,
-}: {
-  step: number;
-  setStep: any;
-  session: any;
-}) => {
+export const Form = ({ step, setStep }: { step: number; setStep: any }) => {
   return (
     <main
       aria-label="Main"
