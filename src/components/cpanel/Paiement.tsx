@@ -1,8 +1,83 @@
 'use client';
+import { useSession } from 'next-auth/react';
+import { useEffect, useMemo, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { Button } from '@nextui-org/react';
+import { getMemberForCotisation } from '@/lib/cpanel/membershipMember';
+import { CheckoutHelloAsso, HelloAssoMember } from '@/types/models';
+import toast from 'react-hot-toast';
+import connect from '@/lib/helloAsso/connect';
+import moment from 'moment';
+import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code';
 
 const Paiement = () => {
+  const { data: dataSession } = useSession();
+  const [member, setMember] = useState<HelloAssoMember>();
+
+  const session = useMemo(() => {
+    return dataSession !== undefined;
+  }, [dataSession]);
+
+  useEffect(() => {
+    async function checkMembership() {
+      if (dataSession?.user?.email) {
+        const response = await getMemberForCotisation(dataSession?.user?.email);
+        if (response.status === 200) {
+          const memberInfo = await response.json();
+          setMember(() => memberInfo);
+        } else {
+          toast.error('Une erreur est survenue');
+        }
+      }
+    }
+
+    checkMembership();
+  }, [dataSession]);
+
+  function handleCheckout() {
+    const newYear = new Date().getFullYear() + 1;
+
+    const clientUrl =
+      process.env.CLIENT_URL === 'http://localhost:3000'
+        ? 'https://localhost:3000'
+        : process.env.CLIENT_URL;
+
+    const requestData: CheckoutHelloAsso = {
+      totalAmount: 50,
+      // totalAmount: 2000,
+      initialAmount: 50,
+      // initialAmount: 2000,
+      itemName: `Renouvellement Adhesion ${newYear} Club 306`,
+      backUrl: `${clientUrl}/cpanel/`,
+      errorUrl: `${clientUrl}/error/`,
+      returnUrl: `${clientUrl}/cpanel/renewMembership/`,
+      containsDonation: true,
+      payer: {
+        firstName: `${member?.first_name}`,
+        lastName: `${member?.last_name}`,
+        email: `${member?.email}`,
+        dateOfBirth: `${moment(member?.birth_date).format('YYYY-MM-DD')}`,
+        address: `${member?.address}`,
+        city: `${member?.town}`,
+        zipCode: `${member?.zip_code}`,
+        country: `${getCountryAlpha3Code(member?.phone)}`,
+      },
+      metadata: {
+        userId: `${member?.id}`,
+      },
+    };
+
+    connect({
+      requestData,
+      url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
+      method: 'POST',
+    })
+      .then((data) => {
+        window.location.href = data.redirectUrl;
+      })
+      .catch((error) => toast.error(error.message));
+  }
+
   return (
     <div className="fixed inset-0 bg-white flex flex-col items-center justify-center">
       <div className="w-full">
@@ -56,9 +131,16 @@ const Paiement = () => {
               </p>
             </div>
             <div className="flex justify-center space-x-4">
-              <Button color="primary" size="lg" variant="shadow">
-                Renouveller adhésion
-              </Button>
+              {session && (
+                <Button
+                  color="primary"
+                  size="lg"
+                  variant="shadow"
+                  onClick={handleCheckout}
+                >
+                  Renouveller adhésion
+                </Button>
+              )}
               <Button
                 color="danger"
                 size="lg"

@@ -225,7 +225,6 @@ async function confirmMemberShip(email) {
       return false;
     }
 
-    console.log('data', data);
     return data.cotisation === true;
   } catch (error) {
     return false;

@@ -92,6 +92,18 @@ interface Finition {
   name: string;
 }
 
+interface HelloAssoMember {
+  address: string;
+  birth_date: string;
+  phone: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  town: string;
+  zip_code: string;
+  id: number;
+}
+
 interface MailPwd {
   email: string;
   pwd?: string;
@@ -183,6 +195,7 @@ export type {
   Color,
   Events,
   Finition,
+  HelloAssoMember,
   MailPwd,
   Member,
   Model,
