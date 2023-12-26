@@ -9,9 +9,8 @@ import styles from '@/styles/Navbar.module.css';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { CiMail } from 'react-icons/ci';
 import { IoIosContact } from 'react-icons/io';
-import { MdEventNote } from 'react-icons/md';
+import { signOut } from 'next-auth/react';
 import { FaHouseUser } from 'react-icons/fa';
-import { TbCirclesRelation } from 'react-icons/tb';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 
 export const Navbar = ({ withMember }: { withMember?: boolean }) => {
@@ -20,6 +19,13 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
   const [isMemberOpen, setMemberOpen] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+
+  async function handleSignout() {
+    signOut({
+      redirect: true,
+      callbackUrl: `${process.env.CLIENT_URL}/login`,
+    });
+  }
 
   return (
     <div className="relative ">
@@ -310,7 +316,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                             </li> */}
                             <li
                               className={styles.aSubMenuRegister}
-                              onClick={() => _handleGoogleSignout()}
+                              onClick={() => handleSignout()}
                             >
                               <RiLogoutCircleLine size={26} />
                               Se Déconnecter
@@ -557,7 +563,7 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
                         </Link> */}
                         <li
                           className={`flex justify-between  ${styles.aNormalRegister}`}
-                          onClick={() => _handleGoogleSignout()}
+                          onClick={() => handleSignout()}
                         >
                           <RiLogoutCircleLine size={26} />
                           Se Déconnecter
@@ -596,11 +602,3 @@ export const Navbar = ({ withMember }: { withMember?: boolean }) => {
     </div>
   );
 };
-
-async function _handleGoogleSignout() {
-  const supabase = createClientComponentClient();
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.log('error', error);
-  }
-}
