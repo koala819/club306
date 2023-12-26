@@ -48,10 +48,10 @@ export const HelloAsso = ({ setStep }: any) => {
         : process.env.CLIENT_URL;
 
     const requestData: CheckoutHelloAsso = {
-      // totalAmount: 50,
-      totalAmount: 2000,
-      // initialAmount: 50,
-      initialAmount: 2000,
+      totalAmount: 50,
+      // totalAmount: 2000,
+      initialAmount: 50,
+      // initialAmount: 2000,
       itemName: `Adhesion ${currentYear} Club 306`,
       backUrl: `${clientUrl}/membership/`,
       errorUrl: `${clientUrl}/error/`,
