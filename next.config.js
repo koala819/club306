@@ -22,7 +22,7 @@ module.exports = withBundleAnalyzer({
     MAIL_PORT: process.env.MAIL_PORT,
     MAIL_PWD: process.env.MAIL_PWD,
     MAIL_USER: process.env.MAIL_USER,
-    MAIL_SERVER: process.env.MAIL_SERVER,
+    // MAIL_SERVER: process.env.MAIL_SERVER,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     // PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
     // PAYPAL_APP_SECRET: process.env.PAYPAL_APP_SECRET,

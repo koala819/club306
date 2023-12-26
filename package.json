@@ -10,15 +10,7 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.17.0",
-    "@ant-design/icons": "^5.2.5",
-    "@auth/supabase-adapter": "^0.1.2",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@hcaptcha/react-hcaptcha": "^1.8.1",
     "@hookform/resolvers": "^3.3.1",
-    "@internationalized/date": "^3.4.0",
-    "@next-auth/supabase-adapter": "^0.2.1",
     "@next/bundle-analyzer": "^13.4.19",
     "@nextui-org/react": "^2.1.13",
     "@paypal/checkout-server-sdk": "^1.0.3",
@@ -42,6 +34,7 @@
     "clsx": "^1.2.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "depcheck": "^1.4.7",
     "encoding": "^0.1.13",
     "formik": "^2.4.3",
     "framer-motion": "^10.16.4",
