@@ -1,11 +1,6 @@
 'use server';
-const { createClient } = require('@supabase/supabase-js');
+import supabase from 'backend/config/dbConnect';
 const { google } = require('googleapis');
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
-);
 
 const clientId = process.env.GCP_CLIENT_ID;
 const clientSecret = process.env.GCP_CLIENT_SECRET;

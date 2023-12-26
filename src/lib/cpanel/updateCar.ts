@@ -1,12 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { Car, Vehicles } from '@/types/models';
 import { getIdColor, getIdFinition, getIdModel } from '@/lib/supabase';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+import supabase from 'backend/config/dbConnect';
 
 export async function addCar(vehicles: Vehicles, email: string) {
   try {
