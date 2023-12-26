@@ -25,7 +25,7 @@ import { TbHomeHeart } from 'react-icons/tb';
 import { BiMenu } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function BurgerMenu() {
   const [staffMember, setStaffMember] = useState(false);
@@ -201,11 +201,10 @@ export default function BurgerMenu() {
   );
 
   async function handleSignout() {
-    const supabase = createClientComponentClient();
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log('error', error);
-    }
+    signOut({
+      redirect: true,
+      callbackUrl: `${process.env.CLIENT_URL}/login`,
+    });
   }
 
   return (
