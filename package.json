@@ -13,7 +13,6 @@
     "@hookform/resolvers": "^3.3.1",
     "@next/bundle-analyzer": "^13.4.19",
     "@nextui-org/react": "^2.1.13",
-    "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^7.8.3",
     "@prismicio/client": "^7.2.0",
     "@prismicio/helpers": "^2.3.9",
