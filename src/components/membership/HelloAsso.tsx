@@ -111,7 +111,7 @@ export const HelloAsso = ({ setStep }: any) => {
               POPULAIRE
             </span>
             <h1 className="text-5xl leading-none flex items-center pb-4 mb-4 border-b border-[#3B578E]">
-              <span>20 € </span>
+              <span>25 € </span>
               <span className="text-lg ml-1 font-normal ">/an</span>
             </h1>
 

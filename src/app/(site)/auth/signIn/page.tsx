@@ -12,7 +12,6 @@ import { sendConfirmationMail } from '@/lib/mail/utils';
 
 export default function Page() {
   const [showPwd, setShowPwd] = useState<boolean>(false);
-  // const [magikLink, setMagikLink] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [mailWithToken, setMailWithToken] = useState<boolean>(false);
 
@@ -70,7 +69,9 @@ export default function Page() {
       const finished = await mailResponse.json();
 
       if (finished.status === 200) {
-        toast.success('Veuillez consulter votre boite mail');
+        toast.success(
+          'Veuillez consulter votre boite mail. Pensez à vérifier vos SPAMS !'
+        );
       } else {
         console.error('Send mail with ERROR ', finished.data);
       }
