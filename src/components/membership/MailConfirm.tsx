@@ -5,6 +5,7 @@ import { getMemberId, record } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import { PersonalInfo, Vehicles } from '@/types/models';
 import { generateUniqueToken } from '@/lib/generateUniqueToken';
+import { toast } from 'react-hot-toast';
 
 export default function MailConfirm({
   userIdFromlocalStorage,
@@ -60,7 +61,7 @@ export default function MailConfirm({
           );
           router.push('/contact');
         } else {
-          console.log('YES RECORD IN DB with ', storedPersonalInfo);
+          // console.log('YES RECORD IN DB with ', storedPersonalInfo);
           sendConfirmationMail(
             storedPersonalInfo?.first_name || '',
             storedPersonalInfo?.last_name || '',
@@ -100,10 +101,11 @@ export default function MailConfirm({
 
     await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
       (response: Response) => {
-        console.log('what is the response', response);
-        response.status === 200
-          ? console.log('Send mail with SUCCESS :)')
-          : console.log('Send mail with ERROR :(');
+        if (response.status === 200) {
+          toast.success('Veuillez consulter votre boite mail');
+        } else {
+          console.error('Send mail with ERROR ', response);
+        }
       }
     );
   }
@@ -112,35 +114,37 @@ export default function MailConfirm({
     <div className="flex flex-col items-center justify-center mt-8">
       <title>Bienvenue au Club 306</title>
 
-      <div className="flex flex-col items-center justify-center rounded-lg shadow-lg text-black border-blue-500 border-4 space-y-8 p-2">
-        {!recordInDb ? (
-          <div className="flex flex-col items-center justify-center space-y-2">
-            <ClipLoader
-              loading={true}
-              size={50}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-            <p>Enregistrement des informations dans notre base de données</p>
-            <p>Veuillez patienter</p>
-          </div>
-        ) : (
-          <>
-            <div className="flex flex-col items-center justify-center space-y-2 bg-white p-4 rounded-lg shadow-lg">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 ">
-                Il ne vous reste plus qu'à confirmer votre e-mail !
-              </h1>
-              <p>Merci de votre adhésion au Club 306</p>
-              <p>Vous avez reçu un e-mail de confirmation à l'adresse :</p>
-              <p>{storedPersonalInfo?.email}</p>
-              <h1>
-                Cette étape est obligatoire pour valider votre inscription !
-              </h1>
-            </div>
-            <p>Vérifiez vos spams</p>
-          </>
-        )}
-      </div>
+      {!recordInDb ? (
+        <div className="flex flex-col items-center justify-center space-y-2 p-4">
+          <h2 className="text-2xl font-semibold text-center mb-16">
+            Enregistrement des informations dans notre base de données
+          </h2>
+          <ClipLoader
+            loading={true}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+          <p className="pt-16 text-base text-gray-600">Veuillez patienter</p>
+        </div>
+      ) : (
+        <section className="p-8">
+          <h2 className="text-2xl font-semibold text-center mb-16">
+            Il ne vous reste plus qu'à confirmer votre e-mail !
+          </h2>
+          <text className="mt-2 text-base text-gray-600 space-y-4 text-left">
+            <p>Merci de votre adhésion au Club 306</p>
+            <p>Vous avez reçu un e-mail de confirmation à l'adresse :</p>
+            <p>{storedPersonalInfo?.email}</p>
+            <p className="underline font-bold">
+              Cette étape est obligatoire pour valider votre inscription !
+            </p>
+          </text>
+          <p className="text-red-500 font-extrabold text-center mt-4">
+            Vérifiez vos spams
+          </p>
+        </section>
+      )}
     </div>
   );
 }
