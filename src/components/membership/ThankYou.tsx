@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getTokenConfirmMail } from '@/lib/supabase';
 import { useSearchParams } from 'next/navigation';
 import { ThankYouData } from '@/types/models';
-import { Loading } from '@/components/cpanel/Loading';
+import WaitSession from '@/components/cpanel/WaitSession';
 
 const ThankYou = () => {
   const [storedPersonalInfo, setStoredPersonalInfo] = useState<
@@ -54,7 +54,7 @@ const ThankYou = () => {
   return (
     <>
       {loading ? (
-        <Loading />
+        <WaitSession />
       ) : (
         <div className="flex flex-col items-center justify-center space-y-2 bg-white p-4 rounded-lg shadow-lg">
           <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 ">

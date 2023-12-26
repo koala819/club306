@@ -8,8 +8,16 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
 
-export async function addCar(vehicles: Vehicles, memberId: number) {
+export async function addCar(vehicles: Vehicles, email: string) {
   try {
+    const memberId = await transformEmailToId(email);
+
+    if (memberId === null) {
+      return NextResponse.json({
+        status: 306,
+        statusText: 'Member not found',
+      });
+    }
     const { error } = await supabase.from('cars').upsert([
       {
         member_id: memberId,
@@ -137,6 +145,33 @@ export async function getMemberCars(memberId: number) {
   } catch (error: any) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return null;
+  }
+}
+
+async function getIdMemberFromImmatriculation(immatriculation: string) {
+  try {
+    const { data } = await supabase
+      .from('cars')
+      .select('member_id')
+      .eq('immatriculation', immatriculation);
+
+    if (data?.length === 0) {
+      return NextResponse.json({
+        status: 407,
+        statusText: 'no member found',
+      });
+    } else {
+      return NextResponse.json({
+        status: 200,
+        statusText: 'Member found',
+        data: data,
+      });
+    }
+  } catch (error: any) {
+    return NextResponse.json({
+      status: 407,
+      statusText: error.message,
+    });
   }
 }
 
@@ -413,6 +448,25 @@ async function sendMailUpdatePartCar(
   }
 }
 
+export async function transformEmailToId(email: string) {
+  try {
+    const response = await supabase
+      .from('members')
+      .select('id')
+      .eq('email', email)
+      .limit(1);
+    if (response.data && response.data.length > 0) {
+      return response.data[0].id;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
+    throw new Error(
+      error.message || "Erreur lors de l'exécution de la requête"
+    );
+  }
+}
+
 export async function updateCar(
   oldName: string,
   newName: string,
@@ -489,33 +543,6 @@ async function updatePartCar(
   } catch (error: any) {
     return NextResponse.json({
       status: 406,
-      statusText: error.message,
-    });
-  }
-}
-
-async function getIdMemberFromImmatriculation(immatriculation: string) {
-  try {
-    const { data } = await supabase
-      .from('cars')
-      .select('member_id')
-      .eq('immatriculation', immatriculation);
-
-    if (data?.length === 0) {
-      return NextResponse.json({
-        status: 407,
-        statusText: 'no member found',
-      });
-    } else {
-      return NextResponse.json({
-        status: 200,
-        statusText: 'Member found',
-        data: data,
-      });
-    }
-  } catch (error: any) {
-    return NextResponse.json({
-      status: 407,
       statusText: error.message,
     });
   }

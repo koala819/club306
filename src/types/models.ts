@@ -77,9 +77,31 @@ interface Color {
   hexa: string;
 }
 
+interface Events {
+  id?: number;
+  month?: number | undefined;
+  title?: string;
+  description?: string;
+  theme?: number;
+  dates?: string;
+  year?: number;
+}
+
 interface Finition {
   id: number;
   name: string;
+}
+
+interface HelloAssoMember {
+  address: string;
+  birth_date: string;
+  phone: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  town: string;
+  zip_code: string;
+  id: number;
 }
 
 interface MailPwd {
@@ -149,6 +171,13 @@ interface ThankYouData {
   email: string;
 }
 
+interface ThemesEvent {
+  id: number;
+  name: string;
+  background: string;
+  color: string;
+}
+
 interface Vehicles {
   immatriculation: string;
   mine: string;
@@ -164,7 +193,9 @@ export type {
   CardStaffProps,
   CheckoutHelloAsso,
   Color,
+  Events,
   Finition,
+  HelloAssoMember,
   MailPwd,
   Member,
   Model,
@@ -172,5 +203,6 @@ export type {
   PersonalInfo,
   SchemaPersonalInfo,
   ThankYouData,
+  ThemesEvent,
   Vehicles,
 };

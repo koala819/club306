@@ -17,27 +17,33 @@ import { Tooltip } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import picture306 from '../../../../public/images/logoClub306_blanc.png';
 import { onlyStaff } from '@/lib/supabase';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+// import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeSwitcher } from './ThemeSwitcher';
+import { signOut, useSession } from 'next-auth/react';
+// import { redirect } from 'next/navigation';
 
-export default function Side({ session }: any) {
+export default function Side() {
   const [staffMember, setStaffMember] = useState(false);
   const path = usePathname();
+  const { data: dataSession } = useSession();
 
   useEffect(() => {
     async function fetchData() {
-      const result = await onlyStaff(session?.user?.email);
+      const result = await onlyStaff(dataSession?.user?.email);
+      // console.log('result', result);
       setStaffMember(result);
     }
-    fetchData();
-  }, []);
+
+    if (dataSession !== undefined) {
+      fetchData();
+    }
+  }, [dataSession]);
 
   async function handleSignout() {
-    const supabase = createClientComponentClient();
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log('error', error);
-    }
+    signOut({
+      redirect: true,
+      callbackUrl: `${process.env.CLIENT_URL}/login`,
+    });
   }
 
   return (

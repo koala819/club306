@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
-import { Loading } from '@/components/cpanel/Loading';
+import WaitSession from '@/components/cpanel/WaitSession';
 import DeleteCar from '@/components/cpanel/DeleteCar';
-import { returnMemberInfo } from '@/lib/supabase';
-import { getMemberCars, updateCar } from '@/lib/cpanel/updateCar';
+import { getMemberCars } from '@/lib/cpanel/updateCar';
+
+import { transformEmailToId, updateCar } from '@/lib/cpanel/updateCar';
 import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
 import {
   Modal,
@@ -23,13 +24,13 @@ import { listPartsCar } from '@/lib/cpanel/listPartsCar';
 import { Car, Color, Finition, Member, Model } from '@/types/models';
 
 export default function Garage({
-  session,
+  userMail,
   hide = false,
 }: {
-  session: any;
+  userMail: string;
   hide?: boolean;
 }) {
-  const [member, setMember] = useState<Member | undefined>(undefined);
+  const [memberId, setMemberId] = useState<number>();
   const [cars, setCars] = useState<Car[] | undefined>(undefined);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
@@ -58,7 +59,7 @@ export default function Garage({
     return nameA.localeCompare(nameB);
   });
 
-  const isMobile = window.innerWidth <= 768;
+  // const isMobile = window.innerWidth <= 768;
 
   const handleSelectionModelChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -78,16 +79,10 @@ export default function Garage({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await returnMemberInfo(session?.user?.email);
-      if (response !== false && response[0] !== undefined) {
-        const memberData: Member = {
-          id: response[0].id,
-        };
-        setMember(() => memberData);
-      }
-
-      member?.id !== undefined &&
-        getMemberCars(member?.id).then(async (cars: any) => {
+      const memberId = await transformEmailToId(userMail);
+      if (memberId !== null) {
+        setMemberId(() => memberId);
+        getMemberCars(memberId).then(async (cars: any) => {
           if (cars) {
             if (Array.isArray(cars)) {
               const carData: Car[] = [];
@@ -108,14 +103,16 @@ export default function Garage({
             }
           }
         });
+      }
     };
+
     fetchData();
-  }, [member?.id]);
+  }, []);
+  // console.log('member', member);
+  // console.log('cars', cars);
 
   useEffect(() => {
     listPartsCar({
-      session,
-      setMember,
       setColors,
       setFinitions,
       setModels,
@@ -218,7 +215,7 @@ export default function Garage({
   return (
     <>
       {cars === undefined ? (
-        <Loading />
+        <WaitSession />
       ) : (
         <div className={`${hide ? '' : 'w-full lg:w-8/12 px-4 mx-auto mt-6 '}`}>
           <div className="flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
@@ -506,9 +503,9 @@ export default function Garage({
                   <div className="mt-4 mb-4">
                     {cars !== undefined &&
                       cars.length >= 2 &&
-                      member?.id !== undefined && (
+                      memberId !== undefined && (
                         <DeleteCar
-                          memberId={member?.id}
+                          memberId={memberId}
                           car={cars[currentCarIndex]}
                         />
                       )}

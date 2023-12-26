@@ -1,10 +1,58 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import bcrypt from 'bcryptjs';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 );
+
+async function addNewYearCalendar(nextYear) {
+  try {
+    let hasErrorOccurred = false;
+
+    for (let month = 1; month <= 12; month++) {
+      const { error } = await supabase
+        .from('event')
+        .insert({ year: nextYear, month: month });
+
+      if (error) {
+        console.error('Error inserting month:', month, 'Error:', error.message);
+        hasErrorOccurred = true;
+        break;
+      }
+    }
+
+    if (hasErrorOccurred) {
+      return new Response(
+        JSON.stringify({ message: 'Error with Supabase request' }),
+        {
+          status: 406,
+          statusText: 'Error with Supabase request',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } else {
+      return new Response(JSON.stringify({ message: 'Success' }), {
+        status: 200,
+        statusText: 'Success',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
 
 async function addThemeEvent(name, color, background) {
   try {
@@ -94,6 +142,16 @@ async function cancelEvent(month) {
   }
 }
 
+async function checkCurrentYearForCalendar(nextYear) {
+  // console.log('nextYear', nextYear);
+  const { data } = await supabase
+    .from('event')
+    .select('*')
+    .filter('year', 'eq', nextYear);
+
+  return data.length > 0 ? true : false;
+}
+
 async function checkForCanI(lastName, firstName) {
   return await supabase
     .from('members')
@@ -120,29 +178,32 @@ async function checkMail(mail) {
   return data.length > 0;
 }
 
-async function checkRegisteredMember(email) {
+async function checkRegisteredMember(email, password) {
   try {
     const { data, error } = await supabase
       .from('members')
-      .select(`first_name, last_name`)
+      .select('id, email, password')
       .eq('email', email)
-      .limit(1);
+      .single();
 
-    if (error) {
+    if (error || !data) {
       return {
-        statusText: error.message,
-        status: error.status,
+        statusText: 'User not found or error occurred',
+        status: 400,
       };
     }
 
-    if (data.length > 0) {
+    const passwordMatch = await bcrypt.compare(password, data.password);
+    if (!passwordMatch) {
       return {
-        statusText: data,
-        status: 200,
+        statusText: 'Password does not match',
+        status: 401,
       };
     }
+
     return {
-      status: 406,
+      statusText: { id: data.id, email: data.email },
+      status: 200,
     };
   } catch (error) {
     return {
@@ -150,6 +211,38 @@ async function checkRegisteredMember(email) {
       status: 407,
     };
   }
+}
+
+async function confirmMemberShip(email) {
+  try {
+    const { data, error } = await supabase
+      .from('members')
+      .select('cotisation')
+      .eq('email', email)
+      .single();
+
+    if (error || !data) {
+      return false;
+    }
+
+    return data.cotisation === true;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function signInWithoutToken(email) {
+  const { data } = await supabase
+    .from('members')
+    .select('*')
+    .filter('email', 'eq', email);
+
+  const user = data[0];
+  if (user.user_token === '' || user.user_token === null) {
+    return true;
+  }
+
+  return false;
 }
 
 async function createNewPartner(value, imageName) {
@@ -474,6 +567,35 @@ async function deleteThemeEvent(id) {
   }
 }
 
+async function deleteToken(email) {
+  try {
+    const { error } = await supabase
+      .from('members')
+      .select('user_token')
+      .eq('email', email);
+
+    if (!error) {
+      return new Response({
+        status: 200,
+        statusText: 'Great Job !!! Token successfully removed :)',
+      });
+    }
+
+    return new Response({
+      status: 405,
+      statusText: 'Error to delete token',
+    });
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 406,
+      statusText: 'Error with supabase request',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 async function getAllColors() {
   try {
     return await supabase.from('car_colors').select('*');
@@ -623,6 +745,8 @@ async function getTokenConfirmMail(token) {
     if (error) {
       throw new Error(error.message);
     }
+
+    deleteToken(data[0].email);
     return data.length > 0 ? data[0] : null;
   } catch (error) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
@@ -656,7 +780,7 @@ async function onlyStaff(email) {
   }
 
   if (data.length === 0) {
-    console.error('User not found');
+    // console.error('User not found');
     return false;
   }
 
@@ -859,7 +983,8 @@ async function returnMemberInfo(mail) {
   const { data, error } = await supabase
     .from('members')
     .select('*')
-    .filter('email', 'eq', mail);
+    .eq('email', mail)
+    .single();
 
   if (error) {
     console.error(error);
@@ -930,7 +1055,7 @@ async function updateCarImmatriculation(value, immatriculation) {
   }
 }
 
-async function updateEvent(value, month, theme) {
+async function updateEvent(value, month, theme, year) {
   try {
     const { data, error } = await supabase
       .from('event')
@@ -940,7 +1065,7 @@ async function updateEvent(value, month, theme) {
         dates: value.dates,
         theme: theme,
       })
-      .filter('month', 'eq', month);
+      .match({ month: month, year: year });
 
     if (!error) {
       return new Response(JSON.stringify(data), {
@@ -1058,10 +1183,13 @@ async function updateThemeEvent(color, name, item) {
 }
 
 export {
+  addNewYearCalendar,
   addThemeEvent,
   cancelEvent,
+  checkCurrentYearForCalendar,
   checkForCanI,
   checkMail,
+  confirmMemberShip,
   checkRegisteredMember,
   countCars,
   countCarsByModel,
@@ -1089,6 +1217,7 @@ export {
   record,
   recordModifyColorInCpanel,
   returnMemberInfo,
+  signInWithoutToken,
   updateCarImmatriculation,
   updateEvent,
   updatePartner,
