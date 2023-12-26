@@ -1,19 +1,24 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+'use client';
+import { useSession } from 'next-auth/react';
+import { useMemo } from 'react';
 import { Homepage } from '@/components/Homepage';
 
-export default async function RootPage() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Page() {
+  const { data: dataSession } = useSession();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const session = useMemo(() => {
+    return dataSession !== undefined && dataSession !== null;
+  }, [dataSession]);
 
   return (
     <div>
       <title>Home</title>
       <meta name="description" content="My homepage" />
-      {user ? <Homepage withMember={true} /> : <Homepage withMember={false} />}
+      {session ? (
+        <Homepage withMember={true} />
+      ) : (
+        <Homepage withMember={false} />
+      )}
     </div>
   );
 }
