@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getTokenConfirmMail } from '@/lib/supabase';
+import { getTokenConfirmMail } from '@/lib/token/utils';
 import { useSearchParams } from 'next/navigation';
 import { ThankYouData } from '@/types/models';
 import toast from 'react-hot-toast';

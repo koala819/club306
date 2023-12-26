@@ -567,34 +567,34 @@ async function deleteThemeEvent(id) {
   }
 }
 
-async function deleteToken(email) {
-  try {
-    const { error } = await supabase
-      .from('members')
-      .select('user_token')
-      .eq('email', email);
+// async function deleteToken(email) {
+//   try {
+//     const { error } = await supabase
+//       .from('members')
+//       .select('user_token')
+//       .eq('email', email);
 
-    if (!error) {
-      return new Response({
-        status: 200,
-        statusText: 'Great Job !!! Token successfully removed :)',
-      });
-    }
+//     if (!error) {
+//       return new Response({
+//         status: 200,
+//         statusText: 'Great Job !!! Token successfully removed :)',
+//       });
+//     }
 
-    return new Response({
-      status: 405,
-      statusText: 'Error to delete token',
-    });
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 406,
-      statusText: 'Error with supabase request',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-}
+//     return new Response({
+//       status: 405,
+//       statusText: 'Error to delete token',
+//     });
+//   } catch (error) {
+//     return new Response(JSON.stringify(error), {
+//       status: 406,
+//       statusText: 'Error with supabase request',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//   }
+// }
 
 async function getAllColors() {
   try {
@@ -735,24 +735,24 @@ async function getMemberId() {
   }
 }
 
-async function getTokenConfirmMail(token) {
-  try {
-    const { data, error } = await supabase
-      .from('members')
-      .select(`first_name, last_name, email`)
-      .eq('user_token', token)
-      .limit(1);
-    if (error) {
-      throw new Error(error.message);
-    }
+// async function getTokenConfirmMail(token) {
+//   try {
+//     const { data, error } = await supabase
+//       .from('members')
+//       .select(`first_name, last_name, email`)
+//       .eq('user_token', token)
+//       .limit(1);
+//     if (error) {
+//       throw new Error(error.message);
+//     }
 
-    deleteToken(data[0].email);
-    return data.length > 0 ? data[0] : null;
-  } catch (error) {
-    console.error("Erreur lors de l'exécution de la requête :", error.message);
-    return false;
-  }
-}
+//     deleteToken(data[0].email);
+//     return data.length > 0 ? data[0] : null;
+//   } catch (error) {
+//     console.error("Erreur lors de l'exécution de la requête :", error.message);
+//     return false;
+//   }
+// }
 
 function getTokenFromSupabase(access_token) {
   const options = {};
@@ -1210,7 +1210,7 @@ export {
   getIdFinition,
   getMemberId,
   getIdModel,
-  getTokenConfirmMail,
+  // getTokenConfirmMail,
   getTokenFromSupabase,
   onlyStaff,
   ourPartners,
