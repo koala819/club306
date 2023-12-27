@@ -47,7 +47,7 @@ export default function Side() {
   }
 
   return (
-    <aside className="hidden md:block bg-gray-800 text-white w-64  min-h-screen">
+    <aside className="hidden md:block bg-gray-800 text-white w-64">
       <div className="flex items-center justify-center mt-4">
         <Link href="/cpanel">
           <Image

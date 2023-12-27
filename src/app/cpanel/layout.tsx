@@ -1,5 +1,6 @@
 import Side from '@/components/cpanel/layout/Side';
 import BurgerMenu from '@/components/cpanel/layout/BurgerMenu';
+import Footer from '@/components/cpanel/layout/Footer';
 import { Montserrat } from 'next/font/google';
 import '@/styles/globals.css';
 import { Providers } from './providers';
@@ -16,14 +17,17 @@ export default async function CustomLayout({
     <html>
       <body className={`${montserrat.className}`}>
         <Providers>
-          <div className="flex h-screen bg-gray-50 dark:bg-slate-700">
-            <Side />
-            <div className="flex flex-col flex-1 overflow-hidden">
-              <div className="md:hidden">
-                <BurgerMenu />
+          <div className="flex flex-col h-screen bg-gray-50 dark:bg-slate-700">
+            <div className="flex flex-1 overflow-hidden">
+              <Side />
+              <div className="flex flex-col flex-1">
+                <div className="md:hidden">
+                  <BurgerMenu />
+                </div>
+                <main className="overflow-y-auto flex-1 mb-4">{children}</main>
               </div>
-              <main className="overflow-y-auto flex-1 mb-4 ">{children}</main>
             </div>
+            <Footer />
           </div>
           <Toaster position="top-right" />
         </Providers>
