@@ -79,17 +79,16 @@ const Paiement = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center">
-      <div className="w-full">
-        <div className="flex bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <div className="w-full px-4">
+        <div className="flex flex-wrap bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg mx-auto max-w-4xl">
           <div
-            className="hidden lg:block lg:w-1/2 bg-cover"
+            className="w-full lg:w-1/2 bg-cover"
             style={{
               backgroundImage:
                 'url(https://raw.githubusercontent.com/koala819/Unlimitd_front/develop/login_background.jpg)',
             }}
           ></div>
-
           <div className="w-full p-8 lg:w-1/2 space-y-12">
             <h2 className="text-2xl font-semibold text-center">
               Cher membre du Club 306
