@@ -93,17 +93,6 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 </picture>
               </Link>
             </text>
-            <text className="flex">
-              with
-              <Link
-                href="https://fr.wikipedia.org/wiki/Copyleft"
-                target="_blank"
-                className="flex justify-center mx-1 hover:underline"
-              >
-                Copyleft license
-                <LuCopyleft />
-              </Link>
-            </text>
           </aside>
 
           <aside className="flex w-full justify-center text-sm tracking-widest">
