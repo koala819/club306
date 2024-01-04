@@ -2,15 +2,15 @@ import Link from 'next/link';
 
 export default function Rules() {
   return (
-    <div className='container mx-auto p-4'>
+    <div className="container mx-auto p-4">
       <h1
-        className='flex text-2xl mb-8 justify-center'
+        className="flex text-2xl mb-8 justify-center"
         style={{ fontWeight: 700 }}
       >
         Règlement intérieur
       </h1>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 1
         </h2>
         <p>
@@ -28,8 +28,8 @@ export default function Rules() {
           l&apos;application de l&apos;article 2 et 10.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 2
         </h2>
         <p>
@@ -41,8 +41,8 @@ export default function Rules() {
           de Membre.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 3
         </h2>
         <p>
@@ -57,8 +57,8 @@ export default function Rules() {
           entraide.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 4
         </h2>
         <p>
@@ -70,8 +70,8 @@ export default function Rules() {
           fait.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 5
         </h2>
         <p>
@@ -79,7 +79,7 @@ export default function Rules() {
           <span style={{ fontWeight: 700 }}>Club306</span> et ses dirigeants de
           toute responsabilité et renonce à tout recours, action ou demande en
           cas de
-          <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+          <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
             <li>
               Dommages corporels et/ou matériels subis par lui et ses
               accompagnants,
@@ -93,8 +93,8 @@ export default function Rules() {
           l&apos;association <span style={{ fontWeight: 700 }}>Club306</span>.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 6
         </h2>
         <p>
@@ -107,8 +107,8 @@ export default function Rules() {
           restaurants, musées ou autres prestations équivalentes.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 7
         </h2>
         <p>
@@ -116,8 +116,8 @@ export default function Rules() {
           impératives et spécifiques à la circulation sur route ouverte et en
           convoi. Tout déplacement sur route ouverte implique le respect du{' '}
           <Link
-            href='https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006074228'
-            className='underline hover:text-red-600'
+            href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006074228"
+            className="underline hover:text-red-600"
           >
             code de la route
           </Link>{' '}
@@ -126,16 +126,16 @@ export default function Rules() {
         <p>
           Tout convoi de voitures est encadré par le{' '}
           <Link
-            href='https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000268934'
-            className='underline hover:text-red-600'
+            href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000268934"
+            className="underline hover:text-red-600"
           >
             Décret 2006-554
           </Link>{' '}
           du 16 mai 2006.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 8
         </h2>
         <p>
@@ -155,8 +155,8 @@ export default function Rules() {
           circuit, etc..) sont donc à la charge du fautif.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 9
         </h2>
         <p>
@@ -169,28 +169,28 @@ export default function Rules() {
           l&apos;inscription. Le membre s&apos;engage à avoir un véhicule
           conforme et en règle pour circuler librement sur la voie publique.
         </p>
-        <p className='text-xs'>
+        <p className="text-xs">
           *Le bureau se réserve le droit d’accepter ou non l’accès aux
           événements ainsi qu&apos;au club. Toutes décisions prises seront
           irrévocables.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 10
         </h2>
-        <h3 className='text-md font-bold ml-8' style={{ fontWeight: 700 }}>
+        <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
           A - ADHÉSION
         </h3>
         <p>La cotisation annuelle s&apos;entend :</p>
-        <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+        <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
           <li>Par personne,</li>
           <li>
             Sur une période du 1 Janvier au 31 décembre (aucun prorata
             temporis),
           </li>
           <li>
-            Fixée à 20 euros annuellement (révisée annuellement lors de
+            Fixée à 25 euros annuellement (révisée annuellement lors de
             l&apos;Assemblé Générale),
           </li>
         </ul>
@@ -207,7 +207,7 @@ export default function Rules() {
           Club par nos partenaires ; et l&apos;accès à des dossiers et articles
           uniques
         </p>
-        <h3 className='text-md font-bold ml-8' style={{ fontWeight: 700 }}>
+        <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
           B - RENOUVELLEMENT
         </h3>
         <p>
@@ -219,11 +219,11 @@ export default function Rules() {
           L&apos;appel au renouvellement se fera via le bureau (mail, téléphone,
           sms, courrier).
         </p>
-        <h3 className='text-md font-bold ml-8' style={{ fontWeight: 700 }}>
+        <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
           C – RADIATION
         </h3>
         <p>La qualité de membre de l’association se perd par :</p>
-        <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+        <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
           <li>La démission adressée au président de l&apos;association,</li>
           <li>
             Le non-paiement de la cotisation au 31 janvier de chaque année,
@@ -244,7 +244,7 @@ export default function Rules() {
           Le décès, la démission, l&apos;exclusion ou la radiation d&apos;un ou
           de plusieurs membre(s) ne met pas fin à l&apos;association.
         </p>
-        <h3 className='text-md font-bold ml-8' style={{ fontWeight: 700 }}>
+        <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
           D - EXCLUSION
         </h3>
         <p>
@@ -254,14 +254,14 @@ export default function Rules() {
           recommandée avec accusé de réception), l&apos;exclusion est prononcée
           par le Président après avis unanime des membres du Bureau.
         </p>
-        <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+        <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
           <li>Comportement inapproprié,</li>
           <li>Mise en danger d&apos;autrui,</li>
           <li>Consommation substance licite et/ou illicite.</li>
         </ul>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           ARTICLE 11
         </h2>
         <p>
@@ -277,16 +277,16 @@ export default function Rules() {
           l’inscription dudit membre.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
+      <section className="mb-10 space-y-8">
         <p>Etabli à Les Pavillons-sous-Bois (93320), le 01/01/2023</p>
-        <div className='flex'>
-          <div className='flex-1'>
+        <div className="flex">
+          <div className="flex-1">
             <p>Pascal Besnard</p>
             <p>
               Président du <span style={{ fontWeight: 700 }}>Club306</span>
             </p>
           </div>
-          <div className='flex-1 text-right'>
+          <div className="flex-1 text-right">
             <p>Amandine Werlé-Fabre</p>
             <p>
               Secrétaire du <span style={{ fontWeight: 700 }}>Club306</span>
