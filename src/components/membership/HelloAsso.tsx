@@ -102,7 +102,7 @@ export const HelloAsso = ({ setStep }: any) => {
             >
               {personalInfo?.first_name}&nbsp;{personalInfo?.last_name}
             </h1>
-            <p>, pour continuer vous devez hadhérer à notre association ^_^</p>
+            <p>, pour continuer vous devez adhérer à notre association ^_^</p>
           </div>
         </div>
         <div className="flex justify-center w-full h-full mb-4 mt-4">
