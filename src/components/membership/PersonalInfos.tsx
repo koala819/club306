@@ -1,42 +1,46 @@
-'use client';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import dayjs from 'dayjs';
-import { useTheme } from 'next-themes';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { SchemaPersonalInfo } from '@/types/models';
-import { getMonth, getYear, months, years } from '@/lib/personalInfos';
-import { getMemberId } from '@/lib/supabase';
+'use client'
+
+import { useEffect, useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { Controller, useForm } from 'react-hook-form'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import { useTheme } from 'next-themes'
+import Link from 'next/link'
+
+import { SchemaPersonalInfo } from '@/types/models'
+
+import { getMonth, getYear, months, years } from '@/lib/personalInfos'
+import { getMemberId } from '@/lib/supabase'
+import { yupResolver } from '@hookform/resolvers/yup'
+import dayjs from 'dayjs'
+import * as yup from 'yup'
 
 export const PersonalInfos = ({ setStep }: any) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
   const [personalInfo, setPersonalInfo] = useState<
     SchemaPersonalInfo | undefined
-  >(undefined);
-  const [formattedBirthDate, setFormattedBirthDate] = useState(new Date());
+  >(undefined)
+  const [formattedBirthDate, setFormattedBirthDate] = useState(new Date())
 
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo');
+    const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo')
     if (storedPersonalInfoJSON) {
-      const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON);
-      setPersonalInfo(() => storedPersonalInfo);
+      const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON)
+      setPersonalInfo(() => storedPersonalInfo)
       setFormattedBirthDate(() =>
-        dayjs(storedPersonalInfo?.birth_date).toDate()
-      );
-      setIsLoading(false);
+        dayjs(storedPersonalInfo?.birth_date).toDate(),
+      )
+      setIsLoading(false)
     } else {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  }, []);
+  }, [])
 
   const schema: yup.ObjectSchema<SchemaPersonalInfo> = yup.object().shape({
     first_name: yup.string().required('Veuillez fournir votre Nom'),
@@ -67,7 +71,7 @@ export const PersonalInfos = ({ setStep }: any) => {
     checkCertificateHonour: yup
       .boolean()
       .isTrue(
-        "Veuillez approuver sur l'honneur que vous êtes bien propriétaire du véhicule ...!"
+        "Veuillez approuver sur l'honneur que vous êtes bien propriétaire du véhicule ...!",
       ),
     checkEngagementClub: yup
       .boolean()
@@ -75,7 +79,7 @@ export const PersonalInfos = ({ setStep }: any) => {
     checkPrivacyPolicy: yup
       .boolean()
       .isTrue('Veuillez approuver notre politique de confidentialité ...!'),
-  });
+  })
 
   const {
     register,
@@ -84,28 +88,28 @@ export const PersonalInfos = ({ setStep }: any) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  });
+  })
 
   async function handleAddPersonalInfos(data: any) {
     try {
-      const memberId = Math.floor(Math.random() * 1000000);
-      setPersonalInfo(data);
-      sessionStorage.setItem('personalInfo', JSON.stringify(data));
-      sessionStorage.setItem('memberId', JSON.stringify(memberId));
-      localStorage.setItem(`personalInfo_${memberId}`, JSON.stringify(data));
-      setStep((s: number) => s + 1);
+      const memberId = Math.floor(Math.random() * 1000000)
+      setPersonalInfo(data)
+      sessionStorage.setItem('personalInfo', JSON.stringify(data))
+      sessionStorage.setItem('memberId', JSON.stringify(memberId))
+      localStorage.setItem(`personalInfo_${memberId}`, JSON.stringify(data))
+      setStep((s: number) => s + 1)
     } catch (error) {
       console.error(
         "Erreur lors de l'ajout des informations personnelles :",
-        error
-      );
+        error,
+      )
     }
   }
 
   const handlePhoneInputChange = () => {
-    register('phone');
-    return true;
-  };
+    register('phone')
+    return true
+  }
 
   return (
     <>
@@ -376,8 +380,8 @@ export const PersonalInfos = ({ setStep }: any) => {
                       dateFormat="dd/MM/yyyy"
                       className="border-2 p-1 rounded-lg pl-4 border-gray-300"
                       onChange={(date: any) => {
-                        setFormattedBirthDate(date);
-                        field.onChange(date as Date);
+                        setFormattedBirthDate(date)
+                        field.onChange(date as Date)
                       }}
                       // onChange={(date: Date | DateValue) => {
                       //   field.onChange(date as Date);
@@ -415,7 +419,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                   >
                     <span>
                       Cotisation : Je comprends que la cotisation annuelle au
-                      Club306 est fixée à 20 euros pour une année pleine en
+                      Club306 est fixée à 25 euros pour une année pleine en
                       adhésion (01/01 au 31/12).
                     </span>
                     <span className="text-red-500">*</span>
@@ -549,5 +553,5 @@ export const PersonalInfos = ({ setStep }: any) => {
         </form>
       )}
     </>
-  );
-};
+  )
+}
