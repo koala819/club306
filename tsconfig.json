@@ -31,7 +31,8 @@
     ".next/types/**/*.ts",
     "src/lib/supabase.js",
     "src/app/api/mail/route.js",
-    "src/lib/utils.js"
+    "src/lib/utils.js",
+    "src/lib/makePwd.js"
   ],
   "exclude": ["node_modules"]
 }

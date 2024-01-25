@@ -1,46 +1,50 @@
-'use client';
-import { useSession } from 'next-auth/react';
-import { useEffect, useMemo, useState } from 'react';
-import { signOut } from 'next-auth/react';
-import { Button } from '@nextui-org/react';
-import { getMemberForCotisation } from '@/lib/cpanel/membershipMember';
-import { CheckoutHelloAsso, HelloAssoMember } from '@/types/models';
-import toast from 'react-hot-toast';
-import connect from '@/lib/helloAsso/connect';
-import moment from 'moment';
-import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code';
+'use client'
+
+import { Button } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
+import { useEffect, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
+
+import { CheckoutHelloAsso, HelloAssoMember } from '@/types/models'
+
+import { getMemberForCotisation } from '@/lib/cpanel/membershipMember'
+import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code'
+import connect from '@/lib/helloAsso/connect'
+import moment from 'moment'
 
 const Paiement = () => {
-  const { data: dataSession } = useSession();
-  const [member, setMember] = useState<HelloAssoMember>();
+  const { data: dataSession } = useSession()
+  const [member, setMember] = useState<HelloAssoMember>()
 
   const session = useMemo(() => {
-    return dataSession !== undefined;
-  }, [dataSession]);
+    return dataSession !== undefined
+  }, [dataSession])
 
   useEffect(() => {
     async function checkMembership() {
       if (dataSession?.user?.email) {
-        const response = await getMemberForCotisation(dataSession?.user?.email);
+        const response = await getMemberForCotisation(dataSession?.user?.email)
         if (response.status === 200) {
-          const memberInfo = await response.json();
-          setMember(() => memberInfo);
+          const memberInfo = await response.json()
+          console.log('memberInfo', memberInfo)
+          setMember(() => memberInfo)
         } else {
-          toast.error('Une erreur est survenue');
+          toast.error('Une erreur est survenue')
         }
       }
     }
 
-    checkMembership();
-  }, [dataSession]);
+    checkMembership()
+  }, [dataSession])
 
   function handleCheckout() {
-    const newYear = new Date().getFullYear() + 1;
+    const newYear = new Date().getFullYear() + 1
 
     const clientUrl =
       process.env.CLIENT_URL === 'http://localhost:3000'
         ? 'https://localhost:3000'
-        : process.env.CLIENT_URL;
+        : process.env.CLIENT_URL
 
     const requestData: CheckoutHelloAsso = {
       // totalAmount: 50,
@@ -65,7 +69,7 @@ const Paiement = () => {
       metadata: {
         userId: `${member?.id}`,
       },
-    };
+    }
 
     connect({
       requestData,
@@ -73,9 +77,9 @@ const Paiement = () => {
       method: 'POST',
     })
       .then((data) => {
-        window.location.href = data.redirectUrl;
+        window.location.href = data.redirectUrl
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => toast.error(error.message))
   }
 
   return (
@@ -158,7 +162,7 @@ const Paiement = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Paiement;
+export default Paiement
