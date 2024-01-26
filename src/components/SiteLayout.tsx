@@ -1,6 +1,6 @@
 'use client';
 import { Footer } from '@/components/Footer';
-import { Navbar } from '@/components/Navbar';
+import { Navbar306 as Navbar } from '@/components/Navbar';
 import { Toaster } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
