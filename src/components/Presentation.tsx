@@ -1,17 +1,20 @@
-'use client';
-import Image from 'next/image';
-import { BsPatchPlus } from 'react-icons/bs';
-import { Adhesion } from './Adhesion';
-import styles from '@/styles/reactIntersectionObserver.module.css';
-import { useInView } from 'react-intersection-observer';
-import presentationPicture from '../../public/images/presentationPicture.jpg';
-import Link from 'next/link';
+'use client'
+
+import styles from '@/styles/reactIntersectionObserver.module.css'
+import { BsPatchPlus } from 'react-icons/bs'
+import { useInView } from 'react-intersection-observer'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import presentationPicture from '../../public/images/presentationPicture.jpg'
+import { Adhesion } from './Adhesion'
 
 export const Presentation = () => {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
-  });
+  })
   const renderContent = () => {
     return (
       <section className="w-full h-full items-center justify-center pb-4 dark:bg-gray-800">
@@ -50,8 +53,8 @@ export const Presentation = () => {
           <Adhesion />
         </div>
       </section>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -62,5 +65,5 @@ export const Presentation = () => {
     >
       {renderContent()}
     </div>
-  );
-};
+  )
+}

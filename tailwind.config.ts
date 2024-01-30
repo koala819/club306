@@ -1,5 +1,6 @@
-import type { Config } from 'tailwindcss';
-const { nextui } = require('@nextui-org/react');
+import type { Config } from 'tailwindcss'
+
+const { nextui } = require('@nextui-org/react')
 
 const config: Config = {
   content: [
@@ -25,6 +26,12 @@ const config: Config = {
         'border-light': '#4A4A8C',
         border: 'hsl(var(--border))',
         'box-shadow-login': ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+        'principal-light': '#174191',
+        'principal-dark': '#E2A300',
+        'bg-dark': '#000025',
+        'bg-light': '#ffffff',
+        'text-light': '#174191',
+        'text-dark': '#ffffff',
       },
     },
   },
@@ -98,6 +105,6 @@ const config: Config = {
   // },
   plugins: [nextui()],
   // plugins: [require('tailwindcss-animate')],
-};
+}
 
-module.exports = config;
+module.exports = config

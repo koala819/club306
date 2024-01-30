@@ -57,7 +57,7 @@
 }
 
 .aSubMenu:hover {
-  color: #201c44;
+  color: #174191;
   background-color: rgb(229 231 235);
 }
 
@@ -103,7 +103,8 @@
   .subMenu {
     position: absolute;
     width: 12rem;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
       0 4px 6px -4px rgb(0 0 0 / 0.1);
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;

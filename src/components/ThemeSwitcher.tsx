@@ -1,25 +1,43 @@
 'use client'
 
-import { Switch } from '@nextui-org/react'
-import { BsFillSunFill, BsMoonFill } from 'react-icons/bs'
+import { useEffect, useState } from 'react'
 
 import { useTheme } from 'next-themes'
 
-export function ThemeSwitcher() {
+import { HeadlightBlue } from './HeadlightBlue'
+import { HeadlightGreen } from './HeadlightGreen'
+
+interface ThemeSwitcherProps {
+  onThemeChange: (newTheme: string) => void
+}
+export function ThemeSwitcher({ onThemeChange }: ThemeSwitcherProps) {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    onThemeChange(newTheme)
   }
 
   return (
-    <Switch
-      defaultSelected
-      size="lg"
-      color="success"
-      startContent={<BsFillSunFill />}
-      endContent={<BsMoonFill />}
-      onChange={toggleTheme}
-    />
+    <div>
+      <button
+        onClick={toggleTheme}
+        className={
+          mounted && theme === 'light'
+            ? 'mt-1 border-gray-300 border-3 rounded-lg hover:bg-white hover:border-[#174191]'
+            : 'mt-1 border-black-900 border-3 rounded-lg hover:bg-black hover:border-green-600'
+        }
+      >
+        {mounted && theme === 'light' ? (
+          <HeadlightBlue color="Blue" />
+        ) : (
+          <HeadlightGreen color="green" />
+        )}
+      </button>
+    </div>
   )
 }
