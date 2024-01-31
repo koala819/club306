@@ -35,24 +35,13 @@ interface Navbar306Props {
 const blacklogo = '/images/logoClub306.png'
 const whitelogo = '/images/logoClub306_blanc.png'
 
-export const Navbar306 = ({ withMember }: { withMember?: boolean }) => {
+export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const path = usePathname()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [logo, setLogo] = useState(whitelogo)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const menuItems = [
-    { name: 'LE CLUB', path: '/' },
-    { name: 'DISCORD', path: '/' },
-    { name: 'EVENT', path: '/' },
-    { name: 'Contact', path: '/contact' },
-  ]
+  const [logo, setLogo] = useState(blacklogo)
 
   // Fonction de mise à jour du thème
   const handleThemeChange = (newTheme: string) => {
@@ -66,17 +55,31 @@ export const Navbar306 = ({ withMember }: { withMember?: boolean }) => {
     }
   }
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const menuItems = [
+    { name: 'LE CLUB', path: '/' },
+    { name: 'DISCORD', path: '/' },
+    { name: 'EVENT', path: '/' },
+    { name: 'Contact', path: '/contact' },
+  ]
+
   return (
     <NextUIProvider>
       <NextThemesProvider attribute="class" defaultTheme="light">
         <Navbar
           onMenuOpenChange={setIsMenuOpen}
           maxWidth="full"
-          className="bg-bg-light dark:bg-bg-dark pb-4"
+          className={`bg-bg-light dark:bg-bg-dark pb-4 ${
+            withMember ? 'bg-[#ADA075] dark:bg-[#6a6145]' : ''
+          }`}
           isBordered={true}
           position="sticky"
           classNames={{
             item: [
+              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-principal-dark'}`,
               'mt-5',
               'flex',
               'relative',
@@ -89,8 +92,6 @@ export const Navbar306 = ({ withMember }: { withMember?: boolean }) => {
               'data-[active=true]:after:right-0',
               'data-[active=true]:after:h-[2px]',
               'data-[active=true]:after:rounded-[2px]',
-              'data-[active=true]:after:bg-bg-light',
-              'dark:data-[active=true]:after:bg-bg-dark',
             ],
           }}
         >
@@ -141,7 +142,8 @@ export const Navbar306 = ({ withMember }: { withMember?: boolean }) => {
                 itemClasses={{
                   base: 'gap-4',
                 }}
-                className="bg-bg-light dark:bg-bg-dark "
+                className={`
+                 ${withMember ? 'bg-[#ADA075] dark:bg-[#6a6145]' : 'bg-bg-light dark:bg-bg-dark'}`}
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
@@ -203,12 +205,15 @@ export const Navbar306 = ({ withMember }: { withMember?: boolean }) => {
               <Button
                 as={Link}
                 href="auth/signIn"
-                className="mr-10 bg-principal-light text-text-dark hover:bg-bg-light hover:text-principal-light hover:border-principal-light border-2
-                dark:principal-light dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-bg-dark dark:hover:border-principal-dark dark:hover:text-principal-dark"
+                className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
+                 dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
               >
                 Connexion
               </Button>
-              <ThemeSwitcher onThemeChange={handleThemeChange} />
+              <ThemeSwitcher
+                onThemeChange={handleThemeChange}
+                withMember={withMember}
+              />
             </NavbarItem>
           </NavbarContent>
 
