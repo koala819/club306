@@ -25,23 +25,22 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
+import { Navbar306Props } from '@/types/models'
+
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
-// Interface pour déclarer le type de handleThemeChange
-interface Navbar306Props {
-  withMember?: boolean
-}
+import { boolean } from 'yup'
 
 const blacklogo = '/images/logoClub306.png'
 const whitelogo = '/images/logoClub306_blanc.png'
 
 export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const path = usePathname()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-  const [logo, setLogo] = useState(blacklogo)
+  const [mounted, setMounted] = useState<boolean>(false)
+  const [logo, setLogo] = useState<string>(blacklogo)
 
   // Fonction de mise à jour du thème
   const handleThemeChange = (newTheme: string) => {
