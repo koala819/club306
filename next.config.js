@@ -34,7 +34,7 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
-      'scontent-cdg4-1.xx.fbcdn.net',
+      'scontent-cdg4-3.xx.fbcdn.net',
       'pscuk.net',
       'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
       'images.prismic.io',
