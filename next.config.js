@@ -1,6 +1,6 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-});
+})
 module.exports = withBundleAnalyzer({
   env: {
     CLIENT_URL: process.env.CLIENT_URL,
@@ -34,6 +34,9 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
+      'scontent-cdg4-1.xx.fbcdn.net',
+      'pscuk.net',
+      'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
       'images.prismic.io',
       'www.thebigcarshow.com',
       'scontent-cdt1-1.xx.fbcdn.net',
@@ -53,4 +56,4 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   // transpilePackages: ['antd'],
   swcMinify: true,
-});
+})

@@ -25,11 +25,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
-import { Navbar306Props } from '@/types/models'
-
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
-
-import { boolean } from 'yup'
 
 const blacklogo = '/images/logoClub306.png'
 const whitelogo = '/images/logoClub306_blanc.png'
@@ -117,14 +113,20 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             {/* Premier élément avec sous-menu "LE CLUB" et "LE STAFF" */}
 
             <Dropdown>
-              <NavbarItem isActive={path === '/'}>
+              <NavbarItem
+                isActive={
+                  path.includes('/club') ||
+                  path.includes('/club/staff') ||
+                  path === '/'
+                }
+              >
                 <DropdownTrigger>
                   <Button
                     disableRipple
                     className={` ${
-                      path === '/'
+                      path.includes('/club')
                         ? 'text-base text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark  '
-                        : 'p-0 text-base   '
+                        : 'text-base text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark    '
                     }`}
                     endContent={<FiChevronDown />}
                     radius="sm"
