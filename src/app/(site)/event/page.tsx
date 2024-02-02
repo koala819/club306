@@ -66,6 +66,9 @@ export default function Event() {
   ]
   return (
     <div className="lg:pt-8">
+      {/****************************************************************/}
+      {/* lien vers l'image ne fonction pas /images/bandeauClub306.png */}
+      {/****************************************************************/}
       <Image src="" alt="Image en avant du club 306" />
 
       <h1 className="lg:mx-32 lg:text-left sm:text-center">

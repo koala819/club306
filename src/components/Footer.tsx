@@ -1,9 +1,11 @@
-import Link from 'next/link';
-import { BsFacebook } from 'react-icons/bs';
-import { RiInstagramFill } from 'react-icons/ri';
-import { LuCopyleft } from 'react-icons/lu';
-import Image from 'next/image';
-import dix31 from '../../public/images/DIX31.png';
+import { BsFacebook } from 'react-icons/bs'
+import { LuCopyleft } from 'react-icons/lu'
+import { RiInstagramFill } from 'react-icons/ri'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import dix31 from '../../public/images/DIX31.png'
 
 export const Footer = ({ withMember }: { withMember: boolean }) => {
   return (
@@ -108,5 +110,5 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         </div>
       </legend>
     </footer>
-  );
-};
+  )
+}

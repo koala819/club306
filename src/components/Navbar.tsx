@@ -16,6 +16,8 @@ import {
   NavbarMenuToggle,
 } from '@nextui-org/react'
 import { NextUIProvider } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 
@@ -37,22 +39,24 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState<boolean>(false)
   const [logo, setLogo] = useState<string>(blacklogo)
+  const { data: session } = useSession()
 
-  // Fonction de mise à jour du thème
+  async function handleSignout() {
+    signOut({
+      redirect: true,
+      callbackUrl: `${process.env.CLIENT_URL}/login`,
+    })
+  }
+
   const handleThemeChange = (newTheme: string) => {
     setTheme(newTheme)
-
-    // Condition pour déterminer le logo en fonction du thème
-    if (newTheme === 'light') {
-      setLogo(blacklogo)
-    } else {
-      setLogo(whitelogo)
-    }
   }
 
   useEffect(() => {
     setMounted(true)
-  }, [])
+    const initialLogo = theme === 'light' ? blacklogo : whitelogo
+    setLogo(initialLogo)
+  }, [theme])
 
   const menuItems = [
     { name: 'LE CLUB', path: '/' },
@@ -109,10 +113,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </Link>
             </NavbarBrand>
           </NavbarContent>
-          <NavbarContent className="hidden sm:flex " justify="center">
+          <NavbarContent className="hidden sm:flex" justify="center">
             {/* Premier élément avec sous-menu "LE CLUB" et "LE STAFF" */}
 
-            <Dropdown>
+            <Dropdown
+              className={`
+  ${session ? 'bg-[#ADA075] dark:bg-[#6a6145]' : 'bg-bg-light dark:bg-bg-dark'}
+`}
+            >
               <NavbarItem
                 isActive={
                   path.includes('/club') ||
@@ -201,16 +209,65 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </Link>
             </NavbarItem>
           </NavbarContent>
-          <NavbarContent justify="end" className="flex ">
+          <NavbarContent justify="end" className="flex">
             <NavbarItem>
-              <Button
+              {session ? (
+                <Dropdown>
+                  <NavbarItem>
+                    <DropdownTrigger>
+                      <Button
+                        className="mr-10 mb-5 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
+                        dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
+                      >
+                        Espace membres
+                      </Button>
+                    </DropdownTrigger>
+                  </NavbarItem>
+
+                  <DropdownMenu
+                    aria-label="Espace membres submenu"
+                    itemClasses={{
+                      base: 'gap-4',
+                    }}
+                    className={`${
+                      withMember
+                        ? 'bg-[#ADA075] dark:bg-[#6a6145]'
+                        : 'bg-bg-light dark:bg-bg-dark'
+                    }`}
+                  >
+                    <DropdownItem
+                      onClick={() => router.push('/cpanel')}
+                      className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                    >
+                      Mon compte
+                    </DropdownItem>
+
+                    <DropdownItem
+                      onClick={() => handleSignout()}
+                      className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                    >
+                      Déconnexion
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              ) : (
+                <Button
+                  as={Link}
+                  href="auth/signIn"
+                  className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
+                   dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
+                >
+                  Connexion
+                </Button>
+              )}
+              {/* <Button
                 as={Link}
                 href="auth/signIn"
                 className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
                  dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
               >
                 Connexion
-              </Button>
+              </Button> */}
               <ThemeSwitcher
                 onThemeChange={handleThemeChange}
                 withMember={withMember}
@@ -221,11 +278,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           <NavbarMenu className="mt-8">
             {menuItems.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  //color={theme === 'light' ? 'primary' : 'secondary'}
-                  href={item.path}
-                  size="lg"
-                >
+                <Link href={item.path} size="lg">
                   {item.name}
                 </Link>
               </NavbarMenuItem>
