@@ -6,7 +6,7 @@
 
 ## Description
 
-This project aims to convert an existing website into a WordPress site using the Next.js framework. The primary goal is to leverage the powerful features of Next.js, while also benefiting from the flexibility and extensibility offered by WordPress.
+THe Official Site of Club 306.
 
 ## Features
 
