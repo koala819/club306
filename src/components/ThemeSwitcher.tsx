@@ -29,8 +29,8 @@ export function ThemeSwitcher({
       onClick={toggleTheme}
       className={
         mounted && theme === 'light'
-          ? `rounded-lg border-gray-300 border-3 hover:bg-white hover:border-[#174191] ${withMember ? 'border-[#6a6145] hover:bg-[#ADA075]' : ''}`
-          : `rounded-lg border-black-900 border-3 hover:bg-black hover:border-green-600 ${withMember ? 'bg-bg-black' : ''}`
+          ? `rounded-lg border-3 border-gris  ${withMember ? ' border-bg-gray-400 hover:border-principal-light' : ' hover:bg-bg-light hover:border-principal-light'}`
+          : `rounded-lg border-black-900 border-3 ${withMember ? 'bg-bg-dark hover:border-vert' : ' hover:bg-bg-dark hover:border-vert'}`
       }
     >
       {mounted && theme === 'light' ? (

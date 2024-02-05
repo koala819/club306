@@ -29,6 +29,8 @@ import { useRouter } from 'next/navigation'
 
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
+import styles from '@/styles/Navbar.module.css'
+
 const blacklogo = '/images/logoClub306.png'
 const whitelogo = '/images/logoClub306_blanc.png'
 
@@ -40,6 +42,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [mounted, setMounted] = useState<boolean>(false)
   const [logo, setLogo] = useState<string>(blacklogo)
   const { data: session } = useSession()
+
+  const handleSignIn = () => {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('auth/signIn')
+    ) {
+      router.push('auth/signIn')
+    }
+  }
 
   async function handleSignout() {
     signOut({
@@ -59,9 +70,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   }, [theme])
 
   const menuItems = [
-    { name: 'LE CLUB', path: '/' },
-    { name: 'DISCORD', path: '/' },
-    { name: 'EVENT', path: '/' },
+    { name: 'LE CLUB', path: '/club' },
+    { name: 'DISCORD', path: '#' },
+    { name: 'EVENT', path: '/event' },
     { name: 'Contact', path: '/contact' },
   ]
 
@@ -72,7 +83,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           onMenuOpenChange={setIsMenuOpen}
           maxWidth="full"
           className={`bg-bg-light dark:bg-bg-dark pb-4 ${
-            withMember ? 'bg-[#ADA075] dark:bg-[#6a6145]' : ''
+            withMember ? 'bg-light-connect dark:bg-dark-connect' : ''
           }`}
           isBordered={true}
           position="sticky"
@@ -118,14 +129,12 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             <Dropdown
               className={`
-  ${session ? 'bg-[#ADA075] dark:bg-[#6a6145]' : 'bg-bg-light dark:bg-bg-dark'}
+  ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
 `}
             >
               <NavbarItem
                 isActive={
-                  path.includes('/club') ||
-                  path.includes('/club/staff') ||
-                  path === '/'
+                  path.includes('/club') || path.includes('/club/staff')
                 }
               >
                 <DropdownTrigger>
@@ -152,13 +161,13 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   base: 'gap-4',
                 }}
                 className={`
-                 ${withMember ? 'bg-[#ADA075] dark:bg-[#6a6145]' : 'bg-bg-light dark:bg-bg-dark'}`}
+                 ${withMember ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}`}
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
                   className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
                 >
-                  LE CLUB
+                  Présentation
                 </DropdownItem>
 
                 <DropdownItem
@@ -172,9 +181,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             {/* Deuxième élément de la barre de navigation */}
 
-            <NavbarItem isActive={path.includes('/discord')}>
+            <NavbarItem isActive={path.includes('#')}>
               <Link
-                href="/discord"
+                href="#"
                 aria-current="page"
                 className="text-principal-light rounded-lg p-2 dark:text-text-dark hover:text-text-dark hover:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
               >
@@ -231,7 +240,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                     }}
                     className={`${
                       withMember
-                        ? 'bg-[#ADA075] dark:bg-[#6a6145]'
+                        ? 'bg-light-connect dark:bg-dark-conect'
                         : 'bg-bg-light dark:bg-bg-dark'
                     }`}
                   >
@@ -253,21 +262,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               ) : (
                 <Button
                   as={Link}
-                  href="auth/signIn"
+                  onClick={handleSignIn}
+                  href={'#'}
                   className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
                    dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
                 >
                   Connexion
                 </Button>
               )}
-              {/* <Button
-                as={Link}
-                href="auth/signIn"
-                className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
-                 dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
-              >
-                Connexion
-              </Button> */}
+
               <ThemeSwitcher
                 onThemeChange={handleThemeChange}
                 withMember={withMember}
