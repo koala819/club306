@@ -66,9 +66,9 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
 
           <p className="text-sm mb-2 ">
             Inscrivez-vous à notre newsletter pour suivre nos dernières
-            actualitées & remises !
+            actualitées & remises :
           </p>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 ml-6">
             <input />
             <button>S'inscrire</button>
           </div>
@@ -77,7 +77,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
 
         <div className=" w-2/6 flex flex-col  items-end">
           <div className="mr-4">
-            <div className="  text-sm font-extrabold mb-4 ">Informations</div>
+            <div className="  text-sm font-extrabold mb-4 ">Informations :</div>
             <ul className="list-disc space-y-2 ml-4 ">
               <li>
                 <Link href="/rules" className="hover:text-red-600 text-sm">
