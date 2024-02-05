@@ -98,23 +98,6 @@
   border-radius: 9px;
   font-weight: bolder;
 }
-/* .btnFull {
-  color: var(--principal-light);
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-}
-[data-theme='dark'] .btnFull {
-  color: var(--text-dark);
-}
-.btnFull:hover {
-  background-color: var(--principal-light);
-  color: var(--text-dark);
-}
-[data-theme='dark'] .btnFull:hover {
-  background-color: var(--principal-dark);
-  color: var(--bg-dark);
-} */
 
 @media only screen and (min-width: 768px) {
   .subMenu {

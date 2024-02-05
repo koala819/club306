@@ -89,7 +89,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           position="sticky"
           classNames={{
             item: [
-              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-principal-dark'}`,
+              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : ' dark:data-[active=true]:after:bg-text-dark'}`,
               'mt-5',
               'flex',
               'relative',
@@ -129,12 +129,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             <Dropdown
               className={`
-  ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
-`}
+                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+          `}
             >
               <NavbarItem
                 isActive={
-                  path.includes('/club') || path.includes('/club/staff')
+                  path.includes('/club') ||
+                  path.includes('/club/staff') ||
+                  path === '/'
                 }
               >
                 <DropdownTrigger>
@@ -165,9 +167,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
-                  className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                  className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
                 >
-                  Présentation
+                  PRÉSENTATION
                 </DropdownItem>
 
                 <DropdownItem
@@ -182,11 +184,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             {/* Deuxième élément de la barre de navigation */}
 
             <NavbarItem isActive={path.includes('#')}>
-              <Link
-                href="#"
-                aria-current="page"
-                className="text-principal-light rounded-lg p-2 dark:text-text-dark hover:text-text-dark hover:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
-              >
+              <Link href="#" aria-current="page" className="navbarliensHover">
                 DISCORD
               </Link>
             </NavbarItem>
@@ -197,7 +195,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               <Link
                 href="/event"
                 aria-current="page"
-                className="text-principal-light rounded-lg p-2 dark:text-text-dark hover:text-text-dark hover:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
+                className="navbarliensHover"
               >
                 EVENT
               </Link>
@@ -212,7 +210,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               <Link
                 href="/contact"
                 aria-current="page"
-                className="text-principal-light rounded-lg p-2 dark:text-text-dark hover:text-text-dark hover:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
+                className="navbarliensHover"
               >
                 CONTACT
               </Link>
@@ -221,7 +219,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           <NavbarContent justify="end" className="flex">
             <NavbarItem>
               {session ? (
-                <Dropdown>
+                <Dropdown
+                  className={`
+                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+          `}
+                >
                   <NavbarItem>
                     <DropdownTrigger>
                       <Button
@@ -240,7 +242,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                     }}
                     className={`${
                       withMember
-                        ? 'bg-light-connect dark:bg-dark-conect'
+                        ? 'bg-light-connect dark:bg-dark-connect'
                         : 'bg-bg-light dark:bg-bg-dark'
                     }`}
                   >

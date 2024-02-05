@@ -65,56 +65,59 @@ export default function Event() {
     },
   ]
   return (
-    <div className="lg:pt-8">
-      {/****************************************************************/}
-      {/* lien vers l'image ne fonction pas /images/bandeauClub306.png */}
-      {/****************************************************************/}
-      <Image src="" alt="Image en avant du club 306" />
+    <div>
+      <Image
+        src="/images/bandeauEvent.png"
+        width={500}
+        height={500}
+        alt="Image en avant du club 306"
+        className="w-screen"
+      />
 
-      <h1 className="lg:mx-32 lg:text-left sm:text-center">
+      <h1 className="lg:mx-32 text-center xl:text-left mt-10">
         Découvrez les prochains événements
       </h1>
-      <p className="lg:mx-32 mt-8 mb-16 lg:w-1/2 lg:text-left sm:text-center">
+      <p className="lg:mx-32 mt-8 mb-16 w-3/4 text-center xl:text-left">
         Rejoignez-nous pour vivre des moments passionnants, connectez-vous avec
         d'autres amateurs de voitures et participez à des expériences
         inoubliables sur la route et au-delà !
       </p>
-      <div className="mx-4 lg:mx-32">
+      <div className="mx-4 xl:mx-32">
         {events.map((event, index) => (
-          <div key={index} className="my-4">
+          <div key={index} className="">
             {/* container principal */}
             <div
-              className={`flex flex-col lg:flex-row border-t-2 border-gray-500 dark:border-text-dark`}
+              className={`flex flex-col xl:flex-row border-t-2 border-gray-500 dark:border-text-dark items-center`}
             >
               {/* container img + date */}
               <div
-                className={`w-full lg:w-1/4 md:p-8  flex items-center justify-center`}
+                className={`w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0`}
               >
-                {/* <p className="flex w-64 justify-center">{event.date}</p> */}
                 <Image
                   src={event.img || (theme === 'light' ? blacklogo : whitelogo)}
                   alt={event.title}
                   height={256}
                   width={256}
-                  className=""
+                  className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"
                 />
+                <p className="flex justify-center pt-4 text-xl font-semibold">
+                  {event.date}
+                </p>
               </div>
               {/* container info */}
-              <div
-                className={`w-full lg:w-3/4 h-60 p-4 flex flex-col justify-center lg:text-left`}
-              >
-                <h2 className="text-center lg:text-left">{event.title}</h2>
-                <p className="text-center lg:text-left text-gray-500">
+              <div className={`w-3/4 p-10 flex-col justify-center`}>
+                <h2 className="text-center xl:text-left">{event.title}</h2>
+                <p className="text-center xl:text-left text-gray-500">
                   {event.lieux}
                 </p>
-                <p className="pt-4 text-center lg:text-left">
+                <p className="pt-4 text-center xl:text-left">
                   {event.description}
                 </p>
               </div>
               {/* container btn */}
-              <div className="flex items-center justify-center md:mx-5 md:my-5">
+              <div className="flex items-center justify-center xl:m-5 my-10  ">
                 <button
-                  className="w-44 rounded-lg py-2 mx-0 lg:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
+                  className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
                   dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
                 >
                   Réserver ma place
