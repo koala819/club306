@@ -29,8 +29,6 @@ import { useRouter } from 'next/navigation'
 
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
-import styles from '@/styles/Navbar.module.css'
-
 const blacklogo = '/images/logoClub306.png'
 const whitelogo = '/images/logoClub306_blanc.png'
 
@@ -39,8 +37,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const path = usePathname()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState<boolean>(false)
-  const [logo, setLogo] = useState<string>(blacklogo)
+  const [logo, setLogo] = useState<string>(
+    theme === 'light' ? blacklogo : whitelogo,
+  )
   const { data: session } = useSession()
 
   const handleSignIn = () => {
@@ -64,7 +63,6 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   }
 
   useEffect(() => {
-    setMounted(true)
     const initialLogo = theme === 'light' ? blacklogo : whitelogo
     setLogo(initialLogo)
   }, [theme])
@@ -89,7 +87,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           position="sticky"
           classNames={{
             item: [
-              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : ' dark:data-[active=true]:after:bg-text-dark'}`,
+              `${
+                withMember
+                  ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
+                  : ' dark:data-[active=true]:after:bg-text-dark'
+              }`,
               'mt-5',
               'flex',
               'relative',
@@ -129,7 +131,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             <Dropdown
               className={`
-                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
+                }
           `}
             >
               <NavbarItem
@@ -163,7 +169,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   base: 'gap-4',
                 }}
                 className={`
-                 ${withMember ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}`}
+                 ${
+                   withMember
+                     ? 'bg-light-connect dark:bg-dark-connect'
+                     : 'bg-bg-light dark:bg-bg-dark'
+                 }`}
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
@@ -221,7 +231,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               {session ? (
                 <Dropdown
                   className={`
-                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
+                }
           `}
                 >
                   <NavbarItem>
