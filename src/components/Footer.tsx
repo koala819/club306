@@ -68,11 +68,20 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             Inscrivez-vous à notre newsletter pour suivre nos dernières
             actualitées & remises :
           </p>
-          <div className="flex space-x-4 ml-6">
+          <div className="flex space-x-4 ml-8 ">
             <input />
             <button>S'inscrire</button>
           </div>
-          <div className="mt-32 mb-12">logo peugeot</div>
+          {/* <div className="mt-32 mb-12">logo peugeot</div> */}
+          <picture className="flex justify-center  text-white pr-1  ">
+            <Image
+              src="/images/Logo_AVP2.png"
+              alt="Logo Aventure Peugeot"
+              width={200}
+              height={200}
+              className="mt-12 mb-12"
+            />
+          </picture>
         </div>
 
         <div className=" w-2/6 flex flex-col  items-end">
