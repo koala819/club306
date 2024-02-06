@@ -127,7 +127,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             <Dropdown
               className={`
-                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
+                }
           `}
             >
               <NavbarItem
@@ -161,7 +165,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   base: 'gap-4',
                 }}
                 className={`
-                 ${withMember ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}`}
+                 ${
+                   withMember
+                     ? 'bg-light-connect dark:bg-dark-connect'
+                     : 'bg-bg-light dark:bg-bg-dark'
+                 }`}
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
@@ -219,7 +227,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               {session ? (
                 <Dropdown
                   className={`
-                ${session ? 'bg-light-connect dark:bg-dark-connect' : 'bg-bg-light dark:bg-bg-dark'}
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
+                }
           `}
                 >
                   <NavbarItem>
