@@ -68,10 +68,10 @@ export default function Event() {
     <div>
       <Image
         src="/images/bandeauEvent.png"
-        width={500}
-        height={500}
-        alt="Image en avant du club 306"
-        className="w-screen"
+        width={1920}
+        height={280}
+        alt="Huit Peugeot 306 alignées dans un champ"
+        className="object-cover w-full"
       />
 
       <h1 className="lg:mx-32 text-center xl:text-left mt-10">
@@ -87,7 +87,7 @@ export default function Event() {
           <div key={index} className="">
             {/* container principal */}
             <div
-              className={`flex flex-col xl:flex-row border-t-2 border-gray-500 dark:border-text-dark items-center`}
+              className={`flex flex-col xl:flex-row border-t-2 border-gray dark:border-text-dark items-center`}
             >
               {/* container img + date */}
               <div

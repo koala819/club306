@@ -29,10 +29,8 @@ import { useRouter } from 'next/navigation'
 
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
-import styles from '@/styles/Navbar.module.css'
-
-const blacklogo = '/images/logoClub306.png'
-const whitelogo = '/images/logoClub306_blanc.png'
+const blackLogo = '/images/logoClub306.png'
+const whiteLogo = '/images/logoClub306_blanc.png'
 
 export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -40,15 +38,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState<boolean>(false)
-  const [logo, setLogo] = useState<string>(blacklogo)
+  const [logo, setLogo] = useState<string>(blackLogo)
   const { data: session } = useSession()
 
   const handleSignIn = () => {
     if (
       typeof window !== 'undefined' &&
-      !window.location.pathname.includes('auth/signIn')
+      !window.location.pathname.includes('/login')
     ) {
-      router.push('auth/signIn')
+      router.push('/login')
     }
   }
 
@@ -65,7 +63,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
   useEffect(() => {
     setMounted(true)
-    const initialLogo = theme === 'light' ? blacklogo : whitelogo
+    const initialLogo = theme === 'light' ? blackLogo : whiteLogo
     setLogo(initialLogo)
   }, [theme])
 
@@ -89,7 +87,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           position="sticky"
           classNames={{
             item: [
-              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : ' dark:data-[active=true]:after:bg-text-dark'}`,
+              `${withMember ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark' : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'}`,
               'mt-5',
               'flex',
               'relative',
