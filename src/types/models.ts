@@ -196,6 +196,18 @@ interface ThemeSwitcherProps {
   withMember?: boolean
 }
 
+interface EventsData {
+  dates: string
+  description: string
+  id: number
+  month: number
+  theme?: number
+  title: string
+  year: number
+  img: string
+  place: string
+}
+
 export type {
   ArticleProps,
   ArticlesProps,
@@ -204,17 +216,18 @@ export type {
   CheckoutHelloAsso,
   Color,
   Events,
+  EventsData,
   Finition,
   HelloAssoMember,
   MailPwd,
   Member,
   Model,
+  Navbar306Props,
   PartnerInfoType,
   PersonalInfo,
   SchemaPersonalInfo,
   ThankYouData,
   ThemesEvent,
-  Vehicles,
-  Navbar306Props,
   ThemeSwitcherProps,
+  Vehicles,
 }
