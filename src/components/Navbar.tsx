@@ -136,9 +136,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             >
               <NavbarItem
                 isActive={
-                  path.includes('/club') ||
-                  path.includes('/club/staff') ||
-                  path === '/'
+                  path.includes('/club') || path.includes('/club/staff')
                 }
               >
                 <DropdownTrigger>
@@ -146,8 +144,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                     disableRipple
                     className={` ${
                       path.includes('/club')
-                        ? 'text-base text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark  '
-                        : 'text-base text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark    '
+                        ? 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover'
+                        : 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover'
                     }`}
                     endContent={<FiChevronDown />}
                     radius="sm"
@@ -173,14 +171,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               >
                 <DropdownItem
                   onClick={() => router.push('/club')}
-                  className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark"
+                  className="navbarliensHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
                 >
                   PRÉSENTATION
                 </DropdownItem>
 
                 <DropdownItem
                   onClick={() => router.push('/club/staff')}
-                  className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                  className="navbarliensHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
                 >
                   LE STAFF
                 </DropdownItem>
@@ -258,14 +256,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   >
                     <DropdownItem
                       onClick={() => router.push('/cpanel')}
-                      className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                      className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover"
                     >
                       Mon compte
                     </DropdownItem>
 
                     <DropdownItem
                       onClick={() => handleSignout()}
-                      className="text-principal-light dark:text-text-dark data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light dark:hover:bg-principal-dark dark:hover:text-bg-dark "
+                      className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover"
                     >
                       Déconnexion
                     </DropdownItem>
