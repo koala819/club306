@@ -71,7 +71,17 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     { name: 'LE CLUB', path: '/club' },
     { name: 'DISCORD', path: '#' },
     { name: 'EVENT', path: '/event' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'CONTACT', path: '/contact' },
+    { name: 'CONNEXION', path: '/login' },
+    {
+      name: 'ThemeSwitcher',
+      component: (
+        <ThemeSwitcher
+          onThemeChange={handleThemeChange}
+          withMember={withMember}
+        />
+      ),
+    },
   ]
 
   return (
@@ -80,7 +90,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         <Navbar
           onMenuOpenChange={setIsMenuOpen}
           maxWidth="full"
-          className={`bg-bg-light dark:bg-bg-dark pb-4 ${
+          className={`bg-bg-light dark:bg-bg-dark pb-5 ${
             withMember ? 'bg-light-connect dark:bg-dark-connect' : ''
           }`}
           isBordered={true}
@@ -106,15 +116,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              className="sm:hidden"
+              className="lg:hidden mt-5"
             />
-            <NavbarBrand>
+            <NavbarBrand className="justify-end lg:justify-start">
               <Link href="/" aria-current="page" color="foreground">
                 {
                   <Image
                     src={logo}
                     alt="Club 306 Logo"
-                    className="object-fill mt-3 "
+                    className="object-fill mt-3"
                     width={170}
                     height={50}
                   />
@@ -122,7 +132,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </Link>
             </NavbarBrand>
           </NavbarContent>
-          <NavbarContent className="hidden sm:flex" justify="center">
+
+          <NavbarContent className="hidden lg:flex" justify="center">
             {/* Premier élément avec sous-menu "LE CLUB" et "LE STAFF" */}
 
             <Dropdown
@@ -209,7 +220,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
             <NavbarItem
               isActive={path.includes('/contact')}
-              className="hidden sm:flex"
+              className="hidden lg:flex"
             >
               <Link
                 href="/contact"
@@ -220,7 +231,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </Link>
             </NavbarItem>
           </NavbarContent>
-          <NavbarContent justify="end" className="flex">
+
+          <NavbarContent justify="end" className="hidden lg:flex">
             <NavbarItem>
               {session ? (
                 <Dropdown
@@ -288,12 +300,16 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             </NavbarItem>
           </NavbarContent>
 
-          <NavbarMenu className="mt-8">
+          <NavbarMenu className="mt-4">
             {menuItems.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
-                <Link href={item.path} size="lg">
-                  {item.name}
-                </Link>
+                {item.component ? (
+                  item.component
+                ) : (
+                  <Link href={item.path} size="lg" className="navbarliensHover">
+                    {item.name}
+                  </Link>
+                )}
               </NavbarMenuItem>
             ))}
           </NavbarMenu>

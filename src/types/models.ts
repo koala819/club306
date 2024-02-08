@@ -208,6 +208,15 @@ interface EventsData {
   place: string
 }
 
+interface SchemaBookingEvents {
+  first_name: string
+  last_name: string
+  phone: string
+  email: string
+  checkEngagementClub: boolean | undefined
+  checkPrivacyPolicy: boolean | undefined
+}
+
 export type {
   ArticleProps,
   ArticlesProps,
@@ -225,6 +234,7 @@ export type {
   Navbar306Props,
   PartnerInfoType,
   PersonalInfo,
+  SchemaBookingEvents,
   SchemaPersonalInfo,
   ThankYouData,
   ThemesEvent,

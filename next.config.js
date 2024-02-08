@@ -34,6 +34,7 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
+      'res.cloudinary.com',
       'scontent-cdg4-3.xx.fbcdn.net',
       'pscuk.net',
       'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
