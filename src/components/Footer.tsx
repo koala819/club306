@@ -34,19 +34,19 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             <Link href="https://www.facebook.com/club306france/">
               <BsFacebook
                 size={28}
-                className="hover:fill-red-600 cursor-pointer"
+                className="hover:fill-blue-600 cursor-pointer"
               />
             </Link>
             <Link href="https://www.discord.com/club306france/">
               <IoLogoDiscord
                 size={32}
-                className="hover:fill-red-600 cursor-pointer"
+                className="hover:fill-blue-700 cursor-pointer"
               />
             </Link>
             <Link href="https://www.instagram.com/club306officielfrance/">
               <RiInstagramFill
                 size={32}
-                className="hover:fill-red-600 cursor-pointer"
+                className="hover:fill-blue-400 cursor-pointer"
               />
             </Link>
             <Link href="https://www.youtube.com/club306france/">
@@ -59,16 +59,16 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         </div>
         {/* news letter */}
 
-        <div className=" text-center w-2/6 ">
-          <div className="  text-base font-extrabold mb-4 tracking-wide font-sans ">
+        <div className="  w-2/6 flex-col ">
+          <div className=" text-center text-base font-extrabold mb-4 tracking-wide font-sans ">
             Rejoins nous dans l'aventure Peugeot 306 !
           </div>
 
-          <p className="text-sm mb-2 ">
+          <p className="text-sm mb-2 text-center">
             Inscrivez-vous à notre newsletter pour suivre nos dernières
             actualitées & remises :
           </p>
-          <div className="flex space-x-4 ml-8 ">
+          <div className="flex space-x-4 justify-center ">
             <input />
             <button>S'inscrire</button>
           </div>
@@ -84,7 +84,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           </picture>
         </div>
 
-        <div className=" w-2/6 flex flex-col  items-end">
+        <div className=" w-2/6 flex flex-col  items-end ">
           <div className="mr-4">
             <div className="  text-sm font-extrabold mb-4 ">Informations :</div>
             <ul className="list-disc space-y-2 ml-4 ">
