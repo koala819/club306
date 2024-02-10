@@ -170,5 +170,5 @@ h2 {
 }
 
 p {
-  @apply mx-auto text-lg;
+  @apply mx-auto text-base;
 }

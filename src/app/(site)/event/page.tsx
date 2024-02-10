@@ -92,13 +92,11 @@ export default function Event() {
 
               const monthIndex = event.month - 1
               const month = months[monthIndex]
-              console.log(month)
 
               dateToDisplay = `${month} ${event.dates}`
             } else {
               dateToDisplay = event.dates
             }
-            console.log(dateToDisplay)
 
             return (
               <div key={index} className="">

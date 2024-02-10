@@ -211,10 +211,14 @@ interface EventsData {
 interface SchemaBookingEvents {
   first_name: string
   last_name: string
-  phone: string
   email: string
-  checkEngagementClub: boolean | undefined
-  checkPrivacyPolicy: boolean | undefined
+  checkEngagementClub: boolean
+  checkPrivacyPolicy: boolean
+}
+
+interface MemberEventRegistration {
+  emailMember?: string
+  pwdMember?: string
 }
 
 export type {
@@ -230,6 +234,7 @@ export type {
   HelloAssoMember,
   MailPwd,
   Member,
+  MemberEventRegistration,
   Model,
   Navbar306Props,
   PartnerInfoType,
