@@ -20,7 +20,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           : 'bg-[#707070] dark:bg-[#6a6145]'
       }`}
     >
-      <div className="flex ">
+      <div className="flex place-self-auto ">
         <div className="w-2/6 ml-4">
           <div className="  text-base font-extrabold mb-4 tracking-wide font-sans ">
             Restons en contact !
@@ -59,7 +59,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         </div>
         {/* news letter */}
 
-        <div className="  w-2/6 flex-col ">
+        <div className="  w-2/6 flex-col justify-center ">
           <div className=" text-center text-base font-extrabold mb-4 tracking-wide font-sans ">
             Rejoins nous dans l'aventure Peugeot 306 !
           </div>
