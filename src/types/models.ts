@@ -192,7 +192,6 @@ interface Navbar306Props {
 }
 
 interface ThemeSwitcherProps {
-  onThemeChange: (newTheme: string) => void
   withMember?: boolean
 }
 

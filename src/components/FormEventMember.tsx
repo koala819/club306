@@ -45,10 +45,13 @@ export const FormEventMember = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(verifInfo)}>
-      <div className="mt-8 grid h-full grid-cols-6 gap-6 px-2">
+    <form
+      onSubmit={handleSubmit(verifInfo)}
+      className="border-x-2 border-b-2 border-t-0 border-principal-light bg-white"
+    >
+      <div className=" h-full px-2 mx-10 pt-8">
         {/* EMAIL */}
-        <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
+        <div className="relative z-0">
           <input
             type="email"
             id="email"
@@ -73,8 +76,8 @@ export const FormEventMember = () => {
         </div>
 
         {/* PASSWORD */}
-        <div className="mt-4">
-          <div className="flex justify-between">
+        <div className="mt-8 ">
+          <div className="">
             <label
               htmlFor="pwd"
               className={`${'block  text-sm font-bold mb-2'} ${
@@ -128,10 +131,10 @@ export const FormEventMember = () => {
           </div>
 
           {/* SUBMIT BUTTON */}
-          <div className="flex justify-center col-span-6 mt-8">
+          <div className="flex justify-center m-10">
             <button
               type="submit"
-              className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+              className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarliensHover border-principal-light border-2 font-bold"
             >
               Continuer
             </button>
