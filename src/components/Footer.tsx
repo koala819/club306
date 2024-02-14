@@ -20,17 +20,17 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           : 'bg-[#707070] dark:bg-[#6a6145]'
       }`}
     >
-      <div className="flex place-self-auto ">
-        <div className="w-2/6 ml-4">
-          <div className="  text-base font-extrabold mb-4 tracking-wide font-sans ">
+      <div className="flex-col  flex lg:flex-row justify-between  place self-auto items-center lg:items-start ">
+        <div className="lg:w-1/3 w-full ml-4 items-center  ">
+          <div className="  text-base font-extrabold mb-4 tracking-wide font-sans text-center lg:text-left">
             Restons en contact !
           </div>
 
-          <p className="text-sm mb-2 ">
+          <p className="text-sm mb-2 lg:w-2/3  flex items-center text-center lg:text-start ">
             Retrouvez-nous sur l&apos;une de ces plateformes, nous répondons
             sous 1 à 2 jours ouvrables.
           </p>
-          <div className=" flex mt-6 space-x-4">
+          <div className=" flex mt-6 space-x-4 justify-center lg:justify-start">
             <Link href="https://www.facebook.com/club306france/">
               <BsFacebook
                 size={28}
@@ -59,7 +59,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         </div>
         {/* news letter */}
 
-        <div className="  w-2/6 flex-col justify-center ">
+        <div className="  w-1/3 flex flex-col justify-center ">
           <div className=" text-center text-base font-extrabold mb-4 tracking-wide font-sans ">
             Rejoins nous dans l'aventure Peugeot 306 !
           </div>
@@ -84,9 +84,11 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           </picture>
         </div>
 
-        <div className=" w-2/6 flex flex-col  items-end ">
+        <div className=" w-1/3 flex flex-col  items-end ">
           <div className="mr-4">
-            <div className="  text-sm font-extrabold mb-4 ">Informations :</div>
+            <div className="  text-sm font-extrabold mb-4 text-center lg:text-start">
+              Informations :
+            </div>
             <ul className="list-disc space-y-2 ml-4 ">
               <li>
                 <Link href="/rules" className="hover:text-red-600 text-sm">
