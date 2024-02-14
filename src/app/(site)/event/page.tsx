@@ -1,6 +1,5 @@
 'use client'
 
-// bg-blue-500 sm:bg-red-400 md:bg-green-400 lg:bg-yellow-500 xl:bg-orange-500 2xl:border-l-cyan-600
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import 'react-vertical-timeline-component/style.min.css'
@@ -14,14 +13,16 @@ import { EventsData } from '@/types/models'
 import { getAllEvents } from '@/lib/events'
 
 export default function Event() {
-  const { data: session } = useSession()
-  const router = useRouter()
-  const { resolvedTheme } = useTheme()
-  const { theme, setTheme } = useTheme()
   const blackLogo = '/images/logoClub306.png'
   const whiteLogo = '/images/logoClub306_blanc.png'
-  const currentYear = new Date().getFullYear
+
+  const { data: session } = useSession()
+  const router = useRouter()
+  const { theme } = useTheme()
   const [events, setEvents] = useState<EventsData[]>([])
+  const [isHoveredArray, setIsHoveredArray] = useState<boolean[]>(
+    Array(events.length).fill(false),
+  )
 
   const eventRegister = () => {
     if (
@@ -29,6 +30,15 @@ export default function Event() {
       !window.location.pathname.includes('/eventsRegistration')
     ) {
       router.push('/eventsRegistration')
+    }
+  }
+
+  const membership = () => {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/membership')
+    ) {
+      router.push('/membership')
     }
   }
 
@@ -41,6 +51,20 @@ export default function Event() {
     }
     fetch()
   }, [])
+
+  const handleButtonHover = (index: number) => {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = true
+    setIsHoveredArray(updatedHoveredArray)
+  }
+
+  const handleButtonLeave = (index: number) => {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = false
+    setIsHoveredArray(updatedHoveredArray)
+  }
+
+  console.log(theme)
 
   return (
     <div>
@@ -102,7 +126,7 @@ export default function Event() {
               <div key={index} className="">
                 {/* container principal */}
                 <div
-                  className={`flex flex-col xl:flex-row border-t-2 border-gray dark:border-text-dark items-center`}
+                  className={`flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center`}
                 >
                   {/* container img + date */}
                   <div
@@ -134,14 +158,47 @@ export default function Event() {
                     </p>
                   </div>
                   {/* container btn */}
-                  <div className="flex items-center justify-center xl:m-5 my-10">
-                    <button
-                      onClick={eventRegister}
-                      className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
-              dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
-                    >
-                      Réserver ma place
-                    </button>
+                  <div className="flex-col items-center justify-center relative xl:m-5 my-10">
+                    {session ? (
+                      <button
+                        className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
+                        onClick={eventRegister}
+                      >
+                        Réserver ma place
+                      </button>
+                    ) : (
+                      <button
+                        className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
+                        dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
+                        onMouseEnter={() => handleButtonHover(index)}
+                        onMouseLeave={() => handleButtonLeave(index)}
+                        onClick={eventRegister}
+                      >
+                        Réserver ma place
+                        {isHoveredArray[index] && (
+                          <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md">
+                            <p className="text-principal-light font-bold p-4">
+                              Je suis déjà membre
+                            </p>
+                            <button
+                              className="w-1/2 mb-1 rounded py-2 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
+                              onClick={eventRegister}
+                            >
+                              Connexion
+                            </button>
+                            <p className="text-principal-light font-bold p-4">
+                              Sinon devenez membre
+                            </p>
+                            <button
+                              className="w-1/2 rounded py-2 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
+                              onClick={membership}
+                            >
+                              S'inscrire
+                            </button>
+                          </div>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

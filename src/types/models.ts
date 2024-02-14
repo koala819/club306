@@ -215,9 +215,9 @@ interface SchemaBookingEvents {
   checkPrivacyPolicy: boolean
 }
 
-interface MemberEventRegistration {
-  emailMember?: string
-  pwdMember?: string
+interface ConnectEvents {
+  email?: string
+  pwd?: string
 }
 
 export type {
@@ -233,7 +233,7 @@ export type {
   HelloAssoMember,
   MailPwd,
   Member,
-  MemberEventRegistration,
+  ConnectEvents,
   Model,
   Navbar306Props,
   PartnerInfoType,
