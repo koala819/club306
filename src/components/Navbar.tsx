@@ -26,10 +26,9 @@ import { useRouter } from 'next/navigation'
 
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
+import blackLogo from '@../../public/images/logoClub306.png'
+import whiteLogo from '@../../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
-
-const blackLogo = '/images/logoClub306.png'
-const whiteLogo = '/images/logoClub306_blanc.png'
 
 export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -107,7 +106,6 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           <Link href="/" aria-current="page" color="foreground">
             <Image
               src={theme === 'light' ? blackLogo : whiteLogo}
-              // src={logo}
               alt="Club 306 Logo"
               className="object-fill mt-3"
               width={170}
@@ -137,8 +135,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 disableRipple
                 className={` ${
                   path.includes('/club')
-                    ? 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover'
-                    : 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover'
+                    ? 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover'
+                    : 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover'
                 }`}
                 endContent={<FiChevronDown />}
                 radius="sm"
@@ -164,14 +162,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           >
             <DropdownItem
               onClick={() => router.push('/club')}
-              className="navbarliensHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
+              className="navbarlinkHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
             >
               PRÉSENTATION
             </DropdownItem>
 
             <DropdownItem
               onClick={() => router.push('/club/staff')}
-              className="navbarliensHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
+              className="navbarlinkHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
             >
               LE STAFF
             </DropdownItem>
@@ -181,7 +179,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Deuxième élément de la barre de navigation */}
 
         <NavbarItem isActive={path.includes('#')}>
-          <Link href="#" aria-current="page" className="navbarliensHover">
+          <Link href="#" aria-current="page" className="navbarlinkHover">
             DISCORD
           </Link>
         </NavbarItem>
@@ -189,7 +187,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Troisième élément de la barre de navigation */}
 
         <NavbarItem isActive={path.includes('/event')}>
-          <Link href="/event" aria-current="page" className="navbarliensHover">
+          <Link href="/event" aria-current="page" className="navbarlinkHover">
             EVENT
           </Link>
         </NavbarItem>
@@ -200,11 +198,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           isActive={path.includes('/contact')}
           className="hidden lg:flex"
         >
-          <Link
-            href="/contact"
-            aria-current="page"
-            className="navbarliensHover"
-          >
+          <Link href="/contact" aria-current="page" className="navbarlinkHover">
             CONTACT
           </Link>
         </NavbarItem>
@@ -246,14 +240,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               >
                 <DropdownItem
                   onClick={() => router.push('/cpanel')}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
                 >
                   Mon compte
                 </DropdownItem>
 
                 <DropdownItem
                   onClick={() => handleSignout()}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarliensHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
                 >
                   Déconnexion
                 </DropdownItem>
@@ -284,7 +278,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             {item.component ? (
               item.component
             ) : (
-              <Link href={item.path} size="lg" className="navbarliensHover">
+              <Link href={item.path} size="lg" className="navbarlinkHover">
                 {item.name}
               </Link>
             )}

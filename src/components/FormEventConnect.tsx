@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 
 import { ConnectEvents } from '@/types/models'
 
+import { FormEventConfirm } from './FormEventConfirm'
+
 import { sendConfirmationMail } from '@/lib/mail/utils'
 import { returnMemberInfo } from '@/lib/supabase'
 import { checkEmptyToken, memberInfo } from '@/lib/token/utils'
@@ -102,7 +104,7 @@ export const FormEventConnect = ({ userMail }: { userMail: string }) => {
   if (session) {
     return (
       <div className="text-center">
-        <h1>Votre place a bien était réservé {name} et a bientot ! </h1>
+        <FormEventConfirm userMail={userMail} />
       </div>
     )
   }
@@ -181,9 +183,9 @@ export const FormEventConnect = ({ userMail }: { userMail: string }) => {
           <div className="flex justify-center m-10">
             <button
               type="submit"
-              className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarliensHover border-principal-light border-2 font-bold"
+              className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold"
             >
-              Continuer
+              Se connecter
             </button>
           </div>
 

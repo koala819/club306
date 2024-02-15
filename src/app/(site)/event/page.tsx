@@ -10,12 +10,11 @@ import { useRouter } from 'next/navigation'
 
 import { EventsData } from '@/types/models'
 
+import blackLogo from '@../../public/images/logoClub306.png'
+import whiteLogo from '@../../public/images/logoClub306_blanc.png'
 import { getAllEvents } from '@/lib/events'
 
 export default function Event() {
-  const blackLogo = '/images/logoClub306.png'
-  const whiteLogo = '/images/logoClub306_blanc.png'
-
   const { data: session } = useSession()
   const router = useRouter()
   const { theme } = useTheme()
@@ -63,8 +62,6 @@ export default function Event() {
     updatedHoveredArray[index] = false
     setIsHoveredArray(updatedHoveredArray)
   }
-
-  console.log(theme)
 
   return (
     <div>
@@ -123,15 +120,11 @@ export default function Event() {
             }
 
             return (
-              <div key={index} className="">
+              <div key={index}>
                 {/* container principal */}
-                <div
-                  className={`flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center`}
-                >
+                <div className="flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center">
                   {/* container img + date */}
-                  <div
-                    className={`w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0`}
-                  >
+                  <div className="w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0">
                     <Image
                       src={
                         event.img || (theme === 'light' ? blackLogo : whiteLogo)
@@ -146,9 +139,7 @@ export default function Event() {
                     </p>
                   </div>
                   {/* container info */}
-                  <div
-                    className={`w-full xl:w-3/4 p-4 flex-col justify-center`}
-                  >
+                  <div className="w-full xl:w-3/4 p-4 flex-col justify-center">
                     <h2 className="text-center xl:text-left">{event.title}</h2>
                     <p className="text-center xl:text-left text-gray-500">
                       {event.place}
@@ -172,7 +163,6 @@ export default function Event() {
                         dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
                         onMouseEnter={() => handleButtonHover(index)}
                         onMouseLeave={() => handleButtonLeave(index)}
-                        onClick={eventRegister}
                       >
                         Réserver ma place
                         {isHoveredArray[index] && (

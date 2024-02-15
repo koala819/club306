@@ -1,15 +1,15 @@
 'use client'
 
-// src/components/menbreship/PersonalInfos.tsx
 import { useSession } from 'next-auth/react'
 
 import Image from 'next/image'
 
 import { FormEventConnect } from '@/components/FormEventConnect'
 
-export default function ToBook() {
+export default function EventsRegistration() {
   const { data: session } = useSession()
   const userMail = session?.user?.email || ''
+
   return (
     // Container Principal
     <div className="flex items-center justify-around py-20">
@@ -36,9 +36,9 @@ export default function ToBook() {
           Bienvenue sur la page de réservation d'événement du Club 306,
           l'endroit où chaque passionné de la route peut réserver sa place pour
           les moments inoubliables à venir ! Si vous êtes déjà membre,
-          connectez-vous à votre compte. Pour nos nouveaux amis, merci d'adhéré
-          au club. Rejoignez-nous sur la route et réservez dès maintenant votre
-          place pour l'excitation à venir au Club 306 !
+          connectez-vous à votre compte. Pour nos nouveaux ami(e)s, merci
+          d'adhéré au club. Rejoignez-nous sur la route et réservez dès
+          maintenant votre place pour l'excitation à venir au Club 306 !
         </p>
       </div>
     </div>
