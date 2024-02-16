@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import 'react-vertical-timeline-component/style.min.css'
 
-import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -12,6 +11,7 @@ import { EventsData } from '@/types/models'
 
 import blackLogo from '@../../public/images/logoClub306.png'
 import whiteLogo from '@../../public/images/logoClub306_blanc.png'
+import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 
 export default function Event() {

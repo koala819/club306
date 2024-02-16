@@ -1,11 +1,13 @@
-'use client';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+'use client'
+
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function Contact() {
-  const [confirmationSend, setConfirmationSend] = useState<boolean>(false);
+  const [confirmationSend, setConfirmationSend] = useState<boolean>(false)
 
   const schema = yup.object().shape({
     email: yup
@@ -13,12 +15,12 @@ export default function Contact() {
       .required("L'e-mail est obligatoire")
       .matches(
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        "L'e-mail n'est pas valide"
+        "L'e-mail n'est pas valide",
       ),
 
     first_name: yup.string().required('Veuillez saisir votre nom'),
     msg: yup.string().required('Veuillez saisir votre message'),
-  });
+  })
 
   const {
     register,
@@ -26,36 +28,36 @@ export default function Contact() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  });
+  })
 
   async function handleSendMail(values: any) {
-    console.log('ready to send mail with values', values);
+    console.log('ready to send mail with values', values)
     const data = {
       firstName: values.first_name,
       email: values.email,
       message: values.msg,
       from: 'contact',
-    };
+    }
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    };
+    }
 
     fetch(`${process.env.CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
-        console.log('response or Not', response);
-        response.status === 200 && console.log('Send mail with SUCCESS :)');
-        setConfirmationSend(true);
+        console.log('response or Not', response)
+        response.status === 200 && console.log('Send mail with SUCCESS :)')
+        setConfirmationSend(true)
       })
       .catch((error: any) => {
-        console.log('ERROR to send the mail in contact.tsx', error);
-      });
+        console.log('ERROR to send the mail in contact.tsx', error)
+      })
   }
 
   return (
-    <div className="flex justify-center h-full">
+    <div className="flex justify-center h-full my-10">
       <div
         className="hidden md:block h-full bg-cover w-2/3"
         style={{
@@ -171,5 +173,5 @@ export default function Contact() {
         )}
       </div>
     </div>
-  );
+  )
 }
