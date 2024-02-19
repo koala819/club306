@@ -91,7 +91,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           </p>
           <form
             id="newsletter"
-            className=" flex lg:flex-row lg:space-x-2 justify-center flex-col text-black"
+            className=" flex lg:flex-row lg:space-x-2 justify-center flex-col text-[#174191]"
           >
             <input
               type="email"
@@ -194,7 +194,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           <Link
             href="https://www.linkedin.com/in/stevens-ramos-b188b4290/"
             target="_blank"
-            className="ml-1 mr-1 hover:underline"
+            className="ml-1 mr-1 hover:underline hover:text-[#174191]"
           >
             Stevens
           </Link>{' '}
@@ -202,7 +202,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           <Link
             href="https://www.linkedin.com/in/mehdi-a-116569290/"
             target="_blank"
-            className="ml-1 hover:underline"
+            className="ml-1 hover:underline hover:text-[#174191]"
           >
             {' '}
             Mehdi
