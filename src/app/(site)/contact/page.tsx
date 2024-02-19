@@ -57,9 +57,9 @@ export default function Contact() {
   }
 
   return (
-    <div className="flex justify-center h-full my-10">
+    <div className="flex justify-center h-full">
       <div
-        className="hidden md:block h-full bg-cover w-2/3"
+        className="md:block bg-cover w-2/3 "
         style={{
           backgroundImage:
             'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
@@ -68,9 +68,9 @@ export default function Contact() {
 
       <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-gray-800 dark:text-gray-100">
         {!confirmationSend && (
-          <div className="w-11/12">
+          <div className="w-11/12 mt-10">
             <form onSubmit={handleSubmit(handleSendMail)}>
-              <p className="leading-relaxed mb-5 ">
+              <p className="leading-relaxed mb-10 ">
                 Une question concernant l&apos;adhésion ? un évènement ? un bon
                 plan à partager? Passer une vitesse, déposer un message et
                 accélérer jusqu&apos;à cliquer sur Envoyer
@@ -156,7 +156,7 @@ export default function Contact() {
 
               <div className="flex justify-center items-center">
                 <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
+                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg mb-10"
                   type="submit"
                 >
                   Envoyer

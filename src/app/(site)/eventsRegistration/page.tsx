@@ -31,7 +31,7 @@ export default function EventsRegistration() {
 
       {/* Container Paragraphe */}
       <div className="text-center w-1/2 p-8 pl-0 z-10">
-        <h1 className="p-8 text-text-dark">Réserver ma place a un événement</h1>
+        <h1 className="p-8 text-text-dark">Réserver ma place à un événement</h1>
         <p className="leading-9 text-text-dark">
           Bienvenue sur la page de réservation d'événement du Club 306,
           l'endroit où chaque passionné de la route peut réserver sa place pour
