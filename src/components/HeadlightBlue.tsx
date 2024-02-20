@@ -1,8 +1,8 @@
 export const HeadlightBlue = ({ color }: { color: string }) => {
   return (
     <svg
-      width="36.5"
-      height="27"
+      width="30"
+      height="25"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"

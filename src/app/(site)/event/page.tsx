@@ -1,27 +1,27 @@
 'use client'
 
-// bg-blue-500 sm:bg-red-400 md:bg-green-400 lg:bg-yellow-500 xl:bg-orange-500 2xl:border-l-cyan-600
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import 'react-vertical-timeline-component/style.min.css'
 
-import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { EventsData } from '@/types/models'
 
+import blackLogo from '@../../public/images/logoClub306.png'
+import whiteLogo from '@../../public/images/logoClub306_blanc.png'
+import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 
 export default function Event() {
   const { data: session } = useSession()
   const router = useRouter()
-  const { resolvedTheme } = useTheme()
-  const { theme, setTheme } = useTheme()
-  const blackLogo = '/images/logoClub306.png'
-  const whiteLogo = '/images/logoClub306_blanc.png'
-  const currentYear = new Date().getFullYear
+  const { theme } = useTheme()
   const [events, setEvents] = useState<EventsData[]>([])
+  const [isHoveredArray, setIsHoveredArray] = useState<boolean[]>(
+    Array(events.length).fill(false),
+  )
 
   const eventRegister = () => {
     if (
@@ -29,6 +29,15 @@ export default function Event() {
       !window.location.pathname.includes('/eventsRegistration')
     ) {
       router.push('/eventsRegistration')
+    }
+  }
+
+  const membership = () => {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/membership')
+    ) {
+      router.push('/membership')
     }
   }
 
@@ -41,6 +50,18 @@ export default function Event() {
     }
     fetch()
   }, [])
+
+  const handleButtonHover = (index: number) => {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = true
+    setIsHoveredArray(updatedHoveredArray)
+  }
+
+  const handleButtonLeave = (index: number) => {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = false
+    setIsHoveredArray(updatedHoveredArray)
+  }
 
   return (
     <div>
@@ -92,24 +113,18 @@ export default function Event() {
 
               const monthIndex = event.month - 1
               const month = months[monthIndex]
-              console.log(month)
 
               dateToDisplay = `${month} ${event.dates}`
             } else {
               dateToDisplay = event.dates
             }
-            console.log(dateToDisplay)
 
             return (
-              <div key={index} className="">
+              <div key={index}>
                 {/* container principal */}
-                <div
-                  className={`flex flex-col xl:flex-row border-t-2 border-gray dark:border-text-dark items-center`}
-                >
+                <div className="flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center">
                   {/* container img + date */}
-                  <div
-                    className={`w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0`}
-                  >
+                  <div className="w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0">
                     <Image
                       src={
                         event.img || (theme === 'light' ? blackLogo : whiteLogo)
@@ -124,9 +139,7 @@ export default function Event() {
                     </p>
                   </div>
                   {/* container info */}
-                  <div
-                    className={`w-full xl:w-3/4 p-4 flex-col justify-center`}
-                  >
+                  <div className="w-full xl:w-3/4 p-4 flex-col justify-center">
                     <h2 className="text-center xl:text-left">{event.title}</h2>
                     <p className="text-center xl:text-left text-gray-500">
                       {event.place}
@@ -136,14 +149,46 @@ export default function Event() {
                     </p>
                   </div>
                   {/* container btn */}
-                  <div className="flex items-center justify-center xl:m-5 my-10">
-                    <button
-                      onClick={eventRegister}
-                      className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
-              dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
-                    >
-                      Réserver ma place
-                    </button>
+                  <div className="flex-col items-center justify-center relative xl:m-5 my-10">
+                    {session ? (
+                      <button
+                        className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
+                        onClick={eventRegister}
+                      >
+                        Réserver ma place
+                      </button>
+                    ) : (
+                      <button
+                        className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2
+                        dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
+                        onMouseEnter={() => handleButtonHover(index)}
+                        onMouseLeave={() => handleButtonLeave(index)}
+                      >
+                        Réserver ma place
+                        {isHoveredArray[index] && (
+                          <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md">
+                            <p className="text-principal-light font-bold p-4">
+                              Je suis déjà membre
+                            </p>
+                            <button
+                              className="w-1/2 mb-1 rounded py-2 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
+                              onClick={eventRegister}
+                            >
+                              Connexion
+                            </button>
+                            <p className="text-principal-light font-bold p-4">
+                              Sinon devenez membre
+                            </p>
+                            <button
+                              className="w-1/2 rounded py-2 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark"
+                              onClick={membership}
+                            >
+                              S'inscrire
+                            </button>
+                          </div>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

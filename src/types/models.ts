@@ -192,7 +192,6 @@ interface Navbar306Props {
 }
 
 interface ThemeSwitcherProps {
-  onThemeChange: (newTheme: string) => void
   withMember?: boolean
 }
 
@@ -211,10 +210,14 @@ interface EventsData {
 interface SchemaBookingEvents {
   first_name: string
   last_name: string
-  phone: string
   email: string
-  checkEngagementClub: boolean | undefined
-  checkPrivacyPolicy: boolean | undefined
+  checkEngagementClub: boolean
+  checkPrivacyPolicy: boolean
+}
+
+interface ConnectEvents {
+  email?: string
+  pwd?: string
 }
 
 export type {
@@ -230,6 +233,7 @@ export type {
   HelloAssoMember,
   MailPwd,
   Member,
+  ConnectEvents,
   Model,
   Navbar306Props,
   PartnerInfoType,

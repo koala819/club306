@@ -1,43 +1,54 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-
-import { useTheme } from 'next-themes'
-
 import { ThemeSwitcherProps } from '@/types/models'
 
 import { HeadlightBlue } from './HeadlightBlue'
 import { HeadlightGreen } from './HeadlightGreen'
 
-export function ThemeSwitcher({
-  onThemeChange,
-  withMember,
-}: ThemeSwitcherProps) {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+import { useTheme } from '@/context/ThemeContext'
 
-  useEffect(() => setMounted(true), [])
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
-    onThemeChange(newTheme)
-  }
+export function ThemeSwitcher({ withMember }: ThemeSwitcherProps) {
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <button
       onClick={toggleTheme}
       className={
-        mounted && theme === 'light'
-          ? `rounded-lg border-3 border-gray  ${withMember ? ' border-bg-gray-400 hover:border-principal-light' : ' hover:bg-bg-light hover:border-principal-light'}`
-          : `rounded-lg border-black-900 border-3 ${withMember ? 'bg-bg-dark hover:border-green' : ' hover:bg-bg-dark hover:border-green'}`
+        theme === 'light'
+          ? `rounded-full border-3 border-gray-600 p-0.5 flex justify-center items-center h-3/5 ${
+              withMember
+                ? ' border-gray hover:border-principal-light bg-gray'
+                : ' hover:bg-bg-light hover:border-principal-light'
+            }`
+          : `rounded-full border-3 border-black-900 p-0.5 flex justify-center items-center h-3/5  ${
+              withMember
+                ? 'bg-bg-dark hover:border-green'
+                : ' hover:bg-bg-dark hover:border-green'
+            }`
       }
     >
-      {mounted && theme === 'light' ? (
-        <HeadlightBlue color="Blue" />
+      <div className="flex items-center relative">
+        <div className={theme === 'light' ? 'opacity-100' : 'opacity-0'}>
+          <HeadlightBlue color="Blue" />
+        </div>
+
+        <div className={theme === 'dark' ? 'opacity-100 ' : 'opacity-0'}>
+          <HeadlightGreen color="green" />
+        </div>
+
+        <div
+          className={
+            theme === 'light'
+              ? 'bg-principal-light w-7 h-7 rounded-full absolute right-0'
+              : 'bg-principal-dark w-7 h-7 rounded-full ml-px absolute left-0'
+          }
+        />
+      </div>
+      {/* {theme === 'light' ? (
+        
       ) : (
-        <HeadlightGreen color="green" />
-      )}
+         
+      )} */}
     </button>
   )
 }
