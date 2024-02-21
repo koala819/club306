@@ -1,11 +1,14 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { VscGithub } from 'react-icons/vsc';
-import { BsLinkedin, BsYoutube } from 'react-icons/bs';
-import { IoMdMailOpen } from 'react-icons/io';
-import { CardStaffProps } from '@/types/models';
+'use client'
+
+import React from 'react'
+import { BsLinkedin, BsYoutube } from 'react-icons/bs'
+import { IoMdMailOpen } from 'react-icons/io'
+import { VscGithub } from 'react-icons/vsc'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { CardStaffProps } from '@/types/models'
 
 export const CardStaff = ({
   picture,
@@ -22,7 +25,7 @@ export const CardStaff = ({
   youtube,
 }: CardStaffProps) => {
   return (
-    <section className=" rounded-lg mb-8 bg-slate-200 dark:bg-gray-800">
+    <section className=" rounded-lg mb-8 bg-slate-200 dark:bg-bg-dark">
       <div className="grid place-items-center text-sm">
         <div className="max-w-full flex justify-center">
           <div className="text-center relative">
@@ -129,5 +132,5 @@ export const CardStaff = ({
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

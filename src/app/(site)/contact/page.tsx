@@ -156,7 +156,7 @@ export default function Contact() {
 
               <div className="flex justify-center items-center">
                 <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg mb-10"
+                  className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg mb-10 bg-principal-light text-text-dark dark:bg-principal-dark dark:text-bg-dark"
                   type="submit"
                 >
                   Envoyer

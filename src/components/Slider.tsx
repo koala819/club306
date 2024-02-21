@@ -1,19 +1,21 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import styles from '@/styles/Slider.module.css';
-import { PartnerInfoType } from '@/types/models';
-import { ourPartners } from '@/lib/supabase';
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { Slide } from 'react-slideshow-image'
+import 'react-slideshow-image/dist/styles.css'
+
+import Image from 'next/image'
+
+import { PartnerInfoType } from '@/types/models'
+
+import { ourPartners } from '@/lib/supabase'
+import styles from '@/styles/Slider.module.css'
 
 export const Slider = ({ session }: { session: any }) => {
-  const [registredMember, setRegistredMember] = useState(false);
-  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
-    null
-  );
-  const [showCode, setShowCode] = useState<boolean>(false);
-  const [selectedTitle, setSelectedTitle] = useState<string>('');
+  const [registredMember, setRegistredMember] = useState(false)
+  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(null)
+  const [showCode, setShowCode] = useState<boolean>(false)
+  const [selectedTitle, setSelectedTitle] = useState<string>('')
   const responsiveSettings = [
     {
       breakpoint: 1024,
@@ -39,15 +41,15 @@ export const Slider = ({ session }: { session: any }) => {
         slidesToScroll: 1,
       },
     },
-  ];
+  ]
 
   useEffect(() => {
     if (session) {
-      setRegistredMember(true);
+      setRegistredMember(true)
     }
     const fetchData = async () => {
       try {
-        const response = await ourPartners();
+        const response = await ourPartners()
         if (response.data !== null) {
           const formattedData = response.data.map(
             (item: { [x: string]: any }) => {
@@ -59,22 +61,22 @@ export const Slider = ({ session }: { session: any }) => {
                 remise: item.remise,
                 site: item.site,
                 alt: item.alt,
-              };
-            }
-          );
-          setPartnerData(formattedData);
+              }
+            },
+          )
+          setPartnerData(formattedData)
         }
-        return response.data;
+        return response.data
       } catch (error) {
-        console.error('Error to get data from partners : ', error);
+        console.error('Error to get data from partners : ', error)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   function displayPresent(title: string) {
-    setShowCode(true);
-    setSelectedTitle(title);
+    setShowCode(true)
+    setSelectedTitle(title)
   }
 
   return (
@@ -114,7 +116,7 @@ export const Slider = ({ session }: { session: any }) => {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
+                  className="w-full bg-principal-light text-text-dark hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
                   onClick={() => displayPresent(partner.title || '')}
                 >
                   <svg
@@ -150,5 +152,5 @@ export const Slider = ({ session }: { session: any }) => {
         </Slide>
       )}
     </div>
-  );
-};
+  )
+}

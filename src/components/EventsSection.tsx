@@ -96,8 +96,10 @@ export const EventsSection = () => {
 
   return (
     <section className="container mx-auto px-5">
-      <h1 className="mb-8 mt-14">Les prochains événements</h1>
-      <p className="mb-8">
+      <h1 className="mb-8 mt-14 xl:text-left text-center">
+        Les prochains événements
+      </h1>
+      <p className="mb-8 w-full mx-0 xl:text-left text-center">
         Rejoignez-nous pour vivre des moments passionnants, connectez-vous avec
         d'autres amateurs de voitures et participez à des expériences
         inoubliables sur la route et au-delà !
@@ -151,8 +153,8 @@ export const EventsSection = () => {
                       event.img || (theme === 'light' ? blackLogo : whiteLogo)
                     }
                     alt={event.title}
-                    height={256}
-                    width={256}
+                    height={156}
+                    width={156}
                     className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"
                   />
                   <p className="flex justify-center pt-4 text-xl text-center font-semibold">
