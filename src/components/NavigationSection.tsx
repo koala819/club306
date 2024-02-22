@@ -5,11 +5,11 @@ import Link from 'next/link'
 
 export const NavigationSection = () => {
   return (
-    <div className="container mx-auto flex my-24">
+    <div className="container mx-auto flex flex-col lg:flex-row my-24">
       {/* Div gauche */}
       <div className="w-1/2 relative mr-1">
         <Link href="/event">
-          <div className="w-full h-full absolute inset-0 bg-black opacity-50"></div>{' '}
+          <div className="w-full h-full absolute inset-0 bg-black opacity-50"></div>
           {/* Voile noir opaque */}
           <Image
             src="/images/homePageArticle2.jpg"
@@ -34,7 +34,7 @@ export const NavigationSection = () => {
       {/* Div droit */}
       <div className="w-1/2 ml-1">
         {/* Div haut */}
-        <Link href="/page2">
+        <Link href="/blog">
           <div className="relative h-72 mb-2">
             <div className="w-full h-full absolute inset-0 bg-black opacity-50"></div>{' '}
             {/* Voile noir opaque */}
@@ -56,7 +56,7 @@ export const NavigationSection = () => {
         </Link>
 
         {/* Div bas */}
-        <Link href="/page3">
+        <Link href="/photosVideos">
           <div className="relative h-72 ">
             <div className="w-full h-full absolute inset-0 bg-black opacity-50"></div>{' '}
             {/* Voile noir opaque */}

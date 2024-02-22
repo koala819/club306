@@ -7,18 +7,23 @@ import { useInView } from 'react-intersection-observer'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import presentationPicture from '@/../../public/images/PeugeotPresentation.svg'
+import { CercleLion } from './PeugeotPresentation'
+
+import presentationPicture from '@/../../public/images/306Rouges16.svg'
+import { useTheme } from '@/context/ThemeContext'
 
 export const Presentation = () => {
+  const { theme } = useTheme()
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
   })
+
   const renderContent = () => {
     return (
-      <section className="w-full h-full items-center justify-center pb-4 dark:bg-gray-800">
-        <div className="container mx-auto flex px-5 py-16 md:flex-row flex-col items-center ">
-          <div className="lg:flex-grow w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+      <section className="min-h-screen flex flex-col justify-between dark:bg-gray-800">
+        <div className="container my-auto mx-auto flex px-5 lg:flex-row flex-col items-center justify-center">
+          <div className="lg:flex-grow lg:w-1/2 w-5/6 lg:pr-24 flex flex-col lg:items-start lg:text-left mb-16 lg:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 dark:text-white">
               Le Premier et Unique Club en France dédié à la Peugeot 306
             </h1>
@@ -26,9 +31,9 @@ export const Presentation = () => {
               Le club a été créé suite à un besoin exprimé par de nombreuses
               personnes qui sont membres de forums ou de groupes.
             </p>
-            <div className="flex">
+            <div className="flex flex-col lg:flex-row items-center">
               <Link href="/membership">
-                <button className="flex items-center px-4 py-2 mr-5 duration-150 active:shadow-lg navbarlinkHover dark:border-principal-dark border-2 border-principal-light">
+                <button className="flex items-center px-4 py-2 mr-0 mb-5 lg:mb-0 lg:mr-5 duration-150 active:shadow-lg navbarlinkHover dark:border-principal-dark border-2 border-principal-light">
                   <BsPatchPlus size={22} className="mr-2" />
                   Adhérer ...
                 </button>
@@ -41,13 +46,20 @@ export const Presentation = () => {
               </Link>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-1/2 relative pb-32">
+            <CercleLion
+              color={
+                theme === 'light'
+                  ? 'var(--principal-light)'
+                  : 'var(--principal-dark)'
+              }
+            />
             <Image
               src={presentationPicture}
               alt="Une Peugeot 306 rouge avec à l'arrière plan l'ancien logo Peugeot."
               width={720}
               height={600}
-              className="mr-3 h-6 sm:h-10"
+              className="absolute top-40"
               sizes="100vw"
               style={{
                 width: '100%',
@@ -56,18 +68,21 @@ export const Presentation = () => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-around mt-4 bg-principal-light dark:bg-principal-dark w-full h-20">
-          <div className="flex items-center">
+        <div className="bg-principal-light dark:bg-principal-dark h-20 mb-20 flex items-center justify-around">
+          <div className="flex items-center flex-col md:flex-row">
             <Image
               className="px-2"
               src="/images/helmet.svg"
               alt="Adhesion"
               width={50}
               height={50}
+              color="red"
             />
-            <p className="px-2 text-text-dark font-bold">+300 Membres actifs</p>
+            <p className="px-2 text-text-dark dark:text-bg-dark font-bold  text-center text-xs lg:text-lg">
+              +300 Membres actifs
+            </p>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center flex-col md:flex-row">
             <Image
               className="px-2"
               src="images/car.svg"
@@ -75,9 +90,11 @@ export const Presentation = () => {
               width={60}
               height={60}
             />
-            <p className="px-2 text-text-dark font-bold">+116 Véhicules</p>
+            <p className="px-2 text-text-dark dark:text-bg-dark font-bold text-center text-xs lg:text-lg">
+              +116 Véhicules
+            </p>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center flex-col md:flex-row">
             <Image
               className="px-2"
               src="/images/user.svg"
@@ -85,11 +102,11 @@ export const Presentation = () => {
               width={50}
               height={50}
             />
-            <p className="px-2 text-text-dark font-bold">
+            <p className="px-2 text-text-dark dark:text-bg-dark font-bold  text-center text-xs lg:text-lg">
               Conseils Personnalisés
             </p>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center flex-col md:flex-row">
             <Image
               className="px-2"
               src="/images/gearLever.svg"
@@ -97,7 +114,9 @@ export const Presentation = () => {
               width={35}
               height={35}
             />
-            <p className="px-2 text-text-dark font-bold">Avantage pièces</p>
+            <p className="px-2 text-text-dark dark:text-bg-dark font-bold  text-center text-xs lg:text-lg">
+              Avantage pièces
+            </p>
           </div>
         </div>
       </section>

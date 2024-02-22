@@ -79,6 +79,8 @@ export const Slider = ({ session }: { session: any }) => {
     setSelectedTitle(title)
   }
 
+  console.log('registredMember', registredMember)
+
   return (
     <div className={styles.container}>
       {partnerData && (
@@ -116,7 +118,7 @@ export const Slider = ({ session }: { session: any }) => {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-principal-light text-text-dark hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
+                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
                   onClick={() => displayPresent(partner.title || '')}
                 >
                   <svg

@@ -22,7 +22,7 @@ export default function SiteLayout({
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen dark:bg-bg-dark">
         {session ? <Navbar withMember={true} /> : <Navbar withMember={false} />}
         <main className="flex-1">{children}</main>
         {session ? <Footer withMember={true} /> : <Footer withMember={false} />}

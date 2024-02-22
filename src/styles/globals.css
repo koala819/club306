@@ -34,6 +34,9 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --principal-light: #174191;
+    --principal-dark: #e2a300;
   }
 
   .dark {
@@ -159,6 +162,12 @@ body {
 
 .navbarlinkHover {
   @apply rounded-lg p-2 text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark;
+}
+:hover.degrade-border {
+  border-bottom-width: 3px;
+  border-style: solid;
+  border-image: linear-gradient(to right, blue, white 50%, red);
+  border-image-slice: 1;
 }
 
 h1 {

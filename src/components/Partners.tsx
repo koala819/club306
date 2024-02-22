@@ -1,13 +1,23 @@
-'use client';
-import { Slider } from './Slider';
-import styles from '@/styles/reactIntersectionObserver.module.css';
-import { useInView } from 'react-intersection-observer';
+'use client'
 
-export const Partners = ({ session }: any) => {
+import styles from '@/styles/reactIntersectionObserver.module.css'
+import { useSession } from 'next-auth/react'
+import { useMemo } from 'react'
+import { useInView } from 'react-intersection-observer'
+
+import { Slider } from './Slider'
+
+export const Partners = () => {
+  const { data: dataSession } = useSession()
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.4,
-  });
+  })
+
+  const session = useMemo(() => {
+    return dataSession !== undefined
+  }, [dataSession])
+
   const renderContent = () => {
     return (
       <div className="flex items-center justify-center h-full">
@@ -20,8 +30,8 @@ export const Partners = ({ session }: any) => {
           </div>
         </main>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -32,5 +42,5 @@ export const Partners = ({ session }: any) => {
     >
       {renderContent()}
     </div>
-  );
-};
+  )
+}
