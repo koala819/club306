@@ -37,6 +37,9 @@
 
     --principal-light: #174191;
     --principal-dark: #e2a300;
+
+    --bg-light: #ffffff;
+    --bg-dark: #000025;
   }
 
   .dark {

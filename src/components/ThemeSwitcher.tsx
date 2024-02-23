@@ -15,9 +15,9 @@ export function ThemeSwitcher({ withMember }: ThemeSwitcherProps) {
       onClick={toggleTheme}
       className={
         theme === 'light'
-          ? `rounded-full border-3 border-gray-600 p-0.5 flex justify-center items-center h-3/5 ${
+          ? `rounded-full border-3 border-gray-300 p-0.5 flex justify-center items-center h-3/5 ${
               withMember
-                ? ' border-gray hover:border-principal-light bg-gray'
+                ? ' border-gray-300 hover:border-principal-light bg-gray-300'
                 : ' hover:bg-bg-light hover:border-principal-light'
             }`
           : `rounded-full border-3 border-black-900 p-0.5 flex justify-center items-center h-3/5  ${

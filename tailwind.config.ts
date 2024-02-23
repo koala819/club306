@@ -34,8 +34,6 @@ const config: Config = {
         'text-dark': '#ffffff',
         'light-connect': '#ADA075',
         'dark-connect': '#6a6145',
-        green: '#16a34a',
-        gray: '#d1d5db',
       },
     },
   },

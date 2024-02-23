@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import Image from 'next/image'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -57,20 +59,29 @@ export default function Contact() {
   }
 
   return (
-    <div className="flex justify-center h-full">
-      <div
-        className="md:block bg-cover w-2/3 "
+    <div className="flex justify-center h-screen">
+      <div className="relative md:block w-full md:w-2/3">
+        <Image
+          src="https://images.unsplash.com/photo-1568106575207-0fe3ec317559"
+          className="object-cover object-center h-full"
+          alt="background"
+          width={1000}
+          height={1000}
+        />
+      </div>
+      {/* <div
+        className="md:block bg-cover bg-center w-2/3 h-screen "
         style={{
           backgroundImage:
             'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
         }}
-      ></div>
+      ></div> */}
 
-      <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-gray-800 dark:text-gray-100">
+      <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-bg-dark dark:text-gray-100">
         {!confirmationSend && (
           <div className="w-11/12 mt-10">
             <form onSubmit={handleSubmit(handleSendMail)}>
-              <p className="leading-relaxed mb-10 ">
+              <p className="leading-relaxed mb-10 font-bold text-base">
                 Une question concernant l&apos;adhésion ? un évènement ? un bon
                 plan à partager? Passer une vitesse, déposer un message et
                 accélérer jusqu&apos;à cliquer sur Envoyer
@@ -90,7 +101,7 @@ export default function Contact() {
                   id="first_name"
                   placeholder="Alain"
                   {...register('first_name')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
                     errors.first_name ? 'border-red-600' : ''
                   }`}
                 />
@@ -116,8 +127,8 @@ export default function Contact() {
                   id="email"
                   placeholder="alain.proviste@club306.fr"
                   {...register('email')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
-                    errors.email ? 'border-red-600' : ''
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                    errors.first_name ? 'border-red-600' : ''
                   }`}
                 />
 
@@ -142,7 +153,7 @@ export default function Contact() {
                   id="msg"
                   placeholder="Veuillez saisir votre message ici..."
                   {...register('msg')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
                     errors.msg ? 'border-red-600' : ''
                   }`}
                 ></textarea>

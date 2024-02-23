@@ -25,7 +25,7 @@ export const CardStaff = ({
   youtube,
 }: CardStaffProps) => {
   return (
-    <section className=" rounded-lg mb-8 bg-slate-200 dark:bg-bg-dark">
+    <section className=" rounded-lg mb-8 bg-slate-200 dark:bg-[#000015] p-6">
       <div className="grid place-items-center text-sm">
         <div className="max-w-full flex justify-center">
           <div className="text-center relative">
@@ -36,10 +36,10 @@ export const CardStaff = ({
               width="100"
               height="100"
             />
-            <h5 className="text-xl font-medium leading-tight mb-2 dark:text-white">
+            <h5 className="text-xl font-medium leading-tight mb-2 text-principal-light dark:text-principal-dark">
               {name}
             </h5>
-            <p className="text-gray-500">{role}</p>
+            <p className="text-gray-500 dark:text-gray">{role}</p>
           </div>
         </div>
 
@@ -63,7 +63,7 @@ export const CardStaff = ({
           <ul className="list-inside flex mx-auto justify-center my-4">
             <Link
               href={facebook}
-              className={`text-gray-500 dark:text-white ${
+              className={`text-gray-500 dark:text-white dark:hover:text-principal-dark hover:text-gray-600 ${
                 facebook === '#' && 'hidden'
               }`}
             >
@@ -81,7 +81,7 @@ export const CardStaff = ({
 
             <Link
               href={insta}
-              className={`ml-3 text-gray-500 dark:text-white ${
+              className={`ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark ${
                 insta === '#' && 'hidden'
               }`}
             >
@@ -101,7 +101,7 @@ export const CardStaff = ({
             {github !== undefined && (
               <Link
                 href={github}
-                className="ml-3 text-gray-500 dark:text-white"
+                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
               >
                 <VscGithub size={20} />
               </Link>
@@ -109,7 +109,7 @@ export const CardStaff = ({
             {youtube !== undefined && (
               <Link
                 href={youtube}
-                className="ml-3 text-gray-500 dark:text-white"
+                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
               >
                 <BsYoutube size={20} />
               </Link>
@@ -117,14 +117,14 @@ export const CardStaff = ({
             {linkedin !== undefined && (
               <Link
                 href={linkedin}
-                className="ml-3 text-gray-500 dark:text-white"
+                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
               >
                 <BsLinkedin size={20} />
               </Link>
             )}
             <Link
               href={`mailto:${mail}`}
-              className="ml-4 text-gray-500 dark:text-white"
+              className="ml-4 text-gray-500 dark:text-white dark:hover:text-principal-dark"
             >
               <IoMdMailOpen size={20} />
             </Link>

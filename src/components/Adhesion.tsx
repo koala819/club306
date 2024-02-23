@@ -13,15 +13,15 @@ export const Adhesion = () => {
   })
   const renderContent = () => {
     return (
-      <section className="container w-screen bg-[#D7DEED] dark:bg-bg-dark border-0 h-32 sm:flex justify-center items-center mx-auto dark:bg-gray-800">
+      <section className="container w-screen bg-[#D7DEED] dark:bg-bg-dark dark:border-2 dark:border-principal-dark border-0 h-32 sm:flex justify-center items-center mx-auto dark:rounded-lg ">
         <div className="flex justify-center lg:w-2/3 sm:w-2/3 items-center">
-          <span className="lg:text-3xl text-xl font-extrabold ">
+          <span className="lg:text-3xl text-xl font-extrabold dark:text-principal-dark ">
             Rejoignez nous en 30 secondes
           </span>
         </div>
         <div className="w-full sm:w-1/3 lg:w-1/3 md:w-1/2 flex justify-center items-center">
           <Link href="/membership">
-            <button className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg">
+            <button className="flex items-center px-4 py-2 text-white dark:text-bg-dark bg-principal-light dark:bg-principal-dark rounded-lg duration-150 active:shadow-lg">
               <AiFillStar size={22} className="mr-2" />
               Adhérer
             </button>
