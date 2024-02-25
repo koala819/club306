@@ -112,7 +112,7 @@ export const FormEventConnect = ({ userMail }: { userMail: string }) => {
   return (
     <form
       onSubmit={handleSubmit(verifInfo)}
-      className="border-2 border-principal-light bg-white px-5 py-7 rounded-lg shadow-lg"
+      className="border-2 border-principal-light bg-white dark:bg-bg-dark px-5 py-7 rounded-lg shadow-lg"
     >
       <div className=" h-full px-2 mx-10 pt-8">
         <h1 className="mb-8">Connectez-vous</h1>
@@ -183,7 +183,7 @@ export const FormEventConnect = ({ userMail }: { userMail: string }) => {
           <div className="flex justify-center m-10">
             <button
               type="submit"
-              className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold"
+              className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold dark:border-principal-dark dark:text-principal-dark"
             >
               Se connecter
             </button>
@@ -208,7 +208,7 @@ export const FormEventConnect = ({ userMail }: { userMail: string }) => {
 
         <Link
           href={'/membership'}
-          className="flex justify-center mb-4 mt-2 text-blue-500 font-semi-bold hover:text-red-600 hover:border-b-red-600 underline"
+          className="flex justify-center mb-4 mt-2 text-blue-500 dark:text-red-600 dark:hover:text-blue-500 font-semi-bold hover:text-red-600 hover:border-b-red-600 dark:hover:border-b-blue-500 underline"
         >
           S'inscrire
         </Link>

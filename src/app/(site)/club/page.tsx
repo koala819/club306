@@ -1,14 +1,17 @@
-'use client';
-import { Adhesion } from '@/components/Adhesion';
-import pictureCircuit from '../../../../public/images/LGHA-Juin2019.jpg';
-import pictureField from '../../../../public/images/rassemblement306.jpg';
-import pictureYellow from '../../../../public/images/306Jaune.jpg';
-import Image from 'next/image';
-import Link from 'next/link';
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { Adhesion } from '@/components/Adhesion'
+
+import pictureYellow from '../../../../public/images/306Jaune.jpg'
+import pictureCircuit from '../../../../public/images/LGHA-Juin2019.jpg'
+import pictureField from '../../../../public/images/rassemblement306.jpg'
 
 export default function Presentation() {
   return (
-    <div className="container px-5 py-24 mx-auto">
+    <div className="container px-5 py-4 md:py-24 mx-auto">
       {/*FIRST BLOC*/}
       <section className="flex border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
         <div className="basis-1/3">
@@ -23,7 +26,7 @@ export default function Presentation() {
         </div>
         <div className="basis-2/3 sm:pl-4 pl-0 ">
           <div className="flex flex-col justify-center h-full">
-            <h2 className="text-gray-900 text-lg title-font font-medium mb-2 ">
+            <h2 className="text-principal-light text-lg title-font font-medium mb-2 mt-2 md:mt0 ">
               Histoire{' '}
             </h2>
             <p className="leading-relaxed text-base">
@@ -60,7 +63,7 @@ export default function Presentation() {
       <section className="flex border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
         <div className="basis-2/3 pr-4">
           <div className="flex flex-col justify-center h-full">
-            <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
+            <h2 className="text-principal-light text-lg title-font font-medium mb-2">
               Philosophie
             </h2>
             <p className="leading-relaxed text-base">
@@ -101,7 +104,7 @@ export default function Presentation() {
             </p>
           </div>
         </div>
-        <div className="basis-1/3">
+        <div className="basis-1/3 my-4">
           <Image
             src={pictureField}
             alt="306 in field"
@@ -117,7 +120,7 @@ export default function Presentation() {
       </section>
       {/*THIRD BLOC*/}
       <section className="flex sm:flex-row flex-col mb-12">
-        <div className="basis-1/3">
+        <div className="basis-1/3 my-4">
           <Image
             src={pictureYellow}
             alt="Door Yellow 306"
@@ -129,15 +132,11 @@ export default function Presentation() {
         </div>
         <div className="basis-2/3 sm:pl-4 pl-0 ">
           <div className="flex flex-col justify-center h-full">
-            <h2
-            // className="text-gray-900 text-lg font-extrabold mb-2"
-            >
-              Devenir Membre
-            </h2>
+            <h2 className=" mb-2">Devenir Membre</h2>
             <div className="leading-relaxed text-base">
               En tant que membre, vous allez bénéficiez des partenariats et des
               prix réduits sur des pieces pour entretenir votre
-              <h2 className="font-bold" style={{ fontWeight: 700 }}>
+              <h2 className="font-bold mt-4" style={{ fontWeight: 700 }}>
                 Peugeot 306
               </h2>
               .
@@ -177,7 +176,9 @@ export default function Presentation() {
         </div>
       </section>
       {/*ADHESION BLOC*/}
-      <Adhesion />
+      <div className="my-8 md:my-0">
+        <Adhesion />
+      </div>
     </div>
-  );
+  )
 }

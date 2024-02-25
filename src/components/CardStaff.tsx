@@ -48,7 +48,7 @@ export const CardStaff = ({
         </div>
 
         <div>
-          <p className="my-4 dark:text-blue-gray-400">
+          <p className="my-4 text-gray-500">
             {car !== undefined &&
               car.split('\n').map((line: any, index: number) => (
                 <React.Fragment key={index}>
@@ -57,13 +57,11 @@ export const CardStaff = ({
                 </React.Fragment>
               ))}
           </p>
-          <p className="dark:text-blue-gray-400">
-            Localisation: {localisation}
-          </p>
+          <p className="text-gray-500">Localisation: {localisation}</p>
           <ul className="list-inside flex mx-auto justify-center my-4">
             <Link
               href={facebook}
-              className={`text-gray-500 dark:text-white dark:hover:text-principal-dark hover:text-gray-600 ${
+              className={`text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark  ${
                 facebook === '#' && 'hidden'
               }`}
             >
@@ -81,7 +79,7 @@ export const CardStaff = ({
 
             <Link
               href={insta}
-              className={`ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark ${
+              className={`ml-3 text-gray-500 dark:text-white hover:text-principal-light dark:hover:text-principal-dark ${
                 insta === '#' && 'hidden'
               }`}
             >
@@ -101,7 +99,7 @@ export const CardStaff = ({
             {github !== undefined && (
               <Link
                 href={github}
-                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
+                className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <VscGithub size={20} />
               </Link>
@@ -109,7 +107,7 @@ export const CardStaff = ({
             {youtube !== undefined && (
               <Link
                 href={youtube}
-                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
+                className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <BsYoutube size={20} />
               </Link>
@@ -117,14 +115,14 @@ export const CardStaff = ({
             {linkedin !== undefined && (
               <Link
                 href={linkedin}
-                className="ml-3 text-gray-500 dark:text-white dark:hover:text-principal-dark"
+                className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <BsLinkedin size={20} />
               </Link>
             )}
             <Link
               href={`mailto:${mail}`}
-              className="ml-4 text-gray-500 dark:text-white dark:hover:text-principal-dark"
+              className="ml-4 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
             >
               <IoMdMailOpen size={20} />
             </Link>

@@ -85,7 +85,7 @@ export default function Page() {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <div className="w-full">
+      <div className="w-full my-14">
         <div className="flex bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"

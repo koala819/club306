@@ -60,7 +60,7 @@ export default function Contact() {
 
   return (
     <div className="flex justify-center h-screen">
-      <div className="relative md:block w-full md:w-2/3">
+      <div className="relative md:block w-full md:w-2/3 hidden md:visible">
         <Image
           src="https://images.unsplash.com/photo-1568106575207-0fe3ec317559"
           className="object-cover object-center h-full"

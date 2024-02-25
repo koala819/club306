@@ -22,8 +22,8 @@ export function ThemeSwitcher({ withMember }: ThemeSwitcherProps) {
             }`
           : `rounded-full border-3 border-black-900 p-0.5 flex justify-center items-center h-3/5  ${
               withMember
-                ? 'bg-bg-dark hover:border-green'
-                : ' hover:bg-bg-dark hover:border-green'
+                ? 'bg-bg-dark hover:border-green-600'
+                : ' hover:bg-bg-dark hover:border-green-600'
             }`
       }
     >

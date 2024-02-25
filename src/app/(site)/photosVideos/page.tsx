@@ -1,8 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import React from 'react'
+import Gallery from 'react-photo-gallery'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { EventsData } from '@/types/models'
 
@@ -21,18 +24,51 @@ export default function PhotosVideos() {
     fetch()
   }, [])
 
-  console.log(events)
+  const data = [
+    {
+      id: 1,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 1',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+    {
+      id: 2,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 2',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+    {
+      id: 3,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 3',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+    {
+      id: 4,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 4',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+    {
+      id: 5,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 5',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+    {
+      id: 6,
+      img: '/images/youngtimer-festival.jpg',
+      title: 'Youngtimer Festival 6',
+      descriptif: 'Youngtimer Festival',
+      date: '05/12/2021',
+    },
+  ]
 
-  const imageContent = (
-    <div className="absolute bottom-0 left-0 p-4 text-white">
-      <h2 className="text-xl font-semibold text-text-dark">Titre de l'image</h2>
-      <p className="mt-6">
-        Roulage en dynamique sur l’anneau de vitesse, expo en statique, parade
-        de fin d’évènement.
-      </p>
-      <p className="mt-6">2021-03-06</p>
-    </div>
-  )
   return (
     <div>
       {/* bandeau supp */}
@@ -51,81 +87,30 @@ export default function PhotosVideos() {
         </p>
       </div>
       {/* galerie */}
-      <div className="m-10">
-        <div className="container flex mx-auto mb-2">
-          <div className="w-1/2 h-1/2">
-            <div className=" relative">
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-              <Image
-                src="/images/homePageArticle2.jpg"
-                alt="Your Image"
-                width={500}
-                height={250}
-                className="w-full h-full object-cover mb-2 mr-2"
-              />
-              {imageContent}
+      <div className="columns-3 py-3">
+        {data.map((item, index) => {
+          return (
+            <div key={index} className="relative pb-3">
+              <Link href={`/details/${item.id}`}>
+                <div className="absolute inset-0 bg-black opacity-50"></div>
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  width={1920}
+                  height={1080}
+                  className="object-cover w-full"
+                />
+                <div className="absolute w-3/4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <h1 className="text-center text-text-dark">{item.title}</h1>
+                  <p className="text-center text-text-dark">
+                    {item.descriptif}
+                  </p>
+                  <p className="text-center text-text-dark">{item.date}</p>
+                </div>
+              </Link>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-              <Image
-                src="/images/homePageArticle2.jpg"
-                alt="Your Image"
-                width={500}
-                height={250}
-                className="w-full h-full object-cover"
-              />
-              {imageContent}
-            </div>
-          </div>
-          <div className="w-1/2 relative">
-            <div className="absolute inset-0 bg-black opacity-50 -right-2 ml-2"></div>
-            <Image
-              src="/images/homePageArticle2.jpg"
-              alt="Your Image"
-              width={500}
-              height={500}
-              className="w-full h-full object-cover ml-2"
-            />
-            {imageContent}
-          </div>
-        </div>
-        <div className="container flex mx-auto">
-          <div className="w-1/2 relative">
-            <div className="absolute inset-0 bg-black opacity-50"></div>
-            <Image
-              src="/images/homePageArticle2.jpg"
-              alt="Your Image"
-              width={500}
-              height={500}
-              className="w-full h-full object-cover mr-2"
-            />
-            {imageContent}
-          </div>
-          <div className="w-1/2 h-1/2">
-            <div className="relative">
-              <div className="absolute inset-0 bg-black opacity-50 -right-2 ml-2"></div>
-              <Image
-                src="/images/homePageArticle2.jpg"
-                alt="Your Image"
-                width={500}
-                height={250}
-                className="w-full h-full object-cover mb-2 ml-2"
-              />
-              {imageContent}
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-black opacity-50 -right-2 ml-2"></div>
-              <Image
-                src="/images/homePageArticle2.jpg"
-                alt="Your Image"
-                width={500}
-                height={250}
-                className="w-full h-full object-cover ml-2"
-              />
-              {imageContent}
-            </div>
-          </div>
-        </div>
+          )
+        })}
       </div>
     </div>
   )

@@ -55,7 +55,7 @@ export const FormEventConfirm = ({ userMail }: { userMail: string }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="border-2 border-principal-light bg-white px-5 py-7 rounded-lg shadow-lg"
+      className="border-2 border-principal-light bg-white dark:bg-bg-dark px-5 py-7 rounded-lg shadow-lg"
     >
       <div className="h-full px-2 mx-10 pt-8">
         <h1 className="mb-8">Réservez votre place</h1>
@@ -140,7 +140,7 @@ export const FormEventConfirm = ({ userMail }: { userMail: string }) => {
         <div className="flex justify-center mt-10">
           <button
             type="submit"
-            className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold"
+            className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold dark:border-principal-dark dark:text-principal-dark"
           >
             Confirmez ma participation
           </button>

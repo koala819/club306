@@ -13,9 +13,9 @@ export const Adhesion = () => {
   })
   const renderContent = () => {
     return (
-      <section className="container w-screen bg-[#D7DEED] dark:bg-bg-dark dark:border-2 dark:border-principal-dark border-0 h-32 sm:flex justify-center items-center mx-auto dark:rounded-lg ">
+      <section className="container w-full  bg-[#D7DEED] dark:bg-bg-dark dark:border-2 dark:border-principal-dark border-0 h-32 sm:flex justify-center items-center mx-auto dark:rounded-lg ">
         <div className="flex justify-center lg:w-2/3 sm:w-2/3 items-center">
-          <span className="lg:text-3xl text-xl font-extrabold dark:text-principal-dark ">
+          <span className="lg:text-3xl text-xl font-extrabold dark:text-principal-dark text-center md:text-left my-2 md:my-0 ">
             Rejoignez nous en 30 secondes
           </span>
         </div>
