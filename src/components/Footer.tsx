@@ -88,7 +88,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
       }`}
     >
       <div className="flex-col  flex lg:flex-row justify-between  place self-auto items-center lg:items-start ">
-        <div className="lg:w-1/3 w-full ml-4 flex flex-col ">
+        <div className="lg:w-1/3 w-full xl:ml-4 flex flex-col ">
           <div className="  text-base font-extrabold mb-4 tracking-wide font-sans text-center lg:text-left">
             Restons en contact !
           </div>
@@ -135,11 +135,11 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             Inscrivez-vous à notre newsletter pour suivre nos dernières
             actualitées & remises :
           </p>
+          {/* btn submit */}
           <form
             onSubmit={handleSubmit(handleSendMail)}
             className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row"
           >
-            {/* btn submit */}
             <Controller
               name="email"
               control={control}
