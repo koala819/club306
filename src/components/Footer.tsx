@@ -4,34 +4,80 @@ import { FaYoutube } from 'react-icons/fa';
 import { IoLogoDiscord } from 'react-icons/io5';
 import { LuCopyleft } from 'react-icons/lu';
 import { RiInstagramFill } from 'react-icons/ri';
-
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import dix31 from '../../public/images/DIX31.png';
-import Mail from 'nodemailer/lib/mailer';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export const Footer = ({ withMember }: { withMember: boolean }) => {
   const currentYear = new Date().getFullYear();
-  let inputValue = '';
-  function submit(event: any) {
-    event.preventDefault();
-    const inputElement = document.getElementById(
-      'inputNewsletter',
-    ) as HTMLInputElement | null;
-    if (inputElement) {
-      inputValue = inputElement.value;
-      console.log(inputValue);
-    }
-  }
+  // let inputValue = '';
+  // function submit(event: any) {
+  //   event.preventDefault();
+  //   const inputElement = document.getElementById(
+  //     'inputNewsletter',
+  //   ) as HTMLInputElement | null;
+  //   if (inputElement) {
+  //     inputValue = inputElement.value;
+  //     console.log(inputValue);
+  //   }
+  // }
 
-  useEffect(() => {
-    const newsletterForm = document.getElementById('newsletter');
-    if (newsletterForm) {
-      newsletterForm.addEventListener('submit', submit);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const newsletterForm = document.getElementById('newsletter');
+  //   if (newsletterForm) {
+  //     newsletterForm.addEventListener('submit', submit);
+  //   }
+  // }, []);
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required("L'e-mail est obligatoire")
+      .matches(
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        "L'e-mail n'est pas valide",
+      ),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  async function handleSendMail(values: any) {
+    const data = {
+      email: values.email,
+      from: 'newsLetter',
+    };
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    };
+
+    fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+      .then((response: any) => {
+        console.log('respons', response);
+        if (response.status === 200) {
+          toast.success('Merci de votre inscription à la newsletter');
+        } else {
+          toast.error("Une erreur s'est produite", response.statusText);
+        }
+      })
+      .catch((error: any) => {
+        toast.error("Une erreur s'est produite", error);
+      });
+  }
 
   return (
     <footer
@@ -90,24 +136,39 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             actualitées & remises :
           </p>
           <form
-            id="newsletter"
-            className=" flex lg:flex-row lg:space-x-2 justify-center flex-col text-[#174191]"
+            onSubmit={handleSubmit(handleSendMail)}
+            className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row"
           >
-            <input
-              type="email"
-              id="inputNewsletter"
-              className="flex items-center  lg:mb-0  mb-4"
+            {/* btn submit */}
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <input
+                  id="email"
+                  type="email"
+                  className="px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                  placeholder="Entrez votre email"
+                  onChange={onChange}
+                  value={value}
+                />
+              )}
             />
-            {/* <span className="flex items-full"></span> */}
+
+            {errors.email && (
+              <div className="text-red-500 font-mono text-xs">
+                {errors.email.message}
+              </div>
+            )}
+
             <button
               type="submit"
-              // id="btnNewsletter"
-              // onClick={submit()}
-              className="text-white bg-[#174191] m-0 rounded-md"
+              className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80"
             >
-              S'inscrire
+              S&apos;abonner
             </button>
           </form>
+
           {/* <div className="mt-32 mb-12">logo peugeot</div> */}
           {/* <picture className="flex justify-center  text-white pr-1  ">
             <Image
