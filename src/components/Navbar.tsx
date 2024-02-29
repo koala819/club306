@@ -252,14 +252,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               >
                 <DropdownItem
                   onClick={() => router.push('/cpanel')}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
                   Mon compte
                 </DropdownItem>
 
                 <DropdownItem
                   onClick={() => handleSignout()}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
                   Déconnexion
                 </DropdownItem>
@@ -290,7 +290,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             {item.component ? (
               item.component
             ) : (
-              <Link href={item.path} size="lg" className="navbarlinkHover">
+              <Link href={item.path} size="lg" className="navbarLinkHover">
                 {item.name}
               </Link>
             )}

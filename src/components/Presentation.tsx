@@ -67,7 +67,7 @@ export const Presentation = () => {
             </p>
             <div className="flex items-center mt-8 mb-9 lg:mb-0 w-max">
               <Link href="/membership">
-                <button className="flex items-center text-sm lg:text-base px-4 py-2 mr-2 lg:mb-0 lg:mr-5 duration-150 active:shadow-lg navbarlinkHover dark:border-principal-dark border-2 border-principal-light dark:text-principal-dark">
+                <button className="flex items-center text-sm lg:text-base px-4 py-2 mr-2 lg:mb-0 lg:mr-5 duration-150 active:shadow-lg navbarLinkHover dark:border-principal-dark border-2 border-principal-light dark:text-principal-dark">
                   <BsPatchPlus
                     size={22}
                     className="mr-2"
@@ -81,7 +81,7 @@ export const Presentation = () => {
                 </button>
               </Link>
               <Link href="/club">
-                <button className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-2 border-principal-light dark:border-principal-dark dark:text-principal-dark text-sm lg:text-base">
+                <button className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarLinkHover border-2 border-principal-light dark:border-principal-dark dark:text-principal-dark text-sm lg:text-base">
                   <BsPatchPlus
                     size={22}
                     className="mr-2"

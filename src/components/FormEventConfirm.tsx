@@ -140,7 +140,7 @@ export const FormEventConfirm = ({ userMail }: { userMail: string }) => {
         <div className="flex justify-center mt-10">
           <button
             type="submit"
-            className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarlinkHover border-principal-light border-2 font-bold dark:border-principal-dark dark:text-principal-dark"
+            className="flex items-center px-4 py-2 rounded-lg duration-150 active:shadow-lg navbarLinkHover border-principal-light border-2 font-bold dark:border-principal-dark dark:text-principal-dark"
           >
             Confirmez ma participation
           </button>

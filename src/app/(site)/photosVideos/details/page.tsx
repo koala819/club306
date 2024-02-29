@@ -1,50 +1,67 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import PhotoAlbum from 'react-photo-album'
+import React, { useState } from 'react'
+import Lightbox from 'yet-another-react-lightbox'
+import 'yet-another-react-lightbox/styles.css'
 
-import { EventsData } from '@/types/models'
-
-import { getAllEvents } from '@/lib/events'
-
-const photos = [
-  { src: '/images/carroussel_306_Yellow.jpg', width: 800, height: 600 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 1600, height: 900 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 800, height: 600 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 1600, height: 900 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 800, height: 600 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 1600, height: 900 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 800, height: 600 },
-  { src: '/images/carroussel_306_Yellow.jpg', width: 1600, height: 900 },
-]
+import { CldImage } from 'next-cloudinary'
 
 export default function Details() {
-  const [events, setEvents] = useState<EventsData[]>([])
+  const eventYearTitle: string = localStorage.getItem(
+    'eventYearTitle',
+  ) as string
+  const sizeWidth = 600
+  const sizeHeight = 400
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const eventResponse = await getAllEvents(new Date().getFullYear())
-        if (Array.isArray(eventResponse)) {
-          setEvents(eventResponse)
-        }
-      } catch (error) {
-        console.error('Error fetching events:', error)
-      }
-    }
-    fetchData()
-  }, [])
+  const nbrPhotos = 21
+  const photos = Array.from({ length: nbrPhotos }, (_, index) => ({
+    src: `https://res.cloudinary.com/djbwavqnp/image/upload/c_fill,w_3840,h_2560,g_auto/f_auto/q_auto/v1/${eventYearTitle}${String(index).padStart(2, '0')}?_a=BAVCcWIB0`,
+    width: sizeWidth,
+    height: sizeHeight,
+    id: index + 1,
+  }))
+  console.log(photos)
+  const [currentImage, setCurrentImage] = useState(0)
+  const [srcImage, setSrcImage] = useState('')
+  const [lightboxIsOpen, setLightboxIsOpen] = useState(false)
 
-  {
-    return (
-      <div className="flex flex-col justify-center">
-        <h1 className="text-center"></h1>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <PhotoAlbum layout="rows" photos={photos} />
-      </div>
-    )
+  const openLightbox = (index: number, src: string) => {
+    setCurrentImage(index)
+    setSrcImage(src)
+    setLightboxIsOpen(true)
   }
+
+  const closeLightbox = () => {
+    setCurrentImage(0)
+    setLightboxIsOpen(false)
+  }
+  console.log(srcImage)
+  return (
+    <div className="grid grid-cols-3">
+      {photos.map((photo, index) => (
+        <div key={index}>
+          <CldImage
+            onClick={() => openLightbox(index, photo.src)}
+            crop="fill"
+            src={photo.src}
+            width={photo.width}
+            height={photo.height}
+            alt=""
+            className="p-1"
+            sizes="100vw"
+          />
+        </div>
+      ))}
+      <Lightbox
+        index={currentImage}
+        open={lightboxIsOpen}
+        close={closeLightbox}
+        slides={photos.map((photo) => ({
+          src: photo.src,
+          width: photo.width * 2,
+          height: photo.height * 2,
+        }))}
+      />
+    </div>
+  )
 }

@@ -1,3 +1,5 @@
+import { elements } from 'chart.js'
+
 interface ArticleProps {
   uid: string | null
   data: {
@@ -220,6 +222,15 @@ interface ConnectEvents {
   pwd?: string
 }
 
+interface EventsDataPicture {
+  id: number
+  year: number
+  title: string
+  img: string
+  nbrPicture: number
+  link: string
+}
+
 export type {
   ArticleProps,
   ArticlesProps,
@@ -229,6 +240,7 @@ export type {
   Color,
   Events,
   EventsData,
+  EventsDataPicture,
   Finition,
   HelloAssoMember,
   MailPwd,

@@ -29,7 +29,7 @@ export function ThemeSwitcher({ withMember }: ThemeSwitcherProps) {
     >
       <div className="flex items-center relative">
         <div className={theme === 'light' ? 'opacity-100' : 'opacity-0'}>
-          <HeadlightBlue color="Blue" />
+          <HeadlightBlue color="blue" />
         </div>
 
         <div className={theme === 'dark' ? 'opacity-100 ' : 'opacity-0'}>

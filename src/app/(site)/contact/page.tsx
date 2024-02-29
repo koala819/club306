@@ -33,7 +33,6 @@ export default function Contact() {
   })
 
   async function handleSendMail(values: any) {
-    console.log('ready to send mail with values', values)
     const data = {
       firstName: values.first_name,
       email: values.email,
@@ -49,7 +48,6 @@ export default function Contact() {
 
     fetch(`${process.env.CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
-        console.log('response or Not', response)
         response.status === 200 && console.log('Send mail with SUCCESS :)')
         setConfirmationSend(true)
       })

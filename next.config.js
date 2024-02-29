@@ -34,6 +34,8 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
+      'newsdanciennes.com',
+      'www.francebleu.fr',
       'res.cloudinary.com',
       'scontent-cdg4-3.xx.fbcdn.net',
       'pscuk.net',

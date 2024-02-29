@@ -1,73 +1,147 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Accordion, AccordionItem } from '@nextui-org/react'
 import React from 'react'
-import Gallery from 'react-photo-gallery'
 
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-import { EventsData } from '@/types/models'
-
-import { getAllEvents } from '@/lib/events'
+import { EventsDataPicture } from '@/types/models'
 
 export default function PhotosVideos() {
-  const [events, setEvents] = useState<EventsData[]>([])
-
-  useEffect(() => {
-    async function fetch() {
-      const eventResponse = await getAllEvents(new Date().getFullYear())
-      if (eventResponse !== undefined && Array.isArray(eventResponse)) {
-        setEvents(eventResponse)
-      }
-    }
-    fetch()
-  }, [])
+  const router = useRouter()
+  const currentYear = new Date().getFullYear()
 
   const data = [
     {
       id: 1,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 1',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
+      year: 2023,
+      title: 'YoungTimer',
+      img: 'https://newsdanciennes.com/content/uploads/2023/03/Youngtimers-Festival-2023-1.jpg',
+      nbrPicture: 20,
+      link: 'https://exemple.com/yougtimer',
     },
     {
       id: 2,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 2',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
-    },
-    {
-      id: 3,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 3',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
-    },
-    {
-      id: 4,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 4',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
-    },
-    {
-      id: 5,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 5',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
-    },
-    {
-      id: 6,
-      img: '/images/youngtimer-festival.jpg',
-      title: 'Youngtimer Festival 6',
-      descriptif: 'Youngtimer Festival',
-      date: '05/12/2021',
+      year: 2023,
+      title: '30 de la 306',
+      img: 'https://www.francebleu.fr/s3/cruiser-production/2023/10/a6fc0d43-03e0-48ad-a29e-e283305c97c8/1200x680_sc_3061.jpg',
+      nbrPicture: 12,
+      link: 'https://exemple.com/30ans306',
     },
   ]
+
+  const organizeEventsByYear = (): { [year: number]: EventsDataPicture[] } => {
+    const eventsByYear: { [year: number]: EventsDataPicture[] } = {}
+    data.forEach((event) => {
+      const year = event.year
+      if (event.year !== null && event.title !== null) {
+        if (eventsByYear[year]) {
+          eventsByYear[year].push(event)
+        } else {
+          eventsByYear[year] = [event]
+        }
+      }
+    })
+    return eventsByYear
+  }
+
+  const handleClick = (
+    eventYear: string,
+    eventTitle: string,
+    idEvent: string,
+  ) => {
+    const eventYearTitle = eventYear + '/' + eventTitle + '/'
+    const eventId = idEvent
+    localStorage.setItem('eventYearTitle', eventYearTitle)
+    localStorage.setItem('eventId', eventId)
+    router.push(`/photosVideos/details`)
+  }
+  const renderAccordionItems = (): JSX.Element[] => {
+    const eventsByYear = organizeEventsByYear()
+    const accordionItems: JSX.Element[] = []
+    accordionItems.push(
+      <AccordionItem
+        key={0}
+        title={currentYear.toString()}
+        className="flex flex-col items-center"
+      >
+        <div className="w-3/4 mx-auto">
+          {eventsByYear[currentYear] ? (
+            data.map((event, index) => (
+              <div key={index}>
+                <h2 className="">{event.title}</h2>
+                <div
+                  onClick={() =>
+                    handleClick(
+                      event.year.toString(),
+                      event.title.toString(),
+                      event.id.toString(),
+                    )
+                  }
+                >
+                  <Image
+                    src={event.img}
+                    alt={event.title}
+                    height={256}
+                    width={256}
+                  />
+                </div>
+                <p>{event.nbrPicture} photos</p>
+              </div>
+            ))
+          ) : (
+            <div>
+              <h2 className="">Rejoignez l'aventure 306 !</h2>
+              <h3>Photos a venir !</h3>
+            </div>
+          )}
+        </div>
+      </AccordionItem>,
+    )
+
+    for (let i = 1; i <= 2; i++) {
+      const year = parseInt((currentYear - i).toString())
+      accordionItems.push(
+        <AccordionItem
+          key={i}
+          title={(currentYear - i).toString()}
+          className="flex flex-col items-center"
+        >
+          <div>
+            {eventsByYear[year] ? (
+              data.map((event, index) => (
+                <div key={index}>
+                  <h2 className="">{event.title}</h2>
+                  <div
+                    onClick={() =>
+                      handleClick(
+                        event.year.toString(),
+                        event.title.toString(),
+                        event.id.toString(),
+                      )
+                    }
+                  >
+                    <Image
+                      src={event.img}
+                      alt={event.title}
+                      height={256}
+                      width={256}
+                    />
+                  </div>
+                  <p>{event.nbrPicture} photos</p>
+                </div>
+              ))
+            ) : (
+              <h3>Aucune photos pour le moment !</h3>
+            )}
+          </div>
+        </AccordionItem>,
+      )
+    }
+
+    return accordionItems
+  }
 
   return (
     <div>
@@ -87,30 +161,23 @@ export default function PhotosVideos() {
         </p>
       </div>
       {/* galerie */}
-      <div className="columns-3 py-3">
-        {data.map((item, index) => {
-          return (
-            <div key={index} className="relative pb-3">
-              <Link href={`/details/${item.id}`}>
-                <div className="absolute inset-0 bg-black opacity-50"></div>
-                <Image
-                  src={item.img}
-                  alt={item.title}
-                  width={1920}
-                  height={1080}
-                  className="object-cover w-full"
-                />
-                <div className="absolute w-3/4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                  <h1 className="text-center text-text-dark">{item.title}</h1>
-                  <p className="text-center text-text-dark">
-                    {item.descriptif}
-                  </p>
-                  <p className="text-center text-text-dark">{item.date}</p>
-                </div>
-              </Link>
-            </div>
-          )
-        })}
+      <div className="columns-3 py-3 flex">
+        <Accordion
+          defaultExpandedKeys={[[0].toString()]}
+          className="text-center"
+        >
+          {data.length > 0 ? (
+            renderAccordionItems()
+          ) : (
+            <AccordionItem
+              key="no-data"
+              title="Aucune photos pour le moment !"
+              className="flex flex-col items-center"
+            >
+              <h3>Aucune photos pour le moment !</h3>
+            </AccordionItem>
+          )}
+        </Accordion>
       </div>
     </div>
   )
