@@ -83,12 +83,12 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
     <footer
       className={`relative  text-white pt-4  ${
         withMember
-          ? 'bg-[#ADA075] dark:bg-[#6a6145]'
-          : 'bg-[#707070] dark:bg-[#6a6145]'
+          ? 'bg-[#6a6145] dark:bg-[#6a6145]'
+          : 'bg-[#707070] dark:bg-[#707070]'
       }`}
     >
       <div className="flex-col  flex lg:flex-row justify-between  place self-auto items-center lg:items-start ">
-        <div className="lg:w-1/3 w-full xl:ml-4 flex flex-col ">
+        <div className="lg:w-1/3 w-full lg:ml-4 flex flex-col ">
           <div className="  text-base font-extrabold mb-4 tracking-wide font-sans text-center lg:text-left">
             Restons en contact !
           </div>
@@ -113,7 +113,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             <Link href="https://www.instagram.com/club306officielfrance/">
               <RiInstagramFill
                 size={32}
-                className="hover:fill-blue-400 cursor-pointer"
+                className="hover:fill-blue-500 cursor-pointer"
               />
             </Link>
             <Link href="https://www.youtube.com/club306france/">
@@ -138,7 +138,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           {/* btn submit */}
           <form
             onSubmit={handleSubmit(handleSendMail)}
-            className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row"
+            className="flex flex-col mx-auto mt-8 space-y-3 md:space-y-0 md:flex-row"
           >
             <Controller
               name="email"
@@ -163,7 +163,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
 
             <button
               type="submit"
-              className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80"
+              className="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-red-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80"
             >
               S&apos;abonner
             </button>
@@ -189,26 +189,26 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             </div>
             <ul className="list-disc space-y-2 ml-4 ">
               <li>
-                <Link href="/rules" className="hover:text-red-600 text-sm">
+                <Link href="/rules" className="hover:text-blue-700 text-sm">
                   Règlement du Club
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-red-600 text-sm">
+                <Link href="/privacy" className="hover:text-blue-700 text-sm">
                   Politique de confidentialité
                 </Link>
               </li>
               <li>
                 <Link
                   href="/legalNotice"
-                  className="hover:text-red-600 text-sm"
+                  className="hover:text-blue-700 text-sm"
                 >
                   Mentions légales
                 </Link>
               </li>
 
               <li>
-                <Link href="/contact" className="hover:text-red-600 text-sm">
+                <Link href="/contact" className="hover:text-blue-700 text-sm">
                   Nous contacter
                 </Link>
               </li>
