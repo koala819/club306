@@ -138,7 +138,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           {/* btn submit */}
           <form
             onSubmit={handleSubmit(handleSendMail)}
-            className="flex flex-col mx-auto mt-8 space-y-3 md:space-y-0 md:flex-row"
+            className="flex flex-col lg:justify-center lg:mx-auto mt-8 space-y-3 md:space-y-0 md:flex-row"
           >
             <Controller
               name="email"
