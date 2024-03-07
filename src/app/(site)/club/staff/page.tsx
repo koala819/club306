@@ -1,5 +1,6 @@
-'use client';
-import { CardStaff } from '@/components/CardStaff';
+'use client'
+
+import { CardStaff } from '@/components/CardStaff'
 
 export default function Staff() {
   const StaffMember = [
@@ -136,12 +137,12 @@ export default function Staff() {
         'https://www.linkedin.com/in/xavier%F0%9F%92%BB-genolhac-79a98390/',
       mail: 'contact@club306.fr',
     },
-  ];
+  ]
 
   return (
     <div className="container my-24 px-6 mx-auto ">
       <section className="mb-32 text-gray-800 text-center">
-        <h2 className="text-3xl font-bold mb-32 text-blue-500 dark:text-yellow-600">
+        <h2 className="text-4xl font-bold mb-32 text-principal-light dark:text-principal-dark">
           Une équipe à votre écoute
         </h2>
         <div className="grid gap-x-6 lg:gap-x-12 md:grid-cols-3">
@@ -165,5 +166,5 @@ export default function Staff() {
         </div>
       </section>
     </div>
-  );
+  )
 }
