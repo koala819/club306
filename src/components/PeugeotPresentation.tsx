@@ -1,4 +1,4 @@
-export const CercleLion = ({ color }: { color: string }) => {
+export const LionCircle = ({ color }: { color: string }) => {
   return (
     <svg
       id="Calque_2"

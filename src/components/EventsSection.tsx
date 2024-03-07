@@ -11,7 +11,7 @@ import whiteLogo from '@../../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 
-const NUMBER_OF_EVENTS_TO_DISPLAY = 3
+const nbrEventsDisplay = 3
 
 export const EventsSection = () => {
   const { data: session } = useSession()
@@ -69,10 +69,7 @@ export const EventsSection = () => {
           })
 
           // Sélectionner les trois derniers événements non vides
-          const latestEvents = nonEmptyEvents.slice(
-            0,
-            NUMBER_OF_EVENTS_TO_DISPLAY,
-          )
+          const latestEvents = nonEmptyEvents.slice(0, nbrEventsDisplay)
           setLatestEvents(latestEvents)
         } else {
           console.error('Aucun événement trouvé.')
@@ -152,7 +149,7 @@ export const EventsSection = () => {
                     src={
                       event.img || (theme === 'light' ? blackLogo : whiteLogo)
                     }
-                    alt={event.title}
+                    alt={event.title || "logo de l'evenement"}
                     height={156}
                     width={156}
                     className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"

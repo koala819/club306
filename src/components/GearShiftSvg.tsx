@@ -1,4 +1,4 @@
-export const GearLeverSvg = ({
+export const GearShiftSvg = ({
   color,
   width,
   height,

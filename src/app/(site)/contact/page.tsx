@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import Image from 'next/image'
 
@@ -48,11 +49,11 @@ export default function Contact() {
 
     fetch(`${process.env.CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
-        response.status === 200 && console.log('Send mail with SUCCESS :)')
+        response.status === 200 && toast.success('Send mail with SUCCESS :)')
         setConfirmationSend(true)
       })
       .catch((error: any) => {
-        console.log('ERROR to send the mail in contact.tsx', error)
+        toast.error('ERROR to send the mail in contact.tsx', error)
       })
   }
 
@@ -62,7 +63,7 @@ export default function Contact() {
         <Image
           src="https://images.unsplash.com/photo-1568106575207-0fe3ec317559"
           className="object-cover object-center h-full"
-          alt="background"
+          alt="Une Peugeot 306 verte foncée stationnée de manière oblique au centre de la route."
           width={1000}
           height={1000}
         />

@@ -9,9 +9,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { CarSvg } from './CarSvg'
-import { GearLeverSvg } from './GearLeverSvg'
+import { GearShiftSvg } from './GearShiftSvg'
 import { HelmetSvg } from './HelmetSvg'
-import { CercleLion } from './PeugeotPresentation'
+import { LionCircle } from './PeugeotPresentation'
 import { UserSvg } from './UserSvg'
 
 import presentationPicture from '@/../../public/images/306Rouges16.svg'
@@ -97,7 +97,7 @@ export const Presentation = () => {
             </div>
           </div>
           <div className="w-1/2 relative pb-14 my-4 lg:my-0 lg:pb-32 order-first lg:order-1">
-            <CercleLion
+            <LionCircle
               color={
                 theme === 'light'
                   ? 'var(--principal-light)'
@@ -151,7 +151,7 @@ export const Presentation = () => {
             </p>
           </div>
           <div className="flex items-center flex-col md:flex-row">
-            <GearLeverSvg
+            <GearShiftSvg
               color={theme === 'light' ? 'var(--bg-light)' : 'var(--bg-dark)'}
               width={sizeSvg1}
               height={sizeSvg1}

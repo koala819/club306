@@ -12,22 +12,20 @@ export default function Details() {
   ) as string
   const sizeWidth = 600
   const sizeHeight = 400
+  let nbrPhotos = 21
 
-  const nbrPhotos = 21
   const photos = Array.from({ length: nbrPhotos }, (_, index) => ({
     src: `https://res.cloudinary.com/djbwavqnp/image/upload/c_fill,w_3840,h_2560,g_auto/f_auto/q_auto/v1/${eventYearTitle}${String(index).padStart(2, '0')}?_a=BAVCcWIB0`,
     width: sizeWidth,
     height: sizeHeight,
     id: index + 1,
   }))
-  console.log(photos)
+
   const [currentImage, setCurrentImage] = useState(0)
-  const [srcImage, setSrcImage] = useState('')
   const [lightboxIsOpen, setLightboxIsOpen] = useState(false)
 
-  const openLightbox = (index: number, src: string) => {
+  const openLightbox = (index: number) => {
     setCurrentImage(index)
-    setSrcImage(src)
     setLightboxIsOpen(true)
   }
 
@@ -35,31 +33,43 @@ export default function Details() {
     setCurrentImage(0)
     setLightboxIsOpen(false)
   }
-  console.log(srcImage)
+  console.log(nbrPhotos)
+  const renderPhotos = () => {
+    const rows = []
+    for (let i = 0; i < photos.length; i += 3) {
+      rows.push(
+        <div className="grid grid-cols-3" key={i}>
+          {photos.slice(i, i + 3).map((photo, index) => (
+            <div key={index} style={{ width: sizeWidth, height: sizeHeight }}>
+              <CldImage
+                onClick={() => openLightbox(i + index)}
+                crop="fill"
+                src={photo.src}
+                width={sizeWidth}
+                height={sizeHeight}
+                alt=""
+                className="p-1"
+                sizes="100vw"
+              />
+            </div>
+          ))}
+        </div>,
+      )
+    }
+    return rows
+  }
+
   return (
-    <div className="grid grid-cols-3">
-      {photos.map((photo, index) => (
-        <div key={index}>
-          <CldImage
-            onClick={() => openLightbox(index, photo.src)}
-            crop="fill"
-            src={photo.src}
-            width={photo.width}
-            height={photo.height}
-            alt=""
-            className="p-1"
-            sizes="100vw"
-          />
-        </div>
-      ))}
+    <div>
+      {renderPhotos()}
       <Lightbox
         index={currentImage}
         open={lightboxIsOpen}
         close={closeLightbox}
         slides={photos.map((photo) => ({
           src: photo.src,
-          width: photo.width * 2,
-          height: photo.height * 2,
+          width: sizeWidth * 2,
+          height: sizeHeight * 2,
         }))}
       />
     </div>
