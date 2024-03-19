@@ -166,8 +166,8 @@ export default function Event() {
                       >
                         Réserver ma place
                         {isHoveredArray[index] && (
-                          <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md">
-                            <p className="text-principal-light font-bold p-4">
+                          <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md dark:hover:bg-[#000015] dark:border-principal-dark">
+                            <p className="text-principal-light font-bold p-4 dark:text-principal-dark">
                               Je suis déjà membre
                             </p>
                             <button
@@ -176,7 +176,7 @@ export default function Event() {
                             >
                               Connexion
                             </button>
-                            <p className="text-principal-light font-bold p-4">
+                            <p className="text-principal-light font-bold p-4 dark:text-principal-dark">
                               Sinon devenez membre
                             </p>
                             <button

@@ -11,7 +11,7 @@ import whiteLogo from '@../../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 
-const NUMBER_OF_EVENTS_TO_DISPLAY = 3
+const nbrEventsDisplay = 3
 
 export const EventsSection = () => {
   const { data: session } = useSession()
@@ -69,10 +69,7 @@ export const EventsSection = () => {
           })
 
           // Sélectionner les trois derniers événements non vides
-          const latestEvents = nonEmptyEvents.slice(
-            0,
-            NUMBER_OF_EVENTS_TO_DISPLAY,
-          )
+          const latestEvents = nonEmptyEvents.slice(0, nbrEventsDisplay)
           setLatestEvents(latestEvents)
         } else {
           console.error('Aucun événement trouvé.')
@@ -96,8 +93,10 @@ export const EventsSection = () => {
 
   return (
     <section className="container mx-auto px-5">
-      <h1 className="mb-8 mt-14">Les prochains événements</h1>
-      <p className="mb-8">
+      <h1 className="mb-8 mt-14 xl:text-left text-center">
+        Les prochains événements
+      </h1>
+      <p className="mb-8 w-full mx-0 xl:text-left text-center">
         Rejoignez-nous pour vivre des moments passionnants, connectez-vous avec
         d'autres amateurs de voitures et participez à des expériences
         inoubliables sur la route et au-delà !
@@ -150,9 +149,9 @@ export const EventsSection = () => {
                     src={
                       event.img || (theme === 'light' ? blackLogo : whiteLogo)
                     }
-                    alt={event.title}
-                    height={256}
-                    width={256}
+                    alt={event.title || "logo de l'evenement"}
+                    height={156}
+                    width={156}
                     className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"
                   />
                   <p className="flex justify-center pt-4 text-xl text-center font-semibold">
@@ -187,8 +186,8 @@ export const EventsSection = () => {
                     >
                       Réserver ma place
                       {isHoveredArray[index] && (
-                        <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md">
-                          <p className="text-principal-light font-bold p-4">
+                        <div className="w-max absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-1 bg-white border border-principal-light p-2 rounded shadow-md dark:bg-[#000015] dark:border-principal-dark">
+                          <p className="text-principal-light font-bold p-4 dark:text-principal-dark">
                             Je suis déjà membre
                           </p>
                           <button
@@ -197,7 +196,7 @@ export const EventsSection = () => {
                           >
                             Connexion
                           </button>
-                          <p className="text-principal-light font-bold p-4">
+                          <p className="text-principal-light font-bold p-4 dark:text-principal-dark">
                             Sinon devenez membre
                           </p>
                           <button

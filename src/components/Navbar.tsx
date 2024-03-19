@@ -135,8 +135,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 disableRipple
                 className={` ${
                   path.includes('/club')
-                    ? 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover'
-                    : 'data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover'
+                    ? 'degrade-border text-text-light dark:text-text-dark'
+                    : 'degrade-border text-text-light dark:text-text-dark'
                 }`}
                 endContent={<FiChevronDown />}
                 radius="sm"
@@ -162,14 +162,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           >
             <DropdownItem
               onClick={() => router.push('/club')}
-              className="navbarlinkHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
+              className="degrade-border text-text-light dark:text-text-dark"
             >
               PRÉSENTATION
             </DropdownItem>
 
             <DropdownItem
               onClick={() => router.push('/club/staff')}
-              className="navbarlinkHover data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light"
+              className="degrade-border text-text-light dark:text-text-dark"
             >
               LE STAFF
             </DropdownItem>
@@ -179,7 +179,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Deuxième élément de la barre de navigation */}
 
         <NavbarItem isActive={path.includes('#')}>
-          <Link href="#" aria-current="page" className="navbarlinkHover">
+          <Link
+            href="#"
+            aria-current="page"
+            className="degrade-border text-text-light dark:text-text-dark"
+          >
             DISCORD
           </Link>
         </NavbarItem>
@@ -187,7 +191,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Troisième élément de la barre de navigation */}
 
         <NavbarItem isActive={path.includes('/event')}>
-          <Link href="/event" aria-current="page" className="navbarlinkHover">
+          <Link
+            href="/event"
+            aria-current="page"
+            className="degrade-border text-text-light dark:text-text-dark"
+          >
             EVENT
           </Link>
         </NavbarItem>
@@ -198,7 +206,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           isActive={path.includes('/contact')}
           className="hidden lg:flex"
         >
-          <Link href="/contact" aria-current="page" className="navbarlinkHover">
+          <Link
+            href="/contact"
+            aria-current="page"
+            className="degrade-border text-text-light dark:text-text-dark"
+          >
             CONTACT
           </Link>
         </NavbarItem>
@@ -240,14 +252,14 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               >
                 <DropdownItem
                   onClick={() => router.push('/cpanel')}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
                   Mon compte
                 </DropdownItem>
 
                 <DropdownItem
                   onClick={() => handleSignout()}
-                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarlinkHover"
+                  className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
                   Déconnexion
                 </DropdownItem>
@@ -278,7 +290,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             {item.component ? (
               item.component
             ) : (
-              <Link href={item.path} size="lg" className="navbarlinkHover">
+              <Link href={item.path} size="lg" className="navbarLinkHover">
                 {item.name}
               </Link>
             )}

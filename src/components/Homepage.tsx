@@ -3,10 +3,9 @@
 import { useEffect, useState } from 'react'
 
 import Alert from './Alert'
-import { BlogSection } from './Blog'
 import { EventsSection } from './EventsSection'
+import { NavigationSection } from './NavigationSection'
 import { Partners } from './Partners'
-import { Picture306 } from './Picture306'
 import { Presentation } from './Presentation'
 
 import { createClient } from '@/prismicio'
@@ -39,7 +38,7 @@ export function Homepage({ withMember }: { withMember: boolean }) {
       {withMember && displayBox && <Alert setDisplayBox={setDisplayBox} />}
       <Presentation />
       <EventsSection />
-      <BlogSection articles={mappedArticles} />
+      <NavigationSection />
       <Partners />
     </div>
   )

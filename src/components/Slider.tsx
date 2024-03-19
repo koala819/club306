@@ -1,53 +1,52 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import styles from '@/styles/Slider.module.css';
-import { PartnerInfoType } from '@/types/models';
-import { ourPartners } from '@/lib/supabase';
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { Slide } from 'react-slideshow-image'
+import 'react-slideshow-image/dist/styles.css'
+
+import Image from 'next/image'
+
+import { PartnerInfoType } from '@/types/models'
+
+import { ourPartners } from '@/lib/supabase'
+import styles from '@/styles/Slider.module.css'
 
 export const Slider = ({ session }: { session: any }) => {
-  const [registredMember, setRegistredMember] = useState(false);
-  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
-    null
-  );
-  const [showCode, setShowCode] = useState<boolean>(false);
-  const [selectedTitle, setSelectedTitle] = useState<string>('');
+  const [registredMember, setRegistredMember] = useState(false)
+  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(null)
+  const [showCode, setShowCode] = useState<boolean>(false)
+  const [selectedTitle, setSelectedTitle] = useState<string>('')
   const responsiveSettings = [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
       },
     },
     {
-      breakpoint: 600,
+      breakpoint: 740,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 500,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        initialSlide: 2,
       },
     },
-    {
-      breakpoint: 180,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ];
+  ]
 
   useEffect(() => {
     if (session) {
-      setRegistredMember(true);
+      setRegistredMember(true)
     }
     const fetchData = async () => {
       try {
-        const response = await ourPartners();
+        const response = await ourPartners()
         if (response.data !== null) {
           const formattedData = response.data.map(
             (item: { [x: string]: any }) => {
@@ -59,36 +58,45 @@ export const Slider = ({ session }: { session: any }) => {
                 remise: item.remise,
                 site: item.site,
                 alt: item.alt,
-              };
-            }
-          );
-          setPartnerData(formattedData);
+              }
+            },
+          )
+          setPartnerData(formattedData)
         }
-        return response.data;
+        return response.data
       } catch (error) {
-        console.error('Error to get data from partners : ', error);
+        console.error('Error to get data from partners : ', error)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   function displayPresent(title: string) {
-    setShowCode(true);
-    setSelectedTitle(title);
+    setShowCode(true)
+    setSelectedTitle(title)
+  }
+
+  const handleClick = () => {
+    if (registredMember === true) {
+    } else {
+      window.location.href = '/membership'
+    }
   }
 
   return (
     <div className={styles.container}>
       {partnerData && (
         <Slide
-          slidesToScroll={2}
-          slidesToShow={3}
+          slidesToScroll={1}
+          slidesToShow={1}
           indicators={false}
           responsive={responsiveSettings}
         >
           {partnerData.map((partner) => (
             <div key={partner.id}>
-              <div className={`dark:bg-gray-800 ${styles.card}`}>
+              <div
+                className={`dark:bg-gray-800 ${styles.card} dark:hover:border-principal-dark`}
+              >
                 <div className="flex w-full justify-center">
                   <Image
                     loading="lazy"
@@ -114,8 +122,10 @@ export const Slider = ({ session }: { session: any }) => {
                   </div>
                 </div>
                 <button
-                  className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex content-center dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white"
-                  onClick={() => displayPresent(partner.title || '')}
+                  className="w-full bg-principal-light dark:bg-principal-dark dark:text-bg-dark hover:bg-gray-700 text-text-dark  justify-center font-bold py-2 px-4 rounded flex dark:hover:bg-gray-900 dark:hover:text-white"
+                  onMouseEnter={() => displayPresent(partner.title || '')}
+                  onMouseLeave={() => setShowCode(false)}
+                  onClick={() => handleClick()}
                 >
                   <svg
                     fill="#000000"
@@ -150,5 +160,5 @@ export const Slider = ({ session }: { session: any }) => {
         </Slide>
       )}
     </div>
-  );
-};
+  )
+}
