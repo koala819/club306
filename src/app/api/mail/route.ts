@@ -3,6 +3,7 @@ import {
   addNewCar,
   confirMail,
   mailContact,
+  newsLetter,
   recordDb,
   removeCar,
   sendOTP,
@@ -103,6 +104,17 @@ export async function POST(req: Request): Promise<Response> {
           html: welcomeNewMember(body.first_name),
         };
         break;
+      case 'newsLetter':
+          mailOptions = {
+            from: body.email,
+            // to: 'contact@club306.fr, president@club306.fr',
+            // bcc: 'webmaster@club306.fr',
+           to: 'webmaster@club306.fr',
+             subject: `🧿📧📬 Un Nouveau Lecteur à notre NewsLetter: 📬📧🧿`,
+            text: `Adresse mail ${body.email}.`,
+            html: newsLetter(body.email),
+          };
+          break;
       case 'oldCar':
         mailOptions = {
           from: 'supabase-info@club306.fr',
