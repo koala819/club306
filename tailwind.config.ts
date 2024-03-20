@@ -38,7 +38,7 @@ const config: Config = {
     },
   },
  
-  plugins: [nextui(), require('@tailwindcss/typography'),require('tailwindcss-animate')],
+  plugins: [nextui()],
 }
 
 module.exports = config
