@@ -2,7 +2,6 @@
 
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import 'react-vertical-timeline-component/style.min.css'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
