@@ -1,10 +1,14 @@
 'use client';
-import { Montserrat } from 'next/font/google';
+import { Roboto  } from 'next/font/google';
 import '@/styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 import SiteLayout from '@/components/SiteLayout';
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const revalidate = 0;
 
@@ -15,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="light" suppressHydrationWarning>
-      <body className={`${montserrat.className}`}>
+      <body className={`${roboto.className}`}>
         <SessionProvider>
           <SiteLayout>{children}</SiteLayout>
         </SessionProvider>
