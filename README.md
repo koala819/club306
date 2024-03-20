@@ -20,7 +20,7 @@ This project aims to convert an existing website into a WordPress site using the
 1. Clone the repository :
 
    ```bash
-   git clone git@github.com:koala819/pascal306.git
+   git clone git@github.com:koala89/pascal306.git
    ```
 
 2. Navigate to the project directory :
