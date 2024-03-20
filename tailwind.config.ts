@@ -32,6 +32,9 @@ const config: Config = {
         'light-connect': '#ADA075',
         'dark-connect': '#6a6145',
       },
+      fontFamily: {
+        roboto: ["var(--font-roboto)"],
+      },
     },
   },
  
