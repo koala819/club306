@@ -180,7 +180,9 @@ export default function Page() {
                 )}
               </div>
               <div className="flex  w-full justify-end mt-4">
-                <Button className="btn-custom">Connexion</Button>
+                <Button className="btn-custom" type="submit">
+                  Connexion
+                </Button>
               </div>
             </form>
           </div>
