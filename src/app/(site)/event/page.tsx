@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation'
 
 import { EventsData } from '@/types/models'
 
-import blackLogo from '@../../public/images/logoClub306.png'
-import whiteLogo from '@../../public/images/logoClub306_blanc.png'
+import blackLogo from '@/../public/images/logoClub306.png'
+import whiteLogo from '@/../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 

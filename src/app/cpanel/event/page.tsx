@@ -3,20 +3,21 @@
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
+// import { useTheme } from '@/context/ThemeContext'
+import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { EventsData } from '@/types/models'
 
-import blackLogo from '@../../public/images/logoClub306.png'
-import whiteLogo from '@../../public/images/logoClub306_blanc.png'
-// import { useTheme } from '@/context/ThemeContext'
+import blackLogo from '@/../public/images/logoClub306.png'
+import whiteLogo from '@/../public/images/logoClub306_blanc.png'
 import { getAllEvents } from '@/lib/events'
 
 export default function Event() {
   const { data: session } = useSession()
   const router = useRouter()
-  // const { theme } = useTheme()
+  const { theme } = useTheme()
   const [events, setEvents] = useState<EventsData[]>([])
   const [isHoveredArray, setIsHoveredArray] = useState<boolean[]>(
     Array(events.length).fill(false),
@@ -126,14 +127,14 @@ export default function Event() {
                   <div className="w-full xl:w-1/4 text-principal-light dark:text-principal-dark m-8 sm:pt-0">
                     <Image
                       src={
-                        event.img 
-                        // event.img || (theme === 'light' ? blackLogo : whiteLogo)
+                        event.img || (theme === 'light' ? blackLogo : whiteLogo)
                       }
                       alt={event.title}
                       height={256}
                       width={256}
                       className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"
                     />
+
                     <p className="flex justify-center pt-4 text-xl text-center font-semibold">
                       {dateToDisplay}
                     </p>
