@@ -1,11 +1,10 @@
 import { RichText } from 'prismic-reactjs';
-// import { Layout } from '@/components/pages/Layout';
-// import { Navbar } from '@/components/Navbar';
-// import type { GetServerSidePropsContext } from 'next';
+
 import { createClient } from '@/prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Button } from '@nextui-org/react';
 
 type Params = { uid: string };
 
@@ -36,9 +35,9 @@ export default async function Article({ params }: { params: Params }) {
       </div>
 
       <Link href="/blog">
-        <button className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg">
+      <Button className="btn-custom">
           Retour &nbsp; 👈
-        </button>
+        </Button>
       </Link>
     </div>
     // </Layout>

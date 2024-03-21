@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@nextui-org/react'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -179,12 +180,7 @@ export default function Page() {
                 )}
               </div>
               <div className="flex  w-full justify-end mt-4">
-                <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-                  type="submit"
-                >
-                  Connexion
-                </button>
+                <Button className="btn-custom">Connexion</Button>
               </div>
             </form>
           </div>

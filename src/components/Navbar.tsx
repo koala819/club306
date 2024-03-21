@@ -230,10 +230,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             >
               <NavbarItem>
                 <DropdownTrigger>
-                  <Button
-                    className="mr-10 mb-5 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
-                        dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
-                  >
+                  <Button className="mr-10 mb-5 btn-custom">
                     Espace membres
                   </Button>
                 </DropdownTrigger>
@@ -270,9 +267,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               as={Link}
               onClick={handleSignIn}
               href={'#'}
-              className="mr-10 border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
-                   dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark"
-            >
+              className="mr-10 border-transparent btn-custom">
               Connexion
             </Button>
           )}

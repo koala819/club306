@@ -184,3 +184,8 @@ h2 {
 p {
   @apply mx-auto text-base;
 }
+
+.btn-custom {
+  @apply border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
+  dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark;
+}
