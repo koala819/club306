@@ -14,13 +14,16 @@ export async function GET(req: NextRequest) {
       },
     )
     const data = await response.json()
-
     const filteredImages = data.resources
       .filter((image: { folder: string }) => image.folder === folderQuery)
       .sort((a: { public_id: string }, b: { public_id: string }) =>
         a.public_id.localeCompare(b.public_id),
       )
-      .map((image: { url: string }) => image.url)
+      .map((image: { url: string; width: number; height: number }) => ({
+        url: image.url,
+        width: image.width,
+        height: image.height,
+      }))
 
     return NextResponse.json({
       images: filteredImages,

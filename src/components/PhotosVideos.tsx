@@ -3,6 +3,7 @@
 import { Accordion, AccordionItem } from '@nextui-org/react'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import { EventsDataPicture } from '@/types/models'
 
@@ -18,6 +19,7 @@ export default function PhotosVideos({
     link: string
   }[]
 }) {
+  const router = useRouter()
   const currentYear = new Date().getFullYear()
 
   const organizeEventsByYear = (): { [year: number]: EventsDataPicture[] } => {
@@ -39,7 +41,7 @@ export default function PhotosVideos({
     const eventsByYear = organizeEventsByYear()
     const accordionItems: JSX.Element[] = []
 
-    // Ajoutez l'item de l'annee courante
+    // Current year
     accordionItems.push(
       <AccordionItem
         key={0}
@@ -77,7 +79,7 @@ export default function PhotosVideos({
       </AccordionItem>,
     )
 
-    // Ajoutez l'item des annees precedentes
+    // Previous years
     for (let i = 1; i <= 2; i++) {
       const year = parseInt((currentYear - i).toString())
       accordionItems.push(
@@ -91,13 +93,15 @@ export default function PhotosVideos({
               eventsData.map((event: EventsDataPicture, index: number) => (
                 <div key={index}>
                   <h2 className="">{event.title}</h2>
+
                   <div
+                    className="hover:cursor-pointer"
                     onClick={() => {
-                      // picturesCount(
-                      //   event.year.toString(),
-                      //   event.title.toString(),
-                      // )
-                      console.log('click')
+                      const query = new URLSearchParams({
+                        year: event.year.toString(),
+                        title: event.title,
+                      }).toString()
+                      router.push(`/photosVideos/${event.id}?${query}`)
                     }}
                   >
                     <Image
