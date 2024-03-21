@@ -56,6 +56,7 @@
     "react-slideshow-image": "^4.2.1",
     "react-spinners": "^0.13.8",
     "sharp": "^0.33.2",
+    "vertical-timeline-component-for-react": "^1.0.7",
     "yet-another-react-lightbox": "^3.17.0",
     "yup": "1.2.0"
   },
