@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Galerie Club 306: Photos & Vidéos Événements Automobiles',
   description:
     'Explorez la galerie Club 306 pour des moments uniques en photos et vidéos des rassemblements automobiles.',
+  alternates: {
+    canonical: `${process.env.CLIENT_URL}/photosVideos`,
+  },
 }
 
 const eventsData = [
