@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 
 import Image from 'next/image'
 
+import { FormEventConfirm } from '@/components/FormEventConfirm'
 import { FormEventConnect } from '@/components/FormEventConnect'
 
 export default function EventsRegistration() {
@@ -15,10 +16,10 @@ export default function EventsRegistration() {
       <picture className="sm:absolute z-0 w-full h-full">
         <Image
           src="/images/youngtimer-festival.jpg"
-          layout="fill" // Utilisation de layout="fill" pour une couverture complète
-          objectFit="cover" // Assurer que l'image couvre entièrement l'espace disponible
+          layout="fill"
+          objectFit="cover"
           alt="Huit Peugeot 306 alignées dans un champ"
-          className="blur brightness-50" // Application d'un flou et ajustement de la luminosité
+          className="blur brightness-50"
         />
       </picture>
 
@@ -35,7 +36,11 @@ export default function EventsRegistration() {
       </text>
 
       <div className="my-8 z-10 w-11/12 lg:w-1/3">
-        <FormEventConnect userMail={userMail} />
+        {session ? (
+          <FormEventConfirm userMail={userMail} />
+        ) : (
+          <FormEventConnect />
+        )}
       </div>
     </div>
   )
