@@ -58,7 +58,7 @@ export const FormEventConfirm = ({ userMail }: { userMail: string }) => {
       className="border-2 border-principal-light bg-white dark:bg-bg-dark px-5 py-7 rounded-lg shadow-lg"
     >
       <div className="h-full px-2 mx-10 pt-8">
-        <h1 className="mb-8">Réservez votre place</h1>
+        <h2 className="mb-8">Réservez votre place</h2>
         {/* First Name */}
         <div className="relative z-0">
           <input
