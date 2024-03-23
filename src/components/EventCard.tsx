@@ -49,7 +49,12 @@ export function EventCard({ event }: { event: EventsData }) {
         {session ? (
           <Button
             className="btn-custom"
-            onClick={() => router.push('/eventsRegistration')}
+            onClick={() => {
+              const query = new URLSearchParams({
+                eventID: event.id.toString(),
+              })
+              router.push(`/eventsRegistration?${query}`)
+            }}
           >
             Réserver ma place
           </Button>
