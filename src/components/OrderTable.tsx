@@ -21,7 +21,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
           <tr>
             <th className="text-left px-4 py-2">Réf</th>
             <th className="text-left px-4 py-2">Date</th>
-            <th className="text-left px-4 py-2">Statut</th>
+            {/* <th className="text-left px-4 py-2">Statut</th> */}
             <th className="text-left px-4 py-2">Nom</th>
             <th className="text-left px-4 py-2">Prénom</th>
 
@@ -51,10 +51,10 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
             >
               <td className="px-4 py-2">{order.order.id}</td>
               <td className="px-4 py-2">{formatDate(order.order.date)}</td>
-              <td className="px-4 py-2">
+              {/* <td className="px-4 py-2">
                 {' '}
                 {order.memberOrNot ? <FaCheck size={23} /> : 'Non'}{' '}
-              </td>
+              </td> */}
               <td className="px-4 py-2">{order.user.lastName}</td>
               <td className="px-4 py-2">{order.user.firstName}</td>
               <td className="px-4 py-2">
