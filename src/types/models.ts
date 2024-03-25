@@ -1,4 +1,4 @@
-import { elements } from 'chart.js'
+import { memberInfo } from '@/lib/token/utils'
 
 interface ArticleProps {
   uid: string | null
@@ -79,6 +79,11 @@ interface Color {
   hexa: string
 }
 
+interface ConnectEvents {
+  email?: string
+  pwd?: string
+}
+
 interface Events {
   id?: number
   month?: number | undefined
@@ -87,6 +92,27 @@ interface Events {
   theme?: number
   dates?: string
   year?: number
+}
+
+interface EventsData {
+  dates: string
+  description: string
+  id: number
+  month: number
+  theme?: number
+  title: string
+  year: number
+  img: string
+  place: string
+}
+
+interface EventsDataPicture {
+  id: number
+  year: number
+  title: string
+  img: string
+  nbrPicture: number
+  link: string
 }
 
 interface Finition {
@@ -131,6 +157,30 @@ interface Model {
   name: string
 }
 
+interface Navbar306Props {
+  withMember?: boolean
+}
+
+interface Order {
+  age: string
+  amount: number
+  breakfast: string
+  coordinates: string
+  id: string
+  immatriculationVehicule: string
+  memberOrNot: boolean
+  name: string
+  order: { id: string; date: string }
+  payer: { firstName: string; lastName: string; email: string }
+  payments: { state: string; paymentMeans: string }[]
+  user: { firstName: string; lastName: string }
+  ticketUrl: string
+}
+
+interface OrderTableProps {
+  orders: Order[]
+}
+
 interface PartnerInfoType {
   id?: number
   title?: string
@@ -151,6 +201,14 @@ interface PersonalInfo {
   phone: string
   email: string
   pwd: string
+}
+
+interface SchemaBookingEvents {
+  first_name: string
+  last_name: string
+  email: string
+  checkEngagementClub: boolean
+  checkPrivacyPolicy: boolean
 }
 
 interface SchemaPersonalInfo {
@@ -188,47 +246,8 @@ interface Vehicles {
   finition: string
 }
 
-// Interface pour déclarer le type de handleThemeChange
-interface Navbar306Props {
-  withMember?: boolean
-}
-
 interface ThemeSwitcherProps {
   withMember?: boolean
-}
-
-interface EventsData {
-  dates: string
-  description: string
-  id: number
-  month: number
-  theme?: number
-  title: string
-  year: number
-  img: string
-  place: string
-}
-
-interface SchemaBookingEvents {
-  first_name: string
-  last_name: string
-  email: string
-  checkEngagementClub: boolean
-  checkPrivacyPolicy: boolean
-}
-
-interface ConnectEvents {
-  email?: string
-  pwd?: string
-}
-
-interface EventsDataPicture {
-  id: number
-  year: number
-  title: string
-  img: string
-  nbrPicture: number
-  link: string
 }
 
 export type {
@@ -248,6 +267,8 @@ export type {
   ConnectEvents,
   Model,
   Navbar306Props,
+  Order,
+  OrderTableProps,
   PartnerInfoType,
   PersonalInfo,
   SchemaBookingEvents,
