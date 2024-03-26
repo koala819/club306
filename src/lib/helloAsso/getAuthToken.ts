@@ -1,8 +1,8 @@
 export default async function getAuthToken(
   clientId: string,
-  clientSecret: string
+  clientSecret: string,
 ): Promise<string> {
-  const tokenUrl = 'https://api.helloasso.com/oauth2/token';
+  const tokenUrl = 'https://api.helloasso.com/oauth2/token'
   const response = await fetch(tokenUrl, {
     method: 'POST',
     headers: {
@@ -13,12 +13,18 @@ export default async function getAuthToken(
       client_id: clientId,
       client_secret: clientSecret,
     }),
-  });
+  })
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  // if (!response.ok) {
+  //   throw new Error(`HTTP error! status: ${response.status}`)
+  // }
+
+  const data = await response.json()
+
+  // console.log('data', data)
+  if (response.status !== 200) {
+    console.log(`HTTP error! status: ${response.status}`)
   }
 
-  const data = await response.json();
-  return data.access_token;
+  return data.access_token
 }

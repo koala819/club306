@@ -1,30 +1,69 @@
 import { Order } from '@/types/models'
 
+import getAuthToken from './getAuthToken'
+
 import connect from '@/lib/helloAsso/connect'
 import { memberInDB } from '@/lib/newSupabase'
 
 export async function fetchAndEnrichOrders() {
-  const response = await connect({
-    url: 'https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items',
-    method: 'GET',
-  })
+  const token = await getToken()
 
-  const orders = [] // Initialiser un tableau vide pour stocker les commandes enrichies
+  const response = await fetch(
+    'https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  )
 
-  for (const order of response.data) {
+  //   const response = await connect({
+  //     url: 'https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items',
+  //     method: 'GET',
+  //   })
+  const dataResponse = await response.json()
+  //   console.log('orders', dataResponse)
+
+  const orders = []
+
+  for (const order of dataResponse.data) {
     const moreInfo = await enrichOrderData(order.id)
     const memberOrNot = await memberInDB(order.payer.email)
     orders.push({ ...order, ...moreInfo, memberOrNot })
   }
-
   return orders
 }
 
+async function getToken() {
+  const token = await getAuthToken(
+    process.env.HELLO_ASSO_CLIENT_ID ?? '',
+    process.env.HELLO_ASSO_CLIENT_SECRET ?? '',
+  )
+  return token
+}
+
 async function enrichOrderData(orderId: string) {
-  const data = await connect({
-    url: `https://api.helloasso.com/v5/orders/${orderId}`,
-    method: 'GET',
-  })
+  const token = await getToken()
+
+  const response = await fetch(
+    `https://api.helloasso.com/v5/orders/${orderId}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+
+  //   const data = await connect({
+  //     url: `https://api.helloasso.com/v5/orders/${orderId}`,
+  //     method: 'GET',
+  //   })
+
+  const data = await response.json()
 
   const breakfastField = data.items[0].customFields.find(
     (field: { name: string }) =>
