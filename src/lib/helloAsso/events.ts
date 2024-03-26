@@ -2,14 +2,14 @@ import getAuthToken from './getAuthToken'
 
 import { memberInDB } from '@/lib/newSupabase'
 
-export async function fetchAndEnrichOrders() {
+export async function fecthAllEvents() {
   const token = await getAuthToken(
     process.env.HELLO_ASSO_CLIENT_ID ?? '',
     process.env.HELLO_ASSO_CLIENT_SECRET ?? '',
   )
 
-  let response = await fetch(
-    'https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items',
+  const response = await fetch(
+    'https://api.helloasso.com/v5/organizations/club-306-france/forms',
     {
       method: 'GET',
       headers: {
@@ -18,15 +18,24 @@ export async function fetchAndEnrichOrders() {
       },
     },
   )
+  const allEvents = await response.json()
 
-  let dataResponse = await response.json()
+  return allEvents.data.map((event: { formSlug: string }) => {
+    return event.formSlug
+  })
+}
+export async function fetchAndEnrichOrders(eventName: any) {
+  console.log('fetchAndEnrichOrders', eventName)
+  const token = await getAuthToken(
+    process.env.HELLO_ASSO_CLIENT_ID ?? '',
+    process.env.HELLO_ASSO_CLIENT_SECRET ?? '',
+  )
   let allRecords: any = []
 
-  allRecords = allRecords.concat(dataResponse.data)
-
-  if (dataResponse.pagination.continuationToken) {
-    response = await fetch(
-      `https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items?continuationToken=${dataResponse.pagination.continuationToken}`,
+  try {
+    let response = await fetch(
+      `https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/${eventName}/items`,
+      // 'https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items',
       {
         method: 'GET',
         headers: {
@@ -35,21 +44,40 @@ export async function fetchAndEnrichOrders() {
         },
       },
     )
-    const newPageData = await response.json()
-    allRecords = allRecords.concat(newPageData.data)
+
+    let dataResponse = await response.json()
+
+    allRecords = allRecords.concat(dataResponse.data)
+
+    if (dataResponse.pagination.continuationToken) {
+      response = await fetch(
+        `https://api.helloasso.com/v5/organizations/club-306-france/forms/Event/hebergement-youngtimer-festival-2024/items?continuationToken=${dataResponse.pagination.continuationToken}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      const newPageData = await response.json()
+      allRecords = allRecords.concat(newPageData.data)
+    }
+
+    const finalRecords = allRecords
+
+    const orders = []
+
+    for (const order of finalRecords) {
+      const moreInfo = await enrichOrderData(order.id)
+      const memberOrNot = await memberInDB(order.payer.lastName.toUpperCase())
+      // const memberOrNot = await memberInDB(order.payer.email)
+      orders.push({ ...order, ...moreInfo, memberOrNot })
+    }
+    return orders
+  } catch (error) {
+    console.log('error', error)
   }
-
-  const finalRecords = allRecords
-
-  const orders = []
-
-  for (const order of finalRecords) {
-    const moreInfo = await enrichOrderData(order.id)
-    const memberOrNot = await memberInDB(order.payer.lastName.toUpperCase())
-    // const memberOrNot = await memberInDB(order.payer.email)
-    orders.push({ ...order, ...moreInfo, memberOrNot })
-  }
-  return orders
 }
 
 async function enrichOrderData(orderId: string) {

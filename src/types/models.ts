@@ -178,7 +178,8 @@ interface Order {
 }
 
 interface OrderTableProps {
-  orders: Order[]
+  // orders: Order[]
+  allEvents: string[]
 }
 
 interface PartnerInfoType {
