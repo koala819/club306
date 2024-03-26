@@ -23,7 +23,7 @@ export default async function getAuthToken(
 
   // console.log('data', data)
   if (response.status !== 200) {
-    console.log(`HTTP error! status: ${response.status}`)
+    throw new Error(`HTTP error! status: ${response.status}`)
   }
 
   return data.access_token

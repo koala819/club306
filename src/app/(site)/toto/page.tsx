@@ -1,6 +1,6 @@
 import OrderTable from '@/components/OrderTable'
 
-import { fetchAndEnrichOrders } from '@/lib/helloAsso/orders'
+import { fetchAllPages, fetchAndEnrichOrders } from '@/lib/helloAsso/orders'
 
 const Page = async () => {
   const orders = await fetchAndEnrichOrders()

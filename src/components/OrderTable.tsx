@@ -27,8 +27,8 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
 
             <th className="text-left px-4 py-2">Email Payeur</th>
 
-            {/* <th className="text-left px-4 py-2">Nom Payeur</th>
-            <th className="text-left px-4 py-2">Prénom Payeur</th> */}
+            <th className="text-left px-4 py-2">Nom Payeur</th>
+            {/*<th className="text-left px-4 py-2">Prénom Payeur</th> */}
             {/* <th className="text-left px-4 py-2">Email Payeur</th> */}
             {/* <th className="text-left px-4 py-2">Moyen de Paiement</th> */}
             <th className="text-left px-4 py-2">Billet</th>
@@ -60,8 +60,8 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders }) => {
               <td className="px-4 py-2">
                 {order.memberOrNot ? '' : order.payer.email}
               </td>
-              {/* <td className="px-4 py-2">{order.payer.lastName}</td>
-              <td className="px-4 py-2">{order.payer.firstName}</td> */}
+              <td className="px-4 py-2">{order.payer.lastName}</td>
+              {/* <td className="px-4 py-2">{order.payer.firstName}</td> */}
               {/* <td className="px-4 py-2">{order.payer.email}</td> */}
               {/* <td className="px-4 py-2">{order.payments[0].paymentMeans}</td> */}
               <td className="px-4 py-2">
