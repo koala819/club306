@@ -22,9 +22,7 @@ export async function fetchAndEnrichOrders() {
   let dataResponse = await response.json()
   let allRecords: any = []
 
-  // Ajouter les premiers enregistrements au tableau
   allRecords = allRecords.concat(dataResponse.data)
-  console.log('before do with ', dataResponse.pagination)
 
   if (dataResponse.pagination.continuationToken) {
     response = await fetch(
@@ -39,13 +37,9 @@ export async function fetchAndEnrichOrders() {
     )
     const newPageData = await response.json()
     allRecords = allRecords.concat(newPageData.data)
-    console.log('in if with', newPageData.pagination)
-
-    // dataResponse = newPageData
   }
 
   const finalRecords = allRecords
-  //   console.log('data', finalRecords)
 
   const orders = []
 
@@ -57,53 +51,6 @@ export async function fetchAndEnrichOrders() {
   }
   return orders
 }
-
-// export async function fetchAllPages(url: string): Promise<any> {
-//   const token = await getAuthToken(
-//     process.env.HELLO_ASSO_CLIENT_ID ?? '',
-//     process.env.HELLO_ASSO_CLIENT_SECRET ?? '',
-//   )
-
-//   const addToken = (base: string, token: string) => {
-//     const url = new URL(base)
-//     const searchParams = new URLSearchParams(url.search)
-//     searchParams.set('continuationToken', token)
-//     url.search = searchParams.toString()
-//     return url.toString()
-//   }
-
-//   // Fonction pour récupérer les données d'une page
-//   const fetchData = async (urlWithToken: string) => {
-//     const response = await fetch(urlWithToken, {
-//       method: 'GET',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//     return await response.json()
-//   }
-
-//   let allRecords: any[] = []
-//   let continuationToken = null
-//   let currentPageUrl = url
-
-//   do {
-//     const data = await fetchData(currentPageUrl)
-//     allRecords = allRecords.concat(data.data)
-//     continuationToken = data.pagination?.continuationToken
-
-//     if (continuationToken) {
-//       currentPageUrl = addToken(url, continuationToken)
-//     }
-//   } while (continuationToken)
-
-//   console.log('All records:', allRecords)
-//   return allRecords
-// }
-
-// // Cette fonction devrait maintenant correctement récupérer toutes les pages jusqu'à ce qu'il n'y ait plus de continuationToken,
-// // puis elle affiche (ou retourne) tous les enregistrements accumulés.
 
 async function enrichOrderData(orderId: string) {
   const token = await getAuthToken(
