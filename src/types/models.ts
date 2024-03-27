@@ -170,7 +170,7 @@ interface Order {
   immatriculationVehicule: string
   memberOrNot: boolean
   name: string
-  order: { id: string; date: string }
+  order: { id: string; date: string; formName: string }
   payer: { firstName: string; lastName: string; email: string }
   payments: { state: string; paymentMeans: string }[]
   user: { firstName: string; lastName: string }
