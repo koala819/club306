@@ -2,6 +2,7 @@
 
 import { Button, Tooltip } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -11,14 +12,31 @@ import { EventsData } from '@/types/models'
 import blackLogo from '@/../public/images/logoClub306.png'
 import whiteLogo from '@/../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
+import { checkRegisterMembers, returnIdFromMail } from '@/lib/newSupabase'
 
 export function EventCard({ event }: { event: EventsData }) {
   const { data: session } = useSession()
+  const [isRegistered, setIsRegistered] = useState<boolean>(false)
   const { theme } = useTheme()
   const router = useRouter()
-
   const dateToDisplay = formatDate(event.dates, event.month)
   const imgSrc = event.img || (theme === 'light' ? blackLogo : whiteLogo)
+
+  useEffect(() => {
+    async function checkRegister() {
+      const response = await returnIdFromMail(session?.user?.email || '')
+      const result = await response.json()
+
+      let memberId = ''
+      if (result && result.length > 0) {
+        memberId = String(result[0].id)
+      }
+
+      const register = await checkRegisterMembers(memberId, event.id.toString())
+      setIsRegistered(register)
+    }
+    checkRegister()
+  }, [session])
 
   return (
     <div className="flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center">
@@ -47,17 +65,21 @@ export function EventCard({ event }: { event: EventsData }) {
       {/* container btn */}
       <div className="flex-col items-center justify-center relative xl:m-5 my-10">
         {session ? (
-          <Button
-            className="btn-custom"
-            onClick={() => {
-              const query = new URLSearchParams({
-                eventID: event.id.toString(),
-              })
-              router.push(`/eventsRegistration?${query}`)
-            }}
-          >
-            Réserver ma place
-          </Button>
+          isRegistered ? (
+            <Button isDisabled>Déjà inscrit</Button>
+          ) : (
+            <Button
+              className="btn-custom"
+              onClick={() => {
+                const query = new URLSearchParams({
+                  eventID: event.id.toString(),
+                })
+                router.push(`/eventsRegistration?${query}`)
+              }}
+            >
+              Réserver ma place
+            </Button>
+          )
         ) : (
           <Tooltip
             content={
