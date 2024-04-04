@@ -98,3 +98,41 @@ export async function returnIdFromMail(mail: string) {
     statusText: 'Id found',
   })
 }
+
+export async function returnInfosEventFromId(id: string) {
+  const { data, error } = await supabase
+    .from('event')
+    .select('description')
+    .filter('id', 'eq', id)
+
+  if (error) {
+    return NextResponse.json(error, {
+      status: 401,
+      statusText: 'Error with supabase request',
+    })
+  }
+
+  return NextResponse.json(data, {
+    status: 200,
+    statusText: 'Event info',
+  })
+}
+
+export async function returnInfosMemberFromId(id: string) {
+  const { data, error } = await supabase
+    .from('members')
+    .select('first_name, last_name, email')
+    .filter('id', 'eq', id)
+
+  if (error) {
+    return NextResponse.json(error, {
+      status: 401,
+      statusText: 'Error with supabase request',
+    })
+  }
+
+  return NextResponse.json(data, {
+    status: 200,
+    statusText: 'Members info',
+  })
+}

@@ -4,7 +4,11 @@ import { Button, Input, Spinner } from '@nextui-org/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { addMemberToEvent } from '@/lib/newSupabase'
+import {
+  addMemberToEvent,
+  returnInfosEventFromId,
+  returnInfosMemberFromId,
+} from '@/lib/newSupabase'
 
 export const FormEventConfirm = ({
   userMail,
@@ -25,14 +29,14 @@ export const FormEventConfirm = ({
   async function onSubmit() {
     setIsLoading(true)
     try {
-      const xx = await addMemberToEvent(userId, eventID)
+      const memberRegistered = await addMemberToEvent(userId, eventID)
 
-      if (xx.status === 200) {
+      if (memberRegistered.status === 200) {
         setIsLoading(false)
-        setIsSubmitted(true)
-        toast.success('Votre inscription a été enregistrée avec succès!')
+
+        sendMail(userId, eventID)
       }
-      if (xx.status === 402) {
+      if (memberRegistered.status === 402) {
         setIsLoading(false)
         toast.error('Vous êtes déjà enregistré à cet évènement')
       }
@@ -40,6 +44,49 @@ export const FormEventConfirm = ({
       console.error('Error adding member to event:', error)
       setIsLoading(false)
       toast.error('Une erreur est survenue. Veuillez réessayer.')
+    }
+  }
+
+  async function sendMail(userId: string, eventID: string) {
+    const memberResponse = await returnInfosMemberFromId(userId)
+    const memberResult = await memberResponse.json()
+
+    const memberInfos = memberResult.length > 0 ? memberResult[0] : null
+    // console.log('memberInfos', memberInfos)
+
+    const eventResponse = await returnInfosEventFromId(eventID)
+    const eventResult = await eventResponse.json()
+
+    const eventInfos = eventResult.length > 0 ? eventResult[0] : null
+    // console.log('eventInfos', eventInfos)
+    const data = {
+      firstName: memberInfos?.first_name,
+      lastName: memberInfos?.last_name,
+      email: memberInfos?.email,
+      event: eventInfos?.description,
+      from: 'memberSignUpEvent',
+    }
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }
+    try {
+      fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
+        async (response) => {
+          if (response.status === 200) {
+            console.log('Send mail with SUCCESS :)')
+            setIsSubmitted(true)
+            toast.success('Votre inscription a été enregistrée avec succès!')
+          } else {
+            console.log('Email send with ERROR !!!')
+            throw new Error('Failed to send mail')
+          }
+        },
+      )
+    } catch (error) {
+      console.log('ERROR to send the mail\n', error)
+      return false
     }
   }
 
