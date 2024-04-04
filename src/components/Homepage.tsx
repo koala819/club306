@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 
-import Alert from './Alert'
 import { EventsSection } from './EventsSection'
 import { NavigationSection } from './NavigationSection'
 import { Partners } from './Partners'
@@ -10,9 +9,8 @@ import { Presentation } from './Presentation'
 
 import { createClient } from '@/prismicio'
 
-export function Homepage({ withMember }: { withMember: boolean }) {
+export function Homepage() {
   const [mappedArticles, setMappedArticles] = useState<any>([])
-  const [displayBox, setDisplayBox] = useState(true)
 
   useEffect(() => {
     async function handle() {
@@ -35,7 +33,6 @@ export function Homepage({ withMember }: { withMember: boolean }) {
 
   return (
     <div>
-      {withMember && displayBox && <Alert setDisplayBox={setDisplayBox} />}
       <Presentation />
       <EventsSection />
       <NavigationSection />
