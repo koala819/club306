@@ -2445,7 +2445,7 @@ const memberSignUpEvent = (
                                               0px;font-family:arial,helvetica,sans-serif;" align="left">
                                                               <h1 class="v-font-size" style="margin: 0px; color: #ffffff; line-height: 140%;
                                                 text-align: center; word-wrap: break-word; font-family: arial
-                                                black,AvenirNext-Heavy,avant garde,arial; font-size: 26px; "><strong>Bonjour Amandine,</strong></h1>
+                                                black,AvenirNext-Heavy,avant garde,arial; font-size: 26px; "><strong>Bonjour Anto,</strong></h1>
                                                               <h1 class="v-font-size" style="margin: 0px; color: #ffffff; line-height: 140%;
                                                 text-align: center; word-wrap: break-word; font-family: arial
                                                 black,AvenirNext-Heavy,avant garde,arial; font-size: 26px; "><br></h1>
