@@ -217,6 +217,7 @@ interface SchemaPersonalInfo {
   last_name: string
   address: string
   zip_code: string
+  country: string
   town: string
   birth_date: Date
   phone: string
