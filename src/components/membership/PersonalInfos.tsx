@@ -24,7 +24,7 @@ import dayjs from 'dayjs'
 import * as yup from 'yup'
 
 export const PersonalInfos = ({ setStep }: any) => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [personalInfo, setPersonalInfo] = useState<
     SchemaPersonalInfo | undefined
   >(undefined)
@@ -70,7 +70,7 @@ export const PersonalInfos = ({ setStep }: any) => {
       .required('Veuillez fournir votre date de naissance'),
     checkCotisation: yup
       .boolean()
-      .default(false)
+      .default(personalInfo?.checkCotisation)
       .isTrue('Veuillez approuver la cotisation ...!'),
     checkCertificateHonour: yup
       .boolean()
@@ -138,6 +138,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 isClearable
                 label="Prénom"
                 labelPlacement="outside"
+                defaultValue={personalInfo?.first_name}
                 isInvalid={errors.first_name && true}
                 errorMessage={errors.first_name && errors.first_name.message}
               />
@@ -153,6 +154,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 variant="bordered"
                 isClearable
                 label="Nom"
+                defaultValue={personalInfo?.last_name}
                 labelPlacement="outside"
                 isInvalid={errors.last_name && true}
                 errorMessage={errors.last_name && errors.last_name.message}
@@ -169,6 +171,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 variant="bordered"
                 isClearable
                 label="Adresse"
+                defaultValue={personalInfo?.address}
                 labelPlacement="outside"
                 isInvalid={errors.address && true}
                 errorMessage={errors.address && errors.address.message}
@@ -185,6 +188,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 variant="bordered"
                 isClearable
                 label="Code Postal"
+                defaultValue={personalInfo?.zip_code}
                 labelPlacement="outside"
                 isInvalid={errors.zip_code && true}
                 errorMessage={errors.zip_code && errors.zip_code.message}
@@ -201,7 +205,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 variant="bordered"
                 isClearable
                 label="Ville"
-                placeholder=""
+                defaultValue={personalInfo?.town}
                 labelPlacement="outside"
                 isInvalid={errors.town && true}
                 errorMessage={errors.town && errors.town.message}
@@ -220,6 +224,12 @@ export const PersonalInfos = ({ setStep }: any) => {
                       className="w-11/12 lg:w-1/2"
                       radius="none"
                       onChange={field.onChange}
+                      errorMessage={errors.country && errors.country.message}
+                      // defaultSelectedKeys={
+                      //   personalInfo?.country
+                      //     ? [`${personalInfo?.country}`]
+                      //     : ['33']
+                      // }
                     >
                       <SelectItem
                         key="32"
@@ -300,6 +310,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                   {...register('phone')}
                   radius="none"
                   variant="bordered"
+                  defaultValue={personalInfo?.phone}
                   placeholder="06 12 34 56 78"
                   color="primary"
                   isInvalid={errors.phone && true}
@@ -418,7 +429,6 @@ export const PersonalInfos = ({ setStep }: any) => {
                     <Checkbox
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
-                      color={error ? 'danger' : 'primary'}
                     >
                       Cotisation : Je comprends que la cotisation annuelle au
                       Club306 est fixée à 25 euros pour une année pleine en
@@ -444,7 +454,6 @@ export const PersonalInfos = ({ setStep }: any) => {
                     <Checkbox
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
-                      color={error ? 'danger' : 'primary'}
                     >
                       J’atteste sur l’honneur que je suis bien le (la)
                       propriétaire de chaque véhicule déclaré, que les
@@ -472,7 +481,6 @@ export const PersonalInfos = ({ setStep }: any) => {
                     <Checkbox
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
-                      color={error ? 'danger' : 'primary'}
                     >
                       Je m&apos;engage, en adhérant au Club à respecter{' '}
                       <Link
@@ -504,7 +512,6 @@ export const PersonalInfos = ({ setStep }: any) => {
                     <Checkbox
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
-                      color={error ? 'danger' : 'primary'}
                     >
                       En soumettant ce formulaire, je confirme avoir pris
                       connaissant de la &nbsp;
