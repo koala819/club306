@@ -165,6 +165,7 @@ export const SignUp = ({ setStep }: any) => {
               {/* BUTTONS NEXT & CANCEL */}
               <div className="flex  w-full justify-between mt-4">
                 <Button
+                  radius="none"
                   color="danger"
                   startContent={<TiArrowBack />}
                   onClick={() => {
@@ -174,7 +175,7 @@ export const SignUp = ({ setStep }: any) => {
                   Précédent
                 </Button>
 
-                <Button color="primary" type="submit">
+                <Button radius="none" color="primary" type="submit">
                   Continuer
                 </Button>
               </div>

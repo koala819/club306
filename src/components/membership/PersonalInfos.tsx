@@ -70,7 +70,7 @@ export const PersonalInfos = ({ setStep }: any) => {
       .required('Veuillez fournir votre date de naissance'),
     checkCotisation: yup
       .boolean()
-      .default(personalInfo?.checkCotisation)
+      .default(false)
       .isTrue('Veuillez approuver la cotisation ...!'),
     checkCertificateHonour: yup
       .boolean()
@@ -325,7 +325,7 @@ export const PersonalInfos = ({ setStep }: any) => {
               <div className="w-full mb-2">
                 <span
                   className={`text-md text-blue-500 ${
-                    errors.birth_date && 'text-red-600 font-mono text-sm'
+                    errors.birth_date && 'text-[#f31260] text-sm'
                   }`}
                 >
                   Date de Naissance
@@ -408,7 +408,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                     {/* <DateField />
                     </DatePicker> */}
                     {fieldState.error ? (
-                      <span className="text-red-500 font-mono text-xs">
+                      <span className="text-[#f31260] text-sm">
                         {fieldState.error?.message}
                       </span>
                     ) : null}
@@ -427,6 +427,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 }) => (
                   <>
                     <Checkbox
+                      radius="none"
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
                     >
@@ -435,7 +436,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                       adhésion (01/01 au 31/12).
                     </Checkbox>
                     {error && (
-                      <div className="text-red-500 font-mono text-xs mt-2">
+                      <div className="text-[#f31260] text-sm mt-2">
                         {error.message}
                       </div>
                     )}
@@ -452,6 +453,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 }) => (
                   <>
                     <Checkbox
+                      radius="none"
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
                     >
@@ -462,7 +464,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                       contrôle technique.
                     </Checkbox>
                     {error && (
-                      <div className="text-red-500 font-mono text-xs mt-2">
+                      <div className="text-[#f31260] text-sm mt-2">
                         {error.message}
                       </div>
                     )}
@@ -479,6 +481,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 }) => (
                   <>
                     <Checkbox
+                      radius="none"
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
                     >
@@ -493,7 +496,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                       .
                     </Checkbox>
                     {error && (
-                      <div className="text-red-500 font-mono text-xs mt-2">
+                      <div className="text-[#f31260] text-sm mt-2">
                         {error.message}
                       </div>
                     )}
@@ -510,6 +513,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                 }) => (
                   <>
                     <Checkbox
+                      radius="none"
                       checked={value}
                       onChange={(e) => onChange(e.target.checked)}
                     >
@@ -527,7 +531,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                       relation commerciale qui peut en découler.
                     </Checkbox>
                     {error && (
-                      <div className="text-red-500 font-mono text-xs mt-2">
+                      <div className="text-[#f31260] text-sm mt-2">
                         {error.message}
                       </div>
                     )}
@@ -536,7 +540,7 @@ export const PersonalInfos = ({ setStep }: any) => {
               />
             </section>
             <div className="flex justify-center col-span-6 mt-8">
-              <Button type="submit" color="primary">
+              <Button radius="none" type="submit" color="primary">
                 Continuer
               </Button>
             </div>
