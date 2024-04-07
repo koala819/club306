@@ -199,6 +199,7 @@ interface PersonalInfo {
   zip_code: string
   town: string
   birth_date: Date
+  country: string
   phone: string
   email: string
   pwd: string
