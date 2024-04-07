@@ -37,8 +37,6 @@ export const HelloAsso = ({ setStep }: any) => {
     })
   }, [])
 
-  // console.log('memberIdFromSessionStorage', memberIdFromSessionStorage);
-
   useEffect(() => {
     if (!personalInfo) {
       return
@@ -93,6 +91,13 @@ export const HelloAsso = ({ setStep }: any) => {
     })
   }
 
+  const avantages = [
+    { id: 1, texte: 'Pas de reconduction tacite' },
+    { id: 2, texte: 'Profiter de nos offres commerciales exclusives' },
+    { id: 3, texte: 'Rejoindre une communauté sympa et bienveillante' },
+    { id: 4, texte: 'Etre averti des prochains rassos' },
+  ]
+
   return (
     <>
       <section>
@@ -115,75 +120,25 @@ export const HelloAsso = ({ setStep }: any) => {
               <span className="text-lg ml-1 font-normal ">/an</span>
             </h1>
             <section className="space-y-8 my-8">
-              <p className="flex mb-2 w-full">
-                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 dark:bg-gray-800">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-                Pas de reconduction tacite
-              </p>
-
-              <p className="flex mb-2 w-full">
-                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 dark:bg-gray-800">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-                Profiter de nos offres commerciales exclusives
-              </p>
-
-              <p className="flex mb-2 w-full">
-                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 dark:bg-gray-800">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-                Rejoindre une communauté sympa et bienveillante
-              </p>
-
-              <p className="flex mb-2 w-full">
-                <span className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 dark:bg-gray-800">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2.5"
-                    className="w-3 h-3"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-                Etre averti des prochains rassos
-              </p>
+              {avantages.map((avantage) => (
+                <p key={avantage.id} className="flex mb-2 w-full">
+                  <picture className="w-4 h-4 mr-2 inline-flex items-center justify-center bg-gray-400 dark:bg-gray-800">
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      className="w-3 h-3"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </picture>
+                  <span className="-mt-1">{avantage.texte}</span>
+                </p>
+              ))}
             </section>
-
             {displayBtnHelloAsso && (
               <Button
                 color="primary"
