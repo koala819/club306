@@ -33,7 +33,7 @@ export default function Memberfinish() {
   }, [])
 
   return (
-    <div className="flex  items-center justify-center mt-8">
+    <div className="flex items-center justify-center mt-8 m-12">
       <div className="flex flex-col md:flex-row bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg overflow-hidden mx-auto">
         <aside className="md:w-1/2 flex items-center justify-center">
           <Image
