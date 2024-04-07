@@ -1,48 +1,52 @@
-'use client';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { useEffect, useState } from 'react';
-import { getMemberId, record } from '@/lib/supabase';
-import { useRouter } from 'next/navigation';
-import { PersonalInfo, Vehicles } from '@/types/models';
-import { generateUniqueToken } from '@/lib/generateUniqueToken';
-import { toast } from 'react-hot-toast';
-import { sendConfirmationMail } from '@/lib/mail/utils';
+'use client'
+
+import { Spinner } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+
+import { useRouter } from 'next/navigation'
+
+import { PersonalInfo, Vehicles } from '@/types/models'
+
+import { generateUniqueToken } from '@/lib/generateUniqueToken'
+import { sendConfirmationMail } from '@/lib/mail/utils'
+import { getMemberId, record } from '@/lib/supabase'
 
 export default function MailConfirm({
   userIdFromlocalStorage,
 }: {
-  userIdFromlocalStorage: string;
+  userIdFromlocalStorage: string
 }) {
-  const [recordInDb, setRecordInDb] = useState(false);
-  const [lastMbrIdFromDB, setLastMbrIdFromDB] = useState(null);
-  const [storedPersonalInfo, setStoredPersonalInfo] = useState<PersonalInfo>();
-  const [storedVehicle, setStoredVehicle] = useState<Vehicles>();
-  const router = useRouter();
-  const tokenForMember = generateUniqueToken();
+  const [recordInDb, setRecordInDb] = useState<boolean>(false)
+  const [lastMbrIdFromDB, setLastMbrIdFromDB] = useState<number | null>(null)
+  const [storedPersonalInfo, setStoredPersonalInfo] = useState<PersonalInfo>()
+  const [storedVehicle, setStoredVehicle] = useState<Vehicles>()
+  const router = useRouter()
+  const tokenForMember = generateUniqueToken()
 
   useEffect(() => {
     const fetchData = async () => {
-      const memberIdFromDB = await getMemberId();
+      const memberIdFromDB = await getMemberId()
       memberIdFromDB?.data !== null &&
-        setLastMbrIdFromDB(() => memberIdFromDB?.data[0].id);
+        setLastMbrIdFromDB(() => memberIdFromDB?.data[0].id)
 
       const storedPersonalInfoJSON = localStorage.getItem(
-        `personalInfo_${userIdFromlocalStorage}`
-      );
+        `personalInfo_${userIdFromlocalStorage}`,
+      )
       if (storedPersonalInfoJSON) {
-        setStoredPersonalInfo(() => JSON.parse(storedPersonalInfoJSON));
+        setStoredPersonalInfo(() => JSON.parse(storedPersonalInfoJSON))
       }
 
       const storedVehicleJSON = localStorage.getItem(
-        `vehicles_${userIdFromlocalStorage}`
-      );
+        `vehicles_${userIdFromlocalStorage}`,
+      )
       if (storedVehicleJSON) {
-        setStoredVehicle(() => JSON.parse(storedVehicleJSON));
+        setStoredVehicle(() => JSON.parse(storedVehicleJSON))
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,55 +55,54 @@ export default function MailConfirm({
           storedPersonalInfo,
           storedVehicle,
           lastMbrIdFromDB + 1,
-          tokenForMember
-        );
-        const data = await response.json();
+          tokenForMember,
+        )
+        const data = await response.json()
         if (data.status !== 200) {
           alert(
             'Erreur pour vous enregistrer, merci de contacter le staff svp  et communiquer cette erreur : \n\n\n' +
               data.message +
-              "\n\n Sans le message de l'erreur, il nous sera difficile de vous aider !!!"
-          );
-          router.push('/contact');
+              "\n\n Sans le message de l'erreur, il nous sera difficile de vous aider !!!",
+          )
+          router.push('/contact')
         } else {
           // console.log('YES RECORD IN DB with ', storedPersonalInfo);
           const mailResponse = await sendConfirmationMail(
             storedPersonalInfo?.first_name || '',
             storedPersonalInfo?.last_name || '',
             storedPersonalInfo?.email || '',
-            tokenForMember
-          );
-          const finished = await mailResponse.json();
+            tokenForMember,
+          )
+          const finished = await mailResponse.json()
           if (finished.status === 200) {
-            toast.success('Veuillez consulter votre boite mail');
-            setRecordInDb(true);
+            toast.success('Veuillez consulter votre boite mail')
+            setRecordInDb(true)
           } else {
-            console.error('Send mail with ERROR ', finished.data);
+            console.error('Send mail with ERROR ', finished.data)
           }
         }
       }
-    };
+    }
 
-    fetchData();
-  }, [lastMbrIdFromDB]);
+    fetchData()
+  }, [lastMbrIdFromDB])
 
   return (
-    <div className="flex flex-col items-center justify-center mt-8">
-      <title>Bienvenue au Club 306</title>
-
+    <section>
       {!recordInDb ? (
-        <div className="flex flex-col items-center justify-center space-y-2 p-4">
+        <>
           <h2 className="text-2xl font-semibold text-center mb-16">
             Enregistrement des informations dans notre base de données
           </h2>
-          <ClipLoader
-            loading={true}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-          <p className="pt-16 text-base text-gray-600">Veuillez patienter</p>
-        </div>
+          <div className="flex items-center justify-center">
+            <Spinner
+              label="Veuillez patienter"
+              color="primary"
+              labelColor="primary"
+              size="lg"
+            />
+          </div>
+        </>
       ) : (
         <section className="p-8">
           <h2 className="text-2xl font-semibold text-center mb-16">
@@ -118,6 +121,6 @@ export default function MailConfirm({
           </p>
         </section>
       )}
-    </div>
-  );
+    </section>
+  )
 }
