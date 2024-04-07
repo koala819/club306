@@ -26,6 +26,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.0",
+    "country-flag-icons": "^1.5.11",
     "dayjs": "^1.11.9",
     "depcheck": "^1.4.7",
     "formik": "^2.4.3",
