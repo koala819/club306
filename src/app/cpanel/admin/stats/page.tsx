@@ -6,6 +6,7 @@ import Age from '@/components/cpanel/stats/Age'
 import Car from '@/components/cpanel/stats/Car'
 import InscriptionByMonth from '@/components/cpanel/stats/InscriptionByMonth'
 import Members from '@/components/cpanel/stats/Members'
+import OurTable from '@/components/cpanel/stats/OurTable'
 
 export default function Home() {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function Home() {
         <Car />
         <InscriptionByMonth />
         <Age />
+        <OurTable />
       </section>
     </div>
   )
