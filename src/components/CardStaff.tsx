@@ -61,6 +61,7 @@ export const CardStaff = ({
           <ul className="list-inside flex mx-auto justify-center my-4">
             <Link
               href={facebook}
+              target="_blank"
               className={`text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark  ${
                 facebook === '#' && 'hidden'
               }`}
@@ -79,6 +80,7 @@ export const CardStaff = ({
 
             <Link
               href={insta}
+              target="_blank"
               className={`ml-3 text-gray-500 dark:text-white hover:text-principal-light dark:hover:text-principal-dark ${
                 insta === '#' && 'hidden'
               }`}
@@ -99,6 +101,7 @@ export const CardStaff = ({
             {github !== undefined && (
               <Link
                 href={github}
+                target="_blank"
                 className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <VscGithub size={20} />
@@ -107,6 +110,7 @@ export const CardStaff = ({
             {youtube !== undefined && (
               <Link
                 href={youtube}
+                target="_blank"
                 className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <BsYoutube size={20} />
@@ -115,6 +119,7 @@ export const CardStaff = ({
             {linkedin !== undefined && (
               <Link
                 href={linkedin}
+                target="_blank"
                 className="ml-3 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
               >
                 <BsLinkedin size={20} />
@@ -122,6 +127,7 @@ export const CardStaff = ({
             )}
             <Link
               href={`mailto:${mail}`}
+              target="_blank"
               className="ml-4 text-gray-500 hover:text-principal-light dark:text-white dark:hover:text-principal-dark"
             >
               <IoMdMailOpen size={20} />

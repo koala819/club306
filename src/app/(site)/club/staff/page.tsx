@@ -137,6 +137,22 @@ export default function Staff() {
         'https://www.linkedin.com/in/xavier%F0%9F%92%BB-genolhac-79a98390/',
       mail: 'contact@club306.fr',
     },
+
+    {
+      picture: '/',
+      name: 'Fabrice Neron',
+      role: 'Evénement Sud',
+      content:
+        'Passionné de 306 depuis son apparition, j’ai suivi avec entousiasme son evolution.\n' +
+        "C'est en 2000 que j'ai acquis ma première 306 2L 16 en ACAV que j'ai vendu en 2004 à regret.\n" +
+        "Puis en 2022, j'ai eu l'occasion d'acquérir une BV6 confort peu kilométrée avec son\n" +
+        'historique complet à ce jour que je possède actuellement.',
+      car: '306 S16 BV6 Confort en Noir Onyx 2000',
+      localisation: 'Vars (83)',
+      facebook: 'https://www.facebook.com/fab.neron',
+      insta: 'https://www.instagram.com/neronfab/',
+      mail: 'evenements@club306.fr',
+    },
   ]
 
   return (
