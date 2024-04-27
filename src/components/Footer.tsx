@@ -110,7 +110,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 className="hover:fill-blue-600 cursor-pointer"
               />
             </Link>
-            <Link href="https://discord.gg/8NKJ4Z4j">
+            <Link href="https://discord.gg/8NKJ4Z4j" target="_blank">
               <IoLogoDiscord
                 size={32}
                 className="hover:fill-blue-700 cursor-pointer"
