@@ -101,7 +101,10 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             sous 1 à 2 jours ouvrables.
           </p>
           <div className=" flex mt-6 space-x-4 justify-center lg:justify-start mb-6">
-            <Link href="https://www.facebook.com/club306france/">
+            <Link
+              href="https://www.facebook.com/club306france/"
+              target="_blank"
+            >
               <BsFacebook
                 size={28}
                 className="hover:fill-blue-600 cursor-pointer"
@@ -113,13 +116,19 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 className="hover:fill-blue-700 cursor-pointer"
               />
             </Link>
-            <Link href="https://www.instagram.com/club306officielfrance/">
+            <Link
+              href="https://www.instagram.com/club306officielfrance/"
+              target="_blank"
+            >
               <RiInstagramFill
                 size={32}
                 className="hover:fill-blue-500 cursor-pointer"
               />
             </Link>
-            <Link href="https://www.youtube.com/@sylvaintroiscentsix">
+            <Link
+              href="https://www.youtube.com/@sylvaintroiscentsix"
+              target="_blank"
+            >
               <FaYoutube
                 size={32}
                 className="hover:fill-red-600 cursor-pointer"
