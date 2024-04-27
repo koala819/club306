@@ -1,20 +1,24 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase';
-import { Color, Finition, Model, Vehicles } from '@/types/models';
-import { TiArrowBack } from 'react-icons/ti';
+'use client'
+
+import { Button, Input, Select, SelectItem } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { TiArrowBack } from 'react-icons/ti'
+
+import { Color, Finition, Model, Vehicles } from '@/types/models'
+
+import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export const Garage = ({ setStep }: any) => {
-  const [vehicles, setVehicles] = useState<Vehicles[]>([]);
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [colors, setColors] = useState<Color[]>([]);
-  const [finitions, setFinitions] = useState<Finition[]>([]);
-  const [models, setModels] = useState<Model[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicles[]>([])
+  const [editIndex, setEditIndex] = useState<number | null>(null)
+  const [colors, setColors] = useState<Color[]>([])
+  const [finitions, setFinitions] = useState<Finition[]>([])
+  const [models, setModels] = useState<Model[]>([])
   const [memberIdFromSessionStorage, setMemberIdFromSessionStorage] =
-    useState<string>('');
+    useState<string>('')
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -26,129 +30,138 @@ export const Garage = ({ setStep }: any) => {
     model: yup.string().required('Le choix du Modèle est obligatoire'),
     color: yup.string().required('Le choix de la Couleur est obligatoire'),
     finition: yup.string().required('La Finition est obligatoire'),
-  });
+  })
 
   const {
     register,
     handleSubmit,
     reset,
+    control,
+    watch,
     formState: { errors },
   } = useForm<Vehicles>({
     resolver: yupResolver(schema),
-  });
+  })
 
   useEffect(() => {
-    const memberIdJSON = sessionStorage.getItem('memberId');
+    const memberIdJSON = sessionStorage.getItem('memberId')
     if (memberIdJSON) {
-      const storedMemberId = JSON.parse(memberIdJSON);
-      setMemberIdFromSessionStorage(() => storedMemberId);
+      const storedMemberId = JSON.parse(memberIdJSON)
+      setMemberIdFromSessionStorage(() => storedMemberId)
     }
 
-    const storedVehiclesJSON = sessionStorage.getItem('vehicles');
+    const storedVehiclesJSON = sessionStorage.getItem('vehicles')
     if (storedVehiclesJSON) {
-      const storedVehicles = JSON.parse(storedVehiclesJSON);
-      setVehicles(() => storedVehicles);
+      const storedVehicles = JSON.parse(storedVehiclesJSON)
+      setVehicles(() => storedVehicles)
     }
-  }, []);
+  }, [])
 
   const handleGoBack = () => {
     setStep((s: number) => {
-      return s - 1;
-    });
-  };
+      return s - 1
+    })
+  }
 
   const handleAddVehicle = (data: Vehicles) => {
-    setVehicles([...vehicles, data]);
-    reset();
-  };
+    setVehicles([...vehicles, data])
+    reset()
+  }
 
   const handleNext = () => {
-    sessionStorage.setItem('vehicles', JSON.stringify(vehicles));
+    sessionStorage.setItem('vehicles', JSON.stringify(vehicles))
     localStorage.setItem(
       `vehicles_${memberIdFromSessionStorage}`,
-      JSON.stringify(vehicles)
-    );
-    setStep((s: number) => s + 1);
-  };
+      JSON.stringify(vehicles),
+    )
+    setStep((s: number) => s + 1)
+  }
 
   const handleEditVehicle = (index: number) => {
-    setEditIndex(index);
-    reset(vehicles[index]);
-  };
+    setEditIndex(index)
+
+    reset({
+      immatriculation: vehicles[index].immatriculation,
+      mine: vehicles[index].mine,
+      model: vehicles[index].model,
+      color: vehicles[index].color,
+      finition: vehicles[index].finition,
+    })
+  }
 
   const handleUpdateVehicle = (data: Vehicles) => {
-    const updatedVehicles = [...vehicles];
+    const updatedVehicles = [...vehicles]
     if (editIndex !== null) {
-      updatedVehicles[editIndex] = data;
-      setVehicles(updatedVehicles);
-      setEditIndex(null);
+      updatedVehicles[editIndex] = data
+      setVehicles(updatedVehicles)
+      setEditIndex(null)
       reset({
         immatriculation: '',
         mine: '',
         model: '',
         color: '',
         finition: '',
-      });
+      })
     }
-  };
+  }
 
   const handleCancelEdit = () => {
-    setEditIndex(null);
+    setEditIndex(null)
     reset({
       immatriculation: '',
       mine: '',
       model: '',
       color: '',
       finition: '',
-    });
-  };
+    })
+  }
 
   const handleDeleteVehicle = (index: number) => {
-    const updatedVehicles = [...vehicles];
-    updatedVehicles.splice(index, 1);
-    setVehicles(updatedVehicles);
-  };
+    const updatedVehicles = [...vehicles]
+    updatedVehicles.splice(index, 1)
+    setVehicles(updatedVehicles)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      const carColor = await getAllColors();
+      const carColor = await getAllColors()
       if (carColor !== null && carColor.data !== null) {
         const fetchedColors: Color[] = carColor.data.map((color: any) => {
           return {
             id: color.id,
             name: color.name,
             hexa: color.hexa,
-          };
-        });
-        setColors(fetchedColors);
+          }
+        })
+        setColors(fetchedColors)
       }
 
-      const carFinition = await getAllFinitions();
+      const carFinition = await getAllFinitions()
       if (carFinition !== null && carFinition.data !== null) {
         const fetchedFinitions: Finition[] = carFinition.data.map(
           (color: any) => {
             return {
               id: color.id,
               name: color.name,
-            };
-          }
-        );
-        setFinitions(fetchedFinitions);
+            }
+          },
+        )
+        setFinitions(fetchedFinitions)
       }
 
-      const carModel = await getAllModels();
+      const carModel = await getAllModels()
       if (carModel !== null && carModel.data !== null) {
-        const fetchedModels: Model[] = carModel.data.map((color: any) => {
+        const fetchedModels: Model[] = carModel.data.map((model: any) => {
           return {
-            id: color.id,
-            name: color.name,
-          };
-        });
-        setModels(fetchedModels);
+            id: model.id,
+            name: model.name,
+          }
+        })
+        setModels(fetchedModels)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
@@ -162,266 +175,215 @@ export const Garage = ({ setStep }: any) => {
         <div className="grid grid-cols-6 gap-6   space-y-8">
           {/* IMMATRICULATION */}
           <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
-            <input
-              type="text"
-              id="immatriculation"
+            <Input
               {...register('immatriculation')}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                errors.immatriculation && editIndex === null
-                  ? 'border-red-500'
-                  : ''
-              }`}
-              placeholder=" "
+              value={watch('immatriculation')}
+              radius="none"
+              type="text"
+              color="primary"
+              variant="bordered"
+              isClearable
+              label="Immatriculation"
+              labelPlacement="outside"
+              isInvalid={errors.immatriculation && true}
+              errorMessage={
+                errors.immatriculation && errors.immatriculation.message
+              }
             />
-            <label
-              htmlFor="immatriculation"
-              className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                errors.immatriculation && editIndex === null
-                  ? 'text-red-500 font-mono text-sm'
-                  : ''
-              }`}
-            >
-              Immatriculation
-            </label>
-
-            {editIndex === null && errors.immatriculation && (
-              <div className="text-red-500 font-mono text-xs">
-                {errors.immatriculation.message}
-              </div>
-            )}
           </div>
 
           {/* MINE */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
-            <input
-              type="text"
-              id="mine"
+            <Input
               {...register('mine')}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 ${
-                errors.mine && editIndex === null ? 'border-red-500' : ''
-              }`}
-              placeholder=" "
+              value={watch('mine')}
+              radius="none"
+              type="text"
+              color="primary"
+              variant="bordered"
+              isClearable
+              label="Type Mine"
+              labelPlacement="outside"
+              isInvalid={errors.mine && true}
+              errorMessage={errors.mine && errors.mine.message}
             />
-            <label
-              htmlFor="mine"
-              className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                errors.mine && editIndex === null
-                  ? 'text-red-500 font-mono text-sm'
-                  : ''
-              }`}
-            >
-              Type Mine
-            </label>
-
-            {editIndex === null && errors.mine && (
-              <div className="text-red-500 font-mono text-xs">
-                {errors.mine.message}
-              </div>
-            )}
           </div>
 
           {/* MODEL */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
-            <select
-              id="model"
-              {...register('model')}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                errors.model && editIndex === null
-                  ? 'border-red-500 text-red-500 text-sm font-mono'
-                  : ''
-              }`}
-            >
-              <option value="">Choix du modèle</option>
-              {models
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((model: Model) => (
-                  <option key={model.id} value={model.name}>
-                    {model.name}
-                  </option>
-                ))}
-            </select>
-            <label
-              htmlFor="model"
-              className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                errors.model && editIndex === null
-                  ? 'text-red-500 font-mono text-sm'
-                  : ''
-              }`}
-            >
-              Modèle
-            </label>
-
-            {editIndex === null && errors.model && (
-              <div className="text-red-500 font-mono text-xs">
-                {errors.model.message}
-              </div>
-            )}
+            <Controller
+              control={control}
+              name="model"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  radius="none"
+                  label="Choix du modèle"
+                  selectedKeys={value ? [value] : []}
+                  onChange={(value: any) => onChange(value)}
+                  errorMessage={errors.model && errors.model.message}
+                >
+                  {models
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((model: Model) => (
+                      <SelectItem key={model.id} value={model.id}>
+                        {model.name}
+                      </SelectItem>
+                    ))}
+                </Select>
+              )}
+            />
           </div>
 
           {/* COLOR */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
-            <select
-              id="color"
-              {...register('color')}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer ${
-                errors.model && editIndex === null
-                  ? 'border-red-500 text-red-500 text-sm font-mono'
-                  : ''
-              }`}
-            >
-              <option value="">Choix de la couleur</option>
-              {colors
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((color: Color) => (
-                  <option
-                    key={color.id}
-                    value={color.name}
-                    style={{ backgroundColor: `#${color.hexa}` }}
-                  >
-                    {color.name}
-                  </option>
-                ))}
-            </select>
-            <label
-              htmlFor="color"
-              className={`peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                errors.color && editIndex === null
-                  ? 'text-red-500 font-mono text-sm'
-                  : ''
-              }`}
-            >
-              Couleur
-            </label>
-
-            {editIndex === null && errors.color && (
-              <div className="text-red-500 font-mono text-xs">
-                {errors.color.message}
-              </div>
-            )}
+            <Controller
+              control={control}
+              name="color"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  radius="none"
+                  label="Choix de la couleur"
+                  selectedKeys={value ? [value] : []}
+                  onChange={(value: any) => onChange(value)}
+                  errorMessage={errors.color && errors.color.message}
+                >
+                  {colors
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((color: Color) => (
+                      <SelectItem
+                        key={color.id}
+                        value={color.name}
+                        style={{ backgroundColor: `#${color.hexa}` }}
+                      >
+                        {color.name}
+                      </SelectItem>
+                    ))}
+                </Select>
+              )}
+            />
           </div>
 
           {/* FINITION */}
           <div className="col-span-6 sm:col-span-3 relative z-0">
-            <select
-              id="finition"
-              {...register('finition')}
-              className={`block py-2.5 px-0 w-full text-sm text-gray-500 dark:text-white bg-transparent dark:bg-gray-900 border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 dark:focus:bg-gray-900 peer ${
-                errors.model && editIndex === null
-                  ? 'border-red-500 text-red-500 text-sm font-mono'
-                  : ''
-              }`}
-            >
-              <option value="">Choix de la finition</option>
-              {finitions
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((finition: Finition) => (
-                  <option key={finition.id} value={finition.name}>
-                    {finition.name}
-                  </option>
-                ))}
-            </select>
-            <label
-              htmlFor="finition"
-              className={`dark:-mt-4 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
-                errors.finition && editIndex === null
-                  ? 'text-red-500 font-mono text-sm'
-                  : ''
-              }`}
-            >
-              Finition
-            </label>
-
-            {editIndex === null && errors.finition && (
-              <div className="text-red-500 font-mono text-xs">
-                {errors.finition.message}
-              </div>
-            )}
+            <Controller
+              control={control}
+              name="finition"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  radius="none"
+                  label="Choix de la finition"
+                  selectedKeys={value ? [value] : []}
+                  onChange={(value: any) => onChange(value)}
+                  errorMessage={errors.finition && errors.finition.message}
+                >
+                  {finitions
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    .map((finition: Finition) => (
+                      <SelectItem key={finition.id} value={finition.name}>
+                        {finition.name}
+                      </SelectItem>
+                    ))}
+                </Select>
+              )}
+            />
           </div>
         </div>
         <div className="mt-4">
           {editIndex !== null ? (
-            <>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-              >
+            <div className="flex justify-between">
+              <Button radius="none" color="primary" type="submit">
                 Mettre à jour
-              </button>
-              <button
-                type="button"
-                onClick={handleCancelEdit}
-                className="ml-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-              >
+              </Button>
+              <Button radius="none" color="danger" onClick={handleCancelEdit}>
                 Annuler
-              </button>
-            </>
+              </Button>
+            </div>
           ) : (
-            <button
-              type="submit"
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-600"
-            >
-              Ajouter une 306
-            </button>
+            <Button radius="none" color="success" type="submit">
+              <span className="text-white">Ajouter une 306</span>
+            </Button>
           )}
         </div>
       </form>
       <div className="mt-24">
         {vehicles.map((vehicle, index) => (
-          <div key={index} className="bg-gray-100 p-4 mb-4 dark:bg-gray-800">
-            <div>
-              <span className="font-bold">Immatriculation:</span>{' '}
-              {vehicle.immatriculation}
+          <div
+            key={index}
+            className="bg-gray-100 p-4 mb-4 dark:bg-gray-800 px-8 space-y-4"
+          >
+            <div className="font-bold flex justify-between">
+              Immatriculation
+              <span className="font-normal">{vehicle.immatriculation}</span>
             </div>
-            <div>
-              <span className="font-bold">Code Mine:</span> {vehicle.mine}
+            <div className="font-bold flex justify-between">
+              Code Mine
+              <span className="font-normal">{vehicle.mine}</span>
             </div>
-            <div>
-              <span className="font-bold">Model:</span> {vehicle.model}
+            <div className="font-bold flex justify-between">
+              Modèle
+              <span className="font-normal">
+                {
+                  models.find((model) => model.id === Number(vehicle.model))
+                    ?.name
+                }
+              </span>
             </div>
-            <div>
-              <span className="font-bold">Finition:</span> {vehicle.finition}
+            <div className="font-bold flex justify-between">
+              Finition
+              <span className="font-normal">
+                {
+                  finitions.find(
+                    (finition) => finition.id === Number(vehicle.finition),
+                  )?.name
+                }
+              </span>
             </div>
-            <div>
-              <span className="font-bold">Color:</span> {vehicle.color}
+            <div className="font-bold flex justify-between">
+              Couleur
+              <span className="font-normal">
+                {
+                  colors.find((color) => color.id === Number(vehicle.color))
+                    ?.name
+                }
+              </span>
             </div>
-            <div className="mt-2">
-              <button
-                type="button"
+
+            <div className="mt-2 flex space-x-8">
+              <Button
+                radius="none"
+                color="primary"
                 onClick={() => handleEditVehicle(index)}
-                className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
               >
                 Modifier
-              </button>
-              <button
-                type="button"
+              </Button>
+              <Button
+                radius="none"
+                color="danger"
                 onClick={() => handleDeleteVehicle(index)}
-                className="ml-2 px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
               >
                 Supprimer
-              </button>
+              </Button>
             </div>
           </div>
         ))}
       </div>
       <div className="flex w-full justify-between mt-4">
-        <button
-          className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
+        <Button
+          radius="none"
+          color="danger"
+          startContent={<TiArrowBack />}
           onClick={() => {
-            handleGoBack();
+            handleGoBack()
           }}
         >
-          <TiArrowBack size={22} className="mr-2" />
           Précédent
-        </button>
+        </Button>
         {vehicles.length > 0 && (
-          <button
-            className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-            onClick={handleNext}
-          >
+          <Button radius="none" color="primary" onClick={handleNext}>
             Continuer
-          </button>
+          </Button>
         )}
       </div>
     </>
-  );
-};
+  )
+}

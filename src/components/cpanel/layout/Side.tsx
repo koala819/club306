@@ -1,53 +1,57 @@
-'use client';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+'use client'
+
+import { Tooltip } from '@nextui-org/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 import {
   AiOutlineCalendar,
   AiOutlineLogout,
   AiOutlineUser,
-} from 'react-icons/ai';
-import { FaUserFriends } from 'react-icons/fa';
-import { GiMechanicGarage, GiCash } from 'react-icons/gi';
-import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md';
-import { IoColorPalette } from 'react-icons/io5';
-import { BsDatabaseFillLock } from 'react-icons/bs';
-import { TbHomeHeart } from 'react-icons/tb';
-import { Tooltip } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
-import picture306 from '../../../../public/images/logoClub306_blanc.png';
-import { onlyStaff } from '@/lib/supabase';
+} from 'react-icons/ai'
+import { BsDatabaseFillLock } from 'react-icons/bs'
+import { FaUserFriends } from 'react-icons/fa'
+import { GiCash, GiMechanicGarage } from 'react-icons/gi'
+import { IoColorPalette } from 'react-icons/io5'
+import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md'
+import { TbHomeHeart } from 'react-icons/tb'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+import picture306 from '../../../../public/images/logoClub306_blanc.png'
 // import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { ThemeSwitcher } from './ThemeSwitcher';
-import { signOut, useSession } from 'next-auth/react';
+import { ThemeSwitcher } from './ThemeSwitcher'
+
+import { onlyStaff } from '@/lib/supabase'
+
 // import { redirect } from 'next/navigation';
 
 export default function Side() {
-  const [staffMember, setStaffMember] = useState(false);
-  const path = usePathname();
-  const { data: dataSession } = useSession();
+  const [staffMember, setStaffMember] = useState(false)
+  const path = usePathname()
+  const { data: dataSession } = useSession()
 
   useEffect(() => {
     async function fetchData() {
-      const result = await onlyStaff(dataSession?.user?.email);
-      // console.log('result', result);
-      setStaffMember(result);
+      const result = await onlyStaff(dataSession?.user?.email)
+      setStaffMember(result)
     }
 
     if (dataSession !== undefined) {
-      fetchData();
+      fetchData()
     }
-  }, [dataSession]);
+  }, [dataSession])
 
   async function handleSignout() {
     signOut({
       redirect: true,
       callbackUrl: `${process.env.CLIENT_URL}/login`,
-    });
+    })
   }
 
   return (
-    <aside className="hidden md:block bg-gray-800 text-white w-64">
+    <aside className="hidden md:block bg-gray-800 text-white w-64 overflow-y-auto max-h-screen">
       <div className="flex items-center justify-center mt-4">
         <Link href="/cpanel">
           <Image
@@ -238,5 +242,5 @@ export default function Side() {
         </ul>
       </nav>
     </aside>
-  );
+  )
 }

@@ -1,11 +1,16 @@
-'use client';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+'use client'
+
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { Button } from '@nextui-org/react'
+import Image from 'next/image'
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function Contact() {
-  const [confirmationSend, setConfirmationSend] = useState<boolean>(false);
+  const [confirmationSend, setConfirmationSend] = useState<boolean>(false)
 
   const schema = yup.object().shape({
     email: yup
@@ -13,12 +18,12 @@ export default function Contact() {
       .required("L'e-mail est obligatoire")
       .matches(
         /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        "L'e-mail n'est pas valide"
+        "L'e-mail n'est pas valide",
       ),
 
     first_name: yup.string().required('Veuillez saisir votre nom'),
     msg: yup.string().required('Veuillez saisir votre message'),
-  });
+  })
 
   const {
     register,
@@ -26,49 +31,56 @@ export default function Contact() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  });
+  })
 
   async function handleSendMail(values: any) {
-    console.log('ready to send mail with values', values);
     const data = {
       firstName: values.first_name,
       email: values.email,
       message: values.msg,
       from: 'contact',
-    };
+    }
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    };
+    }
 
     fetch(`${process.env.CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
-        console.log('response or Not', response);
-        response.status === 200 && console.log('Send mail with SUCCESS :)');
-        setConfirmationSend(true);
+        response.status === 200 && toast.success('Send mail with SUCCESS :)')
+        setConfirmationSend(true)
       })
       .catch((error: any) => {
-        console.log('ERROR to send the mail in contact.tsx', error);
-      });
+        toast.error('ERROR to send the mail in contact.tsx', error)
+      })
   }
 
   return (
-    <div className="flex justify-center h-full">
-      <div
-        className="hidden md:block h-full bg-cover w-2/3"
+    <div className="flex justify-center h-screen">
+      <div className="relative md:block w-full md:w-2/3 hidden md:visible">
+        <Image
+          src="https://images.unsplash.com/photo-1568106575207-0fe3ec317559"
+          className="object-cover object-center h-full"
+          alt="Une Peugeot 306 verte foncée stationnée de manière oblique au centre de la route."
+          width={1000}
+          height={1000}
+        />
+      </div>
+      {/* <div
+        className="md:block bg-cover bg-center w-2/3 h-screen "
         style={{
           backgroundImage:
             'url(https://images.unsplash.com/photo-1568106575207-0fe3ec317559)',
         }}
-      ></div>
+      ></div> */}
 
-      <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-gray-800 dark:text-gray-100">
+      <div className="md:w-1/2 flex w-full items-center justify-center text-gray-600 dark:bg-bg-dark dark:text-gray-100">
         {!confirmationSend && (
-          <div className="w-11/12">
+          <div className="w-11/12 mt-10">
             <form onSubmit={handleSubmit(handleSendMail)}>
-              <p className="leading-relaxed mb-5 ">
+              <p className="leading-relaxed mb-10 font-bold text-base">
                 Une question concernant l&apos;adhésion ? un évènement ? un bon
                 plan à partager? Passer une vitesse, déposer un message et
                 accélérer jusqu&apos;à cliquer sur Envoyer
@@ -88,7 +100,7 @@ export default function Contact() {
                   id="first_name"
                   placeholder="Alain"
                   {...register('first_name')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
                     errors.first_name ? 'border-red-600' : ''
                   }`}
                 />
@@ -114,8 +126,8 @@ export default function Contact() {
                   id="email"
                   placeholder="alain.proviste@club306.fr"
                   {...register('email')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
-                    errors.email ? 'border-red-600' : ''
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                    errors.first_name ? 'border-red-600' : ''
                   }`}
                 />
 
@@ -140,7 +152,7 @@ export default function Contact() {
                   id="msg"
                   placeholder="Veuillez saisir votre message ici..."
                   {...register('msg')}
-                  className={`w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
+                  className={`w-full bg-white rounded border border-gray-300 focus:border-principal-light dark:focus:border-principal-dark focus:ring-2 focus:ring-blue-200 dark:focus:ring-principal-dark text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${
                     errors.msg ? 'border-red-600' : ''
                   }`}
                 ></textarea>
@@ -153,12 +165,9 @@ export default function Contact() {
               </div>
 
               <div className="flex justify-center items-center">
-                <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-                  type="submit"
-                >
+                <Button className="btn-custom">
                   Envoyer
-                </button>
+                </Button>
               </div>
             </form>
           </div>
@@ -171,5 +180,5 @@ export default function Contact() {
         )}
       </div>
     </div>
-  );
+  )
 }

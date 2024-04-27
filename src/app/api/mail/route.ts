@@ -1,30 +1,32 @@
-import nodemailer from 'nodemailer';
 import {
   addNewCar,
   confirMail,
   mailContact,
+  memberSignUpEvent,
+  newsLetter,
   recordDb,
   removeCar,
   sendOTP,
   updateCarInfo,
   welcomeNewMember,
-} from '@/lib/mails';
+} from '@/lib/mails'
+import nodemailer from 'nodemailer'
 
 export async function POST(req: Request): Promise<Response> {
   if (!req.body)
     return new Response(JSON.stringify("Don't have form data...!"), {
       status: 403,
       statusText: "Don't have form data...!",
-    });
+    })
 
-  const email = process.env.MAIL_USER;
-  const pass = process.env.MAIL_PWD;
-  const host = process.env.MAIL_HOST;
-  const port = process.env.MAIL_PORT;
+  const email = process.env.MAIL_USER
+  const pass = process.env.MAIL_PWD
+  const host = process.env.MAIL_HOST
+  const port = process.env.MAIL_PORT
 
-  const body = await req.json();
+  const body = await req.json()
   if (!email || !pass || !host || !port) {
-    console.error('One or more required environment variables are not set.');
+    console.error('One or more required environment variables are not set.')
   } else {
     const transporter = nodemailer.createTransport({
       host: host,
@@ -35,9 +37,9 @@ export async function POST(req: Request): Promise<Response> {
         pass,
       },
       tls: { rejectUnauthorized: false },
-    });
+    })
 
-    let mailOptions = {};
+    let mailOptions = {}
     switch (body.from) {
       case 'canI':
         mailOptions = {
@@ -46,8 +48,8 @@ export async function POST(req: Request): Promise<Response> {
           subject: '👼🚘🧙 Nouvelle Interrogation de notre base 🧙🚘👼',
           text: `La recherche a concerné cette personne qui a le prénom ${body.value.firstName} et le nom ${body.value.lastName}. Celui qui a fait cette recherche utilise ce mail ${body.user}`,
           html: `La recherche a concerné cette personne qui a le prénom ${body.value.firstName} et le nom ${body.value.lastName}.<br>Celui qui a fait cette recherche utilise ce mail ${body.user}`,
-        };
-        break;
+        }
+        break
       case 'contact':
         mailOptions = {
           from: body.email,
@@ -56,8 +58,8 @@ export async function POST(req: Request): Promise<Response> {
           subject: `🌟📧🔎 Un nouveau message à lire : ${body.firstName} nous a écrit 🔍📧🌟`,
           text: `${body.message}.<br> Adresse mail ${body.email} pour répondre.`,
           html: mailContact(body.firstName, body.message),
-        };
-        break;
+        }
+        break
       case 'mailConfirm':
         mailOptions = {
           from: 'contact@club306.fr',
@@ -74,8 +76,24 @@ export async function POST(req: Request): Promise<Response> {
           <p>Merci de nous avoir rejoint,</p>
           <p>Club 306</p>`,
           html: confirMail(body.first_name, body.last_name, body.token),
-        };
-        break;
+        }
+        break
+      case 'memberSignUpEvent':
+        mailOptions = {
+          from: 'contact@club306.fr',
+          to: 'evenement@club306.fr',
+          bcc: 'webmaster@club306.fr',
+          subject: "Un nouveau membre s'est inscrit à l'event",
+          text: `<p>Bonjour Amandine,</p>
+          <p>Le membre ${body.firstName} ${body.lastName} (${body.email}) s'est inscrit à l'event: ${body.event}`,
+          html: memberSignUpEvent(
+            body.email,
+            body.firstName,
+            body.lastName,
+            body.event,
+          ),
+        }
+        break
       case 'newCar':
         mailOptions = {
           from: 'supabase-info@club306.fr',
@@ -90,10 +108,10 @@ export async function POST(req: Request): Promise<Response> {
             body.immatriculation,
             body.finition,
             body.model,
-            body.mine
+            body.mine,
           ),
-        };
-        break;
+        }
+        break
       case 'newMember':
         mailOptions = {
           from: 'contact@club306.fr',
@@ -101,8 +119,19 @@ export async function POST(req: Request): Promise<Response> {
           bcc: 'webmaster@club306.fr',
           subject: 'Bienvenue au club 306',
           html: welcomeNewMember(body.first_name),
-        };
-        break;
+        }
+        break
+      case 'newsLetter':
+        mailOptions = {
+          from: body.email,
+          // to: 'contact@club306.fr, president@club306.fr',
+          // bcc: 'webmaster@club306.fr',
+          to: 'webmaster@club306.fr',
+          subject: `🧿📧📬 Un Nouveau Lecteur à notre NewsLetter: 📬📧🧿`,
+          text: `Adresse mail ${body.email}.`,
+          html: newsLetter(body.email),
+        }
+        break
       case 'oldCar':
         mailOptions = {
           from: 'supabase-info@club306.fr',
@@ -118,10 +147,10 @@ export async function POST(req: Request): Promise<Response> {
             body.finition,
             body.model,
             body.mine,
-            body.reason
+            body.reason,
           ),
-        };
-        break;
+        }
+        break
       case 'recordDataBase':
         mailOptions = {
           from: 'supabase-info@club306.fr',
@@ -129,8 +158,8 @@ export async function POST(req: Request): Promise<Response> {
           subject: `🎉🚀👤 Le nouveau membre ${body.first_name} ${body.last_name} vient de s'inscrire 👤🚀🎉`,
           text: `Enregsitrement d'un nouveau membre ${body.first_name} ${body.last_name} !`,
           html: recordDb(body.first_name, body.last_name),
-        };
-        break;
+        }
+        break
       case 'updateCarInfo':
         mailOptions = {
           from: 'supabase-info@club306.fr',
@@ -144,10 +173,10 @@ export async function POST(req: Request): Promise<Response> {
             body.type,
             body.old_value,
             body.new_value,
-            body.immatriculation
+            body.immatriculation,
           ),
-        };
-        break;
+        }
+        break
 
       case 'rstPwd':
         mailOptions = {
@@ -156,8 +185,8 @@ export async function POST(req: Request): Promise<Response> {
           bcc: 'webmaster@club306.fr',
           subject: 'Votre code pour définir un nouveau mot de passe',
           html: sendOTP(body.otp),
-        };
-        break;
+        }
+        break
       default:
         mailOptions = {
           from: 'bigBrother.watchingYou@club306.fr',
@@ -165,17 +194,17 @@ export async function POST(req: Request): Promise<Response> {
           subject: '🚨🚨Big Brother a report for you 🚘',
           text: `${req}`,
           html: `<html>fonction mail de club306 déclenchée !!!<br/> ${body.value.firstName} ${body.value.lastName}<br/>${body.user}<br>${body.from}</html>`,
-        };
+        }
     }
 
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions)
     return new Response(JSON.stringify('GOOD'), {
       status: 200,
       statusText: 'Send the email with success',
-    });
+    })
   }
   return new Response(JSON.stringify('Something went wrong'), {
     status: 500,
     statusText: 'Internal Server Error',
-  });
+  })
 }

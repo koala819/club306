@@ -1,10 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --foreground: 219, 73%, 33%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -18,10 +19,10 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 219, 73%, 33%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 0 0% 100%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --accent: 210 40% 96.1%;
@@ -33,11 +34,17 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --principal-light: #174191;
+    --principal-dark: #e2a300;
+
+    --bg-light: #ffffff;
+    --bg-dark: #000025;
   }
 
   .dark {
     --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --foreground: 0 0% 100%;
 
     --muted: 223 47% 11%;
     --muted-foreground: 215.4 16.3% 56.9%;
@@ -54,10 +61,10 @@
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
 
-    --primary: 210 40% 98%;
+    --primary: 219, 73%, 33%;
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 100%;
     --secondary-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -75,7 +82,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 }
 
@@ -152,4 +161,31 @@ body {
   .center {
     height: 90vh;
   }
+}
+
+.navbarLinkHover {
+  @apply rounded-lg p-2 text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark;
+}
+:hover.degrade-border {
+  border-bottom-width: 3px;
+  border-style: solid;
+  border-image: linear-gradient(to right, blue, white 50%, red);
+  border-image-slice: 1;
+}
+
+h1 {
+  @apply text-4xl font-bold text-principal-light dark:text-principal-dark;
+}
+
+h2 {
+  @apply text-2xl font-bold text-principal-light dark:text-principal-dark;
+}
+
+p {
+  @apply mx-auto text-base;
+}
+
+.btn-custom {
+  @apply border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
+  dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark;
 }

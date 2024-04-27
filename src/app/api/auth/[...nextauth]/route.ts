@@ -1,6 +1,7 @@
-import NextAuth from 'next-auth/next';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { checkRegisteredMember } from '@/lib/supabase';
+import NextAuth from 'next-auth/next'
+import CredentialsProvider from 'next-auth/providers/credentials'
+
+import { checkRegisteredMember } from '@/lib/supabase'
 
 const handler = NextAuth({
   providers: [
@@ -13,19 +14,19 @@ const handler = NextAuth({
       async authorize(credentials) {
         const result = await checkRegisteredMember(
           credentials?.email,
-          credentials?.password
-        );
+          credentials?.password,
+        )
 
         if (result.status === 400 || result.status === 401) {
-          return null;
+          return null
         }
 
         const user = {
           id: result.statusText.id,
           email: result.statusText.email,
-        };
+        }
         // console.log('yes with user : ', user);
-        return user;
+        return user
       },
     }),
   ],
@@ -36,6 +37,6 @@ const handler = NextAuth({
     signIn: '/auth/signIn',
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+})
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST }

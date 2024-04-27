@@ -1,19 +1,20 @@
-'use client';
-import { useState } from 'react';
-import { Step } from '@/components/membership/Step';
-import { Form } from '@/components/membership/Form';
+import { Metadata } from 'next'
+
+import Membership from '@/components/membership/Membership'
+
+export const metadata: Metadata = {
+  title:
+    'Rejoignez Club306 : Complétez vos informations personnelles pour devenir membre',
+  description:
+    'Devenez membre de Club306 : remplissez vos infos pour une adhésion facile. Acceptez nos termes et politique de confidentialité pour avancer.',
+  keywords: [
+    "adhésion Club306, formulaire d'informations personnelles, processus d'inscription, enregistrement utilisateur, détails personnels des membres, formulaire en ligne, accord de consentement, politique de confidentialité, conditions d'adhésion",
+  ],
+  alternates: {
+    canonical: `${process.env.CLIENT_URL}/membership`,
+  },
+}
 
 export default function Page() {
-  const [currentStep, setStep] = useState<number>(1);
-  return (
-    <>
-      <title>Inscription</title>
-      <main className="h-full mb-4 pr-4 pl-4">
-        <div className="h-full lg:grid lg:grid-cols-12">
-          <Step step={currentStep} />
-          <Form step={currentStep} setStep={setStep} />
-        </div>
-      </main>
-    </>
-  );
+  return <Membership />
 }

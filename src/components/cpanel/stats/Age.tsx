@@ -1,10 +1,12 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { countMembersByAge } from '@/lib/supabase';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+'use client'
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { useEffect, useState } from 'react'
+import { Pie } from 'react-chartjs-2'
+
+import { countMembersByAge } from '@/lib/supabase'
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
+
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function Age() {
   const [chartData, setChartData] = useState({
@@ -17,35 +19,35 @@ export default function Age() {
         borderWidth: 1,
       },
     ],
-  });
+  })
   const [nbMembersByAge, setNbMembersByAge] = useState<MemberStats>({
     age_0_18: [],
     age_18_30: 0,
     age_30_40: 0,
     age_40_50: 0,
     age_more_50: 0,
-  });
+  })
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await countMembersByAge();
+        const result = await countMembersByAge()
         if (result) {
-          setNbMembersByAge(result);
+          setNbMembersByAge(result)
         }
       } catch (error) {
-        console.log('error fetch data', error);
+        console.log('error fetch data', error)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   useEffect(() => {
     if (Object.keys(nbMembersByAge).length !== 0) {
       const labels = Object.keys(nbMembersByAge).sort((keyA, keyB) => {
-        return keyA.localeCompare(keyB);
-      });
+        return keyA.localeCompare(keyB)
+      })
 
       setChartData({
         labels,
@@ -69,38 +71,15 @@ export default function Age() {
             borderWidth: 1,
           },
         ],
-      });
+      })
     }
-  }, [nbMembersByAge]);
+  }, [nbMembersByAge])
 
   return (
     <>
       {nbMembersByAge !== null && (
-        // <div>
-        //   <p>
-        //     Nombre de membres ayant moins de 18 ans :{' '}
-        //     {nbMembersByAge.age_0_18.length}
-        //     <ul>
-        //       {nbMembersByAge.age_0_18.map((mail, index) => (
-        //         <li key={index}>email : {mail}</li>
-        //       ))}
-        //     </ul>
-        //   </p>
-        //   <p>
-        //     Nombre de membres entre 18 et 30 ans : {nbMembersByAge.age_18_30}
-        //   </p>
-        //   <p>
-        //     Nombre de membres entre 30 et 40 ans : {nbMembersByAge.age_30_40}
-        //   </p>
-        //   <p>
-        //     Nombre de membres entre 40 et 50 ans : {nbMembersByAge.age_40_50}
-        //   </p>
-        //   <p>
-        //     Nombre de membres de plus de 50 ans : {nbMembersByAge.age_more_50}
-        //   </p>
-        // </div>
-        <div className="flex flex-wrap text-center  items-center">
-          <div className="p-4 md:w-1/2 w-full">
+        <div className="flex flex-col lg:flex-row flex-wrap text-center items-center">
+          <aside className="p-4 w-full lg:w-1/2">
             <div className="border-2 border-gray-200 py-6 rounded-lg flex ">
               <div className=" flex items-center justify-center w-1/2">
                 <svg
@@ -136,8 +115,8 @@ export default function Age() {
                   </g>
                 </svg>
               </div>
-              <div className=" flex items-center justify-center w-1/2">
-                <p>
+              <div className=" flex items-center justify-center w-full">
+                <text>
                   {nbMembersByAge.age_0_18.length} membres ont moins de 18 ans :
                   <ul>
                     {nbMembersByAge.age_0_18.map(
@@ -145,26 +124,26 @@ export default function Age() {
                         <li key={index}>
                           <a href={`mailto:${mail}`}>email : {mail}</a>
                         </li>
-                      )
+                      ),
                     )}
                   </ul>
-                </p>
+                </text>
               </div>
             </div>
-          </div>
-          <div className="p-4 md:w-1/2 w-full">
+          </aside>
+          <aside className="p-4 w-full lg:w-1/2 flex text-center  items-center">
             <Pie data={chartData} />
-          </div>
+          </aside>
         </div>
       )}
     </>
-  );
+  )
 }
 
 interface MemberStats {
-  age_0_18: string[];
-  age_18_30: number;
-  age_30_40: number;
-  age_40_50: number;
-  age_more_50: number;
+  age_0_18: string[]
+  age_18_30: number
+  age_30_40: number
+  age_40_50: number
+  age_more_50: number
 }

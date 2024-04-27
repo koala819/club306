@@ -1,19 +1,23 @@
-'use client';
-import { useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import toast from 'react-hot-toast';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { checkEmptyToken, memberInfo } from '@/lib/token/utils';
-import { sendConfirmationMail } from '@/lib/mail/utils';
+'use client'
+
+import { Button } from '@nextui-org/react'
+import { signIn } from 'next-auth/react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+
+import Link from 'next/link'
+
+import { sendConfirmationMail } from '@/lib/mail/utils'
+import { checkEmptyToken, memberInfo } from '@/lib/token/utils'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function Page() {
-  const [showPwd, setShowPwd] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>('');
-  const [mailWithToken, setMailWithToken] = useState<boolean>(false);
+  const [showPwd, setShowPwd] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [mailWithToken, setMailWithToken] = useState<boolean>(false)
 
   const schema: yup.ObjectSchema<MailPwd> = yup.object().shape({
     email: yup
@@ -24,7 +28,7 @@ export default function Page() {
       .string()
       .required('Le mot de passe est obligatoire')
       .min(8, 'Le mot de passe doit avoir 8 caractères minimum'),
-  });
+  })
 
   const {
     register,
@@ -32,57 +36,57 @@ export default function Page() {
     formState: { errors },
   } = useForm<MailPwd>({
     resolver: yupResolver(schema),
-  });
+  })
 
   async function onSubmit(values: MailPwd) {
     try {
-      const response = await checkEmptyToken(values.email);
+      const response = await checkEmptyToken(values.email)
 
       if (response) {
-        toast.error('Vous devez valider votre email !');
-        setMailWithToken(true);
-        return;
+        toast.error('Vous devez valider votre email !')
+        setMailWithToken(true)
+        return
       } else {
         await signIn('credentials', {
           email: values.email,
           password: values.pwd,
           redirect: true,
           callbackUrl: '/cpanel',
-        });
+        })
       }
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error)
     }
   }
 
   async function sendToken() {
     try {
-      const response = await memberInfo(email);
-      const mailData = await response.json();
-      console.log('token', mailData.data.user_token);
+      const response = await memberInfo(email)
+      const mailData = await response.json()
+      console.log('token', mailData.data.user_token)
       const mailResponse = await sendConfirmationMail(
         mailData.data.first_name,
         mailData.data.last_name,
         email,
-        mailData.data.user_token
-      );
-      const finished = await mailResponse.json();
+        mailData.data.user_token,
+      )
+      const finished = await mailResponse.json()
 
       if (finished.status === 200) {
         toast.success(
-          'Veuillez consulter votre boite mail. Pensez à vérifier vos SPAMS !'
-        );
+          'Veuillez consulter votre boite mail. Pensez à vérifier vos SPAMS !',
+        )
       } else {
-        console.error('Send mail with ERROR ', finished.data);
+        console.error('Send mail with ERROR ', finished.data)
       }
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error)
     }
   }
 
   return (
     <div className="h-full flex justify-center items-center">
-      <div className="w-full">
+      <div className="w-full my-14">
         <div className="flex bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
@@ -176,12 +180,9 @@ export default function Page() {
                 )}
               </div>
               <div className="flex  w-full justify-end mt-4">
-                <button
-                  className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg duration-150 hover:bg-blue-500 active:shadow-lg"
-                  type="submit"
-                >
+                <Button className="btn-custom" type="submit">
                   Connexion
-                </button>
+                </Button>
               </div>
             </form>
           </div>
@@ -189,10 +190,10 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 type MailPwd = {
-  email: string;
-  pwd: string;
-};
+  email: string
+  pwd: string
+}

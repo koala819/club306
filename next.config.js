@@ -1,9 +1,12 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-});
+})
 module.exports = withBundleAnalyzer({
   env: {
     CLIENT_URL: process.env.CLIENT_URL,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
     DRIVE_FOLDER_ID: process.env.DRIVE_FOLDER_ID,
     GCP_CLIENT_ID: process.env.GCP_CLIENT_ID,
     GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
@@ -34,6 +37,12 @@ module.exports = withBundleAnalyzer({
   },
   images: {
     domains: [
+      'newsdanciennes.com',
+      'www.francebleu.fr',
+      'res.cloudinary.com',
+      'scontent-cdg4-3.xx.fbcdn.net',
+      'pscuk.net',
+      'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
       'images.prismic.io',
       'www.thebigcarshow.com',
       'scontent-cdt1-1.xx.fbcdn.net',
@@ -53,4 +62,4 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   // transpilePackages: ['antd'],
   swcMinify: true,
-});
+})
