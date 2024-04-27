@@ -107,7 +107,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 className="hover:fill-blue-600 cursor-pointer"
               />
             </Link>
-            <Link href="https://www.discord.com/club306france/">
+            <Link href="https://discord.gg/8NKJ4Z4j">
               <IoLogoDiscord
                 size={32}
                 className="hover:fill-blue-700 cursor-pointer"
@@ -119,7 +119,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 className="hover:fill-blue-500 cursor-pointer"
               />
             </Link>
-            <Link href="https://www.youtube.com/club306france/">
+            <Link href="https://www.youtube.com/@sylvaintroiscentsix">
               <FaYoutube
                 size={32}
                 className="hover:fill-red-600 cursor-pointer"
