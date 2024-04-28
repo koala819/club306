@@ -219,17 +219,16 @@ export const PersonalInfos = ({ setStep }: any) => {
                 <Controller
                   control={control}
                   name="country"
-                  render={({ field }) => (
+                  render={({ field, fieldState: { error } }) => (
                     <Select
                       className="w-11/12 lg:w-1/2"
                       radius="none"
-                      onChange={field.onChange}
-                      errorMessage={errors.country && errors.country.message}
-                      // defaultSelectedKeys={
-                      //   personalInfo?.country
-                      //     ? [`${personalInfo?.country}`]
-                      //     : ['33']
-                      // }
+                      onChange={(value) => {
+                        field.onChange(value)
+                      }}
+                      value={field.value}
+                      errorMessage={error ? error.message : null}
+                      placeholder="Choix code pays"
                     >
                       <SelectItem
                         key="32"
