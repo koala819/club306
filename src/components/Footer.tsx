@@ -180,18 +180,6 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
               S&apos;abonner
             </button>
           </form>
-
-          {/* <div className="mt-32 mb-12">logo peugeot</div> */}
-          {/* <picture className="flex justify-center  text-white pr-1  ">
-            <Image
-              order-2
-              src="/images/Logo_AVP2.png"
-              alt="Logo Aventure Peugeot"
-              width={200}
-              height={200}
-              className="mt-12 mb-12"
-            />
-          </picture> */}
         </div>
 
         <div className=" w-1/3 flex flex-col items-center lg:items-end justify-center lg:my-0 my-4">
@@ -228,16 +216,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           </div>
         </div>
       </div>
-      <picture className="flex justify-center  text-white pr-1  ">
-        <Image
-          order-2
-          src="/images/Logo_AVP2.png"
-          alt="Logo Aventure Peugeot"
-          width={200}
-          height={200}
-          className=""
-        />
-      </picture>
+
       <div className="flex md:flex-row flex-col  w-full justify-between  my-4 ">
         {/* <legend className=" px-4 mx-auto text-center bg-[#707070] text-white"> */}
         {/* <div className="py-4 flex flex-col md:flex-row space-y-8 md:space-y-0"> */}
