@@ -139,7 +139,7 @@ export default function Staff() {
     },
 
     {
-      picture: '/',
+      picture: '/images/clubFabriceNeron.jpg',
       name: 'Fabrice Neron',
       role: 'Evénement Sud',
       content:
