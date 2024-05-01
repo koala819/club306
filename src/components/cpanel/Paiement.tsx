@@ -27,7 +27,7 @@ const Paiement = () => {
         const response = await getMemberForCotisation(dataSession?.user?.email)
         if (response.status === 200) {
           const memberInfo = await response.json()
-          console.log('memberInfo', memberInfo)
+          // console.log('memberInfo', memberInfo)
           setMember(() => memberInfo)
         } else {
           toast.error('Une erreur est survenue')
@@ -39,7 +39,7 @@ const Paiement = () => {
   }, [dataSession])
 
   function handleCheckout() {
-    const newYear = new Date().getFullYear() + 1
+    const newYear = new Date().getFullYear()
 
     const clientUrl =
       process.env.CLIENT_URL === 'http://localhost:3000'
@@ -64,7 +64,7 @@ const Paiement = () => {
         address: `${member?.address}`,
         city: `${member?.town}`,
         zipCode: `${member?.zip_code}`,
-        country: `${getCountryAlpha3Code(member?.phone)}`,
+        country: `${getCountryAlpha3Code(member?.phone.slice(0, 2))}`,
       },
       metadata: {
         userId: `${member?.id}`,

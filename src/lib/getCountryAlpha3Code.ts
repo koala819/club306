@@ -1,5 +1,5 @@
 export function getCountryAlpha3Code(phone: any) {
-  // console.log('phone', phone)
+  // console.log('phone in getCountryAlpha3Code', phone)
   const phonePrefixToCountryCode: Record<string, string> = {
     '33': 'FRA', // France
     '44': 'GBR', // Royaume-Uni
