@@ -137,7 +137,6 @@ export default function Staff() {
         'https://www.linkedin.com/in/xavier%F0%9F%92%BB-genolhac-79a98390/',
       mail: 'contact@club306.fr',
     },
-
     {
       picture: '/images/clubFabriceNeron.jpg',
       name: 'Fabrice Néron',
@@ -152,6 +151,29 @@ export default function Staff() {
       localisation: 'Vars (83)',
       facebook: 'https://www.facebook.com/fab.neron',
       insta: 'https://www.instagram.com/neronfab/',
+      mail: 'evenements@club306.fr',
+    },
+    {
+      picture: '/images/clubMaximeFremeaux.jpg',
+      name: 'Maxime Frémeaux',
+      role: 'Relations Publiques Presse',
+      content:
+        ' Passionné par la marque au lion depuis mon plus jeune âge, roulant\n' +
+        " en Peugeot déjà à l'adolescence (50cc). Pour la première voiture\n" +
+        'le choix était évident, une Peugeot ! Ce fut une 106 Sport. Mais,\n' +
+        "après seulement 1 an de permis en 2007, rêvant de 306 S16, j'ai eu\n" +
+        "la chance de m'offrir une 306 assez méconnue, une XSi 16s ph2.1 de\n" +
+        '1998 gris quartz. Par la suite, une 306 S16 bv6 ph2.1 noir onyx de\n' +
+        "1997 est venue remplacer cette XSI. En 2013, j'ai acheté mon graal,\n" +
+        'une 306 S16 bv6 ph2.1 premium jaune vermeer de 1998. Les 306 sont\n' +
+        'intemporelles quelque soit la génération, elles passent les années\n' +
+        'formidablement bien. Et nous les faisons encore vivre tous ensemble.\n' +
+        'Je suis fier de faire parti du staff club 306 et de partager ma passion\n' +
+        "avec vous tous. J'espère échanger avec vous lors des divers événements qu'on vous aura proposés.",
+      car: '306 S16 bv6 1998 Pack Premium jaune Vermeer',
+      localisation: 'le berceau de la marque du lion 🦁 SOCHAUX/MONTBÉLIARD',
+      facebook: '/',
+      insta: '/',
       mail: 'evenements@club306.fr',
     },
   ]
