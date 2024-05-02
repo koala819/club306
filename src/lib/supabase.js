@@ -793,160 +793,160 @@ async function ourPartners() {
   return await supabase.from('partners_codePromo').select('*')
 }
 
-async function record(personalInfo, vehicles, newMemberId, userToken) {
-  const rspRecMember = await recordMember(personalInfo, newMemberId, userToken)
-  const dataRecMember = await rspRecMember.json()
-  if (dataRecMember.status !== 200) {
-    return NextResponse.json({
-      message: dataRecMember.statusText,
-      status: dataRecMember.status,
-    })
-  }
+// async function record(personalInfo, vehicles, newMemberId, userToken) {
+//   const rspRecMember = await recordMember(personalInfo, newMemberId, userToken)
+//   const dataRecMember = await rspRecMember.json()
+//   if (dataRecMember.status !== 200) {
+//     return NextResponse.json({
+//       message: dataRecMember.statusText,
+//       status: dataRecMember.status,
+//     })
+//   }
 
-  const rspRecCar = await recordCar(vehicles, newMemberId)
-  const dataRecCar = await rspRecCar.json()
-  if (dataRecCar.status !== 200) {
-    return NextResponse.json({
-      message: dataRecCar.statusText,
-      status: dataRecCar.status,
-    })
-  }
-  const rspSendMail = await sendMailRecordDb(personalInfo)
-  const dataSendMail = await rspSendMail.json()
-  if (dataSendMail.status !== 200) {
-    return NextResponse.json({
-      message: dataSendMail.statusText,
-      status: dataSendMail.status,
-    })
-  }
+//   const rspRecCar = await recordCar(vehicles, newMemberId)
+//   const dataRecCar = await rspRecCar.json()
+//   if (dataRecCar.status !== 200) {
+//     return NextResponse.json({
+//       message: dataRecCar.statusText,
+//       status: dataRecCar.status,
+//     })
+//   }
+//   const rspSendMail = await sendMailRecordDb(personalInfo)
+//   const dataSendMail = await rspSendMail.json()
+//   if (dataSendMail.status !== 200) {
+//     return NextResponse.json({
+//       message: dataSendMail.statusText,
+//       status: dataSendMail.status,
+//     })
+//   }
 
-  return NextResponse.json({
-    message:
-      'Great Job !!! User and car have created successfully with send the mail :)',
-    status: 200,
-  })
-}
+//   return NextResponse.json({
+//     message:
+//       'Great Job !!! User and car have created successfully with send the mail :)',
+//     status: 200,
+//   })
+// }
 
-async function recordCar(vehicles, memberId) {
-  const responses = await Promise.all([
-    ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
-    ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
-    ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
-  ])
+// async function recordCar(vehicles, memberId) {
+//   const responses = await Promise.all([
+//     ...vehicles.map((vehicle) => getIdColor(vehicle.color)),
+//     ...vehicles.map((vehicle) => getIdFinition(vehicle.finition)),
+//     ...vehicles.map((vehicle) => getIdModel(vehicle.model)),
+//   ])
 
-  if (responses !== undefined) {
-    const colorIds = responses
-      .slice(0, vehicles.length)
-      .map((res) => res.data[0].id)
-    const finitionIds = responses
-      .slice(vehicles.length, vehicles.length * 2)
-      .map((res) => res.data[0].id)
-    const modelIds = responses
-      .slice(vehicles.length * 2)
-      .map((res) => res.data[0].id)
+//   if (responses !== undefined) {
+//     const colorIds = responses
+//       .slice(0, vehicles.length)
+//       .map((res) => res.data[0].id)
+//     const finitionIds = responses
+//       .slice(vehicles.length, vehicles.length * 2)
+//       .map((res) => res.data[0].id)
+//     const modelIds = responses
+//       .slice(vehicles.length * 2)
+//       .map((res) => res.data[0].id)
 
-    const updatedVehicles = vehicles.map((vehicle, index) => ({
-      ...vehicle,
-      color: colorIds[index],
-      finition: finitionIds[index],
-      model: modelIds[index],
-    }))
+//     const updatedVehicles = vehicles.map((vehicle, index) => ({
+//       ...vehicle,
+//       color: colorIds[index],
+//       finition: finitionIds[index],
+//       model: modelIds[index],
+//     }))
 
-    const insertionPromises = updatedVehicles.map(async (vehicle) => {
-      const { immatriculation, mine, model, color, finition } = vehicle
-      try {
-        const { error } = await supabase.from('cars').insert({
-          car_color_id: color,
-          car_finition_id: finition,
-          car_model_id: model,
-          immatriculation: immatriculation,
-          member_id: memberId,
-          min: mine,
-        })
-        if (error) {
-          return NextResponse.json({
-            statusText: error.message,
-            status: 409,
-          })
-        }
-        return NextResponse.json({
-          message: 'Great Job !!! Car(s) has created successfully :)',
-          status: 200,
-        })
-      } catch (error) {
-        return NextResponse.json({
-          statusText: error.message,
-          status: 406,
-        })
-      }
-    })
+//     const insertionPromises = updatedVehicles.map(async (vehicle) => {
+//       const { immatriculation, mine, model, color, finition } = vehicle
+//       try {
+//         const { error } = await supabase.from('cars').insert({
+//           car_color_id: color,
+//           car_finition_id: finition,
+//           car_model_id: model,
+//           immatriculation: immatriculation,
+//           member_id: memberId,
+//           min: mine,
+//         })
+//         if (error) {
+//           return NextResponse.json({
+//             statusText: error.message,
+//             status: 409,
+//           })
+//         }
+//         return NextResponse.json({
+//           message: 'Great Job !!! Car(s) has created successfully :)',
+//           status: 200,
+//         })
+//       } catch (error) {
+//         return NextResponse.json({
+//           statusText: error.message,
+//           status: 406,
+//         })
+//       }
+//     })
 
-    const results = await Promise.all(insertionPromises)
-    if (results[0] && results[0].status === 200) {
-      return results[0]
-    }
-    return results
-  }
-}
+//     const results = await Promise.all(insertionPromises)
+//     if (results[0] && results[0].status === 200) {
+//       return results[0]
+//     }
+//     return results
+//   }
+// }
 
-async function recordMember(personalInfo, newMemberId, userToken) {
-  const {
-    address,
-    birth_date,
-    first_name,
-    last_name,
-    country,
-    phone,
-    town,
-    zip_code,
-    email,
-    pwd,
-  } = personalInfo
-  // const countryCodes = {
-  //   33: 'France',
-  //   32: 'Belgique',
-  //   39: 'Italie',
-  //   31: 'Hollande',
-  //   34: 'Espagne',
-  //   41: 'Suisse',
-  // };
+// async function recordMember(personalInfo, newMemberId, userToken) {
+//   const {
+//     address,
+//     birth_date,
+//     first_name,
+//     last_name,
+//     country,
+//     phone,
+//     town,
+//     zip_code,
+//     email,
+//     pwd,
+//   } = personalInfo
+//   // const countryCodes = {
+//   //   33: 'France',
+//   //   32: 'Belgique',
+//   //   39: 'Italie',
+//   //   31: 'Hollande',
+//   //   34: 'Espagne',
+//   //   41: 'Suisse',
+//   // };
 
-  const countryCode = phone.substring(0, 2)
-  // const country = countryCodes[countryCode] || '';
-  try {
-    const { error } = await supabase.from('members').insert({
-      id: newMemberId,
-      cotisation: true,
-      address,
-      birth_date,
-      country,
-      email,
-      password: pwd,
-      first_name: first_name.charAt(0).toUpperCase() + first_name.slice(1),
-      last_name: last_name.toUpperCase(),
-      phone,
-      town,
-      zip_code,
-      user_token: userToken,
-    })
-    if (error) {
-      return NextResponse.json({
-        statusText: error.message,
-        status: 409,
-      })
-    }
+//   const countryCode = phone.substring(0, 2)
+//   // const country = countryCodes[countryCode] || '';
+//   try {
+//     const { error } = await supabase.from('members').insert({
+//       id: newMemberId,
+//       cotisation: true,
+//       address,
+//       birth_date,
+//       country,
+//       email,
+//       password: pwd,
+//       first_name: first_name.charAt(0).toUpperCase() + first_name.slice(1),
+//       last_name: last_name.toUpperCase(),
+//       phone,
+//       town,
+//       zip_code,
+//       user_token: userToken,
+//     })
+//     if (error) {
+//       return NextResponse.json({
+//         statusText: error.message,
+//         status: 409,
+//       })
+//     }
 
-    return NextResponse.json({
-      message: 'Great Job !!! User has created successfully :)',
-      status: 200,
-    })
-  } catch (error) {
-    return NextResponse.json({
-      statusText: error.message,
-      status: 406,
-    })
-  }
-}
+//     return NextResponse.json({
+//       message: 'Great Job !!! User has created successfully :)',
+//       status: 200,
+//     })
+//   } catch (error) {
+//     return NextResponse.json({
+//       statusText: error.message,
+//       status: 406,
+//     })
+//   }
+// }
 
 async function recordModifyColorInCpanel(oldColor, newColor) {
   try {
@@ -990,41 +990,41 @@ async function returnMemberInfo(mail) {
   return data
 }
 
-async function sendMailRecordDb(personalInfo) {
-  const dataSendMail = {
-    first_name: personalInfo.first_name,
-    last_name: personalInfo.last_name,
-    from: 'recordDataBase',
-  }
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify(dataSendMail),
-  }
-  try {
-    const response = await fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+// async function sendMailRecordDb(personalInfo) {
+//   const dataSendMail = {
+//     first_name: personalInfo.first_name,
+//     last_name: personalInfo.last_name,
+//     from: 'recordDataBase',
+//   }
+//   const options = {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       Accept: 'application/json',
+//     },
+//     body: JSON.stringify(dataSendMail),
+//   }
+//   try {
+//     const response = await fetch(`${process.env.CLIENT_URL}/api/mail`, options)
 
-    if (response.status === 200) {
-      return NextResponse.json({
-        message: 'Great Job !!! Mail had been send successfully :)',
-        status: 200,
-      })
-    }
+//     if (response.status === 200) {
+//       return NextResponse.json({
+//         message: 'Great Job !!! Mail had been send successfully :)',
+//         status: 200,
+//       })
+//     }
 
-    return NextResponse.json({
-      message: 'Error to send mail',
-      status: 409,
-    })
-  } catch (error) {
-    return {
-      statusText: error.message,
-      status: 406,
-    }
-  }
-}
+//     return NextResponse.json({
+//       message: 'Error to send mail',
+//       status: 409,
+//     })
+//   } catch (error) {
+//     return {
+//       statusText: error.message,
+//       status: 406,
+//     }
+//   }
+// }
 
 async function updateCarImmatriculation(value, immatriculation) {
   try {
@@ -1211,7 +1211,7 @@ export {
   getTokenFromSupabase,
   onlyStaff,
   ourPartners,
-  record,
+  // record,
   recordModifyColorInCpanel,
   returnMemberInfo,
   signInWithoutToken,

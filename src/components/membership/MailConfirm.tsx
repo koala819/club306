@@ -10,7 +10,8 @@ import { PersonalInfo, Vehicles } from '@/types/models'
 
 import { generateUniqueToken } from '@/lib/generateUniqueToken'
 import { sendConfirmationMail } from '@/lib/mail/utils'
-import { getMemberId, record } from '@/lib/supabase'
+import { getMemberId } from '@/lib/supabase'
+import { record } from '@/lib/supabase/record'
 
 export default function MailConfirm({
   userIdFromlocalStorage,
@@ -20,7 +21,7 @@ export default function MailConfirm({
   const [recordInDb, setRecordInDb] = useState<boolean>(false)
   const [lastMbrIdFromDB, setLastMbrIdFromDB] = useState<number | null>(null)
   const [storedPersonalInfo, setStoredPersonalInfo] = useState<PersonalInfo>()
-  const [storedVehicle, setStoredVehicle] = useState<Vehicles>()
+  const [storedVehicle, setStoredVehicle] = useState<Vehicles[]>()
   const router = useRouter()
   const tokenForMember = generateUniqueToken()
 
