@@ -140,13 +140,14 @@ export default function Staff() {
 
     {
       picture: '/images/clubFabriceNeron.jpg',
-      name: 'Fabrice Neron',
+      name: 'Fabrice Néron',
       role: 'Evénement Sud',
       content:
-        'Passionné de 306 depuis son apparition, j’ai suivi avec entousiasme son evolution.\n' +
-        "C'est en 2000 que j'ai acquis ma première 306 2L 16 en ACAV que j'ai vendu en 2004 à regret.\n" +
-        "Puis en 2022, j'ai eu l'occasion d'acquérir une BV6 confort peu kilométrée avec son\n" +
-        'historique complet à ce jour que je possède actuellement.',
+        "Passionné de 306 depuis son apparition. C'est en 2000 que j'ai\n" +
+        'acquis ma première, 306 2L 16 en ACAV vendu en 2004 à regret.\n' +
+        "En 2022, j'ai eu l'occasion d'acquérir une BV6 confort peu\n" +
+        'kilométrée avec son historique complet à ce jour que je possède\n' +
+        ' actuellement.',
       car: '306 S16 BV6 Confort en Noir Onyx 2000',
       localisation: 'Vars (83)',
       facebook: 'https://www.facebook.com/fab.neron',
