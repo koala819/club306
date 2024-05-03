@@ -172,9 +172,9 @@ export default function Staff() {
         "avec vous tous. J'espère échanger avec vous lors des divers événements qu'on vous aura proposés.",
       car: '306 S16 bv6 1998 Pack Premium jaune Vermeer',
       localisation: 'le berceau de la marque du lion 🦁 SOCHAUX/MONTBÉLIARD',
-      facebook: '/',
-      insta: '/',
-      mail: 'evenements@club306.fr',
+      facebook: 'https://www.facebook.com/Maxouuux',
+      insta: '#',
+      mail: 'contact@club306.fr',
     },
   ]
 
