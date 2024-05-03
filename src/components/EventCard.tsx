@@ -21,6 +21,7 @@ export function EventCard({ event }: { event: EventsData }) {
   const router = useRouter()
   const dateToDisplay = formatDate(event.dates, event.month)
   const imgSrc = event.img || (theme === 'light' ? blackLogo : whiteLogo)
+  const currentMonth = new Date().getMonth()
 
   useEffect(() => {
     async function checkRegister() {
@@ -110,7 +111,13 @@ export function EventCard({ event }: { event: EventsData }) {
               </div>
             }
           >
-            <Button className="btn-custom">Réserver ma place</Button>
+            <>
+              {event.month > currentMonth ? (
+                <Button className="btn-custom">Réserver ma place</Button>
+              ) : (
+                <Button disabled>Fini</Button>
+              )}
+            </>
           </Tooltip>
         )}
       </div>
