@@ -18,7 +18,7 @@ const eventsData = [
     title: 'YoungTimer',
     img: 'https://newsdanciennes.com/content/uploads/2023/03/Youngtimers-Festival-2023-1.jpg',
     nbrPicture: 0,
-    link: 'https://exemple.com/yougtimer',
+    link: '/',
   },
   {
     id: 2,
@@ -26,7 +26,15 @@ const eventsData = [
     title: '30ans',
     img: 'https://www.francebleu.fr/s3/cruiser-production/2023/10/a6fc0d43-03e0-48ad-a29e-e283305c97c8/1200x680_sc_3061.jpg',
     nbrPicture: 0,
-    link: 'https://exemple.com/30ans306',
+    link: '/',
+  },
+  {
+    id: 3,
+    year: 2024,
+    title: 'YT24',
+    img: '/images/YT24.jpg',
+    nbrPicture: 0,
+    link: '/',
   },
 ]
 

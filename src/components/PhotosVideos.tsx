@@ -22,7 +22,7 @@ export default function PhotosVideos({
   const router = useRouter()
   const currentYear = new Date().getFullYear()
 
-  const organizeEventsByYear = (): { [year: number]: EventsDataPicture[] } => {
+  function organizeEventsByYear(): { [year: number]: EventsDataPicture[] } {
     const eventsByYear: { [year: number]: EventsDataPicture[] } = {}
     eventsData.forEach((event: EventsDataPicture) => {
       const year = event.year
@@ -37,7 +37,7 @@ export default function PhotosVideos({
     return eventsByYear
   }
 
-  const renderAccordionItems = (): JSX.Element[] => {
+  function renderAccordionItems(): JSX.Element[] {
     const eventsByYear = organizeEventsByYear()
     const accordionItems: JSX.Element[] = []
 
@@ -50,28 +50,38 @@ export default function PhotosVideos({
       >
         <div className="w-3/4 mx-auto">
           {eventsByYear[currentYear] ? (
-            eventsData.map((event: EventsDataPicture, index: number) => (
-              <div key={index}>
-                <h2 className="">{event.title}</h2>
-                <div
-                  onClick={() => {
-                    // picturesCount(event.year.toString(), event.title.toString())
-                    console.log('click')
-                  }}
-                >
-                  <Image
-                    src={event.img}
-                    alt={event.title}
-                    height={256}
-                    width={256}
-                  />
-                </div>
-                <p>{event.nbrPicture} photos</p>
-              </div>
-            ))
+            eventsData.map((event, index) => {
+              if (event.year === currentYear) {
+                return (
+                  <div key={index}>
+                    <h2>{event.title}</h2>
+                    <div
+                      className="hover:cursor-pointer"
+                      onClick={() => {
+                        const query = new URLSearchParams({
+                          year: event.year.toString(),
+                          title: event.title,
+                        }).toString()
+                        router.push(`/photosVideos/${event.id}?${query}`)
+                      }}
+                    >
+                      <Image
+                        src={event.img}
+                        alt={event.title}
+                        height={256}
+                        width={256}
+                      />
+                    </div>
+                    <p>{event.nbrPicture} photos</p>
+                  </div>
+                )
+              } else {
+                return null
+              }
+            })
           ) : (
             <div>
-              <h2 className="">Rejoignez l'aventure 306 !</h2>
+              <h2>Rejoignez l'aventure 306 !</h2>
               <h3>Photos a venir !</h3>
             </div>
           )}
@@ -90,30 +100,35 @@ export default function PhotosVideos({
         >
           <div>
             {eventsByYear[year] ? (
-              eventsData.map((event: EventsDataPicture, index: number) => (
-                <div key={index}>
-                  <h2 className="">{event.title}</h2>
-
-                  <div
-                    className="hover:cursor-pointer"
-                    onClick={() => {
-                      const query = new URLSearchParams({
-                        year: event.year.toString(),
-                        title: event.title,
-                      }).toString()
-                      router.push(`/photosVideos/${event.id}?${query}`)
-                    }}
-                  >
-                    <Image
-                      src={event.img}
-                      alt={event.title}
-                      height={256}
-                      width={256}
-                    />
-                  </div>
-                  <p>{event.nbrPicture} photos</p>
-                </div>
-              ))
+              eventsData.map((event: EventsDataPicture, index: number) => {
+                if (event.year === year) {
+                  return (
+                    <div key={index}>
+                      <h2>{event.title}</h2>
+                      <div
+                        className="hover:cursor-pointer"
+                        onClick={() => {
+                          const query = new URLSearchParams({
+                            year: event.year.toString(),
+                            title: event.title,
+                          }).toString()
+                          router.push(`/photosVideos/${event.id}?${query}`)
+                        }}
+                      >
+                        <Image
+                          src={event.img}
+                          alt={event.title}
+                          height={256}
+                          width={256}
+                        />
+                      </div>
+                      <p>{event.nbrPicture} photos</p>
+                    </div>
+                  )
+                } else {
+                  return null
+                }
+              })
             ) : (
               <h3>Aucune photos pour le moment !</h3>
             )}
