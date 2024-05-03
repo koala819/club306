@@ -1,3 +1,5 @@
+'use client'
+
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -11,46 +13,17 @@ import whiteLogo from '@../../public/images/logoClub306_blanc.png'
 import { useTheme } from '@/context/ThemeContext'
 import { getAllEvents } from '@/lib/events'
 
-const nbrEventsDisplay = 3
-
 export const EventsSection = () => {
-  const { data: session } = useSession()
   const [latestEvents, setLatestEvents] = useState<EventsData[]>([])
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(true)
   const [isHoveredArray, setIsHoveredArray] = useState<boolean[]>(
     Array(latestEvents.length).fill(false),
   )
+  const router = useRouter()
+  const { data: session } = useSession()
   const { theme } = useTheme()
 
-  const eventRegister = () => {
-    if (
-      typeof window !== 'undefined' &&
-      !window.location.pathname.includes('/eventsRegistration')
-    ) {
-      router.push('/eventsRegistration')
-    }
-  }
-
-  const membership = () => {
-    if (
-      typeof window !== 'undefined' &&
-      !window.location.pathname.includes('/membership')
-    ) {
-      router.push('/membership')
-    }
-  }
-  const handleButtonHover = (index: number) => {
-    const updatedHoveredArray = [...isHoveredArray]
-    updatedHoveredArray[index] = true
-    setIsHoveredArray(updatedHoveredArray)
-  }
-
-  const handleButtonLeave = (index: number) => {
-    const updatedHoveredArray = [...isHoveredArray]
-    updatedHoveredArray[index] = false
-    setIsHoveredArray(updatedHoveredArray)
-  }
+  const currentMonth = new Date().getMonth()
 
   useEffect(() => {
     async function fetchLatestEvents() {
@@ -69,7 +42,12 @@ export const EventsSection = () => {
           })
 
           // Sélectionner les trois derniers événements non vides
-          const latestEvents = nonEmptyEvents.slice(0, nbrEventsDisplay)
+          const latestEvents = nonEmptyEvents
+            .filter((event) => {
+              return event.month >= currentMonth + 1
+            })
+            .sort((a, b) => a.month - b.month)
+            .slice(0, 3)
           setLatestEvents(latestEvents)
         } else {
           console.error('Aucun événement trouvé.')
@@ -89,6 +67,36 @@ export const EventsSection = () => {
 
   if (loading) {
     return <div>Chargement...</div>
+  }
+
+  function eventRegister() {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/eventsRegistration')
+    ) {
+      router.push('/eventsRegistration')
+    }
+  }
+
+  function handleButtonHover(index: number) {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = true
+    setIsHoveredArray(updatedHoveredArray)
+  }
+
+  function handleButtonLeave(index: number) {
+    const updatedHoveredArray = [...isHoveredArray]
+    updatedHoveredArray[index] = false
+    setIsHoveredArray(updatedHoveredArray)
+  }
+
+  function membership() {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/membership')
+    ) {
+      router.push('/membership')
+    }
   }
 
   return (
