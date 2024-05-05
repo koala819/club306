@@ -44,85 +44,6 @@ export const Garage = ({ setStep }: any) => {
   })
 
   useEffect(() => {
-    const memberIdJSON = sessionStorage.getItem('memberId')
-    if (memberIdJSON) {
-      const storedMemberId = JSON.parse(memberIdJSON)
-      setMemberIdFromSessionStorage(() => storedMemberId)
-    }
-
-    const storedVehiclesJSON = sessionStorage.getItem('vehicles')
-    if (storedVehiclesJSON) {
-      const storedVehicles = JSON.parse(storedVehiclesJSON)
-      setVehicles(() => storedVehicles)
-    }
-  }, [])
-
-  const handleGoBack = () => {
-    setStep((s: number) => {
-      return s - 1
-    })
-  }
-
-  const handleAddVehicle = (data: Vehicles) => {
-    setVehicles([...vehicles, data])
-    reset()
-  }
-
-  const handleNext = () => {
-    sessionStorage.setItem('vehicles', JSON.stringify(vehicles))
-    localStorage.setItem(
-      `vehicles_${memberIdFromSessionStorage}`,
-      JSON.stringify(vehicles),
-    )
-    setStep((s: number) => s + 1)
-  }
-
-  const handleEditVehicle = (index: number) => {
-    setEditIndex(index)
-
-    reset({
-      immatriculation: vehicles[index].immatriculation,
-      mine: vehicles[index].mine,
-      model: vehicles[index].model,
-      color: vehicles[index].color,
-      finition: vehicles[index].finition,
-    })
-  }
-
-  const handleUpdateVehicle = (data: Vehicles) => {
-    const updatedVehicles = [...vehicles]
-    if (editIndex !== null) {
-      updatedVehicles[editIndex] = data
-      setVehicles(updatedVehicles)
-      setEditIndex(null)
-      reset({
-        immatriculation: '',
-        mine: '',
-        model: '',
-        color: '',
-        finition: '',
-      })
-    }
-  }
-
-  const handleCancelEdit = () => {
-    setEditIndex(null)
-    reset({
-      immatriculation: '',
-      mine: '',
-      model: '',
-      color: '',
-      finition: '',
-    })
-  }
-
-  const handleDeleteVehicle = (index: number) => {
-    const updatedVehicles = [...vehicles]
-    updatedVehicles.splice(index, 1)
-    setVehicles(updatedVehicles)
-  }
-
-  useEffect(() => {
     const fetchData = async () => {
       const carColor = await getAllColors()
       if (carColor !== null && carColor.data !== null) {
@@ -163,13 +84,101 @@ export const Garage = ({ setStep }: any) => {
     fetchData()
   }, [])
 
+  useEffect(() => {
+    const memberIdJSON = sessionStorage.getItem('memberId')
+    if (memberIdJSON) {
+      const storedMemberId = JSON.parse(memberIdJSON)
+      setMemberIdFromSessionStorage(() => storedMemberId)
+    }
+
+    const storedVehiclesJSON = sessionStorage.getItem('vehicles')
+    if (storedVehiclesJSON) {
+      const storedVehicles = JSON.parse(storedVehiclesJSON)
+      setVehicles(() => storedVehicles)
+    }
+  }, [])
+
+  function addVehicle(data: Vehicles) {
+    console.log('data', data)
+    console.log('vehicles', vehicles)
+    console.log('newVehicle', [...vehicles, data])
+    setVehicles([...vehicles, data])
+    reset({
+      immatriculation: '',
+      mine: '',
+      model: '',
+      color: '',
+      finition: '',
+    })
+  }
+
+  function cancelEdit() {
+    setEditIndex(null)
+    reset({
+      immatriculation: '',
+      mine: '',
+      model: '',
+      color: '',
+      finition: '',
+    })
+  }
+
+  function deleteVehicle(index: number) {
+    const updatedVehicles = [...vehicles]
+    updatedVehicles.splice(index, 1)
+    setVehicles(updatedVehicles)
+  }
+
+  function editVehicle(index: number) {
+    setEditIndex(index)
+
+    reset({
+      immatriculation: vehicles[index].immatriculation,
+      mine: vehicles[index].mine,
+      model: vehicles[index].model,
+      color: vehicles[index].color,
+      finition: vehicles[index].finition,
+    })
+  }
+
+  function goBack() {
+    setStep((s: number) => {
+      return s - 1
+    })
+  }
+
+  function next() {
+    sessionStorage.setItem('vehicles', JSON.stringify(vehicles))
+    localStorage.setItem(
+      `vehicles_${memberIdFromSessionStorage}`,
+      JSON.stringify(vehicles),
+    )
+    setStep((s: number) => s + 1)
+  }
+
+  function updateVehicle(data: Vehicles) {
+    const updatedVehicles = [...vehicles]
+    if (editIndex !== null) {
+      updatedVehicles[editIndex] = data
+      setVehicles(updatedVehicles)
+      setEditIndex(null)
+      reset({
+        immatriculation: '',
+        mine: '',
+        model: '',
+        color: '',
+        finition: '',
+      })
+    }
+  }
+
   return (
     <>
       <form
         onSubmit={
           editIndex !== null
-            ? handleSubmit(handleUpdateVehicle)
-            : handleSubmit(handleAddVehicle)
+            ? handleSubmit(updateVehicle)
+            : handleSubmit(addVehicle)
         }
       >
         <div className="grid grid-cols-6 gap-6   space-y-8">
@@ -217,10 +226,11 @@ export const Garage = ({ setStep }: any) => {
               render={({ field: { onChange, value } }) => (
                 <Select
                   radius="none"
-                  label="Choix du modèle"
                   selectedKeys={value ? [value] : []}
-                  onChange={(value: any) => onChange(value)}
+                  onChange={(value) => onChange(value)}
+                  isInvalid={errors.model && true}
                   errorMessage={errors.model && errors.model.message}
+                  placeholder="Choix du modèle"
                 >
                   {models
                     .sort((a, b) => a.name.localeCompare(b.name))
@@ -242,18 +252,24 @@ export const Garage = ({ setStep }: any) => {
               render={({ field: { onChange, value } }) => (
                 <Select
                   radius="none"
-                  label="Choix de la couleur"
                   selectedKeys={value ? [value] : []}
-                  onChange={(value: any) => onChange(value)}
+                  onChange={(value) => onChange(value)}
+                  isInvalid={errors.color && true}
                   errorMessage={errors.color && errors.color.message}
+                  placeholder="Choix de la couleur"
                 >
+                  {/* {console.log('value', value)} */}
                   {colors
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((color: Color) => (
                       <SelectItem
                         key={color.id}
                         value={color.name}
-                        style={{ backgroundColor: `#${color.hexa}` }}
+                        startContent={
+                          <div style={{ backgroundColor: `#${color.hexa}` }}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </div>
+                        }
                       >
                         {color.name}
                       </SelectItem>
@@ -271,10 +287,11 @@ export const Garage = ({ setStep }: any) => {
               render={({ field: { onChange, value } }) => (
                 <Select
                   radius="none"
-                  label="Choix de la finition"
                   selectedKeys={value ? [value] : []}
                   onChange={(value: any) => onChange(value)}
+                  isInvalid={errors.finition && true}
                   errorMessage={errors.finition && errors.finition.message}
+                  placeholder="Choix de la finition"
                 >
                   {finitions
                     .sort((a, b) => a.name.localeCompare(b.name))
@@ -294,7 +311,7 @@ export const Garage = ({ setStep }: any) => {
               <Button radius="none" color="primary" type="submit">
                 Mettre à jour
               </Button>
-              <Button radius="none" color="danger" onClick={handleCancelEdit}>
+              <Button radius="none" color="danger" onClick={cancelEdit}>
                 Annuler
               </Button>
             </div>
@@ -352,14 +369,14 @@ export const Garage = ({ setStep }: any) => {
               <Button
                 radius="none"
                 color="primary"
-                onClick={() => handleEditVehicle(index)}
+                onClick={() => editVehicle(index)}
               >
                 Modifier
               </Button>
               <Button
                 radius="none"
                 color="danger"
-                onClick={() => handleDeleteVehicle(index)}
+                onClick={() => deleteVehicle(index)}
               >
                 Supprimer
               </Button>
@@ -373,13 +390,13 @@ export const Garage = ({ setStep }: any) => {
           color="danger"
           startContent={<TiArrowBack />}
           onClick={() => {
-            handleGoBack()
+            goBack()
           }}
         >
           Précédent
         </Button>
         {vehicles.length > 0 && (
-          <Button radius="none" color="primary" onClick={handleNext}>
+          <Button radius="none" color="primary" onClick={next}>
             Continuer
           </Button>
         )}

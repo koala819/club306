@@ -4,22 +4,24 @@ import {
   Avatar,
   Button,
   Checkbox,
+  DateInput,
   Input,
   Select,
   SelectItem,
   Spinner,
 } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+// import DatePicker from 'react-datepicker'
+// import 'react-datepicker/dist/react-datepicker.css'
 import { Controller, useForm } from 'react-hook-form'
 
 import Link from 'next/link'
 
 import { SchemaPersonalInfo } from '@/types/models'
 
-import { getMonth, getYear, months, years } from '@/lib/personalInfos'
+// import { getMonth, getYear, months, years } from '@/lib/personalInfos'
 import { yupResolver } from '@hookform/resolvers/yup'
+// import { CalendarDate, parseDate } from '@internationalized/date'
 import dayjs from 'dayjs'
 import * as yup from 'yup'
 
@@ -28,16 +30,16 @@ export const PersonalInfos = ({ setStep }: any) => {
   const [personalInfo, setPersonalInfo] = useState<
     SchemaPersonalInfo | undefined
   >(undefined)
-  const [formattedBirthDate, setFormattedBirthDate] = useState(new Date())
+  // const [formattedBirthDate, setFormattedBirthDate] = useState(new Date())
 
   useEffect(() => {
     const storedPersonalInfoJSON = sessionStorage.getItem('personalInfo')
     if (storedPersonalInfoJSON) {
       const storedPersonalInfo = JSON.parse(storedPersonalInfoJSON)
       setPersonalInfo(() => storedPersonalInfo)
-      setFormattedBirthDate(() =>
-        dayjs(storedPersonalInfo?.birth_date).toDate(),
-      )
+      // setFormattedBirthDate(() =>
+      //   dayjs(storedPersonalInfo?.birth_date).toDate(),
+      // )
       setIsLoading(false)
     } else {
       setIsLoading(false)
@@ -57,7 +59,13 @@ export const PersonalInfos = ({ setStep }: any) => {
       .min(4, 'Code Postal trop court')
       .max(8, 'Code Postal trop long'),
     town: yup.string().required('Veuillez fournir votre Ville'),
-    country: yup.string().required('Veuillez fournir votre Pays'),
+    country: yup
+      .string()
+      .required('Veuillez fournir votre Pays')
+      .test('has-selection', 'Veuillez sélectionner un pays', (value) => {
+        return value !== undefined && value !== ''
+      }),
+
     phone: yup
       .string()
       .typeError('Veuillez fournir un numéro de téléphone valide')
@@ -219,15 +227,16 @@ export const PersonalInfos = ({ setStep }: any) => {
                 <Controller
                   control={control}
                   name="country"
-                  render={({ field, fieldState: { error } }) => (
+                  render={({ field }) => (
                     <Select
                       className="w-11/12 lg:w-1/2"
                       radius="none"
                       onChange={(value) => {
                         field.onChange(value)
                       }}
-                      value={field.value}
-                      errorMessage={error ? error.message : null}
+                      // value={field.value}
+                      isInvalid={errors.country && true}
+                      errorMessage={errors.country && errors.country.message}
                       placeholder="Choix code pays"
                     >
                       <SelectItem
@@ -320,23 +329,34 @@ export const PersonalInfos = ({ setStep }: any) => {
             </div>
 
             {/* BIRTH DATE */}
-            <div className="col-span-6 sm:col-span-3 mt-8">
-              <div className="w-full mb-2">
-                <span
-                  className={`text-md text-blue-500 ${
-                    errors.birth_date && 'text-[#f31260] text-sm'
-                  }`}
-                >
-                  Date de Naissance
-                </span>
-              </div>
+            <div className="col-span-6 sm:col-span-3 mt-9">
               <Controller
+                control={control}
+                name="birth_date"
+                render={({ field }) => (
+                  <DateInput
+                    label={'Date de Naissance'}
+                    onChange={(value) => {
+                      field.onChange(value)
+                    }}
+                    radius="none"
+                    color="primary"
+                    variant="bordered"
+                    labelPlacement="outside"
+                    isInvalid={errors.birth_date && true}
+                    errorMessage={
+                      errors.birth_date && errors.birth_date.message
+                    }
+                  />
+                )}
+              />
+
+              {/* <Controller
                 control={control}
                 name={'birth_date'}
                 render={({ field, fieldState }) => (
                   <>
                     <DatePicker
-                      // calendarClassName="w-full"
                       className="border-2 p-1 pl-4"
                       renderCustomHeader={({
                         date,
@@ -400,12 +420,8 @@ export const PersonalInfos = ({ setStep }: any) => {
                         setFormattedBirthDate(date)
                         field.onChange(date as Date)
                       }}
-                      // onChange={(date: Date | DateValue) => {
-                      //   field.onChange(date as Date);
-                      // }}
                     />
-                    {/* <DateField />
-                    </DatePicker> */}
+
                     {fieldState.error ? (
                       <span className="text-[#f31260] text-sm">
                         {fieldState.error?.message}
@@ -413,7 +429,7 @@ export const PersonalInfos = ({ setStep }: any) => {
                     ) : null}
                   </>
                 )}
-              />
+              /> */}
             </div>
             {/* CHECKBOXES */}
             <section className="col-span-6 mt-8 space-y-4">
