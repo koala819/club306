@@ -19,9 +19,9 @@ export const NavigationSection = () => {
             className="w-full h-full object-cover min-h-72"
           />
           <div className="absolute bottom-1/2 lg:bottom-0 left-0 translate-y-1/2 lg:translate-y-0 m-0 px-1 lg:px-0 lg:m-10">
-            <h2 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
+            <h3 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
               Les événements
-            </h2>
+            </h3>
             <p className="text-white text-sm text-center lg:text-left ">
               Rejoignez-nous pour vivre des moments passionnants, connectez-vous
               avec d'autres amateurs de voitures et participez à des expériences
@@ -46,9 +46,9 @@ export const NavigationSection = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-1/2 lg:bottom-0 left-0 translate-y-1/2 lg:translate-y-0 m-0 px-1 lg:px-0 lg:m-10">
-              <h2 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
+              <h3 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
                 Actualités
-              </h2>
+              </h3>
               <p className="text-white text-sm text-center lg:text-left">
                 Plongez dans des récits passionnants, des conseils utiles et des
                 actualités du monde automobile.
@@ -70,9 +70,9 @@ export const NavigationSection = () => {
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-1/2 lg:bottom-0 left-0 translate-y-1/2 lg:translate-y-0 m-0 px-1 lg:px-0 lg:m-10">
-              <h2 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
+              <h3 className="text-white text-2xl font-bold mb-6 text-center lg:text-left">
                 Les Photos/Vidéos
-              </h2>
+              </h3>
               <p className="text-white text-sm text-center lg:text-left">
                 Plongez dans l'action, revivez des moments mémorables, et
                 découvrez l'esprit unique qui anime notre club.

@@ -101,9 +101,9 @@ export const EventsSection = () => {
 
   return (
     <section className="container mx-auto px-5">
-      <h1 className="mb-8 mt-14 xl:text-left text-center">
+      <h2 className="mb-8 mt-14 xl:text-left text-center">
         Les prochains événements
-      </h1>
+      </h2>
       <p className="mb-8 w-full mx-0 xl:text-left text-center">
         Rejoignez-nous pour vivre des moments passionnants, connectez-vous avec
         d'autres amateurs de voitures et participez à des expériences
@@ -168,7 +168,7 @@ export const EventsSection = () => {
                 </div>
                 {/* container info */}
                 <div className="w-full xl:w-3/4 p-4 flex-col justify-center">
-                  <h2 className="text-center xl:text-left">{event.title}</h2>
+                  <h3 className="text-center xl:text-left">{event.title}</h3>
                   <p className="text-center xl:text-left text-gray-500">
                     {event.place}
                   </p>

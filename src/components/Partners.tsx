@@ -22,7 +22,7 @@ export const Partners = () => {
     return (
       <div className="flex items-center justify-center h-full dark:bg-bg-dark">
         <main className="flex flex-col content-center justify-center">
-          <h1 className="font-bold text-[32px] text-center">Nos Partenaires</h1>
+          <h2 className="font-bold text-[32px] text-center">Nos Partenaires</h2>
           <div className="w-full flex justify-center">
             <div className="w-full lg:w-3/4">
               <Slider session={session} />
