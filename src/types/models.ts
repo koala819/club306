@@ -152,6 +152,13 @@ interface Member {
   zip_code?: string
 }
 
+interface MenuItem {
+  name: string
+  path?: string
+  component?: JSX.Element
+  onClick?: () => void
+}
+
 interface Model {
   id: number
   name: string
@@ -260,6 +267,7 @@ export type {
   CardStaffProps,
   CheckoutHelloAsso,
   Color,
+  ConnectEvents,
   Events,
   EventsData,
   EventsDataPicture,
@@ -267,7 +275,7 @@ export type {
   HelloAssoMember,
   MailPwd,
   Member,
-  ConnectEvents,
+  MenuItem,
   Model,
   Navbar306Props,
   Order,

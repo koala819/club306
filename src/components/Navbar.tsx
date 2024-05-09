@@ -17,12 +17,14 @@ import {
 } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+
+import { MenuItem } from '@/types/models'
 
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
@@ -54,18 +56,28 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     })
   }
 
-  const menuItems = [
-    { name: 'LE CLUB', path: '/club' },
-    { name: 'LE STAFF', path: '/club/staff' },
-    { name: 'DISCORD', path: 'https://discord.gg/8NKJ4Z4j' },
-    { name: 'EVENT', path: '/event' },
-    { name: 'CONTACT', path: '/contact' },
-    { name: 'CONNEXION', path: '/login' },
-    {
-      name: 'ThemeSwitcher',
-      component: <ThemeSwitcher withMember={withMember} />,
-    },
-  ]
+  const generateMenuItems = (withMember: boolean): MenuItem[] => {
+    const items: MenuItem[] = [
+      { name: 'LE CLUB', path: '/club' },
+      { name: 'LE STAFF', path: '/club/staff' },
+      { name: 'DISCORD', path: 'https://discord.gg/8NKJ4Z4j' },
+      { name: 'EVENT', path: '/event' },
+      { name: 'CONTACT', path: '/contact' },
+      {
+        name: 'ThemeSwitcher',
+        component: <ThemeSwitcher withMember={withMember} />,
+      },
+    ]
+
+    if (withMember) {
+      items.unshift({ name: 'ESPACE MEMBRES', path: '/cpanel' })
+      items.push({ name: 'déconnexion', onClick: handleSignout })
+    } else {
+      items.push({ name: 'CONNEXION', path: '/login' })
+    }
+
+    return items
+  }
 
   return (
     <Navbar
@@ -282,12 +294,20 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
       </NavbarContent>
 
       <NavbarMenu className="mt-4">
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+        {generateMenuItems(withMember).map((item, index) => (
+          <NavbarMenuItem key={`${item.name}-${index}`}>
             {item.component ? (
               item.component
+            ) : item.onClick ? (
+              <Button onClick={item.onClick} color="danger" variant="light">
+                {item.name.toUpperCase()}
+              </Button>
             ) : (
-              <Link href={item.path} size="lg" className="navbarLinkHover">
+              <Link
+                href={item.path || '#'}
+                size="lg"
+                className="navbarLinkHover"
+              >
                 {item.name}
               </Link>
             )}
