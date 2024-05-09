@@ -1,20 +1,25 @@
-'use client';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useFormik } from 'formik';
-import { rst_pwd } from '@/lib/validate';
-import { checkMail } from '@/lib/supabase';
-import { signIn } from 'next-auth/react';
-import { TiArrowBack } from 'react-icons/ti';
+'use client'
+
+import { signIn } from 'next-auth/react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { TiArrowBack } from 'react-icons/ti'
+
+import { useRouter } from 'next/navigation'
+
+import { checkMail } from '@/lib/supabase'
+import { rst_pwd } from '@/lib/validate'
+import { useFormik } from 'formik'
 
 export default function OtpInput() {
-  const [confirmationSend, setConfirmationSend] = useState<boolean>(false);
-  const [disable, setDisable] = useState(true);
-  const [timerCount, setTimer] = useState(60);
-  const [wrongMail, setWrongMail] = useState('');
-  const [otp, setOTP] = useState(Math.floor(Math.random() * 9000 + 1000));
-  const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
-  const router = useRouter();
+  const [confirmationSend, setConfirmationSend] = useState<boolean>(false)
+  const [disable, setDisable] = useState<boolean>(true)
+  const [timerCount, setTimer] = useState<number>(60)
+  const [wrongMail, setWrongMail] = useState<string>('')
+  const [otp, setOTP] = useState<number>(
+    Math.floor(Math.random() * 9000 + 1000),
+  )
+  const [OTPinput, setOTPinput] = useState<number[]>([0, 0, 0, 0])
+  const router = useRouter()
 
   const formik = useFormik({
     initialValues: {
@@ -22,39 +27,39 @@ export default function OtpInput() {
     },
     validate: rst_pwd,
     onSubmit,
-  });
+  })
 
-  const inputRefs = useRef<HTMLInputElement[]>([]);
+  const inputRefs = useRef<HTMLInputElement[]>([])
 
   useEffect(() => {
     if (inputRefs && inputRefs.current && inputRefs.current[0]) {
-      inputRefs.current[0].focus();
+      inputRefs.current[0].focus()
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setOTP(Math.floor(Math.random() * 9000 + 1000));
-    }, 300000); // 300000 ms = 5 minutes
+      setOTP(Math.floor(Math.random() * 9000 + 1000))
+    }, 300000) // 300000 ms = 5 minutes
 
     // Clean up the interval when the component unmounts
     return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+      clearInterval(intervalId)
+    }
+  }, [])
 
   useEffect(() => {
     let interval = setInterval(() => {
       setTimer((lastTimerCount) => {
-        lastTimerCount <= 1 && clearInterval(interval);
-        if (lastTimerCount <= 1) setDisable(false);
-        if (lastTimerCount <= 0) return lastTimerCount;
-        return lastTimerCount - 1;
-      });
-    }, 1000); //each count lasts for a second
+        lastTimerCount <= 1 && clearInterval(interval)
+        if (lastTimerCount <= 1) setDisable(false)
+        if (lastTimerCount <= 0) return lastTimerCount
+        return lastTimerCount - 1
+      })
+    }, 1000) //each count lasts for a second
     //cleanup the interval on complete
-    return () => clearInterval(interval);
-  }, [disable]);
+    return () => clearInterval(interval)
+  }, [disable])
 
   return (
     <div className="flex justify-center items-center h-full">
@@ -86,7 +91,7 @@ export default function OtpInput() {
               <button
                 className="flex items-center px-4 py-2 text-white bg-red-600 rounded-lg duration-150 hover:bg-red-500 active:shadow-lg"
                 onClick={() => {
-                  signIn();
+                  signIn()
                 }}
               >
                 <TiArrowBack size={22} className="mr-2" />
@@ -124,7 +129,7 @@ export default function OtpInput() {
                       <div key={index} className="w-16 h-16">
                         <input
                           ref={(ref) => {
-                            inputRefs.current[index] = ref as HTMLInputElement;
+                            inputRefs.current[index] = ref as HTMLInputElement
                           }}
                           maxLength={1}
                           className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white dark:bg-blue-gray-500 focus:bg-gray-50 focus:ring-1 ring-blue-700 dark:text-yellow-800"
@@ -166,18 +171,18 @@ export default function OtpInput() {
         </div>
       )}
     </div>
-  );
+  )
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>, index: number) {
-    const { value } = e.target;
+    const { value } = e.target
     setOTPinput((prevValues) => {
-      const updatedValues = [...prevValues];
-      updatedValues[index] = parseInt(value);
-      return updatedValues;
-    });
+      const updatedValues = [...prevValues]
+      updatedValues[index] = parseInt(value)
+      return updatedValues
+    })
 
     if (value.length >= 1 && index < 3 && inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1].focus();
+      inputRefs.current[index + 1].focus()
     }
   }
 
@@ -186,47 +191,47 @@ export default function OtpInput() {
       mail: email,
       otp: otp,
       from: 'rstPwd',
-    };
+    }
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    };
+    }
 
     try {
       fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
         async (response) => {
           if (response.status === 200) {
-            console.log('Send mail with SUCCESS :)');
-            return true;
+            console.log('Send mail with SUCCESS :)')
+            return true
           } else {
-            console.log('Email send with ERROR !!!');
-            throw new Error('Failed to send mail');
+            console.log('Email send with ERROR !!!')
+            throw new Error('Failed to send mail')
           }
-        }
-      );
+        },
+      )
     } catch (error) {
-      console.log('ERROR to send the mail\n', error);
-      return false;
+      console.log('ERROR to send the mail\n', error)
+      return false
     }
   }
 
   async function onSubmit(values: any) {
-    // console.log('otp', otp);
-    const overTry = executeLimitedTimes();
+    // console.log('otp', otp)
+    const overTry = executeLimitedTimes()
     if (overTry === true) {
-      setWrongMail("Trop d'essais ... Ban IP de 24h !!!");
+      setWrongMail("Trop d'essais ... Ban IP de 24h !!!")
     } else {
-      const emailExist = await checkMail(values.email);
+      const emailExist = await checkMail(values.email.toLowerCase())
 
       if (emailExist === false) {
-        setConfirmationSend(false);
-        setWrongMail('Veuillez saisir votre email');
+        setConfirmationSend(false)
+        setWrongMail('Veuillez saisir votre email')
       } else {
-        await sendMail(values.email, otp).then(() => {
-          setConfirmationSend(true);
-        });
+        await sendMail(values.email.toLowerCase(), otp).then(() => {
+          setConfirmationSend(true)
+        })
       }
     }
   }
@@ -236,9 +241,9 @@ export default function OtpInput() {
     // const response = await checkMail(email);
 
     // if (response.data && response.data.length > 0) {
-    const success = await sendMail(email, otp);
+    const success = await sendMail(email, otp)
     if (success) {
-      setConfirmationSend(true);
+      setConfirmationSend(true)
     }
     // }
   }
@@ -246,49 +251,49 @@ export default function OtpInput() {
   function verfiyOTP() {
     if (parseInt(OTPinput.join('')) === otp) {
       // Enregistrement de l'e-mail dans le stockage local
-      localStorage.setItem('email', formik.values.email);
-      router.push('/recoverPwd');
-      return null;
+      localStorage.setItem('email', formik.values.email)
+      router.push('/recoverPwd')
+      return null
     }
     alert(
-      'Le code saisi est incorrect !!!\nEssayez encore ou cliquez sur le lien pour vous faire renvoyer un nouveau code.'
-    );
-    return;
+      'Le code saisi est incorrect !!!\nEssayez encore ou cliquez sur le lien pour vous faire renvoyer un nouveau code.',
+    )
+    return
   }
 
   function executeLimitedTimes() {
-    const MAX_EXECUTIONS = 5;
-    const MAX_EXECUTIONS_KEY = 'max_executions';
-    const LAST_EXECUTION_KEY = 'last_execution';
+    const MAX_EXECUTIONS = 5
+    const MAX_EXECUTIONS_KEY = 'max_executions'
+    const LAST_EXECUTION_KEY = 'last_execution'
 
     // localStorage.setItem(MAX_EXECUTIONS_KEY, JSON.stringify(0));
 
-    let executions = parseInt(localStorage.getItem(MAX_EXECUTIONS_KEY) || '0');
+    let executions = parseInt(localStorage.getItem(MAX_EXECUTIONS_KEY) || '0')
 
     if (executions >= MAX_EXECUTIONS) {
-      const lastExecutionTimestamp = localStorage.getItem(LAST_EXECUTION_KEY);
+      const lastExecutionTimestamp = localStorage.getItem(LAST_EXECUTION_KEY)
 
       if (lastExecutionTimestamp) {
-        const lastExecutionDate = new Date(lastExecutionTimestamp);
-        const currentDate = new Date();
+        const lastExecutionDate = new Date(lastExecutionTimestamp)
+        const currentDate = new Date()
 
         const hoursPassed =
-          Math.abs(currentDate.getTime() - lastExecutionDate.getTime()) / 36e5;
-        const blockDurationHours = 24;
+          Math.abs(currentDate.getTime() - lastExecutionDate.getTime()) / 36e5
+        const blockDurationHours = 24
 
         if (hoursPassed < blockDurationHours) {
-          console.log('The IP is blocked. Please try again after 24 hours.');
-          return true;
+          console.log('The IP is blocked. Please try again after 24 hours.')
+          return true
         }
       }
     }
 
-    console.log('The action is executed.');
+    console.log('The action is executed.')
 
-    executions++;
-    localStorage.setItem(MAX_EXECUTIONS_KEY, executions.toString());
+    executions++
+    localStorage.setItem(MAX_EXECUTIONS_KEY, executions.toString())
 
-    const currentTimestamp = new Date().toString();
-    localStorage.setItem(LAST_EXECUTION_KEY, currentTimestamp);
+    const currentTimestamp = new Date().toString()
+    localStorage.setItem(LAST_EXECUTION_KEY, currentTimestamp)
   }
 }
