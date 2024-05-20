@@ -4,9 +4,15 @@ import { Button } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { TiArrowBack } from 'react-icons/ti'
 
-import { Color, Finition, Model, PersonalInfo, Vehicles } from '@/types/models'
+import {
+  Color,
+  Finition,
+  Model,
+  PersonalInfo,
+  Vehicles,
+} from '@/src/types/models'
 
-import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase'
+import { getAllColors, getAllFinitions, getAllModels } from '@/src/lib/supabase'
 
 export const Summary = ({ setStep }: any) => {
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo | undefined>(

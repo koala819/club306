@@ -1,30 +1,35 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { addCar } from '@/lib/cpanel/updateCar';
-import { Color, Finition, Member, Model, Vehicles } from '@/types/models';
-import WaitSession from '@/components/cpanel/WaitSession';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
-import { useTheme } from 'next-themes';
-import toast from 'react-hot-toast';
-import { listPartsCar } from '@/lib/cpanel/listPartsCar';
+'use client'
+
+import { Button, Input, Select, SelectItem } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+import { useTheme } from 'next-themes'
+
+import { Color, Finition, Member, Model, Vehicles } from '@/src/types/models'
+
+import WaitSession from '@/src/components/cpanel/WaitSession'
+
+import { listPartsCar } from '@/src/lib/cpanel/listPartsCar'
+import { addCar } from '@/src/lib/cpanel/updateCar'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function AddCar({ userMail }: { userMail: string }) {
-  const [displayLoader, setDisplayLoader] = useState(true);
+  const [displayLoader, setDisplayLoader] = useState(true)
   // const [changeTextDL, setChangeTextDL] = useState('');
-  const [member, setMember] = useState<Member | undefined>(undefined);
-  const [colors, setColors] = useState<Color[]>([]);
-  const [finitions, setFinitions] = useState<Finition[]>([]);
-  const [models, setModels] = useState<Model[]>([]);
-  const { resolvedTheme } = useTheme();
+  const [member, setMember] = useState<Member | undefined>(undefined)
+  const [colors, setColors] = useState<Color[]>([])
+  const [finitions, setFinitions] = useState<Finition[]>([])
+  const [models, setModels] = useState<Model[]>([])
+  const { resolvedTheme } = useTheme()
 
   const sortedColors = [...colors].sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
-    return nameA.localeCompare(nameB);
-  });
+    const nameA = a.name.toLowerCase()
+    const nameB = b.name.toLowerCase()
+    return nameA.localeCompare(nameB)
+  })
 
   const schema = yup.object().shape({
     immatriculation: yup
@@ -36,7 +41,7 @@ export default function AddCar({ userMail }: { userMail: string }) {
     model: yup.string().required('Le choix du Modèle est obligatoire'),
     color: yup.string().required('Le choix de la Couleur est obligatoire'),
     finition: yup.string().required('La Finition est obligatoire'),
-  });
+  })
 
   const {
     handleSubmit,
@@ -45,7 +50,7 @@ export default function AddCar({ userMail }: { userMail: string }) {
     formState: { errors },
   } = useForm<Vehicles>({
     resolver: yupResolver(schema),
-  });
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,32 +58,32 @@ export default function AddCar({ userMail }: { userMail: string }) {
         setColors,
         setFinitions,
         setModels,
-      });
-      response ? setDisplayLoader(false) : setDisplayLoader(true);
-    };
-    fetchData();
-  }, []);
+      })
+      response ? setDisplayLoader(false) : setDisplayLoader(true)
+    }
+    fetchData()
+  }, [])
 
   const handleAddVehicle = async (data: Vehicles) => {
-    setDisplayLoader(true);
+    setDisplayLoader(true)
 
     try {
-      const response = await addCar(data, userMail);
-      const dataResponse = await response.json();
+      const response = await addCar(data, userMail)
+      const dataResponse = await response.json()
 
       if (dataResponse.status === 200) {
-        reset();
-        setDisplayLoader(false);
-        toast.success('Enregistrement avec succès !');
+        reset()
+        setDisplayLoader(false)
+        toast.success('Enregistrement avec succès !')
       } else {
-        setDisplayLoader(false);
-        toast.error("Une erreur s'est produite pour enregistrer le véhicule");
+        setDisplayLoader(false)
+        toast.error("Une erreur s'est produite pour enregistrer le véhicule")
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite pour enregistrer le véhicule");
-      console.log('Error', error);
+      toast.error("Une erreur s'est produite pour enregistrer le véhicule")
+      console.log('Error', error)
     }
-  };
+  }
 
   return (
     <>
@@ -269,5 +274,5 @@ export default function AddCar({ userMail }: { userMail: string }) {
         </div>
       )}
     </>
-  );
+  )
 }

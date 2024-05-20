@@ -4,10 +4,10 @@ import { Image, Input } from '@nextui-org/react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 
-import { Member } from '@/types/models'
+import { Member } from '@/src/types/models'
 
-import { getCities } from '@/lib/maps'
-import { returnMemberInfo } from '@/lib/supabase'
+import { getCities } from '@/src/lib/maps'
+import { returnMemberInfo } from '@/src/lib/supabase'
 
 export default function Infos({ userMail }: { userMail: string }) {
   const [member, setMember] = useState<Member | undefined>(undefined)

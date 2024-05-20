@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
 
-import { Homepage } from '@/components/Homepage'
+import { Homepage } from '@/src/components/Homepage'
 
 export default function Page() {
   const { data: dataSession } = useSession()

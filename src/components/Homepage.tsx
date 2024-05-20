@@ -7,7 +7,7 @@ import { NavigationSection } from './NavigationSection'
 import { Partners } from './Partners'
 import { Presentation } from './Presentation'
 
-import { createClient } from '@/prismicio'
+import { createClient } from '@/src/prismicio'
 
 export function Homepage() {
   const [mappedArticles, setMappedArticles] = useState<any>([])

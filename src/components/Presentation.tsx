@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/reactIntersectionObserver.module.css'
+import styles from '@/src/styles/reactIntersectionObserver.module.css'
 import { useEffect, useState } from 'react'
 import { BsPatchPlus } from 'react-icons/bs'
 import { useInView } from 'react-intersection-observer'
@@ -14,8 +14,8 @@ import { HelmetSvg } from './HelmetSvg'
 import { LionCircle } from './PeugeotPresentation'
 import { UserSvg } from './UserSvg'
 
-import presentationPicture from '@/../../public/images/306Rouges16.svg'
-import { useTheme } from '@/context/ThemeContext'
+import presentationPicture from '@/public/images/306Rouges16.svg'
+import { useTheme } from '@/src/context/ThemeContext'
 
 export const Presentation = () => {
   const [screenSize, setScreenSize] = useState('')

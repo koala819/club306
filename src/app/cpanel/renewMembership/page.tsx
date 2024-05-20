@@ -1,36 +1,39 @@
-'use client';
-import { useEffect, useState } from 'react';
-import connect from '@/lib/helloAsso/connect';
-import { confirmMembership } from '@/lib/cpanel/membershipMember';
-import { Button } from '@nextui-org/react';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { useRouter } from 'next/navigation';
+'use client'
+
+import { Button } from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import { useRouter } from 'next/navigation'
+
+import { confirmMembership } from '@/src/lib/cpanel/membershipMember'
+import connect from '@/src/lib/helloAsso/connect'
 
 export default function Page() {
-  const [updateMemberShip, setUpdateMemberShip] = useState<boolean>(true);
-  const router = useRouter();
+  const [updateMemberShip, setUpdateMemberShip] = useState<boolean>(true)
+  const router = useRouter()
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const paymentCode = params.get('code');
-    const orderId = params.get('checkoutIntentId');
+    const params = new URLSearchParams(window.location.search)
+    const paymentCode = params.get('code')
+    const orderId = params.get('checkoutIntentId')
 
     async function fetchData() {
       if (paymentCode === 'succeeded' && orderId) {
         const result = await connect({
           url: `https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents/${orderId}`,
           method: 'GET',
-        });
+        })
 
-        const confirmRenew = await confirmMembership(result.metadata.userId);
-        confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true);
+        const confirmRenew = await confirmMembership(result.metadata.userId)
+        confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
       } else {
-        console.log('error in fetchData', paymentCode, orderId);
+        console.log('error in fetchData', paymentCode, orderId)
       }
     }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-center mt-8">
@@ -96,5 +99,5 @@ export default function Page() {
         {/* )} */}
       </div>
     </div>
-  );
+  )
 }

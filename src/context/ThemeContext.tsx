@@ -1,19 +1,8 @@
 'use client'
 
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-type Theme = 'light' | 'dark'
-
-interface ThemeContextType {
-  theme: Theme
-  toggleTheme: () => void
-}
+import { Theme, ThemeContextType, ThemeProviderProps } from '@/src/types/models'
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
@@ -27,23 +16,36 @@ export const useTheme = (): ThemeContextType => {
   return context
 }
 
-interface ThemeProviderProps {
-  children: ReactNode
-}
-
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<Theme>(
-    (localStorage.getItem('theme') as Theme) || 'light',
-  )
+  const [theme, setTheme] = useState<Theme>('light')
+  const [isComponentMounted, setIsComponentMounted] = useState(false)
 
   useEffect(() => {
-    const html = document.documentElement
-    html.className = theme
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    setIsComponentMounted(true)
+    const storedTheme = localStorage.getItem('theme') as Theme | null
+    if (storedTheme) {
+      setTheme(storedTheme)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isComponentMounted) {
+      const html = document.documentElement
+      html.className = theme
+      localStorage.setItem('theme', theme)
+    }
+  }, [theme, isComponentMounted])
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))
+  }
+
+  if (!isComponentMounted) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg font-semibold text-black">Chargement...</div>
+      </div>
+    )
   }
 
   return (

@@ -1,34 +1,36 @@
-'use client';
-import { useEffect, useState } from 'react';
+'use client'
+
 import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
+  Button,
   Card,
   CardFooter,
-  Link,
-  Button,
   Image,
-} from '@nextui-org/react';
-import { FaHubspot } from 'react-icons/fa';
-import { ourPartners } from '@/lib/supabase';
-import { PartnerInfoType } from '@/types/models';
-import toast from 'react-hot-toast';
-import WaitSession from '@/components/cpanel/WaitSession';
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  useDisclosure,
+} from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { FaHubspot } from 'react-icons/fa'
+
+import { PartnerInfoType } from '@/src/types/models'
+
+import WaitSession from '@/src/components/cpanel/WaitSession'
+
+import { ourPartners } from '@/src/lib/supabase'
 
 export function Partners() {
-  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
-    null
-  );
-  const [partner, setPartner] = useState<PartnerInfoType>();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(null)
+  const [partner, setPartner] = useState<PartnerInfoType>()
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ourPartners();
+        const response = await ourPartners()
         if (response.data !== null) {
           const formattedData = response.data.map(
             (item: { [x: string]: any }) => {
@@ -40,23 +42,23 @@ export function Partners() {
                 remise: item.remise,
                 site: item.site,
                 alt: item.alt,
-              };
-            }
-          );
-          setPartnerData(formattedData);
+              }
+            },
+          )
+          setPartnerData(formattedData)
         }
-        return response.data;
+        return response.data
       } catch (error) {
-        toast.error('Error to get data from partners : ');
+        toast.error('Error to get data from partners : ')
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   const handleOpen = (partner: PartnerInfoType) => {
-    setPartner(partner);
-    onOpen();
-  };
+    setPartner(partner)
+    onOpen()
+  }
 
   return (
     <>
@@ -180,5 +182,5 @@ export function Partners() {
         </div>
       )}
     </>
-  );
+  )
 }

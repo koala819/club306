@@ -1,11 +1,11 @@
 'use client'
 
-import { ThemeSwitcherProps } from '@/types/models'
+import { ThemeSwitcherProps } from '@/src/types/models'
 
 import { HeadlightBlue } from './HeadlightBlue'
 import { HeadlightGreen } from './HeadlightGreen'
 
-import { useTheme } from '@/context/ThemeContext'
+import { useTheme } from '@/src/context/ThemeContext'
 
 export function ThemeSwitcher({ withMember }: ThemeSwitcherProps) {
   const { theme, toggleTheme } = useTheme()

@@ -1,8 +1,12 @@
-'use client';
-import { Roboto  } from 'next/font/google';
-import '@/styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
-import SiteLayout from '@/components/SiteLayout';
+'use client'
+
+import { SessionProvider } from 'next-auth/react'
+
+import { Roboto } from 'next/font/google'
+
+import SiteLayout from '@/src/components/SiteLayout'
+
+import '@/src/styles/globals.css'
 
 const roboto = Roboto({
   weight: '400',
@@ -10,12 +14,10 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-export const revalidate = 0;
-
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="fr" className="light" suppressHydrationWarning>
@@ -25,5 +27,5 @@ export default function RootLayout({
         </SessionProvider>
       </body>
     </html>
-  );
+  )
 }

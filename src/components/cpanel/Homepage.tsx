@@ -1,20 +1,24 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Garage from '@/components/cpanel/Garage';
-import { returnMemberInfo } from '@/lib/supabase';
+'use client'
+
+import { useEffect, useState } from 'react'
+
+import Link from 'next/link'
+
+import Garage from '@/src/components/cpanel/Garage'
+
+import { returnMemberInfo } from '@/src/lib/supabase'
 
 export function Homepage({ userMail }: { userMail: string }) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState('')
 
   useEffect(() => {
     async function fetchData() {
-      const { last_name, first_name } = await returnMemberInfo(userMail);
+      const { last_name, first_name } = await returnMemberInfo(userMail)
 
-      setName(() => first_name + ' ' + last_name);
+      setName(() => first_name + ' ' + last_name)
     }
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <section>
@@ -63,5 +67,5 @@ export function Homepage({ userMail }: { userMail: string }) {
         </div>
       </div>
     </section>
-  );
+  )
 }

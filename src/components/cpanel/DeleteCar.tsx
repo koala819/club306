@@ -1,40 +1,41 @@
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
-  useDisclosure,
-  RadioGroup,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Radio,
+  RadioGroup,
   Textarea,
-} from '@nextui-org/react';
-import { Car } from '@/types/models';
-import toast from 'react-hot-toast';
-import { deleteCar } from '@/lib/cpanel/updateCar';
+  useDisclosure,
+} from '@nextui-org/react'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+import { Car } from '@/src/types/models'
+
+import { deleteCar } from '@/src/lib/cpanel/updateCar'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 export default function DeleteCar({
   memberId,
   car,
 }: {
-  memberId: number;
-  car: Car;
+  memberId: number
+  car: Car
 }) {
-  const [showReasonInput, setShowReasonInput] = useState(false);
-  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const [showReasonInput, setShowReasonInput] = useState(false)
+  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure()
 
   const schema = yup.object().shape({
     selectedOption: yup.string().required('Faites un choix svp'),
     reason: yup.string().test({
       name: 'reason',
       test: function (value: string | undefined) {
-        const selectedOption = this.resolve(yup.ref('selectedOption'));
+        const selectedOption = this.resolve(yup.ref('selectedOption'))
         if (selectedOption === 'autre') {
           return (
             !!value ||
@@ -42,12 +43,12 @@ export default function DeleteCar({
               path: 'reason',
               message: 'Veuillez indiquer la raison',
             })
-          );
+          )
         }
-        return true;
+        return true
       },
     }),
-  });
+  })
 
   const {
     control,
@@ -55,26 +56,26 @@ export default function DeleteCar({
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  });
+  })
 
   const handleDeleteCar = async (data: any) => {
     const reason =
-      data.selectedOption === 'autre' ? data.reason : data.selectedOption;
+      data.selectedOption === 'autre' ? data.reason : data.selectedOption
 
-    const response = await deleteCar(car, memberId, reason);
+    const response = await deleteCar(car, memberId, reason)
 
     if (response?.status === 404) {
-      setShowReasonInput(false);
+      setShowReasonInput(false)
       toast.error(
-        "Il y a un soucis avec l'immatriculation du véhicule, merci de contacter un membre du staff svp !"
-      );
+        "Il y a un soucis avec l'immatriculation du véhicule, merci de contacter un membre du staff svp !",
+      )
     }
     if (response?.status === 200) {
-      onClose();
-      toast.success('Suppression de votre 306 avec succès.');
-      window.location.reload();
+      onClose()
+      toast.success('Suppression de votre 306 avec succès.')
+      window.location.reload()
     }
-  };
+  }
 
   return (
     <>
@@ -107,11 +108,11 @@ export default function DeleteCar({
                     <RadioGroup
                       value={value}
                       onValueChange={(newValue) => {
-                        onChange(newValue);
+                        onChange(newValue)
                         if (newValue === 'autre') {
-                          setShowReasonInput(true);
+                          setShowReasonInput(true)
                         } else {
-                          setShowReasonInput(false);
+                          setShowReasonInput(false)
                         }
                       }}
                     >
@@ -165,5 +166,5 @@ export default function DeleteCar({
         </ModalContent>
       </Modal>
     </>
-  );
+  )
 }

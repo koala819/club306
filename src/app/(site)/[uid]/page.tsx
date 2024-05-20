@@ -1,10 +1,11 @@
 import { RichText } from 'prismic-reactjs';
 
-import { createClient } from '@/prismicio';
+import { createClient } from '@/src/prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Button } from '@nextui-org/react';
+
 
 type Params = { uid: string };
 

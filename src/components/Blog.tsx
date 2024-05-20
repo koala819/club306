@@ -1,8 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useInView } from 'react-intersection-observer';
-import styles from '@/styles/reactIntersectionObserver.module.css';
-import { ArticleProps, ArticlesProps } from '@/types/models';
+import styles from '@/src/styles/reactIntersectionObserver.module.css'
+import { useInView } from 'react-intersection-observer'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { ArticleProps, ArticlesProps } from '@/src/types/models'
 
 function CommonSection({ articles }: ArticlesProps) {
   return (
@@ -59,18 +61,18 @@ function CommonSection({ articles }: ArticlesProps) {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 export const BlogSection = ({ articles }: ArticlesProps) => {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.2,
-  });
+  })
 
   const renderContent = () => {
-    return <CommonSection articles={articles} />;
-  };
+    return <CommonSection articles={articles} />
+  }
 
   return (
     <div
@@ -81,9 +83,9 @@ export const BlogSection = ({ articles }: ArticlesProps) => {
     >
       {renderContent()}
     </div>
-  );
-};
+  )
+}
 
 export const Blog = ({ articles }: ArticlesProps) => {
-  return <CommonSection articles={articles} />;
-};
+  return <CommonSection articles={articles} />
+}

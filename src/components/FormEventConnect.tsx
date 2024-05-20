@@ -8,9 +8,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { ConnectEvents } from '@/types/models'
+import { ConnectEvents } from '@/src/types/models'
 
-import { checkEmptyToken } from '@/lib/token/utils'
+import { checkEmptyToken } from '@/src/lib/token/utils'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 

@@ -1,5 +1,5 @@
-import { createClient } from '@/prismicio';
-import { Blog } from '@/components/Blog';
+import { createClient } from '@/src/prismicio';
+import { Blog } from '@/src/components/Blog';
 
 export default async function Handle() {
   const client = createClient();

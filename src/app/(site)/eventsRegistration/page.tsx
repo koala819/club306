@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import EventsRegistration from '@/components/EventsRegistration'
+import EventsRegistration from '@/src/components/EventsRegistration'
 
 export const metadata: Metadata = {
   title: 'Inscription Événement Club 306 - Réservez Votre Place Maintenant !',

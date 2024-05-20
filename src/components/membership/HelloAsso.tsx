@@ -4,10 +4,10 @@ import { Button } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { TiArrowBack } from 'react-icons/ti'
 
-import { CheckoutHelloAsso, PersonalInfo } from '@/types/models'
+import { CheckoutHelloAsso, PersonalInfo } from '@/src/types/models'
 
-import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code'
-import connect from '@/lib/helloAsso/connect'
+import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
+import connect from '@/src/lib/helloAsso/connect'
 import moment from 'moment'
 
 export const HelloAsso = ({ setStep }: any) => {

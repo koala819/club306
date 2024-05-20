@@ -1,33 +1,37 @@
-'use client';
-import { useEffect, useState } from 'react';
-import ClipLoader from 'react-spinners/ClipLoader';
-import moment from 'moment';
-import 'moment/locale/fr';
-import { getAllEvents, getAllThemesEvent } from '@/lib/supabase';
-import { Events, ThemesEvent } from '@/types/models';
-import { EditCalendar } from '@/components/cpanel/event/EditCalendar';
+'use client'
+
+import { useEffect, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import { Events, ThemesEvent } from '@/src/types/models'
+
+import { EditCalendar } from '@/src/components/cpanel/event/EditCalendar'
+
+import { getAllEvents, getAllThemesEvent } from '@/src/lib/supabase'
+import moment from 'moment'
+import 'moment/locale/fr'
 
 export default function Calendar({ year }: { year: number }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [events, setEvents] = useState<Events[]>([]);
-  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([]);
-  const [editedEvent, setEditedEvent] = useState<Events>();
+  const [isEditing, setIsEditing] = useState(false)
+  const [events, setEvents] = useState<Events[]>([])
+  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([])
+  const [editedEvent, setEditedEvent] = useState<Events>()
 
   useEffect(() => {
-    moment.locale('fr');
+    moment.locale('fr')
     async function fetch() {
-      const eventResponse = await getAllEvents(year);
+      const eventResponse = await getAllEvents(year)
       // console.log('eventResponse', eventResponse);
       if (eventResponse !== undefined && Array.isArray(eventResponse)) {
-        setEvents(eventResponse);
+        setEvents(eventResponse)
       }
-      const themeEventResp = await getAllThemesEvent();
+      const themeEventResp = await getAllThemesEvent()
       if (themeEventResp !== undefined && Array.isArray(themeEventResp)) {
-        setEvenThemes(themeEventResp);
+        setEvenThemes(themeEventResp)
       }
     }
-    fetch();
-  }, [year]);
+    fetch()
+  }, [year])
 
   const openEditBox = (event: Events) => {
     // console.log('openEditBox', event);
@@ -38,10 +42,10 @@ export default function Calendar({ year }: { year: number }) {
       month: event.month,
       theme: event.theme,
       year: event.year,
-    });
+    })
 
-    setIsEditing(true);
-  };
+    setIsEditing(true)
+  }
 
   return (
     <div>
@@ -59,8 +63,8 @@ export default function Calendar({ year }: { year: number }) {
           .slice()
           .sort((a, b) => (a.month ?? 0) - (b.month ?? 0))
           .map((event) => {
-            const monthIndex = (event?.month ?? 1) - 1;
-            const monthName = moment().month(monthIndex).format('MMMM');
+            const monthIndex = (event?.month ?? 1) - 1
+            const monthName = moment().month(monthIndex).format('MMMM')
 
             return event?.title ? (
               // WITH EVENT
@@ -103,11 +107,11 @@ export default function Calendar({ year }: { year: number }) {
                   {''}
                 </h3>
               </div>
-            );
+            )
           })
       ) : (
         <ClipLoader />
       )}
     </div>
-  );
+  )
 }

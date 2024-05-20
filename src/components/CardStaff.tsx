@@ -8,7 +8,7 @@ import { VscGithub } from 'react-icons/vsc'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { CardStaffProps } from '@/types/models'
+import { CardStaffProps } from '@/src/types/models'
 
 export const CardStaff = ({
   picture,

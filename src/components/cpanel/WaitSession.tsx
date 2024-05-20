@@ -1,5 +1,4 @@
-'use client';
-import ClipLoader from 'react-spinners/ClipLoader';
+import ClipLoader from 'react-spinners/ClipLoader'
 
 export default function WaitSession() {
   return (
@@ -15,5 +14,5 @@ export default function WaitSession() {
         <p className="mt-8 text-black">Chargement de votre session ...</p>
       </div>
     </div>
-  );
+  )
 }

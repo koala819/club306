@@ -1,17 +1,16 @@
-'use client';
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default function legalNotice() {
   return (
-    <div className='container mx-auto p-4'>
+    <div className="container mx-auto p-4">
       <h1
-        className='flex text-2xl mb-8 justify-center'
+        className="flex text-2xl mb-8 justify-center"
         style={{ fontWeight: 700 }}
       >
         Mentions légales
       </h1>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Propriétaire et exploitation du site
         </h2>
         <p>
@@ -24,8 +23,8 @@ export default function legalNotice() {
           93320 LES PAVILLONS-SOUS-BOIS
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Nom de domaine
         </h2>
         <p>
@@ -34,14 +33,14 @@ export default function legalNotice() {
           Nom de domaine réservé chez O2SWITCH
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Hébergement
         </h2>
         <p>Site hébergé par Vercel</p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Création du site
         </h2>
         <p>Xavier GENOLHAC</p>
@@ -67,14 +66,14 @@ export default function legalNotice() {
           nous encourageons la contribution et l&apos;amélioration continue du
           site. Si vous êtes intéressé par l&apos;accès au code source,
           n&apos;hésitez pas à{' '}
-          <Link href='/contact' className='hover:text-red-600 underline'>
+          <Link href="/contact" className="hover:text-red-600 underline">
             nous contacter
           </Link>{' '}
           et nous serons heureux de discuter des possibilités de collaboration.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           CLUB306.FR
         </h2>
         <p>
@@ -86,8 +85,8 @@ export default function legalNotice() {
           soit.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Bon usage – Responsabilité
         </h2>
         <p>
@@ -96,7 +95,7 @@ export default function legalNotice() {
           ainsi que les dernières sorties.
         </p>
         <p>En tout état de cause, il est rappelé que :</p>
-        <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+        <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
           <li>
             Les Documents et plus généralement le contenu du site{' '}
             <span style={{ fontWeight: 700 }}>www.club306.fr</span> sont
@@ -110,11 +109,11 @@ export default function legalNotice() {
           </li>
         </ul>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Le site CLUB306
         </h2>
-        <ul className='space-y-4 mt-4 mb-4 ml-4 list-disc'>
+        <ul className="space-y-4 mt-4 mb-4 ml-4 list-disc">
           <li>
             Ne garantit pas l&apos;exactitude des informations qu&apos;il met en
             ligne sur son site{' '}
@@ -137,14 +136,14 @@ export default function legalNotice() {
             l&apos;ordinateur de l&apos;utilisateur.
           </li>
         </ul>
-        <p className='text-xs'>
+        <p className="text-xs">
           *Toute modification entrera en vigueur à compter de sa mise en ligne
           sur le site précité. L&apos;utilisateur sera supposé avoir accepté
           cette modification pour la suite de sa consultation.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Droits d&apos;auteur et de reproduction
         </h2>
         <p>
@@ -173,15 +172,15 @@ export default function legalNotice() {
           et plus généralement au contenu du site{' '}
           <span style={{ fontWeight: 700 }}>www.club306.fr</span>
           sont les suivantes :{' '}
-          <span className='uppercase'>
+          <span className="uppercase">
             DROITS RESERVES – TEXTES, ELEMENTS VISUELS, GRAPHIQUES UNIQUEMENT
             CONSULTABLES SUR LE SITE INTERNET KIIVI DESIGN. REPRODUCTION ET/OU
             DIFFUSION INTERDITE
           </span>
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Nature des informations diffusées sur ce site
         </h2>
         <p>
@@ -195,8 +194,8 @@ export default function legalNotice() {
           informations quelles qu&apos;en soient les raisons.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Informations nominatives
         </h2>
         <p>
@@ -205,14 +204,14 @@ export default function legalNotice() {
           rectification et de suppression des données personnelles qui vous
           concernent. Pour cela, vous pouvez nous en faire la demande en nous
           contactant soit par{' '}
-          <Link href='/contact' className='hover:text-red-600 underline'>
+          <Link href="/contact" className="hover:text-red-600 underline">
             e-mail
           </Link>{' '}
           ou par courrier à l&apos;adresse indiquée ci-dessus.
         </p>
       </section>
-      <section className='mb-10 space-y-8'>
-        <h2 className='text-lg font-bold' style={{ fontWeight: 700 }}>
+      <section className="mb-10 space-y-8">
+        <h2 className="text-lg font-bold" style={{ fontWeight: 700 }}>
           Liens hypertexes et partenariats
         </h2>
         <p>
@@ -225,5 +224,5 @@ export default function legalNotice() {
         </p>
       </section>
     </div>
-  );
+  )
 }

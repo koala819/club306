@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-import { checkRegisteredMember } from '@/lib/supabase'
+import { checkRegisteredMember } from '@/src/lib/supabase'
 
 const handler = NextAuth({
   providers: [

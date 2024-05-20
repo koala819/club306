@@ -17,7 +17,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import Link from 'next/link'
 
-import { SchemaPersonalInfo } from '@/types/models'
+import { SchemaPersonalInfo } from '@/src/types/models'
 
 // import { getMonth, getYear, months, years } from '@/lib/personalInfos'
 import { yupResolver } from '@hookform/resolvers/yup'

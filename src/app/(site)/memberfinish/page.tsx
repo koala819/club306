@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import Memberfinish from '@/components/membership/Memberfinish'
+import Memberfinish from '@/src/components/membership/Memberfinish'
 
 export const metadata: Metadata = {
   title: "Confirmation et Activation Immédiate de l'Adhésion - Club 306 France",

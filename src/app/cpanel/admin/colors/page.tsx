@@ -1,67 +1,70 @@
-'use client';
-import React, { useEffect, useState, useRef } from 'react';
-import { PhotoshopPicker } from 'react-color';
-import { getAllColors } from '@/lib/supabase';
-import { Color } from '@/types/models';
-import { recordModifyColorInCpanel } from '@/lib/supabase';
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { PhotoshopPicker } from 'react-color'
+
+import { Color } from '@/src/types/models'
+
+import { getAllColors } from '@/src/lib/supabase'
+import { recordModifyColorInCpanel } from '@/src/lib/supabase'
 
 export default function Colors() {
-  const [colors, setColors] = useState<Color[]>([]);
-  const [color, setColor] = useState<string>('');
-  const [displayPicker, setDisplayPicker] = useState(false);
-  const [initialColor, setInitialColor] = useState('');
-  const colorPickerRef = useRef<HTMLDivElement | null>(null);
+  const [colors, setColors] = useState<Color[]>([])
+  const [color, setColor] = useState<string>('')
+  const [displayPicker, setDisplayPicker] = useState(false)
+  const [initialColor, setInitialColor] = useState('')
+  const colorPickerRef = useRef<HTMLDivElement | null>(null)
 
   const handleColorChange = (newColor: { hex: string }) => {
-    setColor(newColor.hex);
-  };
+    setColor(newColor.hex)
+  }
   const handleColorOk = async () => {
-    const response = await recordModifyColorInCpanel(initialColor, color);
+    const response = await recordModifyColorInCpanel(initialColor, color)
     if (response !== undefined && response.status === 200) {
-      setDisplayPicker(false);
-      window.location.reload();
+      setDisplayPicker(false)
+      window.location.reload()
     }
-  };
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      const carColor = await getAllColors();
+      const carColor = await getAllColors()
       if (carColor !== null && carColor.data !== null) {
         const fetchedColors: Color[] = carColor.data.map((color: any) => {
           return {
             id: color.id,
             name: color.name,
             hexa: color.hexa,
-          };
-        });
-        setColors(fetchedColors);
+          }
+        })
+        setColors(fetchedColors)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   const sortedColors = colors
     .slice()
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => a.name.localeCompare(b.name))
 
   const handleOutsideClick = (e: MouseEvent) => {
     if (
       colorPickerRef.current &&
       !colorPickerRef.current.contains(e.target as Node)
     ) {
-      setDisplayPicker(false);
+      setDisplayPicker(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (displayPicker) {
-      window.addEventListener('mousedown', handleOutsideClick);
+      window.addEventListener('mousedown', handleOutsideClick)
     }
 
     return () => {
-      window.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [displayPicker]);
+      window.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [displayPicker])
 
   return (
     <>
@@ -87,9 +90,9 @@ export default function Colors() {
             key={colorItem.id}
             className="bg-white rounded-md shadow-md p-4 text-center cursor-pointer"
             onClick={() => {
-              setDisplayPicker(true);
-              setColor(`#${colorItem.hexa}`);
-              setInitialColor(colorItem.hexa);
+              setDisplayPicker(true)
+              setColor(`#${colorItem.hexa}`)
+              setInitialColor(colorItem.hexa)
             }}
           >
             <div
@@ -101,5 +104,5 @@ export default function Colors() {
         ))}
       </div>
     </>
-  );
+  )
 }

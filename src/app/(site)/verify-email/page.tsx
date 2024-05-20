@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import VerifyEmail from '@/components/membership/VerifyEmail'
+import VerifyEmail from '@/src/components/membership/VerifyEmail'
 
 export const metadata: Metadata = {
   title: "Vérification de l'E-mail - Club306 : Rejoignez Notre Communauté",

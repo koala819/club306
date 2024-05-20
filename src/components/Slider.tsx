@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Slide } from 'react-slideshow-image'
 import 'react-slideshow-image/dist/styles.css'
 
 import Image from 'next/image'
 
-import { PartnerInfoType } from '@/types/models'
+import { PartnerInfoType } from '@/src/types/models'
 
-import { ourPartners } from '@/lib/supabase'
-import styles from '@/styles/Slider.module.css'
+import { ourPartners } from '@/src/lib/supabase'
+import styles from '@/src/styles/Slider.module.css'
 
 export const Slider = ({ session }: { session: any }) => {
   const [registredMember, setRegistredMember] = useState(false)

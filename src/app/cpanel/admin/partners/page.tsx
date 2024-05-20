@@ -1,26 +1,29 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { ourPartners } from '@/lib/supabase';
-import { PartnerInfoType } from '@/types/models';
-import EditPartner from '@/components/cpanel/EditPartner';
-import { deleteParner } from '@/lib/supabase';
-import { deletePictureFromGitHub } from '@/lib/githubImage';
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import Image from 'next/image'
+
+import { PartnerInfoType } from '@/src/types/models'
+
+import EditPartner from '@/src/components/cpanel/EditPartner'
+
+import { deletePictureFromGitHub } from '@/src/lib/githubImage'
+import { ourPartners } from '@/src/lib/supabase'
+import { deleteParner } from '@/src/lib/supabase'
 
 export default function OurPartners() {
-  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(
-    null
-  );
+  const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(null)
   const [selectedPartner, setSelectedPartner] =
-    useState<PartnerInfoType | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [displayLoader, setDisplayLoader] = useState(false);
+    useState<PartnerInfoType | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [displayLoader, setDisplayLoader] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ourPartners();
+        const response = await ourPartners()
         if (response.data !== null) {
           const formattedData = response.data.map(
             (item: { [x: string]: any }) => {
@@ -32,47 +35,47 @@ export default function OurPartners() {
                 remise: item.remise,
                 site: item.site,
                 alt: item.alt,
-              };
-            }
-          );
-          setPartnerData(formattedData);
+              }
+            },
+          )
+          setPartnerData(formattedData)
         }
       } catch (error) {
-        console.error('Error to get data from partners : ', error);
+        console.error('Error to get data from partners : ', error)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   const handleEditClick = (partner: PartnerInfoType) => {
-    partner !== null && partner !== undefined && setSelectedPartner(partner);
-    setIsEditing(true);
-  };
+    partner !== null && partner !== undefined && setSelectedPartner(partner)
+    setIsEditing(true)
+  }
 
   const handleDeleteClick = async (partner: PartnerInfoType) => {
     if (partner.linkImg !== null && partner.linkImg !== undefined) {
-      setDisplayLoader(true);
-      const response = await deletePictureFromGitHub(partner.linkImg);
+      setDisplayLoader(true)
+      const response = await deletePictureFromGitHub(partner.linkImg)
 
       if (response !== undefined && response.status === 200) {
-        const response = await deleteParner(partner.id);
+        const response = await deleteParner(partner.id)
 
         if (response.status === 200) {
-          window.location.reload();
+          window.location.reload()
         }
       }
     }
-  };
+  }
 
   const handleAddNewPartner = () => {
-    setSelectedPartner(null);
-    setIsEditing(true);
-  };
+    setSelectedPartner(null)
+    setIsEditing(true)
+  }
 
   const handleCancelClick = () => {
-    setSelectedPartner(null);
-    setIsEditing(false);
-  };
+    setSelectedPartner(null)
+    setIsEditing(false)
+  }
 
   return (
     <>
@@ -136,5 +139,5 @@ export default function OurPartners() {
         <EditPartner partner={selectedPartner} onCancel={handleCancelClick} />
       )}
     </>
-  );
+  )
 }

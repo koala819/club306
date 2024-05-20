@@ -1,9 +1,12 @@
-'use client';
-import { useState } from 'react';
-import { Events, ThemesEvent } from '@/types/models';
-import { useForm, Controller } from 'react-hook-form';
-import { cancelEvent, updateEvent } from '@/lib/supabase';
-import toast from 'react-hot-toast';
+'use client'
+
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+import { Events, ThemesEvent } from '@/src/types/models'
+
+import { cancelEvent, updateEvent } from '@/src/lib/supabase'
 
 export function EditCalendar({
   year,
@@ -11,15 +14,15 @@ export function EditCalendar({
   closeEditor,
   themes,
 }: {
-  year: number;
-  event: Events;
-  closeEditor: (isEditing: boolean) => void;
-  themes: any;
+  year: number
+  event: Events
+  closeEditor: (isEditing: boolean) => void
+  themes: any
 }) {
-  const [editedEvent, setEditedEvent] = useState<Events>(event);
-  const [updateOrDelete, setUpdateOrDelete] = useState(false);
-  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([...themes]);
-  const [events, setEvents] = useState<Events[]>([]);
+  const [editedEvent, setEditedEvent] = useState<Events>(event)
+  const [updateOrDelete, setUpdateOrDelete] = useState(false)
+  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([...themes])
+  const [events, setEvents] = useState<Events[]>([])
 
   const { handleSubmit, control, formState, reset } = useForm({
     defaultValues: {
@@ -28,53 +31,53 @@ export function EditCalendar({
       dates: editedEvent?.dates,
       theme: editedEvent?.theme,
     },
-  });
+  })
 
-  const { errors } = formState;
+  const { errors } = formState
 
   async function onUpdate(data: any) {
     const responseOnSubmit = await updateEvent(
       data,
       editedEvent?.month,
       editedEvent?.theme,
-      year
-    );
+      year,
+    )
     // console.log('responseOnSubmit', responseOnSubmit);
     if (responseOnSubmit.status === 200) {
       setEvents((prevEvents) => {
         const updatedEvents = prevEvents.map((event) => {
           if (event.id === editedEvent?.id) {
-            return { ...event, ...data };
+            return { ...event, ...data }
           }
-          return event;
-        });
-        return updatedEvents;
-      });
+          return event
+        })
+        return updatedEvents
+      })
 
-      toast.success("L'événement a bien été modifié");
-      closeEditor(false);
+      toast.success("L'événement a bien été modifié")
+      closeEditor(false)
     } else {
-      toast.error("L'événement n'a pas pu être modifié");
-      closeEditor(false);
+      toast.error("L'événement n'a pas pu être modifié")
+      closeEditor(false)
     }
   }
 
   async function onDelete() {
-    const response = await cancelEvent(editedEvent?.month);
+    const response = await cancelEvent(editedEvent?.month)
     // console.log('response', response);
     if (response.status === 200) {
-      alert("L'événement a bien été supprimé");
-      window.location.reload();
-      closeEditor(false);
+      alert("L'événement a bien été supprimé")
+      window.location.reload()
+      closeEditor(false)
     } else {
-      alert("L'événement n'a pas pu être supprimé" + response);
-      closeEditor(false);
+      alert("L'événement n'a pas pu être supprimé" + response)
+      closeEditor(false)
     }
   }
 
   function handleClose() {
-    closeEditor(false);
-    reset();
+    closeEditor(false)
+    reset()
   }
 
   return (
@@ -237,5 +240,5 @@ export function EditCalendar({
         </div>
       </div>
     </form>
-  );
+  )
 }

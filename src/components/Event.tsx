@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 
-import { EventsData } from '@/types/models'
+import { EventsData } from '@/src/types/models'
 
-import { EventCard } from '@/components/EventCard'
+import { EventCard } from '@/src/components/EventCard'
 
-import { getAllEvents } from '@/lib/events'
+import { getAllEvents } from '@/src/lib/events'
 
 export default function Event() {
   const [events, setEvents] = useState<EventsData[]>([])

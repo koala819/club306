@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import Membership from '@/components/membership/Membership'
+import Membership from '@/src/components/membership/Membership'
 
 export const metadata: Metadata = {
   title:

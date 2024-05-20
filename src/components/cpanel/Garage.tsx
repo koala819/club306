@@ -1,91 +1,94 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { DisplaySVG } from '@/components/cpanel/DisplaySvg';
-import WaitSession from '@/components/cpanel/WaitSession';
-import DeleteCar from '@/components/cpanel/DeleteCar';
-import { getMemberCars } from '@/lib/cpanel/updateCar';
+'use client'
 
-import { transformEmailToId, updateCar } from '@/lib/cpanel/updateCar';
-import { BiSkipPreviousCircle, BiSkipNextCircle } from 'react-icons/bi';
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
-  useDisclosure,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Select,
   SelectItem,
-} from '@nextui-org/react';
-import toast from 'react-hot-toast';
-import { listPartsCar } from '@/lib/cpanel/listPartsCar';
-import { Car, Color, Finition, Member, Model } from '@/types/models';
+  useDisclosure,
+} from '@nextui-org/react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { BiSkipNextCircle, BiSkipPreviousCircle } from 'react-icons/bi'
+
+import { Car, Color, Finition, Member, Model } from '@/src/types/models'
+
+import DeleteCar from '@/src/components/cpanel/DeleteCar'
+import { DisplaySVG } from '@/src/components/cpanel/DisplaySvg'
+import WaitSession from '@/src/components/cpanel/WaitSession'
+
+import { listPartsCar } from '@/src/lib/cpanel/listPartsCar'
+import { getMemberCars } from '@/src/lib/cpanel/updateCar'
+import { transformEmailToId, updateCar } from '@/src/lib/cpanel/updateCar'
 
 export default function Garage({
   userMail,
   hide = false,
 }: {
-  userMail: string;
-  hide?: boolean;
+  userMail: string
+  hide?: boolean
 }) {
-  const [memberId, setMemberId] = useState<number>();
-  const [cars, setCars] = useState<Car[] | undefined>(undefined);
-  const [currentCarIndex, setCurrentCarIndex] = useState(0);
-  const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null;
-  const isDark = carColor !== null && isColorDark(carColor);
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [value, setValue] = useState('');
-  const [newValue, setNewValue] = useState('');
+  const [memberId, setMemberId] = useState<number>()
+  const [cars, setCars] = useState<Car[] | undefined>(undefined)
+  const [currentCarIndex, setCurrentCarIndex] = useState(0)
+  const carColor = cars !== undefined ? cars[currentCarIndex].color.hexa : null
+  const isDark = carColor !== null && isColorDark(carColor)
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+  const [value, setValue] = useState('')
+  const [newValue, setNewValue] = useState('')
   const [newModelSelected, setNewModelSelected] = useState<Set<string>>(
-    new Set([])
-  );
+    new Set([]),
+  )
   const [newFinitionSelected, setNewFinitionSelected] = useState<Set<string>>(
-    new Set([])
-  );
+    new Set([]),
+  )
   const [newColorSelected, setNewColorSelected] = useState<Set<string>>(
-    new Set([])
-  );
-  const [title, setTitle] = useState('');
-  const [colors, setColors] = useState<Color[]>([]);
-  const [finitions, setFinitions] = useState<Finition[]>([]);
-  const [models, setModels] = useState<Model[]>([]);
-  const [immatriculation, setImmatriculation] = useState('');
+    new Set([]),
+  )
+  const [title, setTitle] = useState('')
+  const [colors, setColors] = useState<Color[]>([])
+  const [finitions, setFinitions] = useState<Finition[]>([])
+  const [models, setModels] = useState<Model[]>([])
+  const [immatriculation, setImmatriculation] = useState('')
 
   const sortedColors = [...colors].sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
-    return nameA.localeCompare(nameB);
-  });
+    const nameA = a.name.toLowerCase()
+    const nameB = b.name.toLowerCase()
+    return nameA.localeCompare(nameB)
+  })
 
   // const isMobile = window.innerWidth <= 768;
 
   const handleSelectionModelChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setNewModelSelected(new Set([e.target.value]));
-  };
+    setNewModelSelected(new Set([e.target.value]))
+  }
   const handleSelectionFinitionChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setNewFinitionSelected(new Set([e.target.value]));
-  };
+    setNewFinitionSelected(new Set([e.target.value]))
+  }
   const handleSelectionColorChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setNewColorSelected(new Set([e.target.value]));
-  };
+    setNewColorSelected(new Set([e.target.value]))
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      const memberId = await transformEmailToId(userMail);
+      const memberId = await transformEmailToId(userMail)
       if (memberId !== null) {
-        setMemberId(() => memberId);
+        setMemberId(() => memberId)
         getMemberCars(memberId).then(async (cars: any) => {
           if (cars) {
             if (Array.isArray(cars)) {
-              const carData: Car[] = [];
+              const carData: Car[] = []
               for (let i = 0; i < cars.length; i++) {
                 const carData_Object: Car = {
                   color: {
@@ -96,18 +99,18 @@ export default function Garage({
                   immatriculation: cars[i].immatriculation,
                   mine: cars[i].min,
                   model: cars[i].model.name,
-                };
-                carData.push(carData_Object);
-                setCars(() => carData);
+                }
+                carData.push(carData_Object)
+                setCars(() => carData)
               }
             }
           }
-        });
+        })
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
   // console.log('member', member);
   // console.log('cars', cars);
 
@@ -116,31 +119,31 @@ export default function Garage({
       setColors,
       setFinitions,
       setModels,
-    });
-  }, []);
+    })
+  }, [])
 
   const handleNextCar = () => {
     if (cars !== undefined && currentCarIndex < cars.length - 1) {
-      setCurrentCarIndex(currentCarIndex + 1);
+      setCurrentCarIndex(currentCarIndex + 1)
     }
-  };
+  }
 
   const handlePrevCar = () => {
     if (currentCarIndex > 0) {
-      setCurrentCarIndex(currentCarIndex - 1);
+      setCurrentCarIndex(currentCarIndex - 1)
     }
-  };
+  }
 
   function isColorDark(hexColor: string): boolean {
-    const red = parseInt(hexColor.slice(0, 2), 16);
-    const green = parseInt(hexColor.slice(2, 4), 16);
-    const blue = parseInt(hexColor.slice(4, 6), 16);
+    const red = parseInt(hexColor.slice(0, 2), 16)
+    const green = parseInt(hexColor.slice(2, 4), 16)
+    const blue = parseInt(hexColor.slice(4, 6), 16)
 
     // Calculer la luminance selon la formule relative à la perception humaine
-    const luminance = 0.299 * red + 0.587 * green + 0.114 * blue;
+    const luminance = 0.299 * red + 0.587 * green + 0.114 * blue
 
     // Si la luminance est inférieure à 128, la couleur est considérée comme foncée
-    return luminance < 128;
+    return luminance < 128
   }
 
   const handleSaveClick = async () => {
@@ -148,69 +151,69 @@ export default function Garage({
       newName: string,
       propertyName: string,
       partName: string,
-      newId?: string
+      newId?: string,
     ) => {
       if (newName === '') {
-        toast.error(`Aucune modification de ${propertyName} n'a été faite`);
-        onClose();
-        return;
+        toast.error(`Aucune modification de ${propertyName} n'a été faite`)
+        onClose()
+        return
       }
 
       if (newName === value) {
-        toast.error(`Même ${propertyName} saisi`);
-        onClose();
-        return;
+        toast.error(`Même ${propertyName} saisi`)
+        onClose()
+        return
       }
 
-      toast.success('Enregistrement en cours...');
-      onClose();
+      toast.success('Enregistrement en cours...')
+      onClose()
 
       const responseUpdateCar = await updateCar(
         value,
         newName,
         immatriculation || value,
         partName || '',
-        newId || ''
-      );
-      console.log('GARAGE before json', responseUpdateCar);
+        newId || '',
+      )
+      console.log('GARAGE before json', responseUpdateCar)
 
       if (responseUpdateCar?.status === 200) {
-        toast.success('Enregistrement avec succès !');
-        window.location.reload();
+        toast.success('Enregistrement avec succès !')
+        window.location.reload()
       } else {
-        toast.error(responseUpdateCar.statusText);
+        toast.error(responseUpdateCar.statusText)
       }
-    };
+    }
 
     if (title === 'immatriculation') {
-      commonUpdateCar(newValue, 'immatriculation', 'immatriculation');
+      commonUpdateCar(newValue, 'immatriculation', 'immatriculation')
     } else if (title === 'mine') {
-      commonUpdateCar(newValue, 'type mine', 'min');
+      commonUpdateCar(newValue, 'type mine', 'min')
     } else if (title === 'modèle') {
-      const selectedModelId = Array.from(newModelSelected)[0];
-      const modelId = parseInt(selectedModelId, 10);
-      const model = models.find((m) => m.id === modelId);
+      const selectedModelId = Array.from(newModelSelected)[0]
+      const modelId = parseInt(selectedModelId, 10)
+      const model = models.find((m) => m.id === modelId)
       model !== undefined &&
-        commonUpdateCar(model.name, 'modèle', 'car_model_id', selectedModelId);
+        commonUpdateCar(model.name, 'modèle', 'car_model_id', selectedModelId)
     } else if (title === 'finition') {
-      const selectedFinitionId = Array.from(newFinitionSelected)[0];
-      const finitionId = parseInt(selectedFinitionId, 10);
-      const finition = finitions.find((m) => m.id === finitionId);
+      const selectedFinitionId = Array.from(newFinitionSelected)[0]
+      const finitionId = parseInt(selectedFinitionId, 10)
+      const finition = finitions.find((m) => m.id === finitionId)
       finition !== undefined &&
         commonUpdateCar(
           finition.name,
           'finition',
           'car_finition_id',
-          selectedFinitionId
-        );
+          selectedFinitionId,
+        )
     } else if (title === 'couleur') {
-      const selectedColorId = Array.from(newColorSelected)[0];
-      const colorId = parseInt(selectedColorId, 10);
-      const color = colors.find((m) => m.id === colorId);
+      const selectedColorId = Array.from(newColorSelected)[0]
+      const colorId = parseInt(selectedColorId, 10)
+      const color = colors.find((m) => m.id === colorId)
       color !== undefined &&
-        commonUpdateCar(color.name, 'couleur', 'car_color_id', selectedColorId);
+        commonUpdateCar(color.name, 'couleur', 'car_color_id', selectedColorId)
     }
-  };
+  }
 
   return (
     <>
@@ -402,12 +405,12 @@ export default function Garage({
                         <div
                           className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
                           onClick={() => {
-                            onOpen();
-                            setValue(cars[currentCarIndex].mine);
-                            setTitle('mine');
+                            onOpen()
+                            setValue(cars[currentCarIndex].mine)
+                            setTitle('mine')
                             setImmatriculation(
-                              cars[currentCarIndex].immatriculation
-                            );
+                              cars[currentCarIndex].immatriculation,
+                            )
                           }}
                         >
                           <p className="text-black font-bold dark:font-normal">
@@ -422,9 +425,9 @@ export default function Garage({
                         <div
                           className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
                           onClick={() => {
-                            onOpen();
-                            setValue(cars[currentCarIndex].immatriculation);
-                            setTitle('immatriculation');
+                            onOpen()
+                            setValue(cars[currentCarIndex].immatriculation)
+                            setTitle('immatriculation')
                           }}
                         >
                           <p className="text-black font-bold dark:font-normal">
@@ -440,12 +443,12 @@ export default function Garage({
                         <div
                           className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
                           onClick={() => {
-                            onOpen();
-                            setValue(cars[currentCarIndex].model);
-                            setTitle('modèle');
+                            onOpen()
+                            setValue(cars[currentCarIndex].model)
+                            setTitle('modèle')
                             setImmatriculation(
-                              cars[currentCarIndex].immatriculation
-                            );
+                              cars[currentCarIndex].immatriculation,
+                            )
                           }}
                         >
                           <p className="text-black font-bold dark:font-normal">
@@ -460,12 +463,12 @@ export default function Garage({
                         <div
                           className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
                           onClick={() => {
-                            onOpen();
-                            setValue(cars[currentCarIndex].finition);
-                            setTitle('finition');
+                            onOpen()
+                            setValue(cars[currentCarIndex].finition)
+                            setTitle('finition')
                             setImmatriculation(
-                              cars[currentCarIndex].immatriculation
-                            );
+                              cars[currentCarIndex].immatriculation,
+                            )
                           }}
                         >
                           <p className="text-black font-bold dark:font-normal">
@@ -481,12 +484,12 @@ export default function Garage({
                         <div
                           className="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b hover:bg-gray-300 dark:hover:bg-slate-600 hover:cursor-pointer"
                           onClick={() => {
-                            onOpen();
-                            setValue(cars[currentCarIndex].color.name || '');
-                            setTitle('couleur');
+                            onOpen()
+                            setValue(cars[currentCarIndex].color.name || '')
+                            setTitle('couleur')
                             setImmatriculation(
-                              cars[currentCarIndex].immatriculation
-                            );
+                              cars[currentCarIndex].immatriculation,
+                            )
                           }}
                         >
                           <p className="text-black font-bold dark:font-normal">
@@ -517,5 +520,5 @@ export default function Garage({
         </div>
       )}
     </>
-  );
+  )
 }

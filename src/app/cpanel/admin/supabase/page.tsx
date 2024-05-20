@@ -1,37 +1,39 @@
-'use client';
-import React, { useEffect, useState, useRef } from 'react';
-import moment from 'moment-timezone';
-import { backupTable, listFilesInFolder } from '@/lib/backupSupabase';
-import ClipLoader from 'react-spinners/ClipLoader';
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import { backupTable, listFilesInFolder } from '@/src/lib/backupSupabase'
+import moment from 'moment-timezone'
 
 export default function Supabase() {
-  const [files, setFiles] = useState<GoogleDriveFile[]>([]);
+  const [files, setFiles] = useState<GoogleDriveFile[]>([])
 
   useEffect(() => {
     async function fetchFiles() {
       try {
-        const fileList = await listFilesInFolder();
-        setFiles(fileList);
+        const fileList = await listFilesInFolder()
+        setFiles(fileList)
       } catch (error) {
-        console.error('Erreur lors de la récupération des fichiers :', error);
+        console.error('Erreur lors de la récupération des fichiers :', error)
       }
     }
 
-    fetchFiles();
-  }, []);
+    fetchFiles()
+  }, [])
 
   function formatDateAndTime(timestamp: string) {
-    const gmtPlus2 = moment.tz(timestamp, 'Europe/Paris');
-    const formattedDate = gmtPlus2.format('DD MMM YYYY');
-    const formattedTime = gmtPlus2.format('HH[h]mm');
-    return `Date de création : ${formattedDate} à ${formattedTime}`;
+    const gmtPlus2 = moment.tz(timestamp, 'Europe/Paris')
+    const formattedDate = gmtPlus2.format('DD MMM YYYY')
+    const formattedTime = gmtPlus2.format('HH[h]mm')
+    return `Date de création : ${formattedDate} à ${formattedTime}`
   }
 
   async function recordMembers(tableName: string) {
-    const response = await backupTable(tableName);
+    const response = await backupTable(tableName)
     if (response.success) {
-      alert('Backup effectué avec succès');
-      window.location.reload();
+      alert('Backup effectué avec succès')
+      window.location.reload()
     }
   }
 
@@ -124,11 +126,11 @@ export default function Supabase() {
         </button>
       </div>
     </>
-  );
+  )
 }
 
 interface GoogleDriveFile {
-  id: string;
-  name: string;
-  createdTime: string;
+  id: string
+  name: string
+  createdTime: string
 }

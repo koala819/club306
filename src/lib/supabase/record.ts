@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { PersonalInfo, Vehicles } from '@/types/models'
+import { PersonalInfo, Vehicles } from '@/src/types/models'
 
 import supabase from 'backend/config/dbConnect'
 

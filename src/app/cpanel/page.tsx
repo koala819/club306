@@ -1,32 +1,35 @@
-'use client';
-import { useState, useEffect, useMemo } from 'react';
-import { useSession } from 'next-auth/react';
-import { Homepage } from '@/components/cpanel/Homepage';
-import WaitSession from '@/components/cpanel/WaitSession';
-import { confirmMemberShip } from '@/lib/supabase';
-import Paiement from '@/components/cpanel/Paiement';
+'use client'
+
+import { useSession } from 'next-auth/react'
+import { useEffect, useMemo, useState } from 'react'
+
+import { Homepage } from '@/src/components/cpanel/Homepage'
+import Paiement from '@/src/components/cpanel/Paiement'
+import WaitSession from '@/src/components/cpanel/WaitSession'
+
+import { confirmMemberShip } from '@/src/lib/supabase'
 
 export default function Page() {
-  const { data: dataSession } = useSession();
-  const [isMemberConfirmed, setIsMemberConfirmed] = useState(true);
+  const { data: dataSession } = useSession()
+  const [isMemberConfirmed, setIsMemberConfirmed] = useState(true)
 
   const session = useMemo(() => {
-    return dataSession !== undefined;
-  }, [dataSession]);
+    return dataSession !== undefined
+  }, [dataSession])
 
   useEffect(() => {
     async function checkMembership() {
       if (dataSession) {
-        const confirmed = await confirmMemberShip(dataSession?.user?.email);
-        setIsMemberConfirmed(confirmed);
+        const confirmed = await confirmMemberShip(dataSession?.user?.email)
+        setIsMemberConfirmed(confirmed)
       }
     }
 
-    checkMembership();
-  }, [dataSession]);
+    checkMembership()
+  }, [dataSession])
 
   if (!isMemberConfirmed) {
-    return <Paiement />;
+    return <Paiement />
   }
 
   return (
@@ -37,5 +40,5 @@ export default function Page() {
         <Homepage userMail={dataSession?.user?.email as string} />
       )}
     </>
-  );
+  )
 }

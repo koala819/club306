@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 
-import { Form } from '@/components/membership/Form'
-import { Step } from '@/components/membership/Step'
+import { Form } from '@/src/components/membership/Form'
+import { Step } from '@/src/components/membership/Step'
 
 export default function Membership() {
   const [currentStep, setStep] = useState<number>(1)

@@ -6,11 +6,11 @@ import { signOut } from 'next-auth/react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { CheckoutHelloAsso, HelloAssoMember } from '@/types/models'
+import { CheckoutHelloAsso, HelloAssoMember } from '@/src/types/models'
 
-import { getMemberForCotisation } from '@/lib/cpanel/membershipMember'
-import { getCountryAlpha3Code } from '@/lib/getCountryAlpha3Code'
-import connect from '@/lib/helloAsso/connect'
+import { getMemberForCotisation } from '@/src/lib/cpanel/membershipMember'
+import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
+import connect from '@/src/lib/helloAsso/connect'
 import moment from 'moment'
 
 const Paiement = () => {

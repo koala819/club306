@@ -24,13 +24,13 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
-import { MenuItem } from '@/types/models'
+import { MenuItem } from '@/src/types/models'
 
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
+import { ThemeSwitcher } from '@/src/components/ThemeSwitcher'
 
-import blackLogo from '@../../public/images/logoClub306.png'
-import whiteLogo from '@../../public/images/logoClub306_blanc.png'
-import { useTheme } from '@/context/ThemeContext'
+import blackLogo from '@/public/images/logoClub306.png'
+import whiteLogo from '@/public/images/logoClub306_blanc.png'
+import { useTheme } from '@/src/context/ThemeContext'
 
 export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)

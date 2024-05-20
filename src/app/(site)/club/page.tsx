@@ -1,13 +1,11 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Adhesion } from '@/components/Adhesion'
+import { Adhesion } from '@/src/components/Adhesion'
 
-import pictureYellow from '../../../../public/images/306Jaune.jpg'
-import pictureCircuit from '../../../../public/images/LGHA-Juin2019.jpg'
-import pictureField from '../../../../public/images/rassemblement306.jpg'
+import pictureYellow from '@/public/images/306Jaune.jpg'
+import pictureCircuit from '@/public/images/LGHA-Juin2019.jpg'
+import pictureField from '@/public/images/rassemblement306.jpg'
 
 export default function Presentation() {
   return (

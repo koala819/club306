@@ -7,9 +7,9 @@ import toast from 'react-hot-toast'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { TiArrowBack } from 'react-icons/ti'
 
-import { MailPwd } from '@/types/models'
+import { MailPwd } from '@/src/types/models'
 
-import { checkMail } from '@/lib/supabase'
+import { checkMail } from '@/src/lib/supabase'
 import { yupResolver } from '@hookform/resolvers/yup'
 import bcrypt from 'bcryptjs'
 import * as yup from 'yup'

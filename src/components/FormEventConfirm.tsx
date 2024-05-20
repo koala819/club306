@@ -8,7 +8,7 @@ import {
   addMemberToEvent,
   returnInfosEventFromId,
   returnInfosMemberFromId,
-} from '@/lib/newSupabase'
+} from '@/src/lib/newSupabase'
 
 export const FormEventConfirm = ({
   userMail,

@@ -7,7 +7,7 @@ import { NL } from 'country-flag-icons/react/3x2'
 import { CH } from 'country-flag-icons/react/3x2'
 import { useEffect, useState } from 'react'
 
-import { countMembers, countMembersByCountry } from '@/lib/supabase'
+import { countMembers, countMembersByCountry } from '@/src/lib/supabase'
 
 export default function Members() {
   const [nbMembers, setNbMembers] = useState(null)

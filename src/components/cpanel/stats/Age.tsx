@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Pie } from 'react-chartjs-2'
 
-import { countMembersByAge } from '@/lib/supabase'
+import { countMembersByAge } from '@/src/lib/supabase'
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
 
 ChartJS.register(ArcElement, Tooltip, Legend)

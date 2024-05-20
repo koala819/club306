@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import PhotosVideos from '@/components/PhotosVideos'
+import PhotosVideos from '@/src/components/PhotosVideos'
 
 export const metadata: Metadata = {
   title: 'Galerie Club 306: Photos & Vidéos Événements Automobiles',

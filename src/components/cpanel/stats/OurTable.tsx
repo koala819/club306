@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { getMembersInfo } from '@/lib/supabase/members'
+import { getMembersInfo } from '@/src/lib/supabase/members'
 
 const OurTable = () => {
   const [members, setMembers] = useState<Member[]>([])

@@ -7,9 +7,9 @@ import { GiTicket } from 'react-icons/gi'
 
 import Link from 'next/link'
 
-import { Order, OrderTableProps } from '@/types/models'
+import { Order, OrderTableProps } from '@/src/types/models'
 
-import { fetchAndEnrichOrders } from '@/lib/helloAsso/events'
+import { fetchAndEnrichOrders } from '@/src/lib/helloAsso/events'
 
 const OrderTable: React.FC<OrderTableProps> = ({ allEvents }) => {
   const [value, setValue] = useState<Selection>()

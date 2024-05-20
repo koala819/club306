@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/reactIntersectionObserver.module.css'
+import styles from '@/src/styles/reactIntersectionObserver.module.css'
 import { AiFillStar } from 'react-icons/ai'
 import { useInView } from 'react-intersection-observer'
 

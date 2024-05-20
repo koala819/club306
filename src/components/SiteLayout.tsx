@@ -4,10 +4,10 @@ import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
 import { Toaster } from 'react-hot-toast'
 
-import { Footer } from '@/components/Footer'
-import { Navbar306 as Navbar } from '@/components/Navbar'
+import { Footer } from '@/src/components/Footer'
+import { Navbar306 as Navbar } from '@/src/components/Navbar'
 
-import { ThemeProvider } from '@/context/ThemeContext'
+import { ThemeProvider } from '@/src/context/ThemeContext'
 
 export default function SiteLayout({
   children,

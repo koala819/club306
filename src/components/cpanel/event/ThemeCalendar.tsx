@@ -1,37 +1,39 @@
-'use client';
-import { getAllThemesEvent } from '@/lib/supabase';
-import { useEffect, useState } from 'react';
+'use client'
+
+import { useEffect, useState } from 'react'
 // import { Controller, useForm } from 'react-hook-form';
-import { PhotoshopPicker } from 'react-color';
+import { PhotoshopPicker } from 'react-color'
+
+import { getAllThemesEvent } from '@/src/lib/supabase'
 import {
   addThemeEvent,
   deleteThemeEvent,
   updateThemeEvent,
-} from '@/lib/supabase';
+} from '@/src/lib/supabase'
 
 export default function TemeCalendar() {
-  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [evenThemes, setEvenThemes] = useState<ThemesEvent[]>([])
+  const [isEditing, setIsEditing] = useState(false)
   //   const [updateOrDelete, setUpdateOrDelete] = useState(false);
-  const [color, setColor] = useState<string>('');
-  const [displayPicker, setDisplayPicker] = useState(false);
-  const [comeFrom, setComeFrom] = useState('');
+  const [color, setColor] = useState<string>('')
+  const [displayPicker, setDisplayPicker] = useState(false)
+  const [comeFrom, setComeFrom] = useState('')
   const [editedThemeEvent, setEditedThemeEvent] = useState({
     id: 0,
     name: '',
     background: '',
     color: '',
-  });
+  })
 
   useEffect(() => {
     async function fetch() {
-      const themeEventResp = await getAllThemesEvent();
+      const themeEventResp = await getAllThemesEvent()
       if (themeEventResp !== undefined && Array.isArray(themeEventResp)) {
-        setEvenThemes(themeEventResp);
+        setEvenThemes(themeEventResp)
       }
     }
-    fetch();
-  }, []);
+    fetch()
+  }, [])
 
   const openEditBox = (event: ThemesEvent) => {
     setEditedThemeEvent({
@@ -39,30 +41,30 @@ export default function TemeCalendar() {
       name: event.name,
       background: event.background,
       color: event.color,
-    });
-    setIsEditing(true);
-  };
+    })
+    setIsEditing(true)
+  }
 
   const onUpdate = async () => {
     const response = await updateThemeEvent(
       color,
       editedThemeEvent.name,
-      comeFrom
-    );
+      comeFrom,
+    )
     if (response.status === 200) {
-      setIsEditing(false);
-      window.location.reload();
-      setDisplayPicker(false);
+      setIsEditing(false)
+      window.location.reload()
+      setDisplayPicker(false)
     }
-  };
+  }
 
   async function onDelete() {
-    const responseDelete = await deleteThemeEvent(editedThemeEvent.id);
+    const responseDelete = await deleteThemeEvent(editedThemeEvent.id)
     if (responseDelete !== undefined && responseDelete.status === 200) {
-      alert("Le theme de l'événement a bien été supprimé");
-      window.location.reload();
+      alert("Le theme de l'événement a bien été supprimé")
+      window.location.reload()
     } else if (responseDelete !== undefined && responseDelete.status === 405) {
-      alert('Impossible de supprimer le theme car il est encore utilisé');
+      alert('Impossible de supprimer le theme car il est encore utilisé')
     }
   }
 
@@ -70,38 +72,38 @@ export default function TemeCalendar() {
     const responseAdd = await addThemeEvent(
       editedThemeEvent.name,
       editedThemeEvent.color,
-      editedThemeEvent.background
-    );
+      editedThemeEvent.background,
+    )
     if (responseAdd !== undefined && responseAdd.status === 200) {
-      alert("Un nouveau theme d'événement a été créé");
-      window.location.reload();
+      alert("Un nouveau theme d'événement a été créé")
+      window.location.reload()
     } else if (responseAdd !== undefined && responseAdd.status === 405) {
-      alert('Impossible de créer un nouveau theme car le nom existe déjà !');
+      alert('Impossible de créer un nouveau theme car le nom existe déjà !')
     }
   }
 
   function handleClose() {
-    setIsEditing(false);
+    setIsEditing(false)
   }
 
   const handleColorChange = (newColor: { hex: string }) => {
-    setColor(newColor.hex);
-  };
+    setColor(newColor.hex)
+  }
 
   const handleColorOk = async () => {
     if (comeFrom === 'background') {
       setEditedThemeEvent((prevThemeEvent) => ({
         ...prevThemeEvent,
         background: color,
-      }));
+      }))
     } else if (comeFrom === 'color') {
       setEditedThemeEvent((prevThemeEvent) => ({
         ...prevThemeEvent,
         color: color,
-      }));
+      }))
     }
-    setDisplayPicker(false);
-  };
+    setDisplayPicker(false)
+  }
 
   return (
     <div className="mt-12">
@@ -142,7 +144,7 @@ export default function TemeCalendar() {
                 setEditedThemeEvent((prevThemeEvent) => ({
                   ...prevThemeEvent,
                   name: e.target.value,
-                }));
+                }))
               }}
               className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
             />
@@ -152,9 +154,9 @@ export default function TemeCalendar() {
             <div
               className="flex-1 h-16 w-full cursor-pointer"
               onClick={() => {
-                setDisplayPicker(true);
-                setColor(`${editedThemeEvent.background}`);
-                setComeFrom('background');
+                setDisplayPicker(true)
+                setColor(`${editedThemeEvent.background}`)
+                setComeFrom('background')
               }}
               style={{ backgroundColor: `${editedThemeEvent.background}` }}
             >
@@ -171,9 +173,9 @@ export default function TemeCalendar() {
             <div
               className="flex-1 h-16 w-full cursor-pointer"
               onClick={() => {
-                setDisplayPicker(true);
-                setColor(`${editedThemeEvent.color}`);
-                setComeFrom('color');
+                setDisplayPicker(true)
+                setColor(`${editedThemeEvent.color}`)
+                setComeFrom('color')
               }}
               style={{ backgroundColor: `${editedThemeEvent.color}` }}
             ></div>
@@ -216,7 +218,7 @@ export default function TemeCalendar() {
             <div
               key={theme.id}
               onClick={() => {
-                openEditBox(theme);
+                openEditBox(theme)
               }}
               className="p-5 cursor-pointer rounded mb-5 shadow-lg capitalize hover:border-2 hover:border-black"
               style={{ backgroundColor: theme.background, color: theme.color }}
@@ -227,11 +229,11 @@ export default function TemeCalendar() {
             </div>
           ))}
     </div>
-  );
+  )
 }
 type ThemesEvent = {
-  id: number;
-  name: string;
-  background: string;
-  color: string;
-};
+  id: number
+  name: string
+  background: string
+  color: string
+}

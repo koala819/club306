@@ -1,15 +1,17 @@
-'use client';
-import AddCar from '@/components/cpanel/AddCar';
-import { useSession } from 'next-auth/react';
-import { useMemo } from 'react';
-import WaitSession from '@/components/cpanel/WaitSession';
+'use client'
+
+import { useSession } from 'next-auth/react'
+import { useMemo } from 'react'
+
+import AddCar from '@/src/components/cpanel/AddCar'
+import WaitSession from '@/src/components/cpanel/WaitSession'
 
 export default function Page() {
-  const { data: dataSession } = useSession();
+  const { data: dataSession } = useSession()
 
   const session = useMemo(() => {
-    return dataSession !== undefined;
-  }, [dataSession]);
+    return dataSession !== undefined
+  }, [dataSession])
 
   return (
     <>
@@ -19,5 +21,5 @@ export default function Page() {
         <AddCar userMail={dataSession?.user?.email || ''} />
       )}
     </>
-  );
+  )
 }

@@ -19,11 +19,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import picture306 from '../../../../public/images/logoClub306_blanc.png'
 // import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { ThemeSwitcher } from './ThemeSwitcher'
 
-import { onlyStaff } from '@/lib/supabase'
+import picture306 from '@/public/images/logoClub306_blanc.png'
+import { onlyStaff } from '@/src/lib/supabase'
 
 // import { redirect } from 'next/navigation';
 

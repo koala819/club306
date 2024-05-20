@@ -1,4 +1,4 @@
-import { memberInfo } from '@/lib/token/utils'
+import { ReactNode } from 'react'
 
 interface ArticleProps {
   uid: string | null
@@ -241,11 +241,22 @@ interface ThankYouData {
   email: string
 }
 
+export type Theme = 'light' | 'dark'
+
+export type ThemeContextType = {
+  theme: Theme
+  toggleTheme: () => void
+}
+
 interface ThemesEvent {
   id: number
   name: string
   background: string
   color: string
+}
+
+export type ThemeProviderProps = {
+  children: ReactNode
 }
 
 interface Vehicles {

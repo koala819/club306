@@ -6,8 +6,8 @@ import { TiArrowBack } from 'react-icons/ti'
 
 import { useRouter } from 'next/navigation'
 
-import { checkMail } from '@/lib/supabase'
-import { rst_pwd } from '@/lib/validate'
+import { checkMail } from '@/src/lib/supabase'
+import { rst_pwd } from '@/src/lib/validate'
 import { useFormik } from 'formik'
 
 export default function OtpInput() {

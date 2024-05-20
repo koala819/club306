@@ -1,55 +1,59 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { onlyStaff, returnMemberInfo } from '@/lib/supabase';
+'use client'
+
 import {
+  Button,
   Dropdown,
-  DropdownTrigger,
+  DropdownItem,
   DropdownMenu,
   DropdownSection,
-  DropdownItem,
-  Button,
+  DropdownTrigger,
   User,
-} from '@nextui-org/react';
+} from '@nextui-org/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 import {
   AiOutlineCalendar,
   AiOutlineLogout,
   AiOutlineUser,
-} from 'react-icons/ai';
-import { FaUserFriends } from 'react-icons/fa';
-import { GiMechanicGarage, GiCash } from 'react-icons/gi';
-import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md';
-import { IoColorPalette } from 'react-icons/io5';
-import { BsDatabaseFillLock } from 'react-icons/bs';
-import { TbHomeHeart } from 'react-icons/tb';
-import { BiMenu } from 'react-icons/bi';
-import { useRouter } from 'next/navigation';
-import { ThemeSwitcher } from './ThemeSwitcher';
-import { signOut, useSession } from 'next-auth/react';
+} from 'react-icons/ai'
+import { BiMenu } from 'react-icons/bi'
+import { BsDatabaseFillLock } from 'react-icons/bs'
+import { FaUserFriends } from 'react-icons/fa'
+import { GiCash, GiMechanicGarage } from 'react-icons/gi'
+import { IoColorPalette } from 'react-icons/io5'
+import { MdAddToPhotos, MdEditCalendar, MdQueryStats } from 'react-icons/md'
+import { TbHomeHeart } from 'react-icons/tb'
+
+import { useRouter } from 'next/navigation'
+
+import { ThemeSwitcher } from './ThemeSwitcher'
+
+import { onlyStaff, returnMemberInfo } from '@/src/lib/supabase'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 export default function BurgerMenu() {
-  const [staffMember, setStaffMember] = useState(false);
-  const [name, setName] = useState('');
-  const router = useRouter();
+  const [staffMember, setStaffMember] = useState(false)
+  const [name, setName] = useState('')
+  const router = useRouter()
   const iconClasses =
-    'text-xl text-default-500 pointer-events-none flex-shrink-0';
-  const { data: dataSession } = useSession();
+    'text-xl text-default-500 pointer-events-none flex-shrink-0'
+  const { data: dataSession } = useSession()
 
   useEffect(() => {
     async function fetchData() {
-      const result = await onlyStaff(dataSession?.user?.email);
+      const result = await onlyStaff(dataSession?.user?.email)
       // console.log('onlyStaff', result);
-      setStaffMember(result);
+      setStaffMember(result)
 
-      const data = await returnMemberInfo(dataSession?.user?.email);
+      const data = await returnMemberInfo(dataSession?.user?.email)
       // console.log('data', data);
-      setName(() => data.first_name + ' ' + data.last_name);
+      setName(() => data.first_name + ' ' + data.last_name)
     }
 
     if (dataSession !== undefined) {
-      fetchData();
+      fetchData()
     }
-  }, [dataSession]);
+  }, [dataSession])
 
   const DropdownContent = () => (
     <Dropdown>
@@ -198,13 +202,13 @@ export default function BurgerMenu() {
         </DropdownSection>
       </DropdownMenu>
     </Dropdown>
-  );
+  )
 
   async function handleSignout() {
     signOut({
       redirect: true,
       callbackUrl: `${process.env.CLIENT_URL}/login`,
-    });
+    })
   }
 
   return (
@@ -215,5 +219,5 @@ export default function BurgerMenu() {
         <DropdownContent />
       </div>
     </nav>
-  );
+  )
 }

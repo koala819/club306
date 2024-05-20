@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { TiArrowBack } from 'react-icons/ti'
 
-import { Color, Finition, Model, Vehicles } from '@/types/models'
+import { Color, Finition, Model, Vehicles } from '@/src/types/models'
 
-import { getAllColors, getAllFinitions, getAllModels } from '@/lib/supabase'
+import { getAllColors, getAllFinitions, getAllModels } from '@/src/lib/supabase'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 

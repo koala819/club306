@@ -9,7 +9,7 @@ import {
   sendOTP,
   updateCarInfo,
   welcomeNewMember,
-} from '@/lib/mails'
+} from '@/src/lib/mails'
 import nodemailer from 'nodemailer'
 
 export async function POST(req: Request): Promise<Response> {

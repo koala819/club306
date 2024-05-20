@@ -10,8 +10,7 @@ import { RiInstagramFill } from 'react-icons/ri'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import dix31 from '../../public/images/DIX31.png'
-
+import dix31 from '@/public/images/DIX31.png'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 

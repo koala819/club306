@@ -3,15 +3,15 @@
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import CalendarControlPanel from '@/components/cpanel/CalendarControlPanel'
-import OrderTable from '@/components/cpanel/OrderTable'
-import TabButton from '@/components/cpanel/TabButton'
-import Calendar from '@/components/cpanel/event/Calendar'
-import ThemeCalendar from '@/components/cpanel/event/ThemeCalendar'
+import CalendarControlPanel from '@/src/components/cpanel/CalendarControlPanel'
+import OrderTable from '@/src/components/cpanel/OrderTable'
+import TabButton from '@/src/components/cpanel/TabButton'
+import Calendar from '@/src/components/cpanel/event/Calendar'
+import ThemeCalendar from '@/src/components/cpanel/event/ThemeCalendar'
 
-import { checkAndCreateEvents } from '@/lib/checkAndCreateEvents'
-import { fecthAllEvents } from '@/lib/helloAsso/events'
-import { checkCurrentYearForCalendar } from '@/lib/supabase'
+import { checkAndCreateEvents } from '@/src/lib/checkAndCreateEvents'
+import { fecthAllEvents } from '@/src/lib/helloAsso/events'
+import { checkCurrentYearForCalendar } from '@/src/lib/supabase'
 
 export default function Event() {
   const currentYear = new Date().getFullYear()

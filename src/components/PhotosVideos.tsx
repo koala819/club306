@@ -5,7 +5,7 @@ import { Accordion, AccordionItem } from '@nextui-org/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { EventsDataPicture } from '@/types/models'
+import { EventsDataPicture } from '@/src/types/models'
 
 export default function PhotosVideos({
   eventsData,

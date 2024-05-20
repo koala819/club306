@@ -3,11 +3,11 @@
 import { Button, ButtonGroup } from '@nextui-org/react'
 import { useState } from 'react'
 
-import Age from '@/components/cpanel/stats/Age'
-import Car from '@/components/cpanel/stats/Car'
-import InscriptionByMonth from '@/components/cpanel/stats/InscriptionByMonth'
-import Members from '@/components/cpanel/stats/Members'
-import OurTable from '@/components/cpanel/stats/OurTable'
+import Age from '@/src/components/cpanel/stats/Age'
+import Car from '@/src/components/cpanel/stats/Car'
+import InscriptionByMonth from '@/src/components/cpanel/stats/InscriptionByMonth'
+import Members from '@/src/components/cpanel/stats/Members'
+import OurTable from '@/src/components/cpanel/stats/OurTable'
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState('OurTable')

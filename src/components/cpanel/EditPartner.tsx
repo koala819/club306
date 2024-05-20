@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { useForm, Controller } from 'react-hook-form';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { PartnerInfoType } from '@/types/models';
-import { uploadImageToGitHub } from '@/lib/githubImage';
-import { createNewPartner, updatePartner } from '@/lib/supabase';
+import React, { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import ClipLoader from 'react-spinners/ClipLoader'
+
+import Image from 'next/image'
+
+import { PartnerInfoType } from '@/src/types/models'
+
+import { uploadImageToGitHub } from '@/src/lib/githubImage'
+import { createNewPartner, updatePartner } from '@/src/lib/supabase'
 
 interface EditPartnerProps {
-  partner?: PartnerInfoType | null;
-  onCancel?: () => void;
+  partner?: PartnerInfoType | null
+  onCancel?: () => void
 }
 
 const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
-  const [editedImage, setEditedImage] = useState<File | null>(null);
-  const [displayLoader, setDisplayLoader] = useState(false);
+  const [editedImage, setEditedImage] = useState<File | null>(null)
+  const [displayLoader, setDisplayLoader] = useState(false)
   const { handleSubmit, control, formState } = useForm({
     defaultValues: {
       title: partner?.title || '',
@@ -22,90 +25,90 @@ const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
       remise: partner?.remise || '',
       image: '',
     },
-  });
-  const { errors } = formState;
+  })
+  const { errors } = formState
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // if (e.target.files !== null) {
     //   const selectedImage = e?.target?.files[0];
     //   setEditedImage(selectedImage);
     // }
-    const file = e.target.files && e.target.files[0];
+    const file = e.target.files && e.target.files[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (event) => {
-        const image = new window.Image();
-        image.src = event?.target?.result as string;
+        const image = new window.Image()
+        image.src = event?.target?.result as string
         image.onload = () => {
-          const width = image.width;
-          const height = image.height;
+          const width = image.width
+          const height = image.height
 
           if (width !== 892 || height !== 609) {
             alert(
-              "L'image doit avoir une largeur de 892 pixels et une hauteur de 609 pixels."
-            );
-            return;
+              "L'image doit avoir une largeur de 892 pixels et une hauteur de 609 pixels.",
+            )
+            return
           }
-          setEditedImage(file);
-        };
-      };
-      reader.readAsDataURL(file);
+          setEditedImage(file)
+        }
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const onSubmit = async (data: any) => {
-    setDisplayLoader(true);
+    setDisplayLoader(true)
     // Cas pour éditer un partenaire avec image
     if (data.image === '' && editedImage) {
-      const response = await updatePartner(data, partner?.id, editedImage.name);
+      const response = await updatePartner(data, partner?.id, editedImage.name)
       if (response.status === 200) {
-        window.location.reload();
+        window.location.reload()
       }
     }
 
     // Cas pour éditer un partenaire sans image
     else if (data.image === '') {
-      const response = checkBeforeSaveInDB(partner, data);
+      const response = checkBeforeSaveInDB(partner, data)
       if (response) {
-        const response = await updatePartner(data, partner?.id);
+        const response = await updatePartner(data, partner?.id)
         if (response.status === 200) {
-          window.location.reload();
+          window.location.reload()
         }
       } else if (onCancel) {
-        setDisplayLoader(false);
-        onCancel();
+        setDisplayLoader(false)
+        onCancel()
       }
     }
     // Cas pour ajouter un nouveau partenaire
     else if (editedImage) {
-      const imagePath = data.image;
-      const imageName = imagePath.substring(imagePath.lastIndexOf('\\') + 1);
+      const imagePath = data.image
+      const imageName = imagePath.substring(imagePath.lastIndexOf('\\') + 1)
 
       const response = await uploadImageToGitHub(
         URL.createObjectURL(editedImage),
-        imageName
-      );
+        imageName,
+      )
       if (response.status === 200) {
-        const response = await createNewPartner(data, imageName);
+        const response = await createNewPartner(data, imageName)
         if (response.status === 200) {
-          window.location.reload();
+          window.location.reload()
         }
       } else if (onCancel) {
-        onCancel();
+        onCancel()
       }
     }
-  };
+  }
 
   function checkBeforeSaveInDB(anciennesValeurs: any, nouvellesValeurs: any) {
-    const proprietesAComparer = ['title', 'site', 'remise', 'code'];
+    const proprietesAComparer = ['title', 'site', 'remise', 'code']
 
     for (const propriete of proprietesAComparer) {
       if (anciennesValeurs[propriete] !== nouvellesValeurs[propriete]) {
-        return true;
+        return true
       }
     }
 
-    return false;
+    return false
   }
 
   return (
@@ -236,8 +239,8 @@ const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
                   accept="image/*"
                   className="mt-2"
                   onChange={(e) => {
-                    field.onChange(e);
-                    handleImageChange(e);
+                    field.onChange(e)
+                    handleImageChange(e)
                   }}
                 />
               )}
@@ -273,7 +276,7 @@ const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default EditPartner;
+export default EditPartner

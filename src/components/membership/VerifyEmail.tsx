@@ -6,9 +6,9 @@ import toast from 'react-hot-toast'
 
 import { useSearchParams } from 'next/navigation'
 
-import { ThankYouData } from '@/types/models'
+import { ThankYouData } from '@/src/types/models'
 
-import { getTokenConfirmMail } from '@/lib/token/utils'
+import { getTokenConfirmMail } from '@/src/lib/token/utils'
 
 export default function VerifyEmail() {
   const [storedPersonalInfo, setStoredPersonalInfo] = useState<

@@ -1,19 +1,22 @@
-'use client';
-import { useFormik } from 'formik';
-import { change_pwd } from '@/lib/validate';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { HiThumbUp } from 'react-icons/hi';
-import { toast } from 'react-hot-toast';
+'use client'
+
+import { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
+import { HiThumbUp } from 'react-icons/hi'
+
+import Link from 'next/link'
+
+import { change_pwd } from '@/src/lib/validate'
+import { useFormik } from 'formik'
 
 export default function RecoverPwd() {
-  const [pwdChanged, setIsPopupOpen] = useState(false);
-  const [email, setEmail] = useState('');
+  const [pwdChanged, setIsPopupOpen] = useState(false)
+  const [email, setEmail] = useState('')
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    storedEmail !== null && setEmail(storedEmail);
-  }, []);
+    const storedEmail = localStorage.getItem('email')
+    storedEmail !== null && setEmail(storedEmail)
+  }, [])
   const formik = useFormik({
     initialValues: {
       pwd: '',
@@ -21,31 +24,31 @@ export default function RecoverPwd() {
     },
     validate: change_pwd,
     onSubmit,
-  });
+  })
   async function onSubmit(values: { pwd: string }) {
     const data = {
       pwd: values.pwd,
       email: email,
-    };
+    }
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    };
+    }
 
     fetch(`${process.env.CLIENT_URL}/api/changePwd`, options)
       .then(async (response) => {
         if (response.status === 200) {
-          toast.success('Mot de Passe changé avec succès');
-          setIsPopupOpen(true);
+          toast.success('Mot de Passe changé avec succès')
+          setIsPopupOpen(true)
         } else {
-          toast.error('Une erreur est survenue');
+          toast.error('Une erreur est survenue')
         }
       })
       .catch((error) => {
-        console.log('ERROR to change pwd ! ', error);
-      });
+        console.log('ERROR to change pwd ! ', error)
+      })
   }
   return (
     <div className="flex h-full items-center justify-center">
@@ -122,5 +125,5 @@ export default function RecoverPwd() {
       </div>
       {/* </div> */}
     </div>
-  );
+  )
 }

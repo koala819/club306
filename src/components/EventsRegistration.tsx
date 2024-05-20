@@ -7,10 +7,10 @@ import { toast } from 'react-hot-toast'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
-import { FormEventConfirm } from '@/components/FormEventConfirm'
-import { FormEventConnect } from '@/components/FormEventConnect'
+import { FormEventConfirm } from '@/src/components/FormEventConfirm'
+import { FormEventConnect } from '@/src/components/FormEventConnect'
 
-import { returnMemberInfo } from '@/lib/supabase'
+import { returnMemberInfo } from '@/src/lib/supabase'
 
 export default function EventsRegistration() {
   const [userId, setUserId] = useState<string>('')

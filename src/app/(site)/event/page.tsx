@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import Event from '@/components/Event'
+import Event from '@/src/components/Event'
 
 const currentYear = new Date().getFullYear()
 

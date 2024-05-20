@@ -7,12 +7,12 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { EventsData } from '@/types/models'
+import { EventsData } from '@/src/types/models'
 
-import blackLogo from '@/../public/images/logoClub306.png'
-import whiteLogo from '@/../public/images/logoClub306_blanc.png'
-import { useTheme } from '@/context/ThemeContext'
-import { checkRegisterMembers, returnIdFromMail } from '@/lib/newSupabase'
+import blackLogo from '@/public/images/logoClub306.png'
+import whiteLogo from '@/public/images/logoClub306_blanc.png'
+import { useTheme } from '@/src/context/ThemeContext'
+import { checkRegisterMembers, returnIdFromMail } from '@/src/lib/newSupabase'
 
 export function EventCard({ event }: { event: EventsData }) {
   const { data: session } = useSession()

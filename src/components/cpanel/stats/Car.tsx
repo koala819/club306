@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-import { DisplaySVG } from '@/components/cpanel/DisplaySvg'
+import { DisplaySVG } from '@/src/components/cpanel/DisplaySvg'
 
-import { countCars, countCarsByModel } from '@/lib/supabase'
+import { countCars, countCarsByModel } from '@/src/lib/supabase'
 
 export default function Car() {
   const [nbCars, setNbCars] = useState(null)

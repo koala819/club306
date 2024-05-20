@@ -6,12 +6,12 @@ import { toast } from 'react-hot-toast'
 
 import { useRouter } from 'next/navigation'
 
-import { PersonalInfo, Vehicles } from '@/types/models'
+import { PersonalInfo, Vehicles } from '@/src/types/models'
 
-import { generateUniqueToken } from '@/lib/generateUniqueToken'
-import { sendConfirmationMail } from '@/lib/mail/utils'
-import { getMemberId } from '@/lib/supabase'
-import { record } from '@/lib/supabase/record'
+import { generateUniqueToken } from '@/src/lib/generateUniqueToken'
+import { sendConfirmationMail } from '@/src/lib/mail/utils'
+import { getMemberId } from '@/src/lib/supabase'
+import { record } from '@/src/lib/supabase/record'
 
 export default function MailConfirm({
   userIdFromlocalStorage,

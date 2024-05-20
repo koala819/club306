@@ -1,6 +1,6 @@
 import getAuthToken from './getAuthToken'
 
-import { memberInDB } from '@/lib/newSupabase'
+import { memberInDB } from '@/src/lib/newSupabase'
 
 export async function fecthAllEvents() {
   const token = await getAuthToken(

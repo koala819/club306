@@ -1,4 +1,4 @@
-import { CheckoutHelloAsso } from '@/types/models'
+import { CheckoutHelloAsso } from '@/src/types/models'
 
 import getAuthToken from './getAuthToken'
 

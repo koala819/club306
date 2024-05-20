@@ -1,7 +1,9 @@
-import Link from 'next/link';
-import { LuCopyleft } from 'react-icons/lu';
-import Image from 'next/image';
-import dix31 from '../../../../public/images/DIX31.png';
+import { LuCopyleft } from 'react-icons/lu'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
+import dix31 from '@/public/images/DIX31.png'
 
 export default function Footer() {
   return (
@@ -50,5 +52,5 @@ export default function Footer() {
         </aside>
       </div>
     </legend>
-  );
+  )
 }

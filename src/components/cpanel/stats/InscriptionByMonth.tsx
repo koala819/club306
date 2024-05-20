@@ -4,7 +4,7 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
-import { countMembersByMonth } from '@/lib/supabase'
+import { countMembersByMonth } from '@/src/lib/supabase'
 import {
   BarElement,
   CategoryScale,

@@ -1,17 +1,21 @@
-import Side from '@/components/cpanel/layout/Side';
-import BurgerMenu from '@/components/cpanel/layout/BurgerMenu';
-import Footer from '@/components/cpanel/layout/Footer';
-import { Montserrat } from 'next/font/google';
-import '@/styles/globals.css';
-import { Providers } from './providers';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+import { Montserrat } from 'next/font/google'
+
+import BurgerMenu from '@/src/components/cpanel/layout/BurgerMenu'
+import Footer from '@/src/components/cpanel/layout/Footer'
+import Side from '@/src/components/cpanel/layout/Side'
+
+import { Providers } from './providers'
+
+import '@/src/styles/globals.css'
+
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default async function CustomLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html>
@@ -33,5 +37,5 @@ export default async function CustomLayout({
         </Providers>
       </body>
     </html>
-  );
+  )
 }

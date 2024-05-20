@@ -33,35 +33,79 @@ module.exports = withBundleAnalyzer({
     USR_CHECK_DB: process.env.USR_CHECK_DB,
     USR_CHECK_DB2: process.env.USR_CHECK_DB2,
   },
-  experimental: {
-    // appDir: true,
-    serverActions: true,
-  },
   images: {
-    domains: [
-      'newsdanciennes.com',
-      'www.francebleu.fr',
-      'res.cloudinary.com',
-      'scontent-cdg4-3.xx.fbcdn.net',
-      'pscuk.net',
-      'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
-      'images.prismic.io',
-      'www.thebigcarshow.com',
-      'scontent-cdt1-1.xx.fbcdn.net',
-      'images.unsplash.com',
-      'raw.githubusercontent.com',
-      'scontent-cdg4-2.xx.fbcdn.net',
-      'avatars.githubusercontent.com',
-      'lh3.googleusercontent.com',
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    loader: 'default',
+    path: '/_next/image',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'newsdanciennes.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.francebleu.fr',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-cdg4-3.xx.fbcdn.net',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mobicheckin-assets.s3.eu-west-1.amazonaws.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.prismic.io',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.thebigcarshow.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-cdt1-1.xx.fbcdn.net',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-cdg4-2.xx.fbcdn.net',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+      },
     ],
   },
-  // babel: {
-  //   plugins: [
-  //     '@babel/plugin-transform-class-properties',
-  //     '@babel/plugin-proposal-object-rest-spread',
-  //   ],
-  // },
   reactStrictMode: true,
-  // transpilePackages: ['antd'],
   swcMinify: true,
 })

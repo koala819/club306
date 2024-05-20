@@ -3,9 +3,9 @@
 import { Image, Spinner } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 
-import MailConfirm from '@/components/membership/MailConfirm'
+import MailConfirm from '@/src/components/membership/MailConfirm'
 
-import connect from '@/lib/helloAsso/connect'
+import connect from '@/src/lib/helloAsso/connect'
 
 export default function Memberfinish() {
   const [confirmMemberId, setConfirmMemberId] = useState<boolean>(false)
