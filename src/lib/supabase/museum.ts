@@ -2,27 +2,22 @@ import { NextResponse } from 'next/server'
 
 import supabase from 'backend/config/dbConnect'
 
-async function getMembersInfo() {
+async function getMuseumInfo() {
   try {
     const { data, error } = await supabase
-      .from('members')
+      .from('museum')
       .select(
         `
-      first_name,
-      last_name,
-      email,
-      address,
-      town,
-      zip_code,
-      country,
-      phone,
-      cars!inner(
-        car_models!inner(name),
-        car_colors!inner(name)
+        deleted_at,
+        immatriculation,
+        reason,
+        members (first_name, last_name),
+        car_models (name),
+        car_finitions (name),
+        car_colors (name)
+        `,
       )
-      `,
-      )
-      .order('last_name', { ascending: true })
+      .order('deleted_at', { ascending: false })
 
     if (error) {
       return NextResponse.json(error, {
@@ -33,7 +28,7 @@ async function getMembersInfo() {
 
     return NextResponse.json(data, {
       status: 200,
-      statusText: 'members info',
+      statusText: 'museum info',
     })
   } catch (error) {
     return NextResponse.json(error, {
@@ -43,4 +38,4 @@ async function getMembersInfo() {
   }
 }
 
-export { getMembersInfo }
+export { getMuseumInfo }

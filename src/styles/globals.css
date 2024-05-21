@@ -5,24 +5,24 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 219, 73%, 33%;
+    --foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 222.2 84% 4.9%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --card-foreground: 222.2 84% 4.9%;
 
     --primary: 219, 73%, 33%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --accent: 210 40% 96.1%;
@@ -44,30 +44,30 @@
 
   .dark {
     --background: 224 71% 4%;
-    --foreground: 0 0% 100%;
+    --foreground: 210 40% 98%;
 
-    --muted: 223 47% 11%;
+    --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215.4 16.3% 56.9%;
 
-    --accent: 216 34% 17%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
 
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
 
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
 
-    --primary: 219, 73%, 33%;
+    --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --secondary: 0 0% 100%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-    --destructive: 0 63% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --ring: 216 34% 17%;
@@ -164,8 +164,9 @@ body {
 }
 
 .navbarLinkHover {
-  @apply rounded-lg p-2 text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark;
+  @apply text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark rounded-lg p-2;
 }
+
 :hover.degrade-border {
   border-bottom-width: 3px;
   border-style: solid;
@@ -174,11 +175,11 @@ body {
 }
 
 h1 {
-  @apply text-4xl font-bold text-principal-light dark:text-principal-dark;
+  @apply text-principal-light dark:text-principal-dark text-4xl font-bold;
 }
 
 h2 {
-  @apply text-2xl font-bold text-principal-light dark:text-principal-dark;
+  @apply text-principal-light dark:text-principal-dark text-2xl font-bold;
 }
 
 p {
@@ -186,6 +187,5 @@ p {
 }
 
 .btn-custom {
-  @apply border-transparent bg-principal-light text-text-dark hover:bg-transparent hover:text-principal-light hover:border-principal-light border-2
-  dark:bg-principal-dark dark:text-bg-dark dark:hover:bg-transparent dark:hover:border-principal-dark dark:hover:text-principal-dark;
+  @apply bg-principal-light text-text-dark hover:text-principal-light hover:border-principal-light dark:bg-principal-dark dark:text-bg-dark dark:hover:border-principal-dark dark:hover:text-principal-dark border-2 border-transparent hover:bg-transparent dark:hover:bg-transparent;
 }

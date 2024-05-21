@@ -12,7 +12,7 @@ import '@/src/styles/globals.css'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
-export default async function CustomLayout({
+export default function CustomLayout({
   children,
 }: {
   children: React.ReactNode
@@ -24,11 +24,13 @@ export default async function CustomLayout({
           <div className="flex flex-col h-screen bg-gray-50 dark:bg-slate-700">
             <div className="flex flex-1 overflow-hidden">
               <Side />
-              <div className="flex flex-col flex-1">
+              <div className="flex flex-col flex-1 overflow-hidden">
                 <div className="md:hidden">
                   <BurgerMenu />
                 </div>
-                <main className="overflow-y-auto flex-1 mb-4">{children}</main>
+                <main className="overflow-y-auto overflow-x-auto flex-1 mb-4">
+                  {children}
+                </main>
               </div>
             </div>
             <Footer />
