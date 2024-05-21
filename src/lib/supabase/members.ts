@@ -7,7 +7,20 @@ async function getMembersInfo() {
     const { data, error } = await supabase
       .from('members')
       .select(
-        'first_name, last_name, email, address, town, zip_code, country, email, phone, cars!inner(car_model_id, car_models!inner(name))',
+        `
+      first_name,
+      last_name,
+      email,
+      address,
+      town,
+      zip_code,
+      country,
+      phone,
+      cars!inner(
+        car_models!inner(name),
+        car_colors!inner(name)
+      )
+      `,
       )
       .order('id', { ascending: false })
 

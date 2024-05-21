@@ -14,6 +14,7 @@ const OurTable = () => {
         const response = await getMembersInfo()
         if (response.status === 200) {
           const data = await response.json()
+          console.log('data', data)
           setMembers(data)
         }
       } catch (error: any) {
