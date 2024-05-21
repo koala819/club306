@@ -50,9 +50,9 @@ const OurTable = () => {
       <h3 className="text-4xl font-semibold text-gray-800 text-center mb-4">
         Liste de Nos Membres
       </h3>
-      <div className="p-2 block max-w-full overflow-x-auto overflow-y-hidden">
+      <div className={styles.tableContainer}>
         <div className="h-2" />
-        <table className="w-full min-w-full">
+        <table className="min-w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>

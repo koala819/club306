@@ -32,11 +32,12 @@ export default function Home() {
       <section className="text-gray-600 body-font">
         <div className="flex mb-4">
           {/* Tabs */}
-          <ButtonGroup className="flex mb-4">
+          <ButtonGroup className="flex flex-wrap justify-center w-full mb-4 overflow-x-auto">
             <Button
               variant={`${selectedTab === 'OurTable' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('OurTable')}
               color="primary"
+              className="m-1"
             >
               Table des Membres
             </Button>
@@ -44,6 +45,7 @@ export default function Home() {
               variant={`${selectedTab === 'Members' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('Members')}
               color="primary"
+              className="m-1"
             >
               Membres
             </Button>
@@ -51,6 +53,7 @@ export default function Home() {
               variant={`${selectedTab === 'Car' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('Car')}
               color="primary"
+              className="m-1"
             >
               306
             </Button>
@@ -58,6 +61,7 @@ export default function Home() {
               variant={`${selectedTab === 'InscriptionByMonth' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('InscriptionByMonth')}
               color="primary"
+              className="m-1"
             >
               Inscriptions
             </Button>
@@ -65,6 +69,7 @@ export default function Home() {
               variant={`${selectedTab === 'Age' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('Age')}
               color="primary"
+              className="m-1"
             >
               Âge
             </Button>
