@@ -7,7 +7,7 @@ import Age from '@/src/components/cpanel/stats/Age'
 import Car from '@/src/components/cpanel/stats/Car'
 import InscriptionByMonth from '@/src/components/cpanel/stats/InscriptionByMonth'
 import Members from '@/src/components/cpanel/stats/Members'
-import OurTable from '@/src/components/cpanel/stats/OurTable'
+import OurTable from '@/src/components/cpanel/stats/Table/OurTable'
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState('OurTable')
