@@ -43,6 +43,11 @@ const OurTable = () => {
     getSortedRowModel: getSortedRowModel(),
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
+    initialState: {
+      pagination: {
+        pageSize: 50,
+      },
+    },
   })
 
   return (
@@ -83,8 +88,11 @@ const OurTable = () => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
+            {table.getRowModel().rows.map((row, index) => (
+              <tr
+                key={row.id}
+                className={index % 2 === 0 ? styles.evenRow : styles.oddRow}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} style={{ width: cell.column.getSize() }}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -95,6 +103,35 @@ const OurTable = () => {
           </tbody>
         </table>
         <div className="h-4" />
+        {/* Pagination Controls */}
+        <div className="flex items-center justify-between py-4">
+          <div className="flex-1 text-sm text-gray-600">
+            {table.getFilteredRowModel().rows.length} enregistrements trouvés
+          </div>
+          <div className="flex items-center space-x-2">
+            <button
+              className="px-2 py-1 border rounded"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Précédent
+            </button>
+            <span>
+              Page{' '}
+              <strong>
+                {table.getState().pagination.pageIndex + 1} sur{' '}
+                {table.getPageCount()}
+              </strong>
+            </span>
+            <button
+              className="px-2 py-1 border rounded"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Suivant
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )

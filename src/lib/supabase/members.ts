@@ -22,7 +22,7 @@ async function getMembersInfo() {
       )
       `,
       )
-      .order('id', { ascending: false })
+      .order('last_name', { ascending: true })
 
     if (error) {
       return NextResponse.json(error, {
