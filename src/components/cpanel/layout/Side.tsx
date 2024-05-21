@@ -51,7 +51,7 @@ export default function Side() {
   }
 
   return (
-    <aside className="hidden md:block bg-gray-800 text-white w-64 overflow-y-auto max-h-screen">
+    <aside className="bg-gray-800 text-white w-64 max-h-screen overflow-y-auto">
       <div className="flex items-center justify-center mt-4">
         <Link href="/cpanel">
           <Image
@@ -224,6 +224,21 @@ export default function Side() {
                 >
                   <BsDatabaseFillLock className="inline-block text-3xl mr-4" />
                   <span>Base de données</span>
+                </Link>
+              </li>
+              <li
+                className={`rounded-xl w-11/12  ${
+                  path.includes('/cpanel/admin/old-garage')
+                    ? 'bg-cpanel-main-bg-admin text-white'
+                    : 'text-red-500'
+                }`}
+              >
+                <Link
+                  className="pt-4 pb-4 flex items-center justify-start w-full h-full"
+                  href="/cpanel/admin/old-garage"
+                >
+                  <GiMechanicGarage className="inline-block text-3xl mr-4" />
+                  <span>Vieux Garage</span>
                 </Link>
               </li>
             </>
