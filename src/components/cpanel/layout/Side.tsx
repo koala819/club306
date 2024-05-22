@@ -51,7 +51,7 @@ export default function Side() {
   }
 
   return (
-    <aside className="bg-gray-800 text-white w-64 max-h-screen overflow-y-auto">
+    <aside className="hidden md:block bg-gray-800 text-white w-64 overflow-y-auto max-h-screen">
       <div className="flex items-center justify-center mt-4">
         <Link href="/cpanel">
           <Image
@@ -227,11 +227,7 @@ export default function Side() {
                 </Link>
               </li>
               <li
-                className={`rounded-xl w-11/12  ${
-                  path.includes('/cpanel/admin/old-garage')
-                    ? 'bg-cpanel-main-bg-admin text-white'
-                    : 'text-red-500'
-                }`}
+                className={`rounded-xl w-11/12  ${path.includes('/cpanel/admin/old-garage') ? 'bg-cpanel-main-bg-admin text-white' : 'text-red-500'}`}
               >
                 <Link
                   className="pt-4 pb-4 flex items-center justify-start w-full h-full"
@@ -241,19 +237,17 @@ export default function Side() {
                   <span>Vieux Garage</span>
                 </Link>
               </li>
+
+              <Tooltip content="Se déconnecter">
+                <button
+                  className=" flex items-center justify-center w-full h-full text-red-500"
+                  onClick={() => handleSignout()}
+                >
+                  <AiOutlineLogout size={33} />
+                </button>
+              </Tooltip>
             </>
           )}
-
-          <li>
-            <Tooltip content="Se déconnecter">
-              <button
-                className=" flex items-center justify-center w-full h-full text-red-500"
-                onClick={() => handleSignout()}
-              >
-                <AiOutlineLogout size={33} />
-              </button>
-            </Tooltip>
-          </li>
         </ul>
       </nav>
     </aside>

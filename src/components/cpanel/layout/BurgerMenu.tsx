@@ -29,7 +29,6 @@ import { useRouter } from 'next/navigation'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 import { onlyStaff, returnMemberInfo } from '@/src/lib/supabase'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 export default function BurgerMenu() {
   const [staffMember, setStaffMember] = useState(false)
@@ -181,6 +180,15 @@ export default function BurgerMenu() {
               onClick={() => router.push('/cpanel/admin/supabase')}
             >
               Base de données
+            </DropdownItem>
+            <DropdownItem
+              key="museum"
+              startContent={<BsDatabaseFillLock className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
+              onClick={() => router.push('/cpanel/admin/old-garage')}
+            >
+              Vieux Garage
             </DropdownItem>
           </DropdownSection>
         ) : (
