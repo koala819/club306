@@ -143,6 +143,7 @@ export default function Garage({
     const luminance = 0.299 * red + 0.587 * green + 0.114 * blue
 
     // Si la luminance est inférieure à 128, la couleur est considérée comme foncée
+
     return luminance < 128
   }
 
@@ -248,11 +249,7 @@ export default function Garage({
                 <div
                   className={`${
                     !hide ? 'w-2/3 xl:w-1/3 mb-8 p-4' : 'w-full'
-                  }  rounded-lg ${
-                    isDark
-                      ? 'bg-gray-50 dark:bg-slate-500'
-                      : 'bg-gray-50 dark:bg-slate-500'
-                  }`}
+                  }  rounded-lg ${isDark ? 'bg-gray-50' : 'bg-slate-500'}`}
                 >
                   {cars !== undefined && (
                     <DisplaySVG
