@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default function Rules() {
   return (
@@ -200,12 +200,12 @@ export default function Rules() {
           d&apos;inscription.
         </p>
         <p>
-          Une fois l&apos;adhésion au{' '}
+          Une fois l&apos;adhésion effectuée au{' '}
           <span style={{ fontWeight: 700 }}>Club306</span>, le membre recevra
-          une carte de membre dite « carte Club » (format électronique) ; 1
-          autocollant membre à apposer sur le véhicule ; l&apos;accès au remise
-          Club par nos partenaires ; et l&apos;accès à des dossiers et articles
-          uniques
+          une carte de membre dite « carte Club » (format électronique) ; un
+          autocollant de membre à apposer sur le véhicule ; l&apos;accès aux
+          remises Club par nos partenaires ; et l&apos;accès à des dossiers et
+          articles uniques
         </p>
         <h3 className="text-md font-bold ml-8" style={{ fontWeight: 700 }}>
           B - RENOUVELLEMENT
@@ -295,5 +295,5 @@ export default function Rules() {
         </div>
       </section>
     </div>
-  );
+  )
 }
