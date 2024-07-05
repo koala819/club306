@@ -60,7 +60,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     const items: MenuItem[] = [
       { name: 'LE CLUB', path: '/club' },
       { name: 'LE STAFF', path: '/club/staff' },
-      { name: 'DISCORD', path: 'https://discord.gg/8NKJ4Z4j' },
+      { name: 'DISCORD', path: 'https://discord.gg/Wn7aNTub' },
       { name: 'EVENT', path: '/event' },
       { name: 'CONTACT', path: '/contact' },
       {
