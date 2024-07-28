@@ -34,7 +34,12 @@ export async function listPartsCar({
           }
         },
       )
-      setFinitions(fetchedFinitions)
+
+      // Tri des finitions par ordre alphabétique des noms
+      const sortedFinitions = fetchedFinitions.sort((a, b) =>
+        a.name.localeCompare(b.name),
+      )
+      setFinitions(sortedFinitions)
     }
 
     const carModel = await getAllModels()
