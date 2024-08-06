@@ -13,13 +13,9 @@ export default function Page() {
     return dataSession !== undefined
   }, [dataSession])
 
-  return (
-    <>
-      {!session ? (
-        <WaitSession />
-      ) : (
-        <Infos userMail={dataSession?.user?.email || ''} />
-      )}
-    </>
-  )
+  if (!session) {
+    return <WaitSession />
+  }
+
+  return <Infos userMail={dataSession?.user?.email || ''} />
 }

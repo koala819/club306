@@ -22,7 +22,8 @@
     --primary: 219, 73%, 33%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 270 80% 50%;
+
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --accent: 210 40% 96.1%;
@@ -164,7 +165,7 @@ body {
 }
 
 .navbarLinkHover {
-  @apply text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark rounded-lg p-2;
+  @apply rounded-lg p-2 text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark;
 }
 
 :hover.degrade-border {
@@ -175,11 +176,11 @@ body {
 }
 
 h1 {
-  @apply text-principal-light dark:text-principal-dark text-4xl font-bold;
+  @apply text-4xl font-bold text-principal-light dark:text-principal-dark;
 }
 
 h2 {
-  @apply text-principal-light dark:text-principal-dark text-2xl font-bold;
+  @apply text-2xl font-bold text-principal-light dark:text-principal-dark;
 }
 
 p {
@@ -187,5 +188,5 @@ p {
 }
 
 .btn-custom {
-  @apply bg-principal-light text-text-dark hover:text-principal-light hover:border-principal-light dark:bg-principal-dark dark:text-bg-dark dark:hover:border-principal-dark dark:hover:text-principal-dark border-2 border-transparent hover:bg-transparent dark:hover:bg-transparent;
+  @apply border-2 border-transparent bg-principal-light text-text-dark hover:border-principal-light hover:bg-transparent hover:text-principal-light dark:bg-principal-dark dark:text-bg-dark dark:hover:border-principal-dark dark:hover:bg-transparent dark:hover:text-principal-dark;
 }
