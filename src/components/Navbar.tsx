@@ -60,7 +60,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     const items: MenuItem[] = [
       { name: 'LE CLUB', path: '/club' },
       { name: 'LE STAFF', path: '/club/staff' },
-      { name: 'DISCORD', path: 'https://discord.gg/Wn7aNTub' },
+      { name: 'DISCORD', path: 'https://discord.gg/uRVtYGpjdV' },
       { name: 'EVENT', path: '/event' },
       { name: 'CONTACT', path: '/contact' },
       {
@@ -193,7 +193,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
 
         <NavbarItem isActive={path.includes('#')}>
           <Link
-            href="https://discord.gg/Wn7aNTub"
+            href="https://discord.gg/uRVtYGpjdV"
             aria-current="page"
             className="degrade-border text-text-light dark:text-text-dark"
           >
