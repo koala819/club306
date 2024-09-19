@@ -24,8 +24,9 @@ const YouTubeBanner = () => {
           variant="ghost"
           rel="noopener noreferrer"
           color="danger"
+          className="text-red-600 hover:text-white"
         >
-          Visiter la chaîne
+          <span>Visiter la chaîne</span>
         </Button>
       </CardFooter>
     </Card>
