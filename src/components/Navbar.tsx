@@ -62,6 +62,10 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
       { name: 'LE CLUB', path: '/club' },
       { name: 'LE STAFF', path: '/club/staff' },
       { name: 'DISCORD', path: 'https://discord.gg/uRVtYGpjdV' },
+      {
+        name: 'BOUTIQUE',
+        path: 'https://www.pm-racing.fr/connexion_protected_category.php',
+      },
       { name: 'EVENT', path: '/event' },
       { name: 'CONTACT', path: '/contact' },
       {
@@ -215,7 +219,19 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           </Link>
         </NavbarItem>
 
-        {/* Quatrième élément de la barre de navigation */}
+        {/* Quatrième élément BOUTIQUE */}
+        <NavbarItem isActive={path.includes('pm-racing')}>
+          <Link
+            href="https://www.pm-racing.fr/connexion_protected_category.php"
+            target="_blank"
+            aria-current="page"
+            className="degrade-border text-text-light dark:text-text-dark"
+          >
+            BOUTIQUE
+          </Link>
+        </NavbarItem>
+
+        {/* Cinquième élément de la barre de navigation */}
 
         <NavbarItem
           isActive={path.includes('/contact')}
