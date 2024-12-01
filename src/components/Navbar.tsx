@@ -26,6 +26,7 @@ import { useRouter } from 'next/navigation'
 
 import { MenuItem } from '@/src/types/models'
 
+import { SocialIcons } from '@/src/components/SocialIcons'
 import { ThemeSwitcher } from '@/src/components/ThemeSwitcher'
 
 import blackLogo from '@/public/images/logoClub306.png'
@@ -125,6 +126,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               height={50}
             />
           </Link>
+          <SocialIcons />
         </NavbarBrand>
       </NavbarContent>
 
@@ -293,7 +295,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         </NavbarItem>
       </NavbarContent>
 
+      {/* MOBILE VIEW */}
       <NavbarMenu className="mt-4">
+        <SocialIcons isMobile />
         {generateMenuItems(withMember).map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             {item.component ? (
