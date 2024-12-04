@@ -1,4 +1,10 @@
 const bcrypt = require('bcrypt')
+const readline = require('readline')
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+})
 
 async function makePwd(pwd) {
   try {
@@ -6,14 +12,27 @@ async function makePwd(pwd) {
     return pwdCrypt
   } catch (error) {
     console.error('Erreur lors du hachage du mot de passe:', error)
+    throw error
   }
 }
 
-// Pour utiliser la fonction avec un argument depuis la ligne de commande
-if (process.argv.length === 3) {
-  makePwd(process.argv[2])
-    .then((hashedPwd) => console.log('Mot de passe haché:', hashedPwd))
-    .catch((error) => console.error('Erreur:', error))
-} else {
-  console.log('Veuillez fournir un mot de passe en argument.')
+async function main() {
+  try {
+    // Demande le mot de passe à l'utilisateur
+    const pwd = await new Promise((resolve) => {
+      rl.question('Entrez votre mot de passe : ', (answer) => {
+        resolve(answer)
+      })
+    })
+
+    // Génère le hash
+    const hashedPwd = await makePwd(pwd)
+    console.log('\nMot de passe haché:', hashedPwd)
+  } catch (error) {
+    console.error('Erreur:', error)
+  } finally {
+    rl.close()
+  }
 }
+
+main()
