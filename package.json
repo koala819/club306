@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "pnpm store prune && rm -rf .next node_modules pnpm-lock.yaml",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -85,7 +86,6 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "mongoose": "^6.12.0",
     "postcss": "^8.4.37",
     "prettier": "^3.1.1",
     "slice-machine-ui": "^1.10.0",
