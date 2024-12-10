@@ -180,6 +180,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                  }`}
           >
             <DropdownItem
+              key={'presentation'}
               onClick={() => router.push('/club')}
               className="degrade-border text-text-light dark:text-text-dark"
             >
@@ -187,6 +188,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             </DropdownItem>
 
             <DropdownItem
+              key={'staff'}
               onClick={() => router.push('/club/staff')}
               className="degrade-border text-text-light dark:text-text-dark"
             >
@@ -279,6 +281,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 }`}
               >
                 <DropdownItem
+                  key={'Mon Compte'}
                   onClick={() => router.push('/cpanel')}
                   className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
@@ -286,6 +289,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 </DropdownItem>
 
                 <DropdownItem
+                  key={'Déconnexion'}
                   onClick={() => handleSignout()}
                   className=" data-[hover=true]:text-text-dark data-[hover=true]:bg-principal-light navbarLinkHover"
                 >
