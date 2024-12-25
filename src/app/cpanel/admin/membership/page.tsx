@@ -25,7 +25,7 @@ export default function Members() {
     async function fetchTeamMembers() {
       const { data, error } = await supabase
         .from('members')
-        .select('id, first_name, last_name')
+        .select('id, first_name, last_name, email')
         .lt('id', 100)
 
       if (error) {
@@ -38,7 +38,7 @@ export default function Members() {
     async function fetchYear2023Members() {
       const { data, error } = await supabase
         .from('members')
-        .select('id, first_name, last_name')
+        .select('id, first_name, last_name, email')
         .gte('id', 100) // Filter for id >= 100
         .filter('created_at', 'gte', '2023-01-01')
         .filter('created_at', 'lt', '2024-01-01')
