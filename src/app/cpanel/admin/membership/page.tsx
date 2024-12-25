@@ -29,7 +29,7 @@ type Member = {
 
 type Membership_years = {
   member_id: number
-  year: string
+  year?: string
 }
 
 export default function Members() {
