@@ -46,10 +46,6 @@ export default function Event() {
           .slice()
           .sort((a, b) => (a.month ?? 0) - (b.month ?? 0))
           .map((event, index) => {
-            if (!event.title || !event.place || !event.description) {
-              return null
-            }
-
             return <EventCard key={index} event={event} />
           })}
       </div>

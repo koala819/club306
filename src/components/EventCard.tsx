@@ -126,6 +126,9 @@ export function EventCard({ event }: { event: EventsData }) {
 }
 
 function formatDate(date: string, month: number) {
+  if (date === null || month === null) {
+    return null
+  }
   if (
     date.toLowerCase() == 'dates à venir' ||
     date.toLowerCase() == '(dates à venir)'

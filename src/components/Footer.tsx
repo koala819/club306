@@ -220,7 +220,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         {/* <legend className=" px-4 mx-auto text-center bg-[#707070] text-white"> */}
         {/* <div className="py-4 flex flex-col md:flex-row space-y-8 md:space-y-0"> */}
         <aside className="flex w-full flex-col md:flex-row items-center text-sm tracking-widest space-y-4 md:space-y-0 justify-center md:justify-start my-2 ml-0 md:ml-4">
-          <text className="flex">
+          <div className="flex">
             <LuCopyleft className=" mr-1" size={20} />
             {currentYear} Created by
             <Link
@@ -237,7 +237,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                 />
               </picture>
             </Link>
-          </text>
+          </div>
         </aside>
 
         <aside className="flex w-full md:justify-end justify-center text-sm tracking-widest md:mr-4 my-2 mr-0">
