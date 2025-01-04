@@ -44,7 +44,13 @@ export default function Event() {
       <div className="mx-4 xl:mx-32">
         {events
           .slice()
-          .sort((a, b) => (a.month ?? 0) - (b.month ?? 0))
+          .sort((a, b) => {
+            const monthDiff = (a.month ?? 0) - (b.month ?? 0)
+            if (monthDiff !== 0) return monthDiff
+            const dayA = parseInt(a.dates.split('/')[0], 10) || 0
+            const dayB = parseInt(b.dates.split('/')[0], 10) || 0
+            return dayA - dayB
+          })
           .map((event, index) => {
             return <EventCard key={index} event={event} />
           })}
