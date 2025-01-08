@@ -1,12 +1,13 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { CheckoutHelloAsso, HelloAssoMember } from '@/src/types/models'
+
+import { Button } from '@/components/ui/button'
 
 import { getMemberForCotisation } from '@/src/lib/cpanel/membershipMember'
 import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
@@ -137,8 +138,7 @@ const Paiement = () => {
               {session && (
                 <Button
                   color="primary"
-                  size="lg"
-                  variant="shadow"
+                  variant="default"
                   onClick={handleCheckout}
                 >
                   Renouveller adhésion
@@ -146,8 +146,7 @@ const Paiement = () => {
               )}
               <Button
                 color="danger"
-                size="lg"
-                variant="shadow"
+                variant="destructive"
                 onClick={() =>
                   signOut({
                     redirect: true,
