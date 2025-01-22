@@ -3,8 +3,10 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { Button } from '@nextui-org/react'
+
 import Image from 'next/image'
+
+import { Button } from '@/components/ui/button'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -165,7 +167,7 @@ export default function Contact() {
               </div>
 
               <div className="flex justify-center items-center">
-                <Button className="btn-custom">
+                <Button type="submit" className="btn-custom">
                   Envoyer
                 </Button>
               </div>
