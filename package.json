@@ -38,7 +38,7 @@
     "dayjs": "1.11.9",
     "depcheck": "1.4.7",
     "formik": "2.4.3",
-    "framer-motion": "11.2.4",
+    "framer-motion": "11.15.0",
     "googleapis": "126.0.1",
     "keen-slider": "6.8.6",
     "lucide-react": "0.378.0",
