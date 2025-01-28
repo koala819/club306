@@ -1,6 +1,6 @@
 'use client'
 
-import { Image, Input } from '@nextui-org/react'
+import { Image, Input } from "@heroui/react"
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 

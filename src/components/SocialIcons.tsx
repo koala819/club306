@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/react'
+import { Link } from "@heroui/react"
 import { BsFacebook } from 'react-icons/bs'
 import { FaYoutube } from 'react-icons/fa'
 import { IoLogoDiscord } from 'react-icons/io5'

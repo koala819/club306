@@ -1,7 +1,7 @@
 export default async function Page() {
   return <div>Hello World</div>
 }
-// import { Image } from '@nextui-org/react'
+// import { Image } from '@heroui/react'
 // import { FaFacebookF } from 'react-icons/fa6'
 
 // import Link from 'next/link'

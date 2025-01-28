@@ -9,7 +9,7 @@ import {
   Select,
   SelectItem,
   Spinner,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useEffect, useState } from 'react'
 // import DatePicker from 'react-datepicker'
 // import 'react-datepicker/dist/react-datepicker.css'

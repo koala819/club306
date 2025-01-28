@@ -11,7 +11,7 @@ import {
   ModalContent,
   ModalFooter,
   useDisclosure,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaHubspot } from 'react-icons/fa'

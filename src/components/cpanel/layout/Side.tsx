@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip } from '@nextui-org/react'
+import { Tooltip } from "@heroui/react"
 import { signOut, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import {

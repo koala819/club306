@@ -1,13 +1,12 @@
 'use client'
 
+import { Button } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { CheckoutHelloAsso, HelloAssoMember } from '@/src/types/models'
-
-import { Button } from '@/components/ui/button'
 
 import { getMemberForCotisation } from '@/src/lib/cpanel/membershipMember'
 import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
@@ -136,17 +135,13 @@ const Paiement = () => {
             </div>
             <div className="flex justify-center space-x-4">
               {session && (
-                <Button
-                  color="primary"
-                  variant="default"
-                  onClick={handleCheckout}
-                >
+                <Button color="primary" variant="flat" onClick={handleCheckout}>
                   Renouveller adhésion
                 </Button>
               )}
               <Button
                 color="danger"
-                variant="destructive"
+                variant="solid"
                 onClick={() =>
                   signOut({
                     redirect: true,

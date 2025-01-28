@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, Link } from '@nextui-org/react'
+import { Button, Card, CardBody, CardFooter, Link } from "@heroui/react"
 import { Youtube } from 'lucide-react'
 import React from 'react'
 

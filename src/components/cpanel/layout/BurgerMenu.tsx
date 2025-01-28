@@ -1,5 +1,14 @@
 'use client'
 
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSection,
+  DropdownTrigger,
+  User,
+} from '@heroui/react'
 import { signOut, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import {
@@ -17,17 +26,16 @@ import { TbHomeHeart } from 'react-icons/tb'
 
 import { useRouter } from 'next/navigation'
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-
+// import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+// import { Button } from '@/components/ui/button'
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 import { onlyStaff, returnMemberInfo } from '@/src/lib/supabase'
@@ -61,112 +69,161 @@ export default function BurgerMenu() {
   }
 
   const DropdownContent = () => (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="default">
-          <BiMenu className="h-6 w-6" />
+    <Dropdown>
+      <DropdownTrigger>
+        <Button color={'primary'} variant={'shadow'} className="capitalize">
+          <BiMenu size={80} />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel className="flex items-center gap-2 p-2">
-          <Avatar>
-            <AvatarFallback>
-              {name
-                .split(' ')
-                .map((n) => n[0])
-                .join('')}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">{name}</span>
-            <span className="text-xs text-muted-foreground">
-              {dataSession?.user?.email}
-            </span>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem onClick={() => router.push('/cpanel/infos')}>
-          <AiOutlineUser className={iconClasses} />
-          Mes Informations
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/cpanel/addCar')}>
-          <MdAddToPhotos className={iconClasses} />
-          Ajouter une voiture
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/cpanel/garage')}>
-          <GiMechanicGarage className={iconClasses} />
-          Mon Garage
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/cpanel/event')}>
-          <AiOutlineCalendar className={iconClasses} />
-          Saison {new Date().getFullYear()}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/cpanel/partners')}>
-          <FaUserFriends className={iconClasses} />
-          Partenaires
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/')}>
-          <TbHomeHeart className={iconClasses} />
-          Retour à l'accueil
-        </DropdownMenuItem>
-
-        {staffMember && (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Administration</DropdownMenuLabel>
-            <DropdownMenuItem
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Custom item styles"
+        disabledKeys={['fake', 'profile']}
+        className="p-3"
+        itemClasses={{
+          base: [
+            'rounded-md',
+            'text-default-500',
+            'transition-opacity',
+            'data-[selectable=true]:focus:bg-default-50',
+            'data-[pressed=true]:opacity-70',
+            'data-[focus-visible=true]:ring-default-500',
+          ],
+        }}
+      >
+        <DropdownSection aria-label="Member Menu" showDivider>
+          <DropdownItem
+            isReadOnly
+            key="profile"
+            className="h-14 gap-2 opacity-100"
+          >
+            <User
+              name={name}
+              description={dataSession?.user?.email}
+              classNames={{
+                name: 'text-default-600',
+                description: 'text-default-500',
+              }}
+            />
+          </DropdownItem>
+          <DropdownItem
+            key="infos"
+            startContent={<AiOutlineUser className={iconClasses} />}
+            onClick={() => router.push('/cpanel/infos')}
+          >
+            Mes Informations
+          </DropdownItem>
+          <DropdownItem
+            key="addCar"
+            startContent={<MdAddToPhotos className={iconClasses} />}
+            onClick={() => router.push('/cpanel/addCar')}
+          >
+            Ajouter une voiture
+          </DropdownItem>
+          <DropdownItem
+            key="garage"
+            startContent={<GiMechanicGarage className={iconClasses} />}
+            onClick={() => router.push('/cpanel/garage')}
+          >
+            Mon Garage
+          </DropdownItem>
+          <DropdownItem
+            key="event"
+            startContent={<AiOutlineCalendar className={iconClasses} />}
+            onClick={() => router.push('/cpanel/event')}
+          >
+            Saison {new Date().getFullYear()}
+          </DropdownItem>
+          <DropdownItem
+            key="partners"
+            startContent={<FaUserFriends className={iconClasses} />}
+            onClick={() => router.push('/cpanel/partners')}
+          >
+            Partenaires
+          </DropdownItem>
+          <DropdownItem
+            key="home"
+            startContent={<TbHomeHeart className={iconClasses} />}
+            onClick={() => router.push('/')}
+          >
+            Retour à l'accueil
+          </DropdownItem>
+        </DropdownSection>
+        {staffMember ? (
+          <DropdownSection aria-label="Only Staff Section" showDivider>
+            <DropdownItem
+              key="stats"
+              startContent={<MdQueryStats className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/stats')}
-              className="text-red-500"
             >
-              <MdQueryStats className={iconClasses} />
               Statistiques
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            </DropdownItem>
+            <DropdownItem
+              key="colors"
+              startContent={<IoColorPalette className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/colors')}
-              className="text-red-500"
             >
-              <IoColorPalette className={iconClasses} />
               Gérer les couleurs
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            </DropdownItem>
+            <DropdownItem
+              key="partnersAdmin"
+              startContent={<GiCash className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/partners')}
-              className="text-red-500"
             >
-              <GiCash className={iconClasses} />
               Partenaires
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            </DropdownItem>
+            <DropdownItem
+              key="eventAdmin"
+              startContent={<MdEditCalendar className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/event')}
-              className="text-red-500"
             >
-              <MdEditCalendar className={iconClasses} />
               Saison {new Date().getFullYear()}
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            </DropdownItem>
+            <DropdownItem
+              key="db"
+              startContent={<BsDatabaseFillLock className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/supabase')}
-              className="text-red-500"
             >
-              <BsDatabaseFillLock className={iconClasses} />
               Base de données
-            </DropdownMenuItem>
-            <DropdownMenuItem
+            </DropdownItem>
+            <DropdownItem
+              key="museum"
+              startContent={<BsDatabaseFillLock className={`{iconClasses}`} />}
+              className="text-danger"
+              color="danger"
               onClick={() => router.push('/cpanel/admin/old-garage')}
-              className="text-red-500"
             >
-              <BsDatabaseFillLock className={iconClasses} />
               Vieux Garage
-            </DropdownMenuItem>
-          </>
+            </DropdownItem>
+          </DropdownSection>
+        ) : (
+          <DropdownSection aria-label="Fake section">
+            <DropdownItem key="fake"></DropdownItem>
+          </DropdownSection>
         )}
 
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignout} className="text-red-500">
-          <AiOutlineLogout className={iconClasses} />
-          Déconnexion
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        <DropdownSection aria-label="SignOut">
+          <DropdownItem
+            key="signOut"
+            startContent={<AiOutlineLogout className={`{iconClasses}`} />}
+            className="text-danger"
+            color="danger"
+            onClick={handleSignout}
+          >
+            Déconnexion
+          </DropdownItem>
+        </DropdownSection>
+      </DropdownMenu>
+    </Dropdown>
   )
 
   return (

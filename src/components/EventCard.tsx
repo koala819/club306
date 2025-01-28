@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Tooltip } from '@nextui-org/react'
+import { Button, Tooltip } from "@heroui/react"
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 

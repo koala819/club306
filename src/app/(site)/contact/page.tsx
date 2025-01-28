@@ -1,12 +1,11 @@
 'use client'
 
+import { Button } from "@heroui/react"
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import Image from 'next/image'
-
-import { Button } from '@/components/ui/button'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'

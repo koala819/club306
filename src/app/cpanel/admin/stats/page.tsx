@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup } from '@nextui-org/react'
+import { Button, ButtonGroup } from "@heroui/react"
 import { useState } from 'react'
 
 import Age from '@/src/components/cpanel/stats/Age'

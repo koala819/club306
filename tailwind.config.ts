@@ -1,18 +1,19 @@
 import type { Config } from 'tailwindcss'
 
-const { nextui } = require('@nextui-org/react')
+const { heroui } = require("@heroui/react")
 
 const config: Config = {
-  darkMode: ['class'],
+  // darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{ts,tsx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    // './pages/**/*.{ts,tsx}',
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  prefix: '',
+  // prefix: '',
   theme: {
     container: {
       center: true,
@@ -97,7 +98,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [nextui(), require('tailwindcss-animate')],
+  plugins: [
+    heroui(),
+    // require('tailwindcss-animate')
+  ],
 }
 
-export default config
+module.exports = config
+// export default config

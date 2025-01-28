@@ -1,6 +1,6 @@
 'use client'
 
-import { Select, SelectItem, Selection, Spinner } from '@nextui-org/react'
+import { Select, SelectItem, Selection, Spinner } from "@heroui/react"
 import { useEffect, useState } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { GiTicket } from 'react-icons/gi'

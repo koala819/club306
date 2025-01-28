@@ -4,7 +4,7 @@ import { createClient } from '@/src/prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Button } from '@nextui-org/react';
+import { Button } from "@heroui/react";
 
 
 type Params = { uid: string };
@@ -18,7 +18,8 @@ export default async function Article({ params }: { params: Params }) {
   return (
     // <Layout title="Article">
     //   <Navbar />
-    <div className="w-2/3 mx-auto flex justify-center items-center flex-col space-y-10 mt-4 mb-4">
+    // </Layout>
+    (<div className="w-2/3 mx-auto flex justify-center items-center flex-col space-y-10 mt-4 mb-4">
       <div className="text-3xl uppercase font-bold opacity-50">
         {RichText.render(article.data.title)}
       </div>
@@ -34,14 +35,12 @@ export default async function Article({ params }: { params: Params }) {
       <div className="text-lg opacity-75">
         {RichText.render(article.data.paragraphes)}
       </div>
-
       <Link href="/blog">
       <Button className="btn-custom">
           Retour &nbsp; 👈
         </Button>
       </Link>
-    </div>
-    // </Layout>
+    </div>)
   );
 }
 

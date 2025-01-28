@@ -14,7 +14,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'

@@ -1,6 +1,6 @@
 'use client'
 
-import { Accordion, AccordionItem } from '@nextui-org/react'
+import { Accordion, AccordionItem } from "@heroui/react"
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'

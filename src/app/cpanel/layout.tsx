@@ -2,7 +2,6 @@ import { Toaster } from 'react-hot-toast'
 
 import { Montserrat } from 'next/font/google'
 
-import { Toaster as ToastFromShad } from '@/components/ui/toaster'
 import BurgerMenu from '@/src/components/cpanel/layout/BurgerMenu'
 import Footer from '@/src/components/cpanel/layout/Footer'
 import Side from '@/src/components/cpanel/layout/Side'
@@ -37,7 +36,6 @@ export default function CustomLayout({
             <Footer />
           </div>
           <Toaster position="top-right" />
-          <ToastFromShad />
         </Providers>
       </body>
     </html>

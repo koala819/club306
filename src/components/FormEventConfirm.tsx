@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Input, Spinner } from '@nextui-org/react'
+import { Button, Input, Spinner } from "@heroui/react"
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 

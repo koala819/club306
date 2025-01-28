@@ -9,7 +9,7 @@ import {
   RadioGroup,
   Textarea,
   useDisclosure,
-} from '@nextui-org/react'
+} from "@heroui/react"
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'

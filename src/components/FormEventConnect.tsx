@@ -1,4 +1,4 @@
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from "@heroui/react"
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
