@@ -1,6 +1,6 @@
 'use client'
 
-import { Image, Spinner } from "@heroui/react"
+import { Image, Spinner } from '@heroui/react'
 import { useEffect, useState } from 'react'
 
 import MailConfirm from '@/src/components/membership/MailConfirm'
