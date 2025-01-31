@@ -181,7 +181,7 @@ export const EventsSection = () => {
                   {session ? (
                     <button
                       className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
-                      onClick={eventRegister}
+                      onClick={() => router.push(event.link)}
                     >
                       Réserver ma place
                     </button>

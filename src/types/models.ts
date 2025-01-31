@@ -104,6 +104,7 @@ interface EventsData {
   year: number
   img: string
   place: string
+  link: string
 }
 
 interface EventsDataPicture {
