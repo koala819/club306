@@ -1,49 +1,23 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-import { FormEventConfirm } from '@/src/components/FormEventConfirm'
 import { FormEventConnect } from '@/src/components/FormEventConnect'
 
-import { returnMemberInfo } from '@/src/lib/supabase'
-
 export default function EventsRegistration() {
-  const [userId, setUserId] = useState<string>('')
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
-  const [eventID, setEventID] = useState<string>('')
+  const router = useRouter()
 
   const { data: session } = useSession()
-  const userMail = session?.user?.email || ''
 
   useEffect(() => {
     if (session) {
-      try {
-        async function fetchData() {
-          const { last_name, first_name, id } = await returnMemberInfo(userMail)
-          setFirstName(first_name)
-          setLastName(last_name)
-          setUserId(id)
-        }
-        fetchData()
-      } catch (error: any) {
-        toast.error(error)
-      }
+      router.push(`${process.env.CLIENT_URL}/event`)
     }
-  }, [session])
-
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString())
-    const eventID = params.get('eventID') || ''
-    setEventID(eventID)
-  }, [searchParams])
+  }, [session, router])
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center py-20 space-x-4">
@@ -70,17 +44,7 @@ export default function EventsRegistration() {
       </text>
 
       <div className="my-8 z-10 w-11/12 lg:w-1/3">
-        {session ? (
-          <FormEventConfirm
-            userMail={userMail}
-            userFirstName={firstName}
-            userLastName={lastName}
-            userId={userId}
-            eventID={eventID}
-          />
-        ) : (
-          <FormEventConnect />
-        )}
+        {!session && <FormEventConnect />}
       </div>
     </div>
   )

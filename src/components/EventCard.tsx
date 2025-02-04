@@ -1,8 +1,7 @@
 'use client'
 
-import { Button, Tooltip } from "@heroui/react"
+import { Button } from '@heroui/react'
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -12,32 +11,14 @@ import { EventsData } from '@/src/types/models'
 import blackLogo from '@/public/images/logoClub306.png'
 import whiteLogo from '@/public/images/logoClub306_blanc.png'
 import { useTheme } from '@/src/context/ThemeContext'
-import { checkRegisterMembers, returnIdFromMail } from '@/src/lib/newSupabase'
 
 export function EventCard({ event }: { event: EventsData }) {
   const { data: session } = useSession()
-  const [isRegistered, setIsRegistered] = useState<boolean>(false)
+
   const { theme } = useTheme()
   const router = useRouter()
   const dateToDisplay = formatDate(event.dates, event.month)
   const imgSrc = event.img || (theme === 'light' ? blackLogo : whiteLogo)
-  const currentMonth = new Date().getMonth()
-
-  useEffect(() => {
-    async function checkRegister() {
-      const response = await returnIdFromMail(session?.user?.email || '')
-      const result = await response.json()
-
-      let memberId = ''
-      if (result && result.length > 0) {
-        memberId = String(result[0].id)
-      }
-
-      const register = await checkRegisterMembers(memberId, event.id.toString())
-      setIsRegistered(register)
-    }
-    checkRegister()
-  }, [session])
 
   return (
     <div className="flex flex-col xl:flex-row border-t-2 min-h-60 border-gray dark:border-text-dark items-center">
@@ -66,59 +47,24 @@ export function EventCard({ event }: { event: EventsData }) {
       {/* container btn */}
       <div className="flex-col items-center justify-center relative xl:m-5 my-10">
         {session ? (
-          isRegistered ? (
-            <Button isDisabled>Déjà inscrit</Button>
-          ) : (
+          event.link ? (
             <Button
               className="btn-custom"
-              onClick={() => {
-                const query = new URLSearchParams({
-                  eventID: event.id.toString(),
-                })
-                router.push(`/eventsRegistration?${query}`)
-              }}
+              onPress={() => router.push(event.link)}
+              target="_blank"
             >
               Réserver ma place
             </Button>
+          ) : (
+            <Button disabled>En attente</Button>
           )
         ) : (
-          <Tooltip
-            content={
-              <div className="bg-white border border-principal-light p-2 rounded shadow-md dark:hover:bg-[#000015] dark:border-principal-dark m-4">
-                <p className="w-full text-principal-light font-bold p-4 dark:text-principal-dark">
-                  Je suis déjà membre
-                </p>
-                <div className="flex justify-center">
-                  <Button
-                    className="btn-custom"
-                    onClick={() => router.push('/eventsRegistration')}
-                  >
-                    Connexion
-                  </Button>
-                </div>
-
-                <p className="text-principal-light font-bold p-4 dark:text-principal-dark">
-                  Sinon devenez membre
-                </p>
-                <div className="flex justify-center ">
-                  <Button
-                    className="btn-custom"
-                    onClick={() => router.push('/membership')}
-                  >
-                    S'inscrire
-                  </Button>
-                </div>
-              </div>
-            }
+          <Button
+            className="btn-custom"
+            onPress={() => router.push('/eventsRegistration')}
           >
-            <>
-              {event.month > currentMonth ? (
-                <Button className="btn-custom">Réserver ma place</Button>
-              ) : (
-                <Button disabled>Fini</Button>
-              )}
-            </>
-          </Tooltip>
+            Se connecter
+          </Button>
         )}
       </div>
     </div>

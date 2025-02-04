@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -179,12 +180,17 @@ export const EventsSection = () => {
                 {/* container btn */}
                 <div className="flex-col items-center justify-center relative xl:m-5 my-10">
                   {session ? (
-                    <button
-                      className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
-                      onClick={() => router.push(event.link)}
-                    >
-                      Réserver ma place
-                    </button>
+                    event.link ? (
+                      <Button
+                        className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2 dark:bg-transparent dark:border-principal-dark dark:text-principal-dark dark:hover:bg-principal-dark dark:hover:border-principal-dark dark:hover:text-bg-dark relative"
+                        onClick={() => router.push(event.link)}
+                        target="_blank"
+                      >
+                        Réserver ma place
+                      </Button>
+                    ) : (
+                      <Button disabled>En attente</Button>
+                    )
                   ) : (
                     <button
                       className="w-44 rounded-lg py-2 mx-0 xl:ml-15 border-principal-light bg-transparent text-text-light hover:bg-principal-light hover:text-text-dark hover:border-transparent border-2

@@ -48,23 +48,23 @@ export async function addMemberToEvent(memberId: string, event: string) {
   }
 }
 
-export async function checkRegisterMembers(
-  memberId: string,
-  event: string,
-): Promise<boolean> {
-  try {
-    const { data } = await supabase
-      .from('event_with_members')
-      .select('*')
-      .filter('member', 'eq', memberId)
-      .filter('event', 'eq', event)
+// export async function checkRegisterMembers(
+//   memberId: string,
+//   event: string,
+// ): Promise<boolean> {
+//   try {
+//     const { data } = await supabase
+//       .from('event_with_members')
+//       .select('*')
+//       .filter('member', 'eq', memberId)
+//       .filter('event', 'eq', event)
 
-    return !!data && data.length > 0
-  } catch (error) {
-    console.error('Error with supabase request', error)
-    throw error
-  }
-}
+//     return !!data && data.length > 0
+//   } catch (error) {
+//     console.error('Error with supabase request', error)
+//     throw error
+//   }
+// }
 
 export async function memberInDB(lastName: string): Promise<boolean> {
   const { data, error } = await supabase
@@ -80,24 +80,24 @@ export async function memberInDB(lastName: string): Promise<boolean> {
   return data.length > 0
 }
 
-export async function returnIdFromMail(mail: string) {
-  const { data, error } = await supabase
-    .from('members')
-    .select('id')
-    .filter('email', 'eq', mail)
+// export async function returnIdFromMail(mail: string) {
+//   const { data, error } = await supabase
+//     .from('members')
+//     .select('id')
+//     .filter('email', 'eq', mail)
 
-  if (error) {
-    return NextResponse.json(error, {
-      status: 401,
-      statusText: 'Error with supabase request',
-    })
-  }
+//   if (error) {
+//     return NextResponse.json(error, {
+//       status: 401,
+//       statusText: 'Error with supabase request',
+//     })
+//   }
 
-  return NextResponse.json(data, {
-    status: 200,
-    statusText: 'Id found',
-  })
-}
+//   return NextResponse.json(data, {
+//     status: 200,
+//     statusText: 'Id found',
+//   })
+// }
 
 export async function returnInfosEventFromId(id: string) {
   const { data, error } = await supabase
