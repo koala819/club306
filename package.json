@@ -8,13 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "slicemachine": "start-slicemachine"
+    "slicemachine": "start-slicemachine",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@heroui/react": "2.6.14",
     "@hookform/resolvers": "3.3.1",
     "@internationalized/date": "3.5.3",
     "@next/bundle-analyzer": "13.4.19",
-    "@heroui/react": "2.6.14",
     "@octokit/core": "5.0.2",
     "@prismicio/client": "7.2.0",
     "@prismicio/next": "1.4.0",
@@ -68,6 +69,8 @@
     "yup": "1.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "19.7.1",
+    "@commitlint/config-conventional": "19.7.1",
     "@hcaptcha/types": "1.0.3",
     "@next/eslint-plugin-next": "12.3.4",
     "@slicemachine/adapter-next": "0.3.39",
@@ -89,6 +92,7 @@
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "husky": "9.1.7",
     "postcss": "8.4.37",
     "prettier": "3.1.1",
     "slice-machine-ui": "1.10.0",
