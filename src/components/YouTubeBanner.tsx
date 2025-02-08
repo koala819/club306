@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, Link } from "@heroui/react"
+import { Button, Card, CardBody, CardFooter, Link } from '@heroui/react'
 import { Youtube } from 'lucide-react'
 import React from 'react'
 
@@ -21,7 +21,6 @@ const YouTubeBanner = () => {
           as={Link}
           href="https://www.youtube.com/@Club306FR"
           target="_blank"
-          // variant="ghost"
           rel="noopener noreferrer"
           // color="danger"
           className="text-red-600 hover:text-white border-red-600 hover:border-white border-2 hover:bg-red-600 bg-white"
