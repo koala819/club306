@@ -6,7 +6,6 @@ import { EventsSection } from './EventsSection'
 import { NavigationSection } from './NavigationSection'
 import { Partners } from './Partners'
 import { Presentation } from './Presentation'
-import YouTubeBanner from './YouTubeBanner'
 
 import { createClient } from '@/src/prismicio'
 
@@ -34,7 +33,6 @@ export function Homepage() {
 
   return (
     <div>
-      <YouTubeBanner />
       <Presentation />
       <EventsSection />
       <NavigationSection />
