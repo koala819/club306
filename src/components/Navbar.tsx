@@ -14,7 +14,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/react"
+} from '@heroui/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
@@ -29,6 +29,7 @@ import { MenuItem } from '@/src/types/models'
 import { SocialIcons } from '@/src/components/SocialIcons'
 import { ThemeSwitcher } from '@/src/components/ThemeSwitcher'
 
+import Avp from '@/public/images/Logo_AVP.png'
 import blackLogo from '@/public/images/logoClub306.png'
 import whiteLogo from '@/public/images/logoClub306_blanc.png'
 import { useTheme } from '@/src/context/ThemeContext'
@@ -130,13 +131,21 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               height={50}
             />
           </Link>
+
+          <div className="flex items-center space-x-4 mt-3 lg:mt-2 ml-2">
+            <Image
+              src={Avp}
+              alt="Logo l'Aventure Peugeot"
+              className="w-28 h-auto"
+            />
+          </div>
+
           <SocialIcons />
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden lg:flex" justify="center">
         {/* Premier élément avec sous-menu "LE CLUB" et "LE STAFF" */}
-
         <Dropdown
           className={`
                 ${
@@ -198,7 +207,6 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         </Dropdown>
 
         {/* Deuxième élément de la barre de navigation */}
-
         <NavbarItem isActive={path.includes('#')}>
           <Link
             href="https://discord.gg/uRVtYGpjdV"
@@ -210,7 +218,6 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         </NavbarItem>
 
         {/* Troisième élément de la barre de navigation */}
-
         <NavbarItem isActive={path.includes('/event')}>
           <Link
             href="/event"
@@ -234,7 +241,6 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         </NavbarItem>
 
         {/* Cinquième élément de la barre de navigation */}
-
         <NavbarItem
           isActive={path.includes('/contact')}
           className="hidden lg:flex"
