@@ -129,7 +129,7 @@ export default function BurgerMenu() {
           <DropdownItem
             key="event"
             startContent={<AiOutlineCalendar className={iconClasses} />}
-            onClick={() => router.push('/cpanel/event')}
+            onClick={() => router.push('/event')}
           >
             Saison {new Date().getFullYear()}
           </DropdownItem>
