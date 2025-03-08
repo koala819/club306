@@ -62,7 +62,7 @@ export default function Contact() {
     <div className="flex justify-center h-screen">
       <div className="relative md:block w-full md:w-2/3 hidden md:visible">
         <Image
-          src="https://images.unsplash.com/photo-1568106575207-0fe3ec317559"
+          src="/images/306-s16-bleu.jpg"
           className="object-cover object-center h-full"
           alt="Une Peugeot 306 verte foncée stationnée de manière oblique au centre de la route."
           width={1000}
