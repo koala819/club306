@@ -148,8 +148,7 @@ const Paiement = () => {
             <div className="flex justify-center space-x-4">
               {session && (
                 <Button color="primary" variant="flat" onPress={handleCheckout}>
-                  {/* Renouveller adhésion */}
-                  PROUT
+                  Renouveller adhésion
                 </Button>
               )}
               <Button

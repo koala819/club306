@@ -6,16 +6,18 @@ import Link from 'next/link'
 import dix31 from '@/public/images/DIX31.png'
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <legend className="w-full px-4 mx-auto text-center bg-[#47464D] text-white">
       <div className="py-4 flex flex-col md:flex-row space-y-8 md:space-y-0">
         <aside className="flex w-full flex-col md:flex-row items-center text-sm tracking-widest space-y-4 md:space-y-0">
           <text className="flex">
-            2023 Created by
+            {currentYear} Created by
             <Link
               href="https://www.dix31.com"
               target="_blank"
-              className="mx-1 hover:underline"
+              className="mx-1 hover:underline -mt-1"
             >
               <picture className="flex justify-center md:justify-end text-white pr-1 mt-1">
                 <Image
@@ -40,7 +42,7 @@ export default function Footer() {
           </text>
         </aside>
 
-        <aside className="flex w-full justify-center text-sm tracking-widest">
+        {/* <aside className="flex w-full justify-center text-sm tracking-widest">
           Design by
           <Link
             href="https://github.com/koala819/"
@@ -49,7 +51,7 @@ export default function Footer() {
           >
             Xavier
           </Link>
-        </aside>
+        </aside> */}
       </div>
     </legend>
   )
