@@ -69,7 +69,7 @@ export async function POST(req: Request): Promise<Response> {
           text: `<p>Bonjour ${body.first_name} ${body.last_name},</p>
           <p>Nous sommes ravis de vous accueillir parmi nous ! Avant de commencer à utiliser les services du Club 306, nous avons besoin de vérifier que cette adresse e-mail vous appartient.</p>
           <p>Veuillez cliquer sur le lien ci-dessous pour valider votre adresse e-mail :</p>
-          <p align="center">&nbsp;<a href="${process.env.CLIENT_URL}/verify-email?token=${body.token}"
+          <p align="center">&nbsp;<a href="${process.env.NEXT_PUBLIC_CLIENT_URL}/verify-email?token=${body.token}"
               title="lien verif email" target="_blank">Lien</a></p>
           <p>Si vous n'avez pas créé de compte sur Club 306, veuillez ignorer ce message.</p>
           <p>Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter à webmaster@club306.fr.</p>

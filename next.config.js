@@ -3,7 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 module.exports = withBundleAnalyzer({
   env: {
-    CLIENT_URL: process.env.CLIENT_URL,
+    CLIENT_URL: process.env.NEXT_PUBLIC_CLIENT_URL,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "adhésion Club306, formulaire d'informations personnelles, processus d'inscription, enregistrement utilisateur, détails personnels des membres, formulaire en ligne, accord de consentement, politique de confidentialité, conditions d'adhésion",
   ],
   alternates: {
-    canonical: `${process.env.CLIENT_URL}/membership`,
+    canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/membership`,
   },
 }
 

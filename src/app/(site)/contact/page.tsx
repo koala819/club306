@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@heroui/react"
+import { Button } from '@heroui/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -48,7 +48,7 @@ export default function Contact() {
       body: JSON.stringify(data),
     }
 
-    fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+    fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
         response.status === 200 && toast.success('Send mail with SUCCESS :)')
         setConfirmationSend(true)

@@ -67,7 +67,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
       body: JSON.stringify(data),
     }
 
-    fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+    fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`, options)
       .then((response: any) => {
         console.log('respons', response)
         if (response.status === 200) {

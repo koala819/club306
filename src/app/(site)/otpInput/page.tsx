@@ -200,7 +200,7 @@ export default function OtpInput() {
     }
 
     try {
-      fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
+      fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`, options).then(
         async (response) => {
           if (response.status === 200) {
             console.log('Send mail with SUCCESS :)')

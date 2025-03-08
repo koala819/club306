@@ -33,13 +33,13 @@ const addNewCar = (
                             .u-row .u-col {
                               vertical-align: top;
                             }
-                          
+
                             .u-row .u-col-100 {
                               width: 600px !important;
                             }
-                          
+
                           }
-                          
+
                           @media (max-width: 620px) {
                             .u-row-container {
                               max-width: 100% !important;
@@ -65,32 +65,32 @@ const addNewCar = (
                             margin: 0;
                             padding: 0;
                           }
-                          
+
                           table,
                           tr,
                           td {
                             vertical-align: top;
                             border-collapse: collapse;
                           }
-                          
+
                           p {
                             margin: 0;
                           }
-                          
+
                           .ie-container table,
                           .mso-container table {
                             table-layout: fixed;
                           }
-                          
+
                           * {
                             line-height: inherit;
                           }
-                          
+
                           a[x-apple-data-detectors='true'] {
                             color: inherit !important;
                             text-decoration: none !important;
                           }
-                          
+
                           table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_content_image_2 .v-src-width { width: auto !important; } #u_content_image_2 .v-src-max-width { max-width: 35% !important; } #u_content_menu_1 .v-padding { padding: 5px 15px !important; } #u_content_text_5 .v-container-padding-padding { padding: 52px 10px 56px !important; } #u_content_heading_3 .v-container-padding-padding { padding: 20px 15px 0px 10px !important; } #u_content_heading_5 .v-font-size { font-size: 22px !important; } #u_content_image_5 .v-src-width { width: auto !important; } #u_content_image_5 .v-src-max-width { max-width: 90% !important; } #u_content_text_4 .v-container-padding-padding { padding: 30px 15px 10px !important; } #u_content_image_1 .v-container-padding-padding { padding: 20px 10px !important; } #u_content_image_1 .v-src-width { width: auto !important; } #u_content_image_1 .v-src-max-width { max-width: 65% !important; } #u_content_heading_7 .v-font-size { font-size: 22px !important; } #u_content_heading_9 .v-font-size { font-size: 17px !important; } #u_content_button_1 .v-size-width { width: 53% !important; } #u_content_text_3 .v-container-padding-padding { padding: 10px 20px 30px !important; } }
                               </style>
       <!--[if !mso]><!-->
@@ -762,7 +762,7 @@ const confirMail = (firstName: string, lastName: string, token: string) => {
   return `<!DOCTYPE html>
   <html>
     <head>
-  
+
       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
       <title></title>
     </head>
@@ -914,7 +914,7 @@ const confirMail = (firstName: string, lastName: string, token: string) => {
                                             ci-dessous pour valider votre
                                             adresse e-mail :</p>
                                           <p align="center">&nbsp;<a
-  href="${process.env.CLIENT_URL}/verify-email?token=${token}"
+  href="${process.env.NEXT_PUBLIC_CLIENT_URL}/verify-email?token=${token}"
                                               title="lien verif email"
   style="background: #00466a;margin: 0 auto;width: max-content;padding: 0
                                             10px;color: #fff;border-radius: 4px;"
@@ -2250,7 +2250,7 @@ const memberSignUpEvent = (
 ) => {
   return `<!DOCTYPE html>
   <html>
-  
+
   <head>
       <!--[if gte mso 9]>
                           <xml>
@@ -2275,13 +2275,13 @@ const memberSignUpEvent = (
                                     .u-row .u-col {
                                       vertical-align: top;
                                     }
-                                  
+
                                     .u-row .u-col-100 {
                                       width: 600px !important;
                                     }
-                                  
+
                                   }
-                                  
+
                                   @media (max-width: 620px) {
                                     .u-row-container {
                                       max-width: 100% !important;
@@ -2307,32 +2307,32 @@ const memberSignUpEvent = (
                                     margin: 0;
                                     padding: 0;
                                   }
-                                  
+
                                   table,
                                   tr,
                                   td {
                                     vertical-align: top;
                                     border-collapse: collapse;
                                   }
-                                  
+
                                   p {
                                     margin: 0;
                                   }
-                                  
+
                                   .ie-container table,
                                   .mso-container table {
                                     table-layout: fixed;
                                   }
-                                  
+
                                   * {
                                     line-height: inherit;
                                   }
-                                  
+
                                   a[x-apple-data-detectors='true'] {
                                     color: inherit !important;
                                     text-decoration: none !important;
                                   }
-                                  
+
                                   table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_content_image_2 .v-src-width { width: auto !important; } #u_content_image_2 .v-src-max-width { max-width: 35% !important; } #u_content_menu_1 .v-padding { padding: 5px 15px !important; } #u_content_text_5 .v-container-padding-padding { padding: 52px 10px 56px !important; } #u_content_heading_3 .v-container-padding-padding { padding: 20px 15px 0px 10px !important; } #u_content_heading_5 .v-font-size { font-size: 22px !important; } #u_content_image_5 .v-src-width { width: auto !important; } #u_content_image_5 .v-src-max-width { max-width: 90% !important; } #u_content_text_4 .v-container-padding-padding { padding: 30px 15px 10px !important; } #u_content_image_1 .v-container-padding-padding { padding: 20px 10px !important; } #u_content_image_1 .v-src-width { width: auto !important; } #u_content_image_1 .v-src-max-width { max-width: 65% !important; } #u_content_heading_7 .v-font-size { font-size: 22px !important; } #u_content_heading_9 .v-font-size { font-size: 17px !important; } #u_content_button_1 .v-size-width { width: 53% !important; } #u_content_text_3 .v-container-padding-padding { padding: 10px 20px 30px !important; } }
       </style>
       <!--[if !mso]><!-->
@@ -2340,7 +2340,7 @@ const memberSignUpEvent = (
       <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap" rel="stylesheet" type="text/css">
       <!--<![endif]-->
   </head>
-  
+
   <body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color:
                   #e7e7e7;color: #000000">
       <!--[if IE]><div class="ie-container"><![endif]-->
@@ -2913,10 +2913,10 @@ const memberSignUpEvent = (
       </table>
       <!--[if mso]></div><![endif]-->
       <!--[if IE]></div><![endif]-->
-  
-  
+
+
   </body>
-  
+
   </html>`
 }
 
@@ -2937,7 +2937,7 @@ const newsLetter = (email: string) => {
     <meta name="x-apple-disable-message-reformatting">
     <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
     <title></title>
-    
+
       <style type="text/css">
         @media only screen and (min-width: 520px) {
     .u-row {
@@ -2946,13 +2946,13 @@ const newsLetter = (email: string) => {
     .u-row .u-col {
       vertical-align: top;
     }
-  
+
     .u-row .u-col-100 {
       width: 500px !important;
     }
-  
+
   }
-  
+
   @media (max-width: 520px) {
     .u-row-container {
       max-width: 100% !important;
@@ -2978,38 +2978,38 @@ const newsLetter = (email: string) => {
     margin: 0;
     padding: 0;
   }
-  
+
   table,
   tr,
   td {
     vertical-align: top;
     border-collapse: collapse;
   }
-  
+
   p {
     margin: 0;
   }
-  
+
   .ie-container table,
   .mso-container table {
     table-layout: fixed;
   }
-  
+
   * {
     line-height: inherit;
   }
-  
+
   a[x-apple-data-detectors='true'] {
     color: inherit !important;
     text-decoration: none !important;
   }
-  
+
   table, td { color: #000000; } </style>
-    
-    
-  
+
+
+
   </head>
-  
+
   <body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #3598db;color: #000000">
     <!--[if IE]><div class="ie-container"><![endif]-->
     <!--[if mso]><div class="mso-container"><![endif]-->
@@ -3018,38 +3018,38 @@ const newsLetter = (email: string) => {
     <tr style="vertical-align: top">
       <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
       <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #3598db;"><![endif]-->
-      
-    
-    
+
+
+
   <div class="u-row-container" style="padding: 0px;background-color: transparent">
     <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
       <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
         <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr style="background-color: transparent;"><![endif]-->
-        
+
   <!--[if (mso)|(IE)]><td align="center" width="500" style="width: 500px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
   <div class="u-col u-col-100" style="max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;">
     <div style="height: 100%;width: 100% !important;">
     <!--[if (!mso)&(!IE)]><!--><div style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
-    
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-          
+
     <div style="font-size: 18px; color: #ffffff; line-height: 140%; text-align: center; word-wrap: break-word;">
       <p style="line-height: 140%;">Formulaire de contact</p>
     </div>
-  
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-          
+
     <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #BBBBBB;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
       <tbody>
         <tr style="vertical-align: top">
@@ -3059,31 +3059,31 @@ const newsLetter = (email: string) => {
         </tr>
       </tbody>
     </table>
-  
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-          
+
     <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-      
+
     </div>
-  
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-          
+
     <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #BBBBBB;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
       <tbody>
         <tr style="vertical-align: top">
@@ -3093,38 +3093,38 @@ const newsLetter = (email: string) => {
         </tr>
       </tbody>
     </table>
-  
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="right">
-            
-                
-            
+
+
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
   <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
       <tr>
         <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-          
+
     <div style="font-size: 14px; line-height: 140%; text-align: right; word-wrap: break-word;">
       <p style="line-height: 140%;">${email}</p>
     </div>
-  
+
         </td>
       </tr>
     </tbody>
   </table>
-  
+
     <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
     </div>
   </div>
@@ -3133,9 +3133,9 @@ const newsLetter = (email: string) => {
       </div>
     </div>
     </div>
-    
-  
-  
+
+
+
       <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
       </td>
     </tr>
@@ -3144,7 +3144,7 @@ const newsLetter = (email: string) => {
     <!--[if mso]></div><![endif]-->
     <!--[if IE]></div><![endif]-->
   </body>
-  </html>  
+  </html>
   `
 }
 
@@ -3175,13 +3175,13 @@ const recordDb = (firstName: string, lastName: string) => {
                           .u-row .u-col {
                             vertical-align: top;
                           }
-                        
+
                           .u-row .u-col-100 {
                             width: 600px !important;
                           }
-                        
+
                         }
-                        
+
                         @media (max-width: 620px) {
                           .u-row-container {
                             max-width: 100% !important;
@@ -3207,32 +3207,32 @@ const recordDb = (firstName: string, lastName: string) => {
                           margin: 0;
                           padding: 0;
                         }
-                        
+
                         table,
                         tr,
                         td {
                           vertical-align: top;
                           border-collapse: collapse;
                         }
-                        
+
                         p {
                           margin: 0;
                         }
-                        
+
                         .ie-container table,
                         .mso-container table {
                           table-layout: fixed;
                         }
-                        
+
                         * {
                           line-height: inherit;
                         }
-                        
+
                         a[x-apple-data-detectors='true'] {
                           color: inherit !important;
                           text-decoration: none !important;
                         }
-                        
+
                         table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_content_image_2 .v-src-width { width: auto !important; } #u_content_image_2 .v-src-max-width { max-width: 35% !important; } #u_content_menu_1 .v-padding { padding: 5px 15px !important; } #u_content_text_5 .v-container-padding-padding { padding: 52px 10px 56px !important; } #u_content_heading_3 .v-container-padding-padding { padding: 20px 15px 0px 10px !important; } #u_content_heading_5 .v-font-size { font-size: 22px !important; } #u_content_image_5 .v-src-width { width: auto !important; } #u_content_image_5 .v-src-max-width { max-width: 90% !important; } #u_content_text_4 .v-container-padding-padding { padding: 30px 15px 10px !important; } #u_content_image_1 .v-container-padding-padding { padding: 20px 10px !important; } #u_content_image_1 .v-src-width { width: auto !important; } #u_content_image_1 .v-src-max-width { max-width: 65% !important; } #u_content_heading_7 .v-font-size { font-size: 22px !important; } #u_content_heading_9 .v-font-size { font-size: 17px !important; } #u_content_button_1 .v-size-width { width: 53% !important; } #u_content_text_3 .v-container-padding-padding { padding: 10px 20px 30px !important; } }
                             </style>
                 <!--[if !mso]><!-->
@@ -3903,13 +3903,13 @@ const removeCar = (
                             .u-row .u-col {
                               vertical-align: top;
                             }
-                          
+
                             .u-row .u-col-100 {
                               width: 600px !important;
                             }
-                          
+
                           }
-                          
+
                           @media (max-width: 620px) {
                             .u-row-container {
                               max-width: 100% !important;
@@ -3935,32 +3935,32 @@ const removeCar = (
                             margin: 0;
                             padding: 0;
                           }
-                          
+
                           table,
                           tr,
                           td {
                             vertical-align: top;
                             border-collapse: collapse;
                           }
-                          
+
                           p {
                             margin: 0;
                           }
-                          
+
                           .ie-container table,
                           .mso-container table {
                             table-layout: fixed;
                           }
-                          
+
                           * {
                             line-height: inherit;
                           }
-                          
+
                           a[x-apple-data-detectors='true'] {
                             color: inherit !important;
                             text-decoration: none !important;
                           }
-                          
+
                           table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_content_image_2 .v-src-width { width: auto !important; } #u_content_image_2 .v-src-max-width { max-width: 35% !important; } #u_content_menu_1 .v-padding { padding: 5px 15px !important; } #u_content_text_5 .v-container-padding-padding { padding: 52px 10px 56px !important; } #u_content_heading_3 .v-container-padding-padding { padding: 20px 15px 0px 10px !important; } #u_content_heading_5 .v-font-size { font-size: 22px !important; } #u_content_image_5 .v-src-width { width: auto !important; } #u_content_image_5 .v-src-max-width { max-width: 90% !important; } #u_content_text_4 .v-container-padding-padding { padding: 30px 15px 10px !important; } #u_content_image_1 .v-container-padding-padding { padding: 20px 10px !important; } #u_content_image_1 .v-src-width { width: auto !important; } #u_content_image_1 .v-src-max-width { max-width: 65% !important; } #u_content_heading_7 .v-font-size { font-size: 22px !important; } #u_content_heading_9 .v-font-size { font-size: 17px !important; } #u_content_button_1 .v-size-width { width: 53% !important; } #u_content_text_3 .v-container-padding-padding { padding: 10px 20px 30px !important; } }
                               </style>
       <!--[if !mso]><!-->
@@ -4930,13 +4930,13 @@ const updateCarInfo = (
                             .u-row .u-col {
                               vertical-align: top;
                             }
-                          
+
                             .u-row .u-col-100 {
                               width: 600px !important;
                             }
-                          
+
                           }
-                          
+
                           @media (max-width: 620px) {
                             .u-row-container {
                               max-width: 100% !important;
@@ -4962,32 +4962,32 @@ const updateCarInfo = (
                             margin: 0;
                             padding: 0;
                           }
-                          
+
                           table,
                           tr,
                           td {
                             vertical-align: top;
                             border-collapse: collapse;
                           }
-                          
+
                           p {
                             margin: 0;
                           }
-                          
+
                           .ie-container table,
                           .mso-container table {
                             table-layout: fixed;
                           }
-                          
+
                           * {
                             line-height: inherit;
                           }
-                          
+
                           a[x-apple-data-detectors='true'] {
                             color: inherit !important;
                             text-decoration: none !important;
                           }
-                          
+
                           table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_content_image_2 .v-src-width { width: auto !important; } #u_content_image_2 .v-src-max-width { max-width: 35% !important; } #u_content_menu_1 .v-padding { padding: 5px 15px !important; } #u_content_text_5 .v-container-padding-padding { padding: 52px 10px 56px !important; } #u_content_heading_3 .v-container-padding-padding { padding: 20px 15px 0px 10px !important; } #u_content_heading_5 .v-font-size { font-size: 22px !important; } #u_content_image_5 .v-src-width { width: auto !important; } #u_content_image_5 .v-src-max-width { max-width: 90% !important; } #u_content_text_4 .v-container-padding-padding { padding: 30px 15px 10px !important; } #u_content_image_1 .v-container-padding-padding { padding: 20px 10px !important; } #u_content_image_1 .v-src-width { width: auto !important; } #u_content_image_1 .v-src-max-width { max-width: 65% !important; } #u_content_heading_7 .v-font-size { font-size: 22px !important; } #u_content_heading_9 .v-font-size { font-size: 17px !important; } #u_content_button_1 .v-size-width { width: 53% !important; } #u_content_text_3 .v-container-padding-padding { padding: 10px 20px 30px !important; } }
                               </style>
       <!--[if !mso]><!-->

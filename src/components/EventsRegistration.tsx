@@ -15,7 +15,7 @@ export default function EventsRegistration() {
 
   useEffect(() => {
     if (session) {
-      router.push(`${process.env.CLIENT_URL}/event`)
+      router.push(`${process.env.NEXT_PUBLIC_CLIENT_URL}/event`)
     }
   }, [session, router])
 

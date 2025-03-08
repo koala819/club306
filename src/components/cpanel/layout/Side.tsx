@@ -1,6 +1,6 @@
 'use client'
 
-import { Tooltip } from "@heroui/react"
+import { Tooltip } from '@heroui/react'
 import { signOut, useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import {
@@ -46,7 +46,7 @@ export default function Side() {
   async function handleSignout() {
     signOut({
       redirect: true,
-      callbackUrl: `${process.env.CLIENT_URL}/login`,
+      callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/login`,
     })
   }
 
@@ -227,7 +227,11 @@ export default function Side() {
                 </Link>
               </li>
               <li
-                className={`rounded-xl w-11/12  ${path.includes('/cpanel/admin/old-garage') ? 'bg-cpanel-main-bg-admin text-white' : 'text-red-500'}`}
+                className={`rounded-xl w-11/12  ${
+                  path.includes('/cpanel/admin/old-garage')
+                    ? 'bg-cpanel-main-bg-admin text-white'
+                    : 'text-red-500'
+                }`}
               >
                 <Link
                   className="pt-4 pb-4 flex items-center justify-start w-full h-full"

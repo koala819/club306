@@ -37,7 +37,7 @@ export default function RecoverPwd() {
       body: JSON.stringify(data),
     }
 
-    fetch(`${process.env.CLIENT_URL}/api/changePwd`, options)
+    fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/changePwd`, options)
       .then(async (response) => {
         if (response.status === 200) {
           toast.success('Mot de Passe changé avec succès')

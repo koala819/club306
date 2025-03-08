@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@heroui/react"
+import { Button } from '@heroui/react'
 import { useEffect, useState } from 'react'
 import { TiArrowBack } from 'react-icons/ti'
 
@@ -44,9 +44,9 @@ export const HelloAsso = ({ setStep }: any) => {
     const currentYear = new Date().getFullYear()
 
     const clientUrl =
-      process.env.CLIENT_URL === 'http://localhost:3000'
+      process.env.NEXT_PUBLIC_CLIENT_URL === 'http://localhost:3000'
         ? 'https://localhost:3000'
-        : process.env.CLIENT_URL
+        : process.env.NEXT_PUBLIC_CLIENT_URL
 
     const requestData: CheckoutHelloAsso = {
       // totalAmount: 50,

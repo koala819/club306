@@ -7,7 +7,7 @@ export default async function Page() {
 // import Link from 'next/link'
 
 // export default async function Page() {
-//   const response = await fetch(`${process.env.CLIENT_URL}/api/facebook`)
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/facebook`)
 //   const data = await response.json()
 
 //   return (

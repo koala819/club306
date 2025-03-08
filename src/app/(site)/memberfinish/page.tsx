@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "adhésion Club 306 France, confirmation d'adhésion, confirmation d'inscription, Club 306 France, inscription de membre, adhésion en ligne, renouvellement d'adhésion, adhésion communautaire, Club 306, rejoindre le Club 306, processus d'adhésion, inscription au Club 306, avantages des membres",
   ],
   alternates: {
-    canonical: `${process.env.CLIENT_URL}/memberfinish`,
+    canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/memberfinish`,
   },
 }
 

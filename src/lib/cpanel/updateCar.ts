@@ -288,7 +288,10 @@ async function sendMailNewCarCPanel(newCar: Vehicles, memberId: number) {
         },
         body: JSON.stringify(dataSendMail),
       }
-      const data = await fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`,
+        options,
+      )
       if (data.status === 200) {
         return NextResponse.json({
           status: 200,
@@ -340,7 +343,10 @@ async function sendMailRemoveCarCPanel(
         },
         body: JSON.stringify(dataSendMail),
       }
-      const data = await fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`,
+        options,
+      )
 
       if (data.status === 200) {
         return NextResponse.json({
@@ -411,7 +417,7 @@ async function sendMailUpdatePartCar(
             }
             try {
               const mailResponse = await fetch(
-                `${process.env.CLIENT_URL}/api/mail`,
+                `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`,
                 options,
               )
               if (mailResponse.status === 200) {
