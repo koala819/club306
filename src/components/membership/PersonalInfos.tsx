@@ -9,7 +9,7 @@ import {
   Select,
   SelectItem,
   Spinner,
-} from "@heroui/react"
+} from '@heroui/react'
 import { useEffect, useState } from 'react'
 // import DatePicker from 'react-datepicker'
 // import 'react-datepicker/dist/react-datepicker.css'
@@ -73,8 +73,27 @@ export const PersonalInfos = ({ setStep }: any) => {
     birth_date: yup
       .date()
       .nullable()
-      .typeError('Invalid Date')
-      .max(dayjs().subtract(18, 'years'), 'Vous devez avoir minimum 18 ans')
+      .typeError('Date invalide')
+      // .max(dayjs().subtract(18, 'years'), 'Vous devez avoir minimum 18 ans')
+      .test(
+        'is-adult',
+        'Vous devez avoir minimum 18 ans (né(e) avant le ' +
+          dayjs().subtract(18, 'years').format('DD/MM/YYYY') +
+          ')',
+        function (value) {
+          if (!value) return false
+          const today = dayjs()
+          const birthDate = dayjs(value)
+          const age = today.diff(birthDate, 'year')
+          console.log(
+            'Date de naissance:',
+            birthDate.format('YYYY-MM-DD'),
+            'Âge calculé:',
+            age,
+          )
+          return age >= 18
+        },
+      )
       .required('Veuillez fournir votre date de naissance'),
     checkCotisation: yup
       .boolean()
