@@ -17,6 +17,8 @@ const Paiement = () => {
   const { data: dataSession } = useSession()
   const [member, setMember] = useState<HelloAssoMember>()
 
+  const currentYear = new Date().getFullYear()
+
   const session = useMemo(() => {
     return dataSession !== undefined
   }, [dataSession])
@@ -39,8 +41,6 @@ const Paiement = () => {
   }, [dataSession])
 
   function handleCheckout() {
-    const newYear = new Date().getFullYear()
-
     const clientUrl =
       process.env.NEXT_PUBLIC_CLIENT_URL === 'http://localhost:3000'
         ? 'https://localhost:3000'
@@ -51,7 +51,7 @@ const Paiement = () => {
       totalAmount: 2000,
       // initialAmount: 50,
       initialAmount: 2000,
-      itemName: `Renouvellement Adhesion ${newYear} Club 306`,
+      itemName: `Renouvellement Adhesion ${currentYear} Club 306`,
       backUrl: `${clientUrl}/cpanel/`,
       errorUrl: `${clientUrl}/error/`,
       returnUrl: `${clientUrl}/cpanel/renewMembership/`,
@@ -77,7 +77,19 @@ const Paiement = () => {
       method: 'POST',
     })
       .then((data) => {
-        window.location.href = data.redirectUrl
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl
+        } else if (data.errors && data.errors.length > 0) {
+          // Afficher le premier message d'erreur renvoyé par l'API
+          const errorMessage =
+            data.errors[0].message || 'Erreur lors du paiement'
+          toast.error(errorMessage)
+        } else {
+          // En cas de réponse inattendue
+          toast.error(
+            "Une erreur s'est produite lors de l'initialisation du paiement",
+          )
+        }
       })
       .catch((error) => toast.error(error.message))
   }
@@ -129,14 +141,15 @@ const Paiement = () => {
             <div className="mt-2 text-base font-medium text-gray-700">
               <p>
                 Nous sommes impatients de continuer cette belle aventure avec
-                vous en 2024. Renouvelez votre adhésion et restons unis par
-                notre passion pour les Peugeot 306.
+                vous en {currentYear}. Renouvelez votre adhésion et restons unis
+                par notre passion pour les Peugeot 306.
               </p>
             </div>
             <div className="flex justify-center space-x-4">
               {session && (
-                <Button color="primary" variant="flat" onClick={handleCheckout}>
-                  Renouveller adhésion
+                <Button color="primary" variant="flat" onPress={handleCheckout}>
+                  {/* Renouveller adhésion */}
+                  PROUT
                 </Button>
               )}
               <Button
