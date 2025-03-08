@@ -121,7 +121,7 @@ export default function Side() {
           >
             <Link
               className="pt-4 pb-4 flex items-center justify-start w-full h-full text-white"
-              href="/cpanel/event"
+              href="/event"
             >
               <AiOutlineCalendar className="inline-block text-3xl mr-4" />
               <span>Saison {new Date().getFullYear()}</span>
