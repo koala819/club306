@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup } from "@heroui/react"
+import { Button, ButtonGroup } from '@heroui/react'
 import { useState } from 'react'
 
 import Age from '@/src/components/cpanel/stats/Age'
@@ -33,14 +33,14 @@ export default function Home() {
         <div className="flex mb-4">
           {/* Tabs */}
           <ButtonGroup className="flex flex-wrap justify-center w-full mb-4 overflow-x-auto">
-            <Button
+            {/* <Button
               variant={`${selectedTab === 'OurTable' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('OurTable')}
               color="primary"
               className="m-1"
             >
               Table des Membres
-            </Button>
+            </Button> */}
             <Button
               variant={`${selectedTab === 'Members' ? 'shadow' : 'ghost'}`}
               onClick={() => setSelectedTab('Members')}
@@ -58,7 +58,9 @@ export default function Home() {
               306
             </Button>
             <Button
-              variant={`${selectedTab === 'InscriptionByMonth' ? 'shadow' : 'ghost'}`}
+              variant={`${
+                selectedTab === 'InscriptionByMonth' ? 'shadow' : 'ghost'
+              }`}
               onClick={() => setSelectedTab('InscriptionByMonth')}
               color="primary"
               className="m-1"

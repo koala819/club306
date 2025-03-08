@@ -181,7 +181,7 @@ export default function Side() {
                   <span>Gérer les couleurs</span>
                 </Link>
               </li>
-              <li
+              {/* <li
                 className={`rounded-xl w-11/12  ${
                   path.includes('/cpanel/admin/partners')
                     ? 'bg-cpanel-main-bg-admin text-white'
@@ -195,7 +195,7 @@ export default function Side() {
                   <GiCash className="inline-block text-3xl mr-4" />
                   <span>Partenaires</span>
                 </Link>
-              </li>
+              </li>*/}
               <li
                 className={`rounded-xl w-11/12  ${
                   path.includes('/cpanel/admin/event')
@@ -211,21 +211,21 @@ export default function Side() {
                   <span>Saison {new Date().getFullYear()}</span>
                 </Link>
               </li>
-              <li
+              {/* <li
                 className={`rounded-xl w-11/12  ${
                   path.includes('/cpanel/admin/supabase')
                     ? 'bg-cpanel-main-bg-admin text-white'
                     : 'text-red-500'
                 }`}
               >
-                <Link
+               <Link
                   className="pt-4 pb-4 flex items-center justify-start w-full h-full"
                   href="/cpanel/admin/supabase"
                 >
                   <BsDatabaseFillLock className="inline-block text-3xl mr-4" />
                   <span>Base de données</span>
                 </Link>
-              </li>
+              </li>*/}
               <li
                 className={`rounded-xl w-11/12  ${
                   path.includes('/cpanel/admin/old-garage')
