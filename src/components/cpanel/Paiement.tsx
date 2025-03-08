@@ -42,9 +42,9 @@ const Paiement = () => {
     const newYear = new Date().getFullYear()
 
     const clientUrl =
-      process.env.CLIENT_URL === 'http://localhost:3000'
+      process.env.NEXT_PUBLIC_CLIENT_URL === 'http://localhost:3000'
         ? 'https://localhost:3000'
-        : process.env.CLIENT_URL
+        : process.env.NEXT_PUBLIC_CLIENT_URL
 
     const requestData: CheckoutHelloAsso = {
       // totalAmount: 50,
@@ -145,7 +145,7 @@ const Paiement = () => {
                 onClick={() =>
                   signOut({
                     redirect: true,
-                    callbackUrl: `${process.env.CLIENT_URL}/login`,
+                    callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/login`,
                   })
                 }
               >

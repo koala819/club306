@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Spinner } from "@heroui/react"
+import { Button, Spinner } from '@heroui/react'
 import { useEffect, useState } from 'react'
 import PhotoAlbum from 'react-photo-album'
 import Lightbox from 'yet-another-react-lightbox'
@@ -71,7 +71,9 @@ export default function App() {
 }
 
 async function fetchPhotosFromCloudinary(folder: string) {
-  const url = `${process.env.CLIENT_URL}/api/cloudinary?folder=${encodeURIComponent(folder)}`
+  const url = `${
+    process.env.NEXT_PUBLIC_CLIENT_URL
+  }/api/cloudinary?folder=${encodeURIComponent(folder)}`
 
   try {
     const response = await fetch(url)

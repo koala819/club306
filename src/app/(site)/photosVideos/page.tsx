@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Explorez la galerie Club 306 pour des moments uniques en photos et vidéos des rassemblements automobiles.',
   alternates: {
-    canonical: `${process.env.CLIENT_URL}/photosVideos`,
+    canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/photosVideos`,
   },
 }
 
@@ -58,7 +58,7 @@ async function fetchPicturesCount(
   folderName: string,
 ): Promise<number> {
   try {
-    const url = `${process.env.CLIENT_URL}/api/cloudinary/?folder=${year}/${folderName}`
+    const url = `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/cloudinary/?folder=${year}/${folderName}`
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error('Failed to fetch')

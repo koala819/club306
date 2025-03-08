@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Image, Spinner } from "@heroui/react"
+import { Button, Image, Spinner } from '@heroui/react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -45,7 +45,7 @@ export default function VerifyEmail() {
       body: JSON.stringify(data),
     }
 
-    await fetch(`${process.env.CLIENT_URL}/api/mail`, options).then(
+    await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`, options).then(
       (response: Response) => {
         if (response.status === 200) {
           toast.success('Bienvenue au Club306')

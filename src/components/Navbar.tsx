@@ -54,7 +54,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   async function handleSignout() {
     signOut({
       redirect: true,
-      callbackUrl: `${process.env.CLIENT_URL}/login`,
+      callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/login`,
     })
   }
 

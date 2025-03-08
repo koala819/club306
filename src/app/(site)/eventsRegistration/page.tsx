@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Rejoignez le Club 306 pour des moments uniques. Inscrivez-vous maintenant et vivez des expériences passionnées de la route avec nous !',
   alternates: {
-    canonical: `${process.env.CLIENT_URL}/eventsRegistration`,
+    canonical: `${process.env.NEXT_PUBLIC_CLIENT_URL}/eventsRegistration`,
   },
 }
 

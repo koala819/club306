@@ -152,7 +152,10 @@ async function sendMailRecordDb(personalInfo: PersonalInfo) {
     body: JSON.stringify(dataSendMail),
   }
   try {
-    const response = await fetch(`${process.env.CLIENT_URL}/api/mail`, options)
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/mail`,
+      options,
+    )
 
     if (response.status === 200) {
       return {
