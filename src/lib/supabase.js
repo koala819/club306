@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server'
-
 import supabase from 'backend/config/dbConnect'
 import bcrypt from 'bcryptjs'
 
