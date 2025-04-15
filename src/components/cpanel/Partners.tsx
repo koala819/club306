@@ -11,7 +11,7 @@ import {
   ModalContent,
   ModalFooter,
   useDisclosure,
-} from "@heroui/react"
+} from '@heroui/react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaHubspot } from 'react-icons/fa'
@@ -24,8 +24,6 @@ import { ourPartners } from '@/src/lib/supabase'
 
 export function Partners() {
   const [partnerData, setPartnerData] = useState<PartnerInfoType[] | null>(null)
-  const [partner, setPartner] = useState<PartnerInfoType>()
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,11 +53,6 @@ export function Partners() {
     fetchData()
   }, [])
 
-  const handleOpen = (partner: PartnerInfoType) => {
-    setPartner(partner)
-    onOpen()
-  }
-
   return (
     <>
       {partnerData === undefined ? (
@@ -74,8 +67,8 @@ export function Partners() {
                     key={partner.id}
                     isFooterBlurred
                     className="col-span-1 sm:col-span-1 lg:col-span-1 h-[300px]"
-                    isPressable
-                    onPress={() => handleOpen(partner)}
+                    // isPressable
+                    // onPress={() => handleOpen(partner)}
                   >
                     <Image
                       removeWrapper
@@ -95,15 +88,26 @@ export function Partners() {
                           </p>
                         </div>
                       </div>
-                      <Link href={partner.site} target="_blank">
+                      <Button
+                        as={Link}
+                        href={partner.site}
+                        target="_blank"
+                        radius="full"
+                        size="sm"
+                        color="primary"
+                      >
+                        Voir Site
+                      </Button>
+
+                      {/* <Link href={partner.site} target="_blank">
                         <Button radius="full" size="sm" color="primary">
                           Voir Site
                         </Button>
-                      </Link>
+                      </Link> */}
                     </CardFooter>
                   </Card>
                 ))}
-                <Modal
+                {/* <Modal
                   isOpen={isOpen}
                   onOpenChange={onOpenChange}
                   hideCloseButton
@@ -175,7 +179,7 @@ export function Partners() {
                       )
                     }
                   </ModalContent>
-                </Modal>
+                </Modal> */}
               </div>
             )}
           </div>
