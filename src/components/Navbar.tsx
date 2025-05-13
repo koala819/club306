@@ -65,7 +65,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
       { name: 'DISCORD', path: 'https://discord.gg/uRVtYGpjdV' },
       {
         name: 'BOUTIQUE',
-        path: 'https://www.pm-racing.fr/connexion_protected_category.php?mode=catalog&catId=1011',
+        path: 'https://www.pm-racing.fr/connexion_protected_category.php',
       },
       { name: 'EVENT', path: '/event' },
       { name: 'CONTACT', path: '/contact' },
@@ -89,15 +89,17 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="full"
-      className={`bg-bg-light dark:bg-bg-dark pb-5 ${withMember ? 'bg-light-connect dark:bg-dark-connect' : ''
-        }`}
+      className={`bg-bg-light dark:bg-bg-dark pb-5 ${
+        withMember ? 'bg-light-connect dark:bg-dark-connect' : ''
+      }`}
       isBordered={true}
       position="sticky"
       classNames={{
         item: [
-          `${withMember
-            ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
-            : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
+          `${
+            withMember
+              ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
+              : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
           }`,
           'mt-5',
           'flex',
@@ -146,10 +148,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Premier élément avec sous-menu "LE CLUB" et "LE STAFF" */}
         <Dropdown
           className={`
-                ${session
-              ? 'bg-light-connect dark:bg-dark-connect'
-              : 'bg-bg-light dark:bg-bg-dark'
-            }
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
+                }
           `}
         >
           <NavbarItem
@@ -158,10 +161,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             <DropdownTrigger>
               <Button
                 disableRipple
-                className={` ${path.includes('/club')
+                className={` ${
+                  path.includes('/club')
                     ? 'degrade-border text-text-light dark:text-text-dark'
                     : 'degrade-border text-text-light dark:text-text-dark'
-                  }`}
+                }`}
                 endContent={<FiChevronDown />}
                 radius="sm"
                 variant="light"
@@ -178,10 +182,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               base: 'gap-4',
             }}
             className={`
-                 ${withMember
-                ? 'bg-light-connect dark:bg-dark-connect'
-                : 'bg-bg-light dark:bg-bg-dark'
-              }`}
+                 ${
+                   withMember
+                     ? 'bg-light-connect dark:bg-dark-connect'
+                     : 'bg-bg-light dark:bg-bg-dark'
+                 }`}
           >
             <DropdownItem
               key={'presentation'}
@@ -255,9 +260,10 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           {session ? (
             <Dropdown
               className={`
-                ${session
-                  ? 'bg-light-connect dark:bg-dark-connect'
-                  : 'bg-bg-light dark:bg-bg-dark'
+                ${
+                  session
+                    ? 'bg-light-connect dark:bg-dark-connect'
+                    : 'bg-bg-light dark:bg-bg-dark'
                 }
           `}
             >
@@ -274,10 +280,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 itemClasses={{
                   base: 'gap-4',
                 }}
-                className={`${withMember
+                className={`${
+                  withMember
                     ? 'bg-light-connect dark:bg-dark-connect'
                     : 'bg-bg-light dark:bg-bg-dark'
-                  }`}
+                }`}
               >
                 <DropdownItem
                   key={'Mon Compte'}
