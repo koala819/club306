@@ -41,43 +41,6 @@ const Paiement = () => {
   }, [dataSession])
 
   function handleCheckout() {
-    const missingFields: string[] = []
-
-    if (!member?.first_name) missingFields.push('first_name')
-    if (!member?.last_name) missingFields.push('last_name')
-    if (!member?.email) missingFields.push('email')
-    if (!member?.birth_date || !moment(member.birth_date).isValid())
-      missingFields.push('birth_date')
-    if (!member?.address) missingFields.push('address')
-    if (!member?.town) missingFields.push('town')
-    if (!member?.zip_code) missingFields.push('zip_code')
-    if (!member?.phone || getCountryAlpha3Code(member.phone.slice(0, 2)) === '')
-      missingFields.push('country (via phone)')
-
-    if (missingFields.length > 0) {
-      toast.error(
-        `Valeur${missingFields.length > 1 ? 's' : ''} "${missingFields.join(
-          '", "',
-        )}" manquante${
-          missingFields.length > 1 ? 's' : ''
-        } – merci de prévenir l'association pour corriger cela.`,
-      )
-
-      // Log (en dev seulement)
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Champs manquants :', missingFields)
-      }
-
-      toast.error(
-        `Valeur${missingFields.length > 1 ? 's' : ''} "${missingFields.join(
-          '", "',
-        )}" manquante${
-          missingFields.length > 1 ? 's' : ''
-        } – merci de prévenir l'association pour corriger cela.`,
-      )
-      return
-    }
-
     const clientUrl =
       process.env.NEXT_PUBLIC_CLIENT_URL === 'http://localhost:3000'
         ? 'https://localhost:3000'
@@ -108,27 +71,24 @@ const Paiement = () => {
       },
     }
 
-    const popup = window.open('', '_blank')
-
     connect({
       requestData,
       url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
       method: 'POST',
     })
       .then((data) => {
-        if (data.redirectUrl && popup) {
-          popup.location.href = data.redirectUrl
-          // window.location.href = data.redirectUrl
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl
         } else if (data.errors && data.errors.length > 0) {
           // Afficher le premier message d'erreur renvoyé par l'API
-          toast.error(data.errors[0].message || 'Erreur lors du paiement')
-          if (popup) popup.close()
-        } // En cas de réponse inattendue
-        else {
+          const errorMessage =
+            data.errors[0].message || 'Erreur lors du paiement'
+          toast.error(errorMessage)
+        } else {
+          // En cas de réponse inattendue
           toast.error(
             "Une erreur s'est produite lors de l'initialisation du paiement",
           )
-          if (popup) popup.close()
         }
       })
       .catch((error) => toast.error(error.message))
