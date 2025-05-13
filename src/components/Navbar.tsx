@@ -159,8 +159,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               <Button
                 disableRipple
                 className={` ${path.includes('/club')
-                    ? 'degrade-border text-text-light dark:text-text-dark'
-                    : 'degrade-border text-text-light dark:text-text-dark'
+                  ? 'degrade-border text-text-light dark:text-text-dark'
+                  : 'degrade-border text-text-light dark:text-text-dark'
                   }`}
                 endContent={<FiChevronDown />}
                 radius="sm"
@@ -226,7 +226,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         {/* Quatrième élément BOUTIQUE */}
         <NavbarItem isActive={path.includes('pm-racing')}>
           <Link
-            href="https://www.pm-racing.fr/connexion_protected_category.php"
+            href="https://www.pm-racing.fr/connexion_protected_category.php?mode=catalog&catId=1011"
             target="_blank"
             aria-current="page"
             className="degrade-border text-text-light dark:text-text-dark"
@@ -275,8 +275,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   base: 'gap-4',
                 }}
                 className={`${withMember
-                    ? 'bg-light-connect dark:bg-dark-connect'
-                    : 'bg-bg-light dark:bg-bg-dark'
+                  ? 'bg-light-connect dark:bg-dark-connect'
+                  : 'bg-bg-light dark:bg-bg-dark'
                   }`}
               >
                 <DropdownItem
