@@ -10,7 +10,7 @@ export async function getCities() {
     // .eq('country', 'France')
 
     if (!error) {
-      const marker = data.map(async (city) => {
+      const marker = data.map(async (city: { town: string; lat: number; lng: number }) => {
         try {
           return {
             town: city.town,

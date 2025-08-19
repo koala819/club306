@@ -38,9 +38,12 @@ export const HelloAsso = ({ setStep }: any) => {
   }, [])
 
   useEffect(() => {
+    console.log('useEffect triggered, personalInfo:', personalInfo)
     if (!personalInfo) {
+      console.log('personalInfo is null/undefined, returning early')
       return
     }
+
     const currentYear = new Date().getFullYear()
 
     const clientUrl =
@@ -73,16 +76,26 @@ export const HelloAsso = ({ setStep }: any) => {
       },
     }
 
+    console.log('About to call HelloAsso API with:', requestData) // Ajoutez ceci
+    console.log('Calling connect function...')
+
     connect({
       requestData,
       url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
       method: 'POST',
     })
       .then((data) => {
+        console.log('HelloAsso API response:', data)
         setDisplayBtnHelloAsso(true)
         setUrlHelloAsso(data.redirectUrl)
       })
-      .catch((error) => console.error('Error:', error))
+      // .catch((error) => console.error('Error:', error))
+      .catch((error) => {
+        console.error('HelloAsso API error:', error) // Améliorez ce log
+        // Ajoutez un fallback pour afficher le bouton même en cas d'erreur
+        setDisplayBtnHelloAsso(true)
+        setUrlHelloAsso('https://www.helloasso.com/associations/club-306-france')
+      })
   }, [personalInfo])
 
   const handleGoBack = () => {
