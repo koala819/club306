@@ -115,7 +115,7 @@ export default function Members() {
       return
     }
     if (members2023.length > 0) {
-      const members2024Id = data.map((entry) => entry.member_id)
+      const members2024Id = data.map((entry: any) => entry.member_id)
 
       // Filtrer les membres 2023 renouvelés et non renouvelés
       const renewedMembers = members2023.filter((member) =>
@@ -135,7 +135,7 @@ export default function Members() {
         .in(
           'id',
           members2024Id.filter(
-            (id) => !members2023.map((member) => member.id).includes(id),
+            (id: number) => !members2023.map((member) => member.id).includes(id),
           ),
         )
 
