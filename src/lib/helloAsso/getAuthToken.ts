@@ -6,7 +6,7 @@ export default async function getAuthToken(
   const response = await fetch(tokenUrl, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/xwww-form-urlencoded',
     },
     body: new URLSearchParams({
       grant_type: 'client_credentials',
@@ -15,13 +15,8 @@ export default async function getAuthToken(
     }),
   })
 
-  // if (!response.ok) {
-  //   throw new Error(`HTTP error! status: ${response.status}`)
-  // }
-
   const data = await response.json()
 
-  // console.log('data', data)
   if (response.status !== 200) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }

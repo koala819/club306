@@ -7,13 +7,14 @@ import { TiArrowBack } from 'react-icons/ti'
 import { CheckoutHelloAsso, PersonalInfo } from '@/src/types/models'
 
 import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
-import connect from '@/src/lib/helloAsso/connect'
 import moment from 'moment'
 
 export const HelloAsso = ({ setStep }: any) => {
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>()
   const [displayBtnHelloAsso, setDisplayBtnHelloAsso] = useState<boolean>(false)
   const [urlHelloAsso, setUrlHelloAsso] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
   const [memberIdFromSessionStorage, setMemberIdFromSessionStorage] =
     useState<string>('')
 
@@ -38,9 +39,7 @@ export const HelloAsso = ({ setStep }: any) => {
   }, [])
 
   useEffect(() => {
-    console.log('useEffect triggered, personalInfo:', personalInfo)
     if (!personalInfo) {
-      console.log('personalInfo is null/undefined, returning early')
       return
     }
 
@@ -76,25 +75,32 @@ export const HelloAsso = ({ setStep }: any) => {
       },
     }
 
-    console.log('About to call HelloAsso API with:', requestData) // Ajoutez ceci
-    console.log('Calling connect function...')
+    setIsLoading(true)
+    setError('')
 
-    connect({
-      requestData,
-      url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
+    fetch('/api/helloasso/checkout', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
     })
+      .then((response) => response.json())
       .then((data) => {
-        console.log('HelloAsso API response:', data)
-        setDisplayBtnHelloAsso(true)
-        setUrlHelloAsso(data.redirectUrl)
+        setIsLoading(false)
+
+        if (data.redirectUrl) {
+          setDisplayBtnHelloAsso(true)
+          setUrlHelloAsso(data.redirectUrl)
+        } else {
+          setDisplayBtnHelloAsso(false)
+          setError('Réponse invalide de HelloAsso')
+        }
       })
-      // .catch((error) => console.error('Error:', error))
       .catch((error) => {
-        console.error('HelloAsso API error:', error) // Améliorez ce log
-        // Ajoutez un fallback pour afficher le bouton même en cas d'erreur
-        setDisplayBtnHelloAsso(true)
-        setUrlHelloAsso('https://www.helloasso.com/associations/club-306-france')
+        setIsLoading(false)
+        setDisplayBtnHelloAsso(false)
+        setError(`Erreur: ${error.message}`)
       })
   }, [personalInfo])
 
@@ -152,7 +158,30 @@ export const HelloAsso = ({ setStep }: any) => {
                 </p>
               ))}
             </section>
-            {displayBtnHelloAsso && (
+
+            {isLoading && (
+              <div className="text-center py-4">
+                <p>Initialisation du paiement en cours...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3B578E] mx-auto mt-2"></div>
+              </div>
+            )}
+
+            {error && (
+              <div className="text-center py-4 text-red-600">
+                <p className="font-semibold">Erreur lors de l'initialisation :</p>
+                <p>{error}</p>
+                <Button
+                  color="primary"
+                  radius="none"
+                  className="mt-2"
+                  onClick={() => window.location.reload()}
+                >
+                  Réessayer
+                </Button>
+              </div>
+            )}
+
+            {displayBtnHelloAsso && !isLoading && !error && (
               <Button
                 color="primary"
                 radius="none"
@@ -161,13 +190,14 @@ export const HelloAsso = ({ setStep }: any) => {
                 Continuer
               </Button>
             )}
-            <p className="text-xs  mt-3">
+
+            <p className="text-xs mt-3">
               Rejoins nous dans l&apos;aventure Peugeot 306
             </p>
           </div>
         </div>
       </section>
-      <div className="flex  w-full justify-between mt-4">
+      <div className="flex w-full justify-between mt-4">
         <Button
           color="danger"
           radius="none"

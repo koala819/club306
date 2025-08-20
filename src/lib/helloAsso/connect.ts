@@ -28,9 +28,8 @@ export default async function connect({
 
     const data = await response.json()
 
-    // console.log('data', data)
     if (response.status !== 200) {
-      console.log(`HTTP error! status: ${response.status}`)
+      throw new Error(`HTTP error! status: ${response.status}`)
     }
 
     return data
