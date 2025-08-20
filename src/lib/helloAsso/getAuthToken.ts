@@ -6,7 +6,7 @@ export default async function getAuthToken(
   const response = await fetch(tokenUrl, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/xwww-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       grant_type: 'client_credentials',
