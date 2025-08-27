@@ -24,6 +24,10 @@ export const HelloAsso = ({ setStep }: any) => {
       if (memberIdJSON) {
         const storedMemberId = JSON.parse(memberIdJSON)
         setMemberIdFromSessionStorage(() => storedMemberId)
+
+        // Stocker aussi dans localStorage comme backup
+        localStorage.setItem('currentMemberId', storedMemberId)
+
         return storedMemberId
       }
       return null
@@ -51,14 +55,14 @@ export const HelloAsso = ({ setStep }: any) => {
         : process.env.NEXT_PUBLIC_CLIENT_URL
 
     const requestData: CheckoutHelloAsso = {
-      // totalAmount: 50,
-      totalAmount: 2500,
-      // initialAmount: 50,
-      initialAmount: 2500,
+      totalAmount: 50,
+      // totalAmount: 2500,
+      initialAmount: 50,
+      // initialAmount: 2500,
       itemName: `Adhesion ${currentYear} Club 306`,
       backUrl: `${clientUrl}/membership/`,
       errorUrl: `${clientUrl}/error/`,
-      returnUrl: `${clientUrl}/memberfinish/`,
+      returnUrl: `${clientUrl}/memberfinish/?userId=${memberIdFromSessionStorage}`,
       containsDonation: true,
       payer: {
         firstName: `${personalInfo?.first_name}`,

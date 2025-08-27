@@ -52,6 +52,14 @@ export default function MailConfirm({
   useEffect(() => {
     const fetchData = async () => {
       if (lastMbrIdFromDB !== null) {
+        // Vérifier que les données nécessaires sont présentes
+        if (!storedPersonalInfo) {
+          console.error('Données personnelles manquantes pour userId:', userIdFromlocalStorage)
+          alert('Données personnelles manquantes. Veuillez recommencer le processus d\'inscription.')
+          router.push('/membership')
+          return
+        }
+
         const response = await record(
           storedPersonalInfo,
           storedVehicle,
@@ -60,10 +68,11 @@ export default function MailConfirm({
         )
         const data = await response.json()
         if (data.status !== 200) {
+          const errorMessage = data.message || 'Erreur inconnue'
           alert(
             'Erreur pour vous enregistrer, merci de contacter le staff svp  et communiquer cette erreur : \n\n\n' +
-              data.message +
-              "\n\n Sans le message de l'erreur, il nous sera difficile de vous aider !!!",
+              errorMessage +
+              "\n\n Sans le message de l\'erreur, il nous sera difficile de vous aider !!!",
           )
           router.push('/contact')
         } else {
