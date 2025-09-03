@@ -7,12 +7,13 @@ import { notFound } from 'next/navigation';
 import { Button } from "@heroui/react";
 
 
-type Params = { uid: string };
+type Params = Promise<{ uid: string }>;
 
 export default async function Article({ params }: { params: Params }) {
+  const { uid } = await params;
   const client = createClient();
   const article = await client
-    .getByUID('articles', params.uid)
+    .getByUID('articles', uid)
     .catch(() => notFound());
 
   return (
