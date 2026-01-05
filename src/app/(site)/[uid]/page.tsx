@@ -4,7 +4,6 @@ import { createClient } from '@/src/prismicio';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Button } from "@heroui/react";
 
 
 type Params = Promise<{ uid: string }>;
@@ -36,10 +35,8 @@ export default async function Article({ params }: { params: Params }) {
       <div className="text-lg opacity-75">
         {RichText.render(article.data.paragraphes)}
       </div>
-      <Link href="/blog">
-      <Button className="btn-custom">
+      <Link href="/blog" className="btn-custom inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
           Retour &nbsp; 👈
-        </Button>
       </Link>
     </div>)
   );
