@@ -7,8 +7,14 @@ import { DisplaySVG } from '@/src/components/cpanel/DisplaySvg'
 import { countCars, countCarsByModel } from '@/src/lib/supabase'
 
 export default function Car() {
-  const [nbCars, setNbCars] = useState(null)
-  const [nbCarsByType, setNbCarsByType] = useState({
+  const [nbCars, setNbCars] = useState<number | null>(null)
+  const [nbCarsByType, setNbCarsByType] = useState<{
+    1: number | null
+    2: number | null
+    3: number | null
+    4: number | null
+    5: number | null
+  }>({
     1: null,
     2: null,
     3: null,
@@ -19,7 +25,8 @@ export default function Car() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setNbCars(await countCars())
+        const total = await countCars()
+        setNbCars(total ?? 0)
         setNbCarsByType(await countCarsByModel())
       } catch (error) {
         console.log('error fetch data', error)
