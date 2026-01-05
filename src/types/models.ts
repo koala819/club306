@@ -95,7 +95,7 @@ interface Events {
 }
 
 interface EventsData {
-  dates: string
+  dates: string | null
   description: string
   id: number
   month: number

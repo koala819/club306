@@ -24,3 +24,22 @@ export async function getAllEvents(year: number) {
     })
   }
 }
+
+export async function getAllEventsClient(year: number) {
+  try {
+    const { data, error } = await supabase
+      .from('event')
+      .select('*')
+      .eq('year', year)
+
+    if (error) {
+      console.error('Error fetching events:', error)
+      return null
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error with supabase request:', error)
+    return null
+  }
+}
