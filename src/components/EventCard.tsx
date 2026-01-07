@@ -32,9 +32,11 @@ export function EventCard({ event }: { event: EventsData }) {
           className="mx-auto xl:mb-0 xl:mt-0 sm:mb-5 sm:mt-10"
         />
 
-        <p className="flex justify-center pt-4 text-xl text-center font-semibold">
-          {dateToDisplay}
-        </p>
+        {dateToDisplay && (
+          <p className="flex justify-center pt-4 text-xl text-center font-semibold">
+            {dateToDisplay}
+          </p>
+        )}
       </div>
       {/* container info */}
       <div className="w-full xl:w-3/4 p-4 flex-col justify-center">
@@ -71,8 +73,8 @@ export function EventCard({ event }: { event: EventsData }) {
   )
 }
 
-function formatDate(date: string, month: number) {
-  if (date === null || month === null) {
+function formatDate(date: string | null | undefined, month: number | null | undefined) {
+  if (!date || month === null || month === undefined) {
     return null
   }
   if (

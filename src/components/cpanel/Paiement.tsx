@@ -10,7 +10,6 @@ import { CheckoutHelloAsso, HelloAssoMember } from '@/src/types/models'
 
 import { getMemberForCotisation } from '@/src/lib/cpanel/membershipMember'
 import { getCountryAlpha3Code } from '@/src/lib/getCountryAlpha3Code'
-import connect from '@/src/lib/helloAsso/connect'
 import moment from 'moment'
 
 const Paiement = () => {
@@ -71,11 +70,14 @@ const Paiement = () => {
       },
     }
 
-    connect({
-      requestData,
-      url: 'https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents',
+    fetch('/api/helloasso/checkout', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
     })
+      .then((response) => response.json())
       .then((data) => {
         if (data.redirectUrl) {
           window.location.href = data.redirectUrl

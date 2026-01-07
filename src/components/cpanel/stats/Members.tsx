@@ -10,16 +10,20 @@ import { useEffect, useState } from 'react'
 import { countMembers, countMembersByCountry } from '@/src/lib/supabase'
 
 export default function Members() {
-  const [nbMembers, setNbMembers] = useState(null)
-  const [nbMembersByCountry, setNbMembersByCountry] = useState({})
+  const [nbMembers, setNbMembers] = useState<number | null>(null)
+  const [nbMembersByCountry, setNbMembersByCountry] = useState<
+    Record<string, number>
+  >({})
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setNbMembers(await countMembers())
+        const total = await countMembers()
+        setNbMembers(total ?? 0)
         const countMembersByCountrys = await countMembersByCountry()
-        countMembersByCountrys !== undefined &&
-          setNbMembersByCountry(countMembersByCountrys)
+        if (countMembersByCountrys !== undefined) {
+          setNbMembersByCountry(countMembersByCountrys as Record<string, number>)
+        }
       } catch (error) {
         console.log('error fetch data', error)
       }

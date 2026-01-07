@@ -8,16 +8,22 @@ import { EventsData } from '@/src/types/models'
 
 import { EventCard } from '@/src/components/EventCard'
 
-import { getAllEvents } from '@/src/lib/events'
+import { getAllEventsClient } from '@/src/lib/events'
 
 export default function Event() {
   const [events, setEvents] = useState<EventsData[]>([])
 
   useEffect(() => {
     async function fetchEvents() {
-      const eventResponse = await getAllEvents(new Date().getFullYear())
-      if (eventResponse !== undefined && Array.isArray(eventResponse)) {
-        setEvents(eventResponse)
+      try {
+        const eventResponse = await getAllEventsClient(new Date().getFullYear())
+        if (eventResponse !== null && Array.isArray(eventResponse)) {
+          setEvents(eventResponse)
+        } else {
+          console.warn('No events found or invalid response:', eventResponse)
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error)
       }
     }
     fetchEvents()
@@ -43,12 +49,13 @@ export default function Event() {
       </p>
       <div className="mx-4 xl:mx-32">
         {events
+          .filter((event) => event.dates != null && event.dates !== '')
           .slice()
           .sort((a, b) => {
             const monthDiff = (a.month ?? 0) - (b.month ?? 0)
             if (monthDiff !== 0) return monthDiff
-            const dayA = parseInt(a.dates.split('/')[0], 10) || 0
-            const dayB = parseInt(b.dates.split('/')[0], 10) || 0
+            const dayA = a.dates ? parseInt(a.dates.split('/')[0], 10) || 0 : 0
+            const dayB = b.dates ? parseInt(b.dates.split('/')[0], 10) || 0 : 0
             return dayA - dayB
           })
           .map((event, index) => {

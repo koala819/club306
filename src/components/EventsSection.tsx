@@ -12,7 +12,7 @@ import { EventsData } from '@/src/types/models'
 import blackLogo from '@/public/images/logoClub306.png'
 import whiteLogo from '@/public/images/logoClub306_blanc.png'
 import { useTheme } from '@/src/context/ThemeContext'
-import { getAllEvents } from '@/src/lib/events'
+import { getAllEventsClient } from '@/src/lib/events'
 
 export const EventsSection = () => {
   const [latestEvents, setLatestEvents] = useState<EventsData[]>([])
@@ -29,18 +29,29 @@ export const EventsSection = () => {
   useEffect(() => {
     async function fetchLatestEvents() {
       try {
-        const allEventsResponse = await getAllEvents(new Date().getFullYear())
+        const allEventsResponse = await getAllEventsClient(new Date().getFullYear())
 
-        if (Array.isArray(allEventsResponse) && allEventsResponse.length > 0) {
-          // Trier les événements par date
-          const sortedEvents = allEventsResponse.sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-          )
-
-          // Filtrer les événements non vides
-          const nonEmptyEvents = sortedEvents.filter((event) => {
+        if (allEventsResponse && Array.isArray(allEventsResponse) && allEventsResponse.length > 0) {
+          // Filtrer les événements non vides AVANT le tri
+          const nonEmptyEvents = allEventsResponse.filter((event) => {
             return event.title && event.dates && event.description
           })
+
+          // Trier les événements par date
+          const sortedEvents = nonEmptyEvents.sort(
+            (a, b) => {
+              // Trier par mois d'abord
+              const monthDiff = (a.month ?? 0) - (b.month ?? 0)
+              if (monthDiff !== 0) return monthDiff
+              // Puis par jour si dates existe
+              if (a.dates && b.dates) {
+                const dayA = parseInt(a.dates.split('/')[0], 10) || 0
+                const dayB = parseInt(b.dates.split('/')[0], 10) || 0
+                return dayA - dayB
+              }
+              return 0
+            },
+          )
 
           // Sélectionner les trois derniers événements non vides
           const latestEvents = nonEmptyEvents
@@ -122,8 +133,9 @@ export const EventsSection = () => {
           let dateToDisplay
 
           if (
-            event.dates.toLowerCase() == 'dates à venir' ||
-            event.dates.toLowerCase() == '(dates à venir)'
+            event.dates &&
+            (event.dates.toLowerCase() == 'dates à venir' ||
+              event.dates.toLowerCase() == '(dates à venir)')
           ) {
             const months = [
               'Janvier',
