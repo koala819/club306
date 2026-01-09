@@ -2,6 +2,28 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 module.exports = withBundleAnalyzer({
+  webpack: (config, { isServer }) => {
+    // Exclure Sanity Studio du build de production côté serveur
+    if (isServer) {
+      config.externals = config.externals || []
+      config.externals.push({
+        '@sanity/code-input': 'commonjs @sanity/code-input',
+        '@sanity/vision': 'commonjs @sanity/vision',
+        'sanity-plugin-asset-source-unsplash': 'commonjs sanity-plugin-asset-source-unsplash',
+        '@sanity/presentation': 'commonjs @sanity/presentation',
+        'sanity': 'commonjs sanity',
+        'next-sanity/studio': 'commonjs next-sanity/studio',
+      })
+    }
+    // Ignorer les modules problématiques lors du build
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    }
+    return config
+  },
   env: {
     CLIENT_URL: process.env.NEXT_PUBLIC_CLIENT_URL,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
@@ -117,4 +139,13 @@ module.exports = withBundleAnalyzer({
     ],
   },
   reactStrictMode: true,
+  // Exclure les packages Sanity Studio du build côté serveur
+  serverComponentsExternalPackages: [
+    '@sanity/code-input',
+    '@sanity/vision',
+    'sanity-plugin-asset-source-unsplash',
+    '@sanity/presentation',
+    'sanity',
+    'next-sanity',
+  ],
 })

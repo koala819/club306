@@ -8,10 +8,29 @@
  */
 'use client'
 
-import { NextStudio } from 'next-sanity/studio'
+import dynamic from 'next/dynamic'
 
-import config from '@/src/lib/blog/sanity/config'
+const Studio = dynamic(
+  async () => {
+    const { NextStudio } = await import('next-sanity/studio')
+    const config = (await import('@/src/lib/blog/sanity/config')).default
+    return function StudioPage() {
+      return <NextStudio config={config} />
+    }
+  },
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto dark:border-gray-100"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Chargement de Sanity Studio...</p>
+        </div>
+      </div>
+    ),
+  }
+)
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <Studio />
 }
