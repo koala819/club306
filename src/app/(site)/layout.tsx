@@ -1,10 +1,11 @@
-'use client'
-
-import { SessionProvider } from 'next-auth/react'
+import { draftMode } from 'next/headers'
 
 import { Roboto } from 'next/font/google'
 
 import SiteLayout from '@/src/components/SiteLayout'
+import { VisualEditingWrapper } from '@/src/components/VisualEditingWrapper'
+import { SessionProviderWrapper } from '@/src/components/SessionProviderWrapper'
+import { ThemeScript } from '@/src/components/ThemeScript'
 
 import '@/src/styles/globals.css'
 
@@ -14,17 +15,23 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { isEnabled: isDraftMode } = await draftMode()
+
   return (
-    <html lang="fr" className="light" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
       <body className={`${roboto.className}`}>
-        <SessionProvider>
-          <SiteLayout>{children}</SiteLayout>
-        </SessionProvider>
+        <ThemeScript />
+        <SessionProviderWrapper>
+          <SiteLayout>
+            {children}
+            {isDraftMode && <VisualEditingWrapper />}
+          </SiteLayout>
+        </SessionProviderWrapper>
       </body>
     </html>
   )

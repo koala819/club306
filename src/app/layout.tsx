@@ -4,8 +4,8 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
-      <body>
+    <html suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {children}
       </body>
     </html>

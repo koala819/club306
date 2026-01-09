@@ -5,8 +5,10 @@ interface ArticleProps {
   data: {
     featureImageUrl: { url: string; alt: string }
     dateEvent: string
-    title: { type: string; text: string }[]
-    description: { type: string; text: string }[]
+    title: string
+    description: string
+    tags?: string[]
+    paragraphes?: any[] // PortableText content
   }
 }
 
@@ -16,8 +18,10 @@ interface ArticlesProps {
     data: {
       featureImageUrl: { url: string; alt: string }
       dateEvent: string
-      title: { type: string; text: string }[]
-      description: { type: string; text: string }[]
+      title: string
+      description: string
+      tags?: string[]
+      paragraphes?: any[] // PortableText content
     }
   }[]
 }

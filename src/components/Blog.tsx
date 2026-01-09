@@ -7,12 +7,21 @@ import Link from 'next/link'
 import { ArticleProps, ArticlesProps } from '@/src/types/models'
 
 function CommonSection({ articles }: ArticlesProps) {
+  if (!articles || articles.length === 0) {
+    return (
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-24 mx-auto text-center">
+          <p>Aucun article disponible.</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
-          {articles !== undefined &&
-            articles.map((article: ArticleProps) => (
+          {articles.map((article: ArticleProps) => (
               <div className="p-4 md:w-1/3" key={article.uid}>
                 <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden dark:bg-gray-800">
                   <div className="relative aspect-video">
@@ -26,13 +35,13 @@ function CommonSection({ articles }: ArticlesProps) {
                   </div>
                   <div className="p-6">
                     <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 dark:text-gray-200 mb-1">
-                      {article.data.dateEvent}
+                      {article.data.dateEvent ? new Date(article.data.dateEvent).toLocaleDateString('fr-FR') : ''}
                     </h2>
                     <div className="title-font text-lg font-medium text-gray-900 mb-3 dark:text-gray-400">
-                      {article.data.title[0].text}
+                      {article.data.title}
                     </div>
                     <div className="leading-relaxed mb-3 dark:text-gray-200">
-                      {article.data.description[0].text}
+                      {article.data.description}
                     </div>
                     <div className="flex items-center flex-wrap ">
                       <Link
