@@ -139,13 +139,6 @@ module.exports = withBundleAnalyzer({
     ],
   },
   reactStrictMode: true,
-  // Exclure les packages Sanity Studio du build côté serveur
-  serverComponentsExternalPackages: [
-    '@sanity/code-input',
-    '@sanity/vision',
-    'sanity-plugin-asset-source-unsplash',
-    '@sanity/presentation',
-    'sanity',
-    'next-sanity',
-  ],
+  // Configuration Turbopack vide pour éviter l'erreur avec webpack
+  turbopack: {},
 })

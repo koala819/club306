@@ -9,15 +9,10 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import config from '@/src/lib/blog/sanity/config'
 
-const Studio = dynamic(
-  async () => {
-    const { NextStudio } = await import('next-sanity/studio')
-    const config = (await import('@/src/lib/blog/sanity/config')).default
-    return function StudioPage() {
-      return <NextStudio config={config} />
-    }
-  },
+const NextStudio = dynamic(
+  () => import('next-sanity/studio').then((mod) => mod.NextStudio),
   {
     ssr: false,
     loading: () => (
@@ -32,5 +27,5 @@ const Studio = dynamic(
 )
 
 export default function StudioPage() {
-  return <Studio />
+  return <NextStudio config={config} />
 }
