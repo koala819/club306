@@ -15,52 +15,66 @@ export default function Page() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const paymentCode = params.get('code')
-    const orderId = params.get('checkoutIntentId')
+    const checkoutIntentId = params.get('checkoutIntentId')
 
     async function fetchData() {
-      if (paymentCode === 'succeeded' && orderId) {
-        try {
-          console.log('[RENEW_MEMBERSHIP] Fetching checkout intent from API:', `/api/helloasso/checkout-intent/${orderId}`)
-          console.log('[RENEW_MEMBERSHIP] Version: 2.0 - Using API route instead of direct connect()')
-          
-          const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            cache: 'no-store',
-          })
+      if (paymentCode === 'succeeded') {
+        // Essayer de récupérer l'userId depuis plusieurs sources (comme dans Memberfinish.tsx)
+        let userId = null
 
-          console.log('API response status:', response.status, response.ok)
+        // 1. Depuis l'URL (paramètre userId)
+        const urlUserId = params.get('userId')
+        if (urlUserId) {
+          userId = urlUserId
+        }
 
-          if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}))
-            console.error('API response error:', errorData)
-            throw new Error(`Failed to fetch checkout intent: ${response.status}`)
+        // 2. Depuis sessionStorage
+        if (!userId) {
+          const memberIdJSON = sessionStorage.getItem('memberId')
+          if (memberIdJSON) {
+            userId = JSON.parse(memberIdJSON)
           }
+        }
 
-          const result = await response.json()
-          console.log('API response data:', {
-            hasMetadata: !!result?.metadata,
-            hasUserId: !!result?.metadata?.userId,
-            metadata: result?.metadata
-          })
+        // 3. Depuis localStorage (backup)
+        if (!userId) {
+          const localMemberId = localStorage.getItem('currentMemberId')
+          if (localMemberId) {
+            userId = localMemberId
+          }
+        }
 
-          if (result.metadata && result.metadata.userId) {
-            console.log('Confirming membership for userId:', result.metadata.userId)
-            const confirmRenew = await confirmMembership(result.metadata.userId)
-            console.log('Membership confirmation result:', confirmRenew)
-            confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
-          } else {
-            console.error('No userId found in checkout intent metadata', result)
+        if (userId) {
+          const confirmRenew = await confirmMembership(userId)
+          confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+          return
+        }
+
+        // Fallback : essayer l'API si pas de sessionStorage
+        if (checkoutIntentId) {
+          try {
+            const response = await fetch(`/api/helloasso/checkout-intent/${checkoutIntentId}`)
+
+            if (!response.ok) {
+              throw new Error('Failed to fetch checkout intent')
+            }
+
+            const result = await response.json()
+
+            if (result && result.metadata && result.metadata.userId) {
+              const confirmRenew = await confirmMembership(result.metadata.userId)
+              confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+            } else {
+              setUpdateMemberShip(true)
+            }
+          } catch (error) {
+            console.error('Erreur lors de la récupération des données:', error)
             setUpdateMemberShip(true)
           }
-        } catch (error) {
-          console.error('Error during checkout intent fetch:', error)
+        } else {
           setUpdateMemberShip(true)
         }
       } else {
-        console.log('error in fetchData', paymentCode, orderId)
         setUpdateMemberShip(true)
       }
     }
