@@ -20,19 +20,31 @@ export default function Page() {
     async function fetchData() {
       if (paymentCode === 'succeeded' && orderId) {
         try {
+          console.log('Fetching checkout intent from API:', `/api/helloasso/checkout-intent/${orderId}`)
           const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`)
 
+          console.log('API response status:', response.status, response.ok)
+
           if (!response.ok) {
-            throw new Error('Failed to fetch checkout intent')
+            const errorData = await response.json().catch(() => ({}))
+            console.error('API response error:', errorData)
+            throw new Error(`Failed to fetch checkout intent: ${response.status}`)
           }
 
           const result = await response.json()
+          console.log('API response data:', {
+            hasMetadata: !!result?.metadata,
+            hasUserId: !!result?.metadata?.userId,
+            metadata: result?.metadata
+          })
 
           if (result.metadata && result.metadata.userId) {
+            console.log('Confirming membership for userId:', result.metadata.userId)
             const confirmRenew = await confirmMembership(result.metadata.userId)
+            console.log('Membership confirmation result:', confirmRenew)
             confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
           } else {
-            console.error('No userId found in checkout intent metadata')
+            console.error('No userId found in checkout intent metadata', result)
             setUpdateMemberShip(true)
           }
         } catch (error) {
