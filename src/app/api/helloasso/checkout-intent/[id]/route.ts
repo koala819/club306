@@ -3,10 +3,10 @@ import connect from '@/src/lib/helloAsso/connect'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const checkoutIntentId = params.id
+    const { id: checkoutIntentId } = await params
 
     if (!checkoutIntentId) {
       return NextResponse.json(

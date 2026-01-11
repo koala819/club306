@@ -21,7 +21,7 @@ export default function Page() {
       if (paymentCode === 'succeeded' && orderId) {
         try {
           const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`)
-          
+
           if (!response.ok) {
             throw new Error('Failed to fetch checkout intent')
           }

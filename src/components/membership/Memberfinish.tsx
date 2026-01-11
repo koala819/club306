@@ -56,7 +56,7 @@ export default function Memberfinish() {
         if (checkoutIntentId) {
           try {
             const response = await fetch(`/api/helloasso/checkout-intent/${checkoutIntentId}`)
-            
+
             if (!response.ok) {
               throw new Error('Failed to fetch checkout intent')
             }
