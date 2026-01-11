@@ -20,8 +20,16 @@ export default function Page() {
     async function fetchData() {
       if (paymentCode === 'succeeded' && orderId) {
         try {
-          console.log('Fetching checkout intent from API:', `/api/helloasso/checkout-intent/${orderId}`)
-          const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`)
+          console.log('[RENEW_MEMBERSHIP] Fetching checkout intent from API:', `/api/helloasso/checkout-intent/${orderId}`)
+          console.log('[RENEW_MEMBERSHIP] Version: 2.0 - Using API route instead of direct connect()')
+          
+          const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            cache: 'no-store',
+          })
 
           console.log('API response status:', response.status, response.ok)
 
