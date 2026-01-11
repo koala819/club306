@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react'
 
 import MailConfirm from '@/src/components/membership/MailConfirm'
 
-import connect from '@/src/lib/helloAsso/connect'
-
 export default function Memberfinish() {
   const [confirmMemberId, setConfirmMemberId] = useState<boolean>(false)
   const [userId, setUserId] = useState<string>('')
@@ -57,11 +55,13 @@ export default function Memberfinish() {
         // Fallback : essayer l'API si pas de sessionStorage
         if (checkoutIntentId) {
           try {
-            const result = await connect({
-              url: `https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents/${checkoutIntentId}`,
-              method: 'GET',
-            })
+            const response = await fetch(`/api/helloasso/checkout-intent/${checkoutIntentId}`)
+            
+            if (!response.ok) {
+              throw new Error('Failed to fetch checkout intent')
+            }
 
+            const result = await response.json()
 
             if (result && result.metadata && result.metadata.userId) {
               setUserId(result.metadata.userId)

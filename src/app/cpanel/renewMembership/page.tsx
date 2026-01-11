@@ -7,7 +7,6 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { useRouter } from 'next/navigation'
 
 import { confirmMembership } from '@/src/lib/cpanel/membershipMember'
-import connect from '@/src/lib/helloAsso/connect'
 
 export default function Page() {
   const [updateMemberShip, setUpdateMemberShip] = useState<boolean>(true)
@@ -20,15 +19,29 @@ export default function Page() {
 
     async function fetchData() {
       if (paymentCode === 'succeeded' && orderId) {
-        const result = await connect({
-          url: `https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents/${orderId}`,
-          method: 'GET',
-        })
+        try {
+          const response = await fetch(`/api/helloasso/checkout-intent/${orderId}`)
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch checkout intent')
+          }
 
-        const confirmRenew = await confirmMembership(result.metadata.userId)
-        confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+          const result = await response.json()
+
+          if (result.metadata && result.metadata.userId) {
+            const confirmRenew = await confirmMembership(result.metadata.userId)
+            confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+          } else {
+            console.error('No userId found in checkout intent metadata')
+            setUpdateMemberShip(true)
+          }
+        } catch (error) {
+          console.error('Error during checkout intent fetch:', error)
+          setUpdateMemberShip(true)
+        }
       } else {
         console.log('error in fetchData', paymentCode, orderId)
+        setUpdateMemberShip(true)
       }
     }
 
