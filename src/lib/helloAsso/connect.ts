@@ -26,13 +26,23 @@ export default async function connect({
       body: JSON.stringify(requestData),
     })
 
-    const data = await response.json()
-
     if (response.status !== 200 && response.status !== 204) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 
-    return data
+    // Pour les réponses 204 (No Content), il n'y a pas de body
+    if (response.status === 204) {
+      return {}
+    }
+
+    // Vérifier si le body existe avant de parser
+    const contentType = response.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json()
+      return data
+    }
+
+    return {}
   } catch (error) {
     console.error('Error during checkout intent initialization:', error)
     throw error
