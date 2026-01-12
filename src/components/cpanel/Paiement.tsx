@@ -53,7 +53,7 @@ const Paiement = () => {
       itemName: `Renouvellement Adhesion ${currentYear} Club 306`,
       backUrl: `${clientUrl}/cpanel/`,
       errorUrl: `${clientUrl}/error/`,
-      returnUrl: `${clientUrl}/cpanel/renewMembership/`,
+      returnUrl: `${clientUrl}/cpanel/renewMembership/?userId=${member?.id}`,
       containsDonation: true,
       payer: {
         firstName: `${member?.first_name}`,

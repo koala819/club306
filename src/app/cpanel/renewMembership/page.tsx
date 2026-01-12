@@ -7,7 +7,6 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { useRouter } from 'next/navigation'
 
 import { confirmMembership } from '@/src/lib/cpanel/membershipMember'
-import connect from '@/src/lib/helloAsso/connect'
 
 export default function Page() {
   const [updateMemberShip, setUpdateMemberShip] = useState<boolean>(true)
@@ -16,19 +15,67 @@ export default function Page() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const paymentCode = params.get('code')
-    const orderId = params.get('checkoutIntentId')
+    const checkoutIntentId = params.get('checkoutIntentId')
 
     async function fetchData() {
-      if (paymentCode === 'succeeded' && orderId) {
-        const result = await connect({
-          url: `https://api.helloasso.com/v5/organizations/club-306-france/checkout-intents/${orderId}`,
-          method: 'GET',
-        })
+      if (paymentCode === 'succeeded') {
+        // Essayer de récupérer l'userId depuis plusieurs sources (comme dans Memberfinish.tsx)
+        let userId = null
 
-        const confirmRenew = await confirmMembership(result.metadata.userId)
-        confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+        // 1. Depuis l'URL (paramètre userId)
+        const urlUserId = params.get('userId')
+        if (urlUserId) {
+          userId = urlUserId
+        }
+
+        // 2. Depuis sessionStorage
+        if (!userId) {
+          const memberIdJSON = sessionStorage.getItem('memberId')
+          if (memberIdJSON) {
+            userId = JSON.parse(memberIdJSON)
+          }
+        }
+
+        // 3. Depuis localStorage (backup)
+        if (!userId) {
+          const localMemberId = localStorage.getItem('currentMemberId')
+          if (localMemberId) {
+            userId = localMemberId
+          }
+        }
+
+        if (userId) {
+          const confirmRenew = await confirmMembership(userId)
+          confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+          return
+        }
+
+        // Fallback : essayer l'API si pas de sessionStorage
+        if (checkoutIntentId) {
+          try {
+            const response = await fetch(`/api/helloasso/checkout-intent/${checkoutIntentId}`)
+
+            if (!response.ok) {
+              throw new Error('Failed to fetch checkout intent')
+            }
+
+            const result = await response.json()
+
+            if (result && result.metadata && result.metadata.userId) {
+              const confirmRenew = await confirmMembership(result.metadata.userId)
+              confirmRenew ? setUpdateMemberShip(false) : setUpdateMemberShip(true)
+            } else {
+              setUpdateMemberShip(true)
+            }
+          } catch (error) {
+            console.error('Erreur lors de la récupération des données:', error)
+            setUpdateMemberShip(true)
+          }
+        } else {
+          setUpdateMemberShip(true)
+        }
       } else {
-        console.log('error in fetchData', paymentCode, orderId)
+        setUpdateMemberShip(true)
       }
     }
 
