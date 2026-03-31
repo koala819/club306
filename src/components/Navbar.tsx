@@ -297,14 +297,24 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <Button
-              as={Link}
-              onClick={handleSignIn}
-              href={'#'}
-              className="mr-10 border-transparent btn-custom"
-            >
-              Connexion
-            </Button>
+            <div className="mr-10 mb-5 flex items-center gap-3">
+              <Button
+                as={Link}
+                href="/membership"
+                className="bg-principal-light text-white dark:bg-principal-dark dark:text-bg-dark"
+              >
+                Adhérer
+              </Button>
+              <Button
+                as={Link}
+                onClick={handleSignIn}
+                href={'#'}
+                variant="bordered"
+                className="border-principal-light text-principal-light dark:border-principal-dark dark:text-principal-dark"
+              >
+                Connexion
+              </Button>
+            </div>
           )}
 
           <ThemeSwitcher
