@@ -224,9 +224,8 @@ export default function Garage({
         <div className={`${hide ? '' : 'w-full lg:w-8/12 px-4 mx-auto mt-6 '}`}>
           <div className="flex flex-col min-w-0 break-words w-full mb-6rounded-lg bg-gray-50 dark:bg-slate-500 border-0 ">
             <div
-              className={`${
-                !hide ? 'flex flex-col items-center justify-center mt-4' : ''
-              }`}
+              className={`${!hide ? 'flex flex-col items-center justify-center mt-4' : ''
+                }`}
             >
               {!hide && (
                 <h1 className="text-3xl font-semibold text-center mb-16">
@@ -247,9 +246,8 @@ export default function Garage({
                 </div>
 
                 <div
-                  className={`${
-                    !hide ? 'w-2/3 xl:w-1/3 mb-8 p-4' : 'w-full'
-                  }  rounded-lg ${isDark ? 'bg-gray-50' : 'bg-slate-500'}`}
+                  className={`${!hide ? 'w-2/3 xl:w-1/3 mb-8 p-4' : 'w-full'
+                    }  rounded-lg ${isDark ? 'bg-gray-50' : 'bg-slate-500'}`}
                 >
                   {cars !== undefined && (
                     <DisplaySVG
@@ -294,14 +292,14 @@ export default function Garage({
                             <ModalBody>
                               {(title === 'immatriculation' ||
                                 title === 'mine') && (
-                                <Input
-                                  type="text"
-                                  color="primary"
-                                  defaultValue={value}
-                                  variant="underlined"
-                                  onValueChange={setNewValue}
-                                />
-                              )}
+                                  <Input
+                                    type="text"
+                                    color="primary"
+                                    defaultValue={value}
+                                    variant="underlined"
+                                    onValueChange={setNewValue}
+                                  />
+                                )}
                               {title === 'modèle' && (
                                 <Select
                                   items={models}
