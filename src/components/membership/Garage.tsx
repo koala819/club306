@@ -211,7 +211,7 @@ export const Garage = ({ setStep }: any) => {
               color="primary"
               variant="bordered"
               isClearable
-              label="Type Mine"
+              label="Numéro de série (case E)"
               labelPlacement="outside"
               isInvalid={errors.mine && true}
               errorMessage={errors.mine && errors.mine.message}

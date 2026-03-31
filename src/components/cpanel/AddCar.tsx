@@ -145,7 +145,7 @@ export default function AddCar({ userMail }: { userMail: string }) {
                         //     : 'primary'
                         // }`}
                         variant={'faded'}
-                        label="Type Mine"
+                        label="Numéro de série (case E)"
                         id="mine"
                         onChange={onChange}
                         value={value}
