@@ -10,14 +10,25 @@ export default function Memberfinish() {
   const [userId, setUserId] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [paymentContext, setPaymentContext] = useState({
+    paymentCode: '',
+    checkoutIntentId: '',
+    orderId: '',
+  })
 
-        useEffect(() => {
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const paymentCode = params.get('code')
     const checkoutIntentId = params.get('checkoutIntentId')
     const orderId = params.get('orderId')
 
-        async function fetchData() {
+    setPaymentContext({
+      paymentCode: paymentCode || '',
+      checkoutIntentId: checkoutIntentId || '',
+      orderId: orderId || '',
+    })
+
+    async function fetchData() {
 
       if (paymentCode === 'succeeded') {
         // Essayer de récupérer l'userId depuis plusieurs sources
@@ -98,13 +109,16 @@ export default function Memberfinish() {
         <aside className="w-full md:w-1/2 py-8 flex flex-col items-center justify-center space-y-2">
           {confirmMemberId ? (
             <>
-              <MailConfirm userIdFromlocalStorage={userId} />
+              <MailConfirm
+                userIdFromlocalStorage={userId}
+                paymentContext={paymentContext}
+              />
               <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <p className="text-sm text-blue-800 dark:text-blue-200 text-center">
-                  ✅ Paiement reçu ! Votre adhésion sera validée dans les prochaines minutes.
+                  ✅ Paiement reçu ! Votre dossier est transmis pour validation manuelle.
                   <br />
                   <span className="text-xs text-blue-600 dark:text-blue-300">
-                    (Validation sécurisée via webhook HelloAsso)
+                    (Contrôle des informations avant activation)
                   </span>
                 </p>
               </div>

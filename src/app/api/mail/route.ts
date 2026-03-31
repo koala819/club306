@@ -12,6 +12,29 @@ import {
 } from '@/src/lib/mails'
 import nodemailer from 'nodemailer'
 
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+
+const buildManualValidationTable = (
+  data: Record<string, string | undefined>,
+): string => {
+  const rows = Object.entries(data)
+    .map(
+      ([key, value]) => `<tr>
+        <td style="border:1px solid #d1d5db;padding:8px;font-weight:600;background:#f9fafb;">${escapeHtml(key)}</td>
+        <td style="border:1px solid #d1d5db;padding:8px;">${escapeHtml(value || '-')}</td>
+      </tr>`,
+    )
+    .join('')
+
+  return `<table style="width:100%;border-collapse:collapse;border:1px solid #d1d5db;">${rows}</table>`
+}
+
 export async function POST(req: Request): Promise<Response> {
   if (!req.body)
     return new Response(JSON.stringify("Don't have form data...!"), {
@@ -187,6 +210,38 @@ export async function POST(req: Request): Promise<Response> {
           html: sendOTP(body.otp),
         }
         break
+      case 'manualValidationAlert': {
+        const tableHtml = buildManualValidationTable({
+          'Prénom': body.first_name,
+          'Nom': body.last_name,
+          Email: body.email,
+          'ID membre': body.userId,
+          'Code paiement': body.paymentCode,
+          'Checkout Intent ID': body.checkoutIntentId,
+          'Order ID': body.orderId,
+          Adresse: body.address,
+          'Code postal': body.zip_code,
+          Ville: body.town,
+          'Date de naissance': body.birth_date,
+          Pays: body.country,
+          Téléphone: body.phone,
+          Véhicules: body.vehicles,
+        })
+
+        mailOptions = {
+          from: 'contact@club306.fr',
+          to: 'secretariat@club306.fr, president@club306.fr',
+          bcc: 'webmaster@club306.fr',
+          subject: `Validation manuelle requise - ${body.first_name} ${body.last_name}`,
+          text: `Validation manuelle requise pour ${body.first_name} ${body.last_name} (${body.email}).`,
+          html: `<p>Bonjour,</p>
+          <p>Un paiement d'adhésion a été reçu et nécessite une validation manuelle.</p>
+          <p>Merci de vérifier les informations ci-dessous avant validation :</p>
+          ${tableHtml}
+          <p style="margin-top:16px;">Si une information est incorrecte, contactez le membre avant de valider.</p>`,
+        }
+        break
+      }
       default:
         mailOptions = {
           from: 'bigBrother.watchingYou@club306.fr',
