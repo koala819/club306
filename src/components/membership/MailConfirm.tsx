@@ -9,14 +9,20 @@ import { useRouter } from 'next/navigation'
 import { PersonalInfo, Vehicles } from '@/src/types/models'
 
 import { generateUniqueToken } from '@/src/lib/generateUniqueToken'
-import { sendConfirmationMail } from '@/src/lib/mail/utils'
+import { sendManualValidationAlert } from '@/src/lib/mail/utils'
 import { getMemberId } from '@/src/lib/supabase'
 import { record } from '@/src/lib/supabase/record'
 
 export default function MailConfirm({
   userIdFromlocalStorage,
+  paymentContext,
 }: {
   userIdFromlocalStorage: string
+  paymentContext: {
+    paymentCode: string
+    checkoutIntentId: string
+    orderId: string
+  }
 }) {
   const [recordInDb, setRecordInDb] = useState<boolean>(false)
   const [lastMbrIdFromDB, setLastMbrIdFromDB] = useState<number | null>(null)
@@ -77,15 +83,35 @@ export default function MailConfirm({
           router.push('/contact')
         } else {
           // console.log('YES RECORD IN DB with ', storedPersonalInfo);
-          const mailResponse = await sendConfirmationMail(
-            storedPersonalInfo?.first_name || '',
-            storedPersonalInfo?.last_name || '',
-            storedPersonalInfo?.email || '',
-            tokenForMember,
-          )
+          const vehiclesAsText =
+            storedVehicle && storedVehicle.length > 0
+              ? storedVehicle
+                  .map(
+                    (vehicle, index) =>
+                      `Véhicule ${index + 1} - Immatriculation: ${vehicle.immatriculation}, Mine: ${vehicle.mine}, Modèle: ${vehicle.model}, Couleur: ${vehicle.color}, Finition: ${vehicle.finition}`,
+                  )
+                  .join(' | ')
+              : 'Aucun véhicule renseigné'
+
+          const mailResponse = await sendManualValidationAlert({
+            first_name: storedPersonalInfo?.first_name || '',
+            last_name: storedPersonalInfo?.last_name || '',
+            email: storedPersonalInfo?.email || '',
+            userId: userIdFromlocalStorage,
+            paymentCode: paymentContext.paymentCode,
+            checkoutIntentId: paymentContext.checkoutIntentId,
+            orderId: paymentContext.orderId,
+            address: storedPersonalInfo?.address || '',
+            zip_code: storedPersonalInfo?.zip_code || '',
+            town: storedPersonalInfo?.town || '',
+            birth_date: String(storedPersonalInfo?.birth_date || ''),
+            country: storedPersonalInfo?.country || '',
+            phone: storedPersonalInfo?.phone || '',
+            vehicles: vehiclesAsText,
+          })
           const finished = await mailResponse.json()
           if (finished.status === 200) {
-            toast.success('Veuillez consulter votre boite mail')
+            toast.success('Alerte envoyée au secrétariat pour validation manuelle')
             setRecordInDb(true)
           } else {
             console.error('Send mail with ERROR ', finished.data)
@@ -116,18 +142,20 @@ export default function MailConfirm({
       ) : (
         <section className="p-8">
           <h2 className="text-2xl font-semibold text-center mb-16">
-            Il ne vous reste plus qu'à confirmer votre e-mail !
+            Paiement reçu, dossier en attente de validation manuelle
           </h2>
           <text className="mt-2 text-base text-gray-600 space-y-4 text-left">
-            <p>Merci de votre adhésion au Club 306</p>
-            <p>Vous avez reçu un e-mail de confirmation à l'adresse :</p>
-            <p>{storedPersonalInfo?.email}</p>
+            <p>Merci pour votre adhésion au Club 306.</p>
+            <p>
+              Le secrétariat a reçu une alerte avec vos informations complètes
+              pour contrôle.
+            </p>
             <p className="underline font-bold">
-              Cette étape est obligatoire pour valider votre inscription !
+              Votre adhésion sera validée après vérification manuelle.
             </p>
           </text>
           <p className="text-red-500 font-extrabold text-center mt-4">
-            Vérifiez vos spams
+            Si besoin, nous vous recontacterons pour corriger certaines données
           </p>
         </section>
       )}
