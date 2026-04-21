@@ -108,7 +108,7 @@ async function recordMember(
   try {
     const { error } = await supabase.from('members').insert({
       id: newMemberId,
-      cotisation: true,
+      cotisation: false,
       address,
       birth_date,
       country: countryName,
