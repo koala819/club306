@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 import { PartnerInfoType } from '@/src/types/models'
 
-import { uploadImageToGitHub } from '@/src/lib/githubImage'
 import { createNewPartner, updatePartner } from '@/src/lib/supabase'
 
 interface EditPartnerProps {
@@ -84,10 +83,14 @@ const EditPartner: React.FC<EditPartnerProps> = ({ partner, onCancel }) => {
       const imagePath = data.image
       const imageName = imagePath.substring(imagePath.lastIndexOf('\\') + 1)
 
-      const response = await uploadImageToGitHub(
-        URL.createObjectURL(editedImage),
-        imageName,
-      )
+      const formData = new FormData()
+      formData.append('file', editedImage)
+      formData.append('path', imageName)
+
+      const response = await fetch('/api/github/upload', {
+        method: 'POST',
+        body: formData,
+      })
       if (response.status === 200) {
         const response = await createNewPartner(data, imageName)
         if (response.status === 200) {

@@ -1,53 +1,29 @@
-import { Octokit } from '@octokit/core'
+import { type NextRequest, NextResponse } from 'next/server'
 
-// export async function POST(apiUrl: string) {
-export async function POST(req: Request) {
-  const githubToken = process.env.GITHUB_TOKEN
+import { deletePictureFromGitHub } from '@/src/lib/githubImage'
+
+export async function POST(req: NextRequest) {
   try {
-    if (!req.body)
-      return new Response(JSON.stringify("Don't have form data...!"), {
-        status: 403,
-        statusText: "Don't have form data...!",
-      })
+    const body = await req.json()
+    const githubUrl = body?.githubUrl
 
-    const apiUrl = await req.json()
-    console.log('apiUrl', apiUrl)
-
-    const octokit = new Octokit({
-      auth: githubToken,
-    })
-
-    // const responseAxiosDelete = await octokit.request(`DELETE ${apiUrl}`, {
-    const responseAxiosDelete = await octokit.request(
-      'DELETE /repos/koala819/Unlimitd_front/contents/good.jpg',
-      {
-        owner: 'OWNER',
-        repo: 'REPO',
-        path: 'PATH',
-        message: 'my commit message',
-        committer: {
-          name: 'Monalisa Octocat',
-          email: 'octocat@github.com',
-        },
-        sha: '329688480d39049927147c162b9d2deaf885005f',
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      },
-    )
-
-    if (responseAxiosDelete.status === 204) {
-      return new Response('Image deleted from GitHub', {
-        status: 200,
-        statusText: 'Image deleted from GitHub with success',
-      })
-    } else {
-      throw new Error('Failed to delete image from GitHub')
+    if (typeof githubUrl !== 'string' || githubUrl === '') {
+      return NextResponse.json(
+        { error: 'URL GitHub manquante' },
+        { status: 400 },
+      )
     }
-  } catch (error) {
-    return new Response(JSON.stringify(error), {
-      status: 405,
-      statusText: 'Error deleting image from GitHub',
+
+    const response = await deletePictureFromGitHub(githubUrl)
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
     })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Erreur lors de la suppression sur GitHub' },
+      { status: 500 },
+    )
   }
 }
