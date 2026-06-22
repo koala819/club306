@@ -11,7 +11,6 @@ module.exports = withBundleAnalyzer({
     GCP_CLIENT_ID: process.env.GCP_CLIENT_ID,
     GCP_CLIENT_SECRET: process.env.GCP_CLIENT_SECRET,
     GCP_REFRESH_TOKEN: process.env.GCP_REFRESH_TOKEN,
-    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
     GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
     HELLO_ASSO_API_URL: process.env.HELLO_ASSO_API_URL,
     // HELLO_ASSO_API_URL_SANDBOX: process.env.HELLO_ASSO_API_URL_SANDBOX,
