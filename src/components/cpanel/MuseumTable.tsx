@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 import { getMuseumInfo } from '@/src/lib/supabase/museum'
 import styles from '@/src/styles/MuseumTable.module.css'
 import { format } from 'date-fns'
-import { fr } from 'date-fns/locale'
+import fr from 'date-fns/locale/fr'
 
 type MuseumRecord = {
   deleted_at: string

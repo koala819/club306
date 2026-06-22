@@ -9,7 +9,6 @@ import { PartnerInfoType } from '@/src/types/models'
 
 import EditPartner from '@/src/components/cpanel/EditPartner'
 
-import { deletePictureFromGitHub } from '@/src/lib/githubImage'
 import { ourPartners } from '@/src/lib/supabase'
 import { deleteParner } from '@/src/lib/supabase'
 
@@ -55,7 +54,11 @@ export default function OurPartners() {
   const handleDeleteClick = async (partner: PartnerInfoType) => {
     if (partner.linkImg !== null && partner.linkImg !== undefined) {
       setDisplayLoader(true)
-      const response = await deletePictureFromGitHub(partner.linkImg)
+      const response = await fetch('/api/removeGithubPicture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ githubUrl: partner.linkImg }),
+      })
 
       if (response !== undefined && response.status === 200) {
         const response = await deleteParner(partner.id)
