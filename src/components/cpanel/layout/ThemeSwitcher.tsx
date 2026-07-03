@@ -4,7 +4,7 @@ import { BsFillSunFill, BsMoonFill } from 'react-icons/bs'
 
 import { useTheme } from 'next-themes'
 
-import { Switch } from '@heroui/switch'
+import { Switch } from '@heroui/react'
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme()
