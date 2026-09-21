@@ -65,7 +65,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
       { name: 'DISCORD', path: 'https://discord.gg/uRVtYGpjdV' },
       {
         name: 'BOUTIQUE',
-        path: 'https://www.pm-racing.fr/connexion_protected_category.php?mode=catalog&catId=1011',
+        path: 'https://club306.teampulseshop.com',
       },
       { name: 'EVENT', path: '/event' },
       { name: 'CONTACT', path: '/contact' },
@@ -224,9 +224,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         </NavbarItem>
 
         {/* Quatrième élément BOUTIQUE */}
-        <NavbarItem isActive={path.includes('pm-racing')}>
+        <NavbarItem isActive={path.includes('teampulseshop')}>
           <Link
-            href="https://www.pm-racing.fr/connexion_protected_category.php?mode=catalog&catId=1011"
+            href="https://club306.teampulseshop.com"
             target="_blank"
             aria-current="page"
             className="degrade-border text-text-light dark:text-text-dark"
