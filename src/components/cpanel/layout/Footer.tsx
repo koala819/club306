@@ -15,14 +15,16 @@ export default function Footer() {
           <text className="flex">
             {currentYear} Created by
             <Link
-              href="https://www.dix31.com"
+              href="https://www.linkedin.com/in/xavier%F0%9F%92%BB-genolhac-79a98390/"
               target="_blank"
+              rel="noopener noreferrer"
               className="mx-1 hover:underline -mt-1"
+              title="Xavier Genolhac sur LinkedIn"
             >
               <picture className="flex justify-center md:justify-end text-white pr-1 mt-1">
                 <Image
                   src={dix31}
-                  alt="Logo DIX31.com"
+                  alt="DIX31 — Xavier Genolhac"
                   height={15}
                   className="text-white"
                 />

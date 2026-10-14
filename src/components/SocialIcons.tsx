@@ -50,7 +50,7 @@ const socialLinks = [
 export const SocialIcons = ({ isMobile = false }: { isMobile?: boolean }) => {
   const containerClass = isMobile
     ? 'flex justify-center space-x-6 w-full py-4'
-    : 'hidden lg:flex items-center space-x-4 ml-6'
+    : 'hidden lg:flex items-center space-x-3 ml-6'
 
   return (
     <div className={containerClass}>
@@ -59,7 +59,7 @@ export const SocialIcons = ({ isMobile = false }: { isMobile?: boolean }) => {
           key={social.label}
           href={social.href}
           target="_blank"
-          className="text-text-light dark:text-text-dark hover:opacity-80"
+          className="flex h-9 w-9 items-center justify-center rounded-full text-text-light/80 transition-all duration-200 hover:bg-principal-light/10 hover:text-text-light hover:scale-110 dark:text-text-dark/80 dark:hover:bg-principal-dark/15 dark:hover:text-text-dark"
           aria-label={social.label}
         >
           {social.icon}

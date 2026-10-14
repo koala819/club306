@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Utilisé par HeroUI (menu mobile) — hors content Tailwind, donc forcé ici */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -167,10 +180,15 @@ body {
   @apply rounded-lg p-2 text-principal-light hover:bg-principal-light hover:text-text-dark dark:text-text-dark dark:hover:bg-principal-dark dark:hover:text-bg-dark;
 }
 
+.degrade-border {
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
 :hover.degrade-border {
-  border-bottom-width: 3px;
+  border-bottom-width: 2px;
   border-style: solid;
-  border-image: linear-gradient(to right, blue, white 50%, red);
+  border-image: linear-gradient(to right, #174191, #ffffff 50%, #e30613);
   border-image-slice: 1;
 }
 

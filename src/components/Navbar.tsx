@@ -17,8 +17,8 @@ import {
 } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
-import { useState } from 'react'
-import { FiChevronDown } from 'react-icons/fi'
+import { useEffect, useState } from 'react'
+import { FiChevronDown, FiLogIn } from 'react-icons/fi'
 
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -36,11 +36,19 @@ import { useTheme } from '@/src/context/ThemeContext'
 
 export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [isCompact, setIsCompact] = useState(false)
   const path = usePathname()
   const router = useRouter()
   const { theme } = useTheme()
 
   const { data: session } = useSession()
+
+  useEffect(() => {
+    const onScroll = () => setIsCompact(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const handleSignIn = () => {
     if (
@@ -85,56 +93,81 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     return items
   }
 
+  const navLinkClass =
+    'degrade-border text-text-light dark:text-text-dark text-sm font-medium tracking-[0.12em] transition-opacity duration-200 hover:opacity-70'
+
   return (
+    <>
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="full"
-      className={`bg-bg-light dark:bg-bg-dark pb-5 ${withMember ? 'bg-light-connect dark:bg-dark-connect' : ''
-        }`}
-      isBordered={true}
-      position="sticky"
+      isBlurred
+      className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
+        isCompact
+          ? 'pb-0 border-black/5 dark:border-white/10 bg-bg-light/80 dark:bg-bg-dark/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl'
+          : 'pb-5 border-transparent bg-bg-light/95 dark:bg-bg-dark/95 shadow-none backdrop-blur-md'
+      } ${withMember ? '!bg-light-connect/90 dark:!bg-dark-connect/90' : ''}`}
+      style={{ zIndex: 50 }}
+      isBordered={false}
+      position="static"
       classNames={{
         item: [
-          `${withMember
-            ? 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
-            : 'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark'
-          }`,
-          'mt-5',
+          'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark',
+          isCompact ? 'mt-0' : 'mt-5',
           'flex',
           'relative',
           'h-full',
           'items-center',
+          'transition-[margin] duration-300',
           "data-[active=true]:after:content-['']",
           'data-[active=true]:after:absolute',
           'data-[active=true]:after:bottom-0',
           'data-[active=true]:after:left-0',
           'data-[active=true]:after:right-0',
           'data-[active=true]:after:h-[2px]',
-          'data-[active=true]:after:rounded-[2px]',
+          'data-[active=true]:after:rounded-full',
+          'data-[active=true]:after:transition-all',
         ],
       }}
     >
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="lg:hidden mt-5"
+          className={`lg:hidden transition-[margin] duration-300 ${
+            isCompact ? 'mt-0' : 'mt-5'
+          }`}
         />
         <NavbarBrand className="justify-end lg:justify-start">
-          <Link href="/" aria-current="page" color="foreground">
+          <Link
+            href="/"
+            aria-current="page"
+            color="foreground"
+            className="transition-transform duration-300 hover:scale-[1.03]"
+          >
             <Image
               src={theme === 'light' ? blackLogo : whiteLogo}
               alt="Club 306 Logo"
-              className="object-fill mt-3"
+              className={`object-contain h-auto transition-all duration-300 ${
+                isCompact
+                  ? 'mt-0 w-[100px] sm:w-[120px]'
+                  : 'mt-2 w-[120px] sm:mt-3 sm:w-[170px]'
+              }`}
               width={170}
               height={50}
             />
           </Link>
 
-          <div className="flex items-center space-x-4 mt-3 lg:mt-2 ml-2">
+          <div
+            className={`flex items-center space-x-2 sm:space-x-4 ml-1 sm:ml-2 transition-all duration-300 ${
+              isCompact ? 'mt-0' : 'mt-2 sm:mt-3 lg:mt-2'
+            }`}
+          >
             <Image
               src={Avp}
               alt="Logo l'Aventure Peugeot"
-              className="w-28 h-auto"
+              className={`h-auto opacity-90 transition-all duration-300 hover:opacity-100 ${
+                isCompact ? 'w-14 sm:w-20' : 'w-20 sm:w-28'
+              }`}
             />
           </div>
 
@@ -158,11 +191,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             <DropdownTrigger>
               <Button
                 disableRipple
-                className={` ${path.includes('/club')
-                  ? 'degrade-border text-text-light dark:text-text-dark'
-                  : 'degrade-border text-text-light dark:text-text-dark'
-                  }`}
-                endContent={<FiChevronDown />}
+                className={`${navLinkClass} bg-transparent data-[hover=true]:bg-transparent`}
+                endContent={<FiChevronDown className="opacity-60" />}
                 radius="sm"
                 variant="light"
               >
@@ -201,41 +231,37 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           </DropdownMenu>
         </Dropdown>
 
-        {/* Deuxième élément de la barre de navigation */}
         <NavbarItem isActive={path.includes('#')}>
           <Link
             href="https://discord.gg/uRVtYGpjdV"
             aria-current="page"
-            className="degrade-border text-text-light dark:text-text-dark"
+            className={navLinkClass}
           >
             DISCORD
           </Link>
         </NavbarItem>
 
-        {/* Troisième élément de la barre de navigation */}
         <NavbarItem isActive={path.includes('/event')}>
           <Link
             href="/event"
             aria-current="page"
-            className="degrade-border text-text-light dark:text-text-dark"
+            className={navLinkClass}
           >
             EVENT
           </Link>
         </NavbarItem>
 
-        {/* Quatrième élément BOUTIQUE */}
         <NavbarItem isActive={path.includes('teampulseshop')}>
           <Link
             href="https://club306.teampulseshop.com"
             target="_blank"
             aria-current="page"
-            className="degrade-border text-text-light dark:text-text-dark"
+            className={navLinkClass}
           >
             BOUTIQUE
           </Link>
         </NavbarItem>
 
-        {/* Cinquième élément de la barre de navigation */}
         <NavbarItem
           isActive={path.includes('/contact')}
           className="hidden lg:flex"
@@ -243,7 +269,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           <Link
             href="/contact"
             aria-current="page"
-            className="degrade-border text-text-light dark:text-text-dark"
+            className={navLinkClass}
           >
             CONTACT
           </Link>
@@ -262,7 +288,13 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           `}
             >
               <DropdownTrigger>
-                <Button className="mr-10 mb-5 btn-custom">
+                <Button
+                  radius="full"
+                  size={isCompact ? 'sm' : 'md'}
+                  className={`mr-6 btn-custom shadow-sm transition-all duration-300 hover:-translate-y-px hover:shadow-md ${
+                    isCompact ? 'mb-0 px-3.5 text-sm' : 'mb-5 px-5'
+                  }`}
+                >
                   Espace membres
                 </Button>
               </DropdownTrigger>
@@ -295,11 +327,19 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <div className="mr-10 mb-5 flex items-center gap-3">
+            <div
+              className={`mr-4 flex items-center gap-3 transition-all duration-300 ${
+                isCompact ? 'mb-0' : 'mb-5'
+              }`}
+            >
               <Button
                 as={Link}
                 href="/membership"
-                className="bg-principal-light text-white dark:bg-principal-dark dark:text-bg-dark"
+                radius="full"
+                size={isCompact ? 'sm' : 'md'}
+                className={`bg-principal-light font-medium text-white shadow-sm transition-all duration-300 hover:-translate-y-px hover:shadow-md hover:brightness-110 dark:bg-principal-dark dark:text-bg-dark ${
+                  isCompact ? 'min-h-8 px-3.5 text-sm' : 'min-h-9 px-5'
+                }`}
               >
                 Adhérer
               </Button>
@@ -307,18 +347,25 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 as={Link}
                 onClick={handleSignIn}
                 href={'#'}
-                variant="bordered"
-                className="border-principal-light text-principal-light dark:border-principal-dark dark:text-principal-dark"
+                variant="light"
+                size={isCompact ? 'sm' : 'md'}
+                startContent={<FiLogIn className={isCompact ? 'text-base' : 'text-lg'} />}
+                className={`bg-transparent px-1 font-medium text-principal-light transition-all duration-300 hover:bg-transparent hover:text-principal-light/70 dark:text-principal-dark dark:hover:text-principal-dark/70 ${
+                  isCompact ? 'min-h-8 text-sm gap-1' : 'min-h-9 gap-1.5'
+                }`}
               >
                 Connexion
               </Button>
             </div>
           )}
 
-          <ThemeSwitcher
-            // onThemeChange={handleThemeChange}
-            withMember={withMember}
-          />
+          <div
+            className={`transition-[margin] duration-300 ${
+              isCompact ? 'mb-0' : 'mb-5'
+            }`}
+          >
+            <ThemeSwitcher withMember={withMember} compact={isCompact} />
+          </div>
         </NavbarItem>
       </NavbarContent>
 
@@ -346,5 +393,12 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
         ))}
       </NavbarMenu>
     </Navbar>
+    <div
+      aria-hidden
+      className={`shrink-0 transition-[height] duration-300 ${
+        isCompact ? 'h-14 sm:h-16' : 'h-20 sm:h-28'
+      }`}
+    />
+    </>
   )
 }
