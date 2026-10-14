@@ -270,6 +270,7 @@ interface Vehicles {
 
 interface ThemeSwitcherProps {
   withMember?: boolean
+  compact?: boolean
 }
 
 export type {
