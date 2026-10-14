@@ -1,13 +1,11 @@
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import type { ReactNode } from 'react'
+
+import '@/src/styles/globals.css'
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
-      <body>
-        {children}
-      </body>
+    <html lang="fr" className="light" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
-  );
+  )
 }
