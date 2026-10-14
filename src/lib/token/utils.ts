@@ -8,11 +8,11 @@ async function checkEmptyToken(email: string) {
       .select('user_token')
       .eq('email', email)
       .limit(1);
-    if (data?.[0].user_token === null) {
+    const row = data?.[0];
+    if (!row) {
       return false;
     }
-
-    return true;
+    return row.user_token !== null;
   } catch (error: any) {
     console.error("Erreur lors de l'exécution de la requête :", error.message);
     return false;

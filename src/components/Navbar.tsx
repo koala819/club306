@@ -261,13 +261,11 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                 }
           `}
             >
-              <NavbarItem>
-                <DropdownTrigger>
-                  <Button className="mr-10 mb-5 btn-custom">
-                    Espace membres
-                  </Button>
-                </DropdownTrigger>
-              </NavbarItem>
+              <DropdownTrigger>
+                <Button className="mr-10 mb-5 btn-custom">
+                  Espace membres
+                </Button>
+              </DropdownTrigger>
 
               <DropdownMenu
                 aria-label="Espace membres submenu"
