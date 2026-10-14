@@ -6,7 +6,11 @@ import { SessionProvider } from 'next-auth/react';
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <HeroUIProvider>
-      <NextThemesProvider attribute="class" defaultTheme="light">
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="light"
+        scriptProps={{ type: 'application/json' }}
+      >
         <SessionProvider>{children}</SessionProvider>
       </NextThemesProvider>
     </HeroUIProvider>
