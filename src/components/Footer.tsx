@@ -143,9 +143,9 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
           </p>
           <form
             onSubmit={handleSubmit(handleSendMail)}
-            className="mx-auto flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-start"
+            className="mx-auto flex w-full flex-col gap-3 sm:max-w-md sm:flex-row sm:items-start"
           >
-            <div className="flex-1">
+            <div className="w-full flex-1">
               <Controller
                 name="email"
                 control={control}
@@ -168,7 +168,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
             </div>
             <button
               type="submit"
-              className="rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#174191] shadow-sm transition-all duration-200 hover:-translate-y-px hover:bg-white/90 hover:shadow-md dark:bg-principal-dark dark:text-bg-dark"
+              className="w-full rounded-full bg-white px-6 py-2.5 text-sm font-medium text-[#174191] shadow-sm transition-all duration-200 hover:-translate-y-px hover:bg-white/90 hover:shadow-md sm:w-auto dark:bg-principal-dark dark:text-bg-dark"
             >
               S&apos;abonner
             </button>

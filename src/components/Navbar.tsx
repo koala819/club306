@@ -148,7 +148,9 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               src={theme === 'light' ? blackLogo : whiteLogo}
               alt="Club 306 Logo"
               className={`object-contain h-auto transition-all duration-300 ${
-                isCompact ? 'mt-0 w-[120px]' : 'mt-3 w-[170px]'
+                isCompact
+                  ? 'mt-0 w-[100px] sm:w-[120px]'
+                  : 'mt-2 w-[120px] sm:mt-3 sm:w-[170px]'
               }`}
               width={170}
               height={50}
@@ -156,15 +158,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           </Link>
 
           <div
-            className={`flex items-center space-x-4 ml-2 transition-all duration-300 ${
-              isCompact ? 'mt-0' : 'mt-3 lg:mt-2'
+            className={`flex items-center space-x-2 sm:space-x-4 ml-1 sm:ml-2 transition-all duration-300 ${
+              isCompact ? 'mt-0' : 'mt-2 sm:mt-3 lg:mt-2'
             }`}
           >
             <Image
               src={Avp}
               alt="Logo l'Aventure Peugeot"
               className={`h-auto opacity-90 transition-all duration-300 hover:opacity-100 ${
-                isCompact ? 'w-20' : 'w-28'
+                isCompact ? 'w-14 sm:w-20' : 'w-20 sm:w-28'
               }`}
             />
           </div>
@@ -394,7 +396,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     <div
       aria-hidden
       className={`shrink-0 transition-[height] duration-300 ${
-        isCompact ? 'h-16' : 'h-28'
+        isCompact ? 'h-14 sm:h-16' : 'h-20 sm:h-28'
       }`}
     />
     </>
