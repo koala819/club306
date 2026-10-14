@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 import { isAuthenticatedUser } from '@/src/lib/isAuthenticatedUser'
 
-export default withAuth(async function middleware(req: any) {
+export default withAuth(async function proxy(req: any) {
   const isAuth = await isAuthenticatedUser(req)
   if (!isAuth) {
     console.log('FORBIDDEN FOR USER')
@@ -17,13 +17,3 @@ export default withAuth(async function middleware(req: any) {
 export const config = {
   matcher: ['/cpanel/:route*'],
 }
-
-// import { withAuth } from 'next-auth/middleware';
-
-// export default withAuth(async function middleware() {
-//   console.log('middleware');
-// });
-
-// export const config = {
-//   matcher: ['/cpanel'],
-// };

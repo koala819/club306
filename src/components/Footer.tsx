@@ -91,11 +91,19 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
         if (response.status === 200) {
           toast.success('Merci de votre inscription à la newsletter')
         } else {
-          toast.error("Une erreur s'est produite", response.statusText)
+          toast.error(
+            response.statusText
+              ? `Une erreur s'est produite : ${response.statusText}`
+              : "Une erreur s'est produite",
+          )
         }
       })
       .catch((error) => {
-        toast.error("Une erreur s'est produite", error)
+        toast.error(
+          error instanceof Error
+            ? `Une erreur s'est produite : ${error.message}`
+            : "Une erreur s'est produite",
+        )
       })
   }
 
