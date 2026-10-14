@@ -17,7 +17,7 @@ import {
 } from '@heroui/react'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { FiChevronDown, FiLogIn } from 'react-icons/fi'
 
 import Image from 'next/image'
@@ -96,29 +96,37 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
   const navLinkClass =
     'degrade-border text-text-light dark:text-text-dark text-sm font-medium tracking-[0.12em] transition-opacity duration-200 hover:opacity-70'
 
+  const navbarHeight = isCompact ? '3.5rem' : '5rem'
+
   return (
     <>
     <Navbar
+      isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="full"
       isBlurred
-      className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
+      height={navbarHeight}
+      className={`fixed top-0 inset-x-0 z-50 !h-[var(--navbar-height)] border-b transition-all duration-300 ${
         isCompact
-          ? 'pb-0 border-black/5 dark:border-white/10 bg-bg-light/80 dark:bg-bg-dark/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl'
-          : 'pb-5 border-transparent bg-bg-light/95 dark:bg-bg-dark/95 shadow-none backdrop-blur-md'
+          ? 'border-black/5 dark:border-white/10 bg-bg-light/80 dark:bg-bg-dark/80 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl'
+          : 'border-transparent bg-bg-light/95 dark:bg-bg-dark/95 shadow-none backdrop-blur-md'
       } ${withMember ? '!bg-light-connect/90 dark:!bg-dark-connect/90' : ''}`}
-      style={{ zIndex: 50 }}
+      style={
+        {
+          zIndex: 50,
+          '--navbar-height': navbarHeight,
+        } as CSSProperties
+      }
       isBordered={false}
       position="static"
       classNames={{
+        wrapper: 'items-center',
         item: [
           'data-[active=true]:after:bg-principal-light dark:data-[active=true]:after:bg-text-dark',
-          isCompact ? 'mt-0' : 'mt-5',
           'flex',
           'relative',
           'h-full',
           'items-center',
-          'transition-[margin] duration-300',
           "data-[active=true]:after:content-['']",
           'data-[active=true]:after:absolute',
           'data-[active=true]:after:bottom-0',
@@ -128,14 +136,49 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
           'data-[active=true]:after:rounded-full',
           'data-[active=true]:after:transition-all',
         ],
+        menu: [
+          'z-40',
+          '!mt-0',
+          'pt-3',
+          'pb-6',
+          'px-4',
+          'gap-1',
+          'border-t',
+          'border-black/5',
+          'dark:border-white/10',
+          'backdrop-blur-xl',
+          withMember
+            ? 'bg-light-connect/95 dark:bg-dark-connect/95'
+            : 'bg-bg-light/95 dark:bg-bg-dark/95',
+        ],
       }}
     >
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className={`lg:hidden transition-[margin] duration-300 ${
-            isCompact ? 'mt-0' : 'mt-5'
+          className={`lg:hidden !h-10 !w-10 !min-h-10 !min-w-10 !rounded-full text-text-light transition-colors duration-300 dark:text-text-dark ${
+            isMenuOpen
+              ? '!bg-principal-light !text-white dark:!bg-principal-dark dark:!text-bg-dark'
+              : '!bg-transparent hover:!bg-principal-light/[0.08] dark:hover:!bg-white/10'
           }`}
+          icon={(open) => (
+            <span className="relative block h-[14px] w-[22px]">
+              <span
+                className={`absolute left-0 h-[1.5px] rounded-full bg-current transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  open
+                    ? 'top-[6px] w-[22px] rotate-45'
+                    : 'top-[3px] w-[22px]'
+                }`}
+              />
+              <span
+                className={`absolute left-0 h-[1.5px] rounded-full bg-current transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  open
+                    ? 'top-[6px] w-[22px] -rotate-45'
+                    : 'top-[9px] w-[14px]'
+                }`}
+              />
+            </span>
+          )}
         />
         <NavbarBrand className="justify-end lg:justify-start">
           <Link
@@ -149,19 +192,15 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               alt="Club 306 Logo"
               className={`object-contain h-auto transition-all duration-300 ${
                 isCompact
-                  ? 'mt-0 w-[100px] sm:w-[120px]'
-                  : 'mt-2 w-[120px] sm:mt-3 sm:w-[170px]'
+                  ? 'w-[100px] sm:w-[120px]'
+                  : 'w-[120px] sm:w-[170px]'
               }`}
               width={170}
               height={50}
             />
           </Link>
 
-          <div
-            className={`flex items-center space-x-2 sm:space-x-4 ml-1 sm:ml-2 transition-all duration-300 ${
-              isCompact ? 'mt-0' : 'mt-2 sm:mt-3 lg:mt-2'
-            }`}
-          >
+          <div className="ml-1 flex items-center space-x-2 transition-all duration-300 sm:ml-2 sm:space-x-4">
             <Image
               src={Avp}
               alt="Logo l'Aventure Peugeot"
@@ -292,7 +331,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
                   radius="full"
                   size={isCompact ? 'sm' : 'md'}
                   className={`mr-6 btn-custom shadow-sm transition-all duration-300 hover:-translate-y-px hover:shadow-md ${
-                    isCompact ? 'mb-0 px-3.5 text-sm' : 'mb-5 px-5'
+                    isCompact ? 'px-3.5 text-sm' : 'px-5'
                   }`}
                 >
                   Espace membres
@@ -327,11 +366,7 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <div
-              className={`mr-4 flex items-center gap-3 transition-all duration-300 ${
-                isCompact ? 'mb-0' : 'mb-5'
-              }`}
-            >
+            <div className="mr-4 flex items-center gap-3 transition-all duration-300">
               <Button
                 as={Link}
                 href="/membership"
@@ -359,32 +394,34 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
             </div>
           )}
 
-          <div
-            className={`transition-[margin] duration-300 ${
-              isCompact ? 'mb-0' : 'mb-5'
-            }`}
-          >
-            <ThemeSwitcher withMember={withMember} compact={isCompact} />
-          </div>
+          <ThemeSwitcher withMember={withMember} compact={isCompact} />
         </NavbarItem>
       </NavbarContent>
 
       {/* MOBILE VIEW */}
-      <NavbarMenu className="mt-4">
+      <NavbarMenu>
         <SocialIcons isMobile />
         {generateMenuItems(withMember).map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             {item.component ? (
-              item.component
+              <div className="flex w-full justify-center py-2">
+                {item.component}
+              </div>
             ) : item.onClick ? (
-              <Button onClick={item.onClick} color="danger" variant="light">
+              <Button
+                onClick={item.onClick}
+                color="danger"
+                variant="light"
+                className="w-full justify-start font-medium"
+              >
                 {item.name.toUpperCase()}
               </Button>
             ) : (
               <Link
                 href={item.path || '#'}
                 size="lg"
-                className="navbarLinkHover"
+                className="navbarLinkHover w-full rounded-xl px-3 py-2 text-base font-medium tracking-wide transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
@@ -395,9 +432,8 @@ export const Navbar306 = ({ withMember }: { withMember: boolean }) => {
     </Navbar>
     <div
       aria-hidden
-      className={`shrink-0 transition-[height] duration-300 ${
-        isCompact ? 'h-14 sm:h-16' : 'h-20 sm:h-28'
-      }`}
+      className="shrink-0 transition-[height] duration-300"
+      style={{ height: navbarHeight }}
     />
     </>
   )
