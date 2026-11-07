@@ -235,9 +235,7 @@ export const Garage = ({ setStep }: any) => {
                   {models
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((model: Model) => (
-                      <SelectItem key={model.id} value={model.id}>
-                        {model.name}
-                      </SelectItem>
+                      <SelectItem key={model.id}>{model.name}</SelectItem>
                     ))}
                 </Select>
               )}
@@ -257,6 +255,8 @@ export const Garage = ({ setStep }: any) => {
                   isInvalid={errors.color && true}
                   errorMessage={errors.color && errors.color.message}
                   placeholder="Choix de la couleur"
+                  isVirtualized={false}
+                  scrollShadowProps={{ hideScrollBar: false }}
                 >
                   {/* {console.log('value', value)} */}
                   {colors
@@ -264,7 +264,6 @@ export const Garage = ({ setStep }: any) => {
                     .map((color: Color) => (
                       <SelectItem
                         key={color.id}
-                        value={color.name}
                         startContent={
                           <div style={{ backgroundColor: `#${color.hexa}` }}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -292,13 +291,13 @@ export const Garage = ({ setStep }: any) => {
                   isInvalid={errors.finition && true}
                   errorMessage={errors.finition && errors.finition.message}
                   placeholder="Choix de la finition"
+                  isVirtualized={false}
+                  scrollShadowProps={{ hideScrollBar: false }}
                 >
                   {finitions
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((finition: Finition) => (
-                      <SelectItem key={finition.id} value={finition.name}>
-                        {finition.name}
-                      </SelectItem>
+                      <SelectItem key={finition.id}>{finition.name}</SelectItem>
                     ))}
                 </Select>
               )}

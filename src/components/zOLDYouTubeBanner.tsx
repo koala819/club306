@@ -1,12 +1,12 @@
 import { Button, Card, CardBody, CardFooter, Link } from '@heroui/react'
-import { Youtube } from 'lucide-react'
+import { FaYoutube } from 'react-icons/fa'
 import React from 'react'
 
 const YouTubeBanner = () => {
   return (
     <Card isHoverable isPressable className="w-full ">
       <CardBody className="flex items-center p-6 bg-red-600 text-white">
-        <Youtube size={24} />
+        <FaYoutube size={24} />
         <div className="ml-4 flex-1">
           <h3 className="mb-2 text-xl font-semibold">
             Nouveau ! Notre chaîne YouTube est en ligne
