@@ -164,7 +164,7 @@ export const Footer = ({ withMember }: { withMember: boolean }) => {
                     className="w-full rounded-full border border-white/15 bg-white/95 px-4 py-2.5 text-sm text-[#174191] outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/20 dark:bg-white/10 dark:text-white dark:placeholder:text-white/50"
                     placeholder="Entrez votre email"
                     onChange={onChange}
-                    value={value}
+                    value={value ?? ''}
                   />
                 )}
               />
