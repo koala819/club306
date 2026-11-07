@@ -1,5 +1,11 @@
 allowBuilds:
+  '@heroui/shared-utils': true
   '@scarf/scarf': false
   sharp: true
   supabase: false
   unrs-resolver: true
+publicHoistPattern:
+  - '*@heroui/*'
+peerDependencyRules:
+  allowedVersions:
+    next-auth>nodemailer: '10'
