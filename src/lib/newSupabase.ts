@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 
 import supabase from 'backend/config/dbConnect'
+import { insertWithGeneratedId } from '@/src/lib/supabase/ids'
 
 export async function addMemberToEvent(memberId: string, event: string) {
   try {
@@ -19,9 +20,13 @@ export async function addMemberToEvent(memberId: string, event: string) {
       const currentYear = new Date().getFullYear()
 
       try {
-        const { error } = await supabase
-          .from('event_with_members')
-          .insert({ member: memberId, event: event, year: currentYear })
+        const { error } = await insertWithGeneratedId('event_with_members', [
+          {
+            member: memberId,
+            event: event,
+            year: currentYear,
+          },
+        ])
 
         if (!error) {
           return NextResponse.json({

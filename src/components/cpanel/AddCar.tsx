@@ -117,7 +117,7 @@ export default function AddCar({ userMail }: { userMail: string }) {
                         label="Immatriculation"
                         id="immatriculation"
                         onChange={onChange}
-                        value={value}
+                        value={value ?? ''}
                       />
                     )}
                   />
@@ -148,7 +148,7 @@ export default function AddCar({ userMail }: { userMail: string }) {
                         label="Numéro de série (case E)"
                         id="mine"
                         onChange={onChange}
-                        value={value}
+                        value={value ?? ''}
                       />
                     )}
                   />

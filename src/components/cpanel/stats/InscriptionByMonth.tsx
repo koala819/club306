@@ -87,12 +87,8 @@ export default function InscriptionByMonth() {
         // value={selectedYear}
         onChange={(e) => setSelectedYear(Number(e.target.value))}
       >
-        <SelectItem key="2023" value="2023">
-          2023
-        </SelectItem>
-        <SelectItem key="2024" value="2024">
-          2024
-        </SelectItem>
+        <SelectItem key="2023">2023</SelectItem>
+        <SelectItem key="2024">2024</SelectItem>
       </Select>
 
       {nbMembersByMonths !== null && (

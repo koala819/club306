@@ -27,7 +27,23 @@ export default async function connect({
     })
 
     if (response.status !== 200 && response.status !== 204) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      // HelloAsso renvoie souvent un corps JSON détaillant l'erreur :
+      // on le remonte pour faciliter le diagnostic côté appelant.
+      let details = ''
+      try {
+        details = await response.text()
+      } catch {
+        details = ''
+      }
+
+      const error: any = new Error(
+        `HTTP error! status: ${response.status}${
+          details ? ` - ${details.slice(0, 500)}` : ''
+        }`,
+      )
+      error.status = response.status
+      error.details = details
+      throw error
     }
 
     // Pour les réponses 204 (No Content), il n'y a pas de body

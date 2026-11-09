@@ -314,7 +314,6 @@ export default function Garage({
                                     <SelectItem
                                       key={model.id}
                                       color="primary"
-                                      value={model.name}
                                     >
                                       {model.name}
                                     </SelectItem>
@@ -335,7 +334,6 @@ export default function Garage({
                                     <SelectItem
                                       key={finition.id}
                                       color="primary"
-                                      value={finition.name}
                                     >
                                       {finition.name}
                                     </SelectItem>
@@ -356,7 +354,6 @@ export default function Garage({
                                     <SelectItem
                                       key={color.id}
                                       color="primary"
-                                      value={color.name}
                                       startContent={
                                         <div
                                           className="w-6 h-6 rounded-full"

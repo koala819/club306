@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 
 import { PersonalInfo, Vehicles } from '@/src/types/models'
 
+import { insertWithGeneratedId } from '@/src/lib/supabase/ids'
+
 import supabase from 'backend/config/dbConnect'
 
 export async function record(
@@ -24,13 +26,16 @@ export async function record(
     })
   }
 
-  const rspRecCar = await recordCar(vehicles, newMemberId)
-  if (rspRecCar.status !== 200) {
-    return NextResponse.json({
-      message: rspRecCar.message,
-      status: rspRecCar.status,
-    })
-  }
+  // Si le membre existait déjà (rafraîchissement de la page), on réutilise
+  // son identifiant réel au lieu de celui calculé côté client.
+  const memberId = rspRecMember.memberId ?? newMemberId
+
+  // Le véhicule est enregistré au mieux : un échec ici ne doit pas empêcher
+  // l'alerte de validation manuelle de partir, sinon le secrétariat n'est
+  // jamais prévenu et l'adhésion reste bloquée sans trace.
+  const rspRecCar = await recordCar(vehicles, memberId)
+  const carSaved = rspRecCar.status === 200
+
   const rspSendMail = await sendMailRecordDb(personalInfo)
   if (rspSendMail.status !== 200) {
     return NextResponse.json({
@@ -40,37 +45,71 @@ export async function record(
   }
 
   return NextResponse.json({
-    message:
-      'Great Job !!! User and car have created successfully with send the mail :)',
+    message: carSaved
+      ? 'Great Job !!! User and car have created successfully with send the mail :)'
+      : 'Membre enregistré et alerte envoyée, mais le véhicule n’a pas pu être enregistré.',
     status: 200,
+    carSaved,
+    ...(carSaved ? {} : { carError: rspRecCar.message }),
   })
 }
 
+// La colonne cars.id n'a pas toujours de valeur par défaut en base :
+// insertWithGeneratedId gère les deux cas (voir src/lib/supabase/ids.ts).
+
 async function recordCar(vehicles: Vehicles[], memberId: number) {
   try {
-    const insertionResults = await Promise.all(
-      vehicles.map(async (vehicle) => {
-        const { data, error } = await supabase.from('cars').insert({
-          car_color_id: vehicle.color,
-          car_finition_id: vehicle.finition,
-          car_model_id: vehicle.model,
-          immatriculation: vehicle.immatriculation,
-          member_id: memberId,
-          min: vehicle.mine,
-        })
-        if (error) throw error
-        return data
-      }),
+    if (vehicles.length === 0) {
+      return { status: 200, message: 'No car to create', data: [] }
+    }
+
+    // Idempotence : on ne recrée pas une voiture déjà enregistrée pour ce
+    // membre (même immatriculation), pour supporter un rafraîchissement.
+    const { data: existingCars, error: readError } = await supabase
+      .from('cars')
+      .select('immatriculation')
+      .eq('member_id', memberId)
+
+    if (readError) throw readError
+
+    const existingPlate = new Set(
+      (existingCars ?? []).map((car: any) =>
+        String(car.immatriculation ?? '').toUpperCase(),
+      ),
     )
+
+    const carsToCreate = vehicles
+      .filter(
+        (vehicle) =>
+          !existingPlate.has(
+            String(vehicle.immatriculation ?? '').toUpperCase(),
+          ),
+      )
+      .map((vehicle) => ({
+        car_color_id: Number(vehicle.color),
+        car_finition_id: Number(vehicle.finition),
+        car_model_id: Number(vehicle.model),
+        immatriculation: vehicle.immatriculation,
+        member_id: memberId,
+        min: vehicle.mine,
+      }))
+
+    if (carsToCreate.length === 0) {
+      return { status: 200, message: 'Car(s) already created', data: [] }
+    }
+
+    const { data, error } = await insertWithGeneratedId('cars', carsToCreate)
+
+    if (error) throw error
 
     return {
       status: 200,
       message: 'Car(s) created successfully',
-      data: insertionResults,
+      data,
     }
   } catch (error: any) {
     return {
-      status: error.status || 500,
+      status: Number(error?.code) || error.status || 500,
       message: error.message || 'Error with recordCar',
     }
   }
@@ -106,8 +145,29 @@ async function recordMember(
   const countryName = countryCodes[country] || ''
 
   try {
-    const { error } = await supabase.from('members').insert({
-      id: newMemberId,
+    // Idempotence : un rafraîchissement de /memberfinish ne doit pas
+    // provoquer un doublon ni une violation de clé primaire.
+    const { data: existing, error: readError } = await supabase
+      .from('members')
+      .select('id')
+      .eq('email', email)
+
+    if (readError) {
+      return {
+        status: 500,
+        message: readError.message || 'Error to read member in db',
+      }
+    }
+
+    if (existing && existing.length > 0) {
+      return {
+        status: 200,
+        message: 'Member already created',
+        memberId: existing[0].id,
+      }
+    }
+
+    const memberRow = {
       cotisation: false,
       address,
       birth_date,
@@ -120,7 +180,12 @@ async function recordMember(
       town,
       zip_code,
       user_token: userToken,
-    })
+    }
+
+    const { data: inserted, error } = await insertWithGeneratedId('members', [
+      memberRow,
+    ])
+
     if (error) {
       return {
         status: 500,
@@ -128,7 +193,11 @@ async function recordMember(
       }
     }
 
-    return { status: 200, message: 'Member created successfully' }
+    return {
+      status: 200,
+      message: 'Member created successfully',
+      memberId: inserted?.[0]?.id ?? newMemberId,
+    }
   } catch (error: any) {
     return {
       status: error.status || 500,

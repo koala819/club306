@@ -51,9 +51,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ allEvents }) => {
           onSelectionChange={setValue}
         >
           {eventsOfCurrentYear.map((event) => (
-            <SelectItem key={event} value={event}>
-              {event}
-            </SelectItem>
+            <SelectItem key={event}>{event}</SelectItem>
           ))}
         </Select>
       )}
