@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { Car, Vehicles } from '@/src/types/models'
 
 import { getIdColor, getIdFinition, getIdModel } from '@/src/lib/supabase'
+import { getNextId, insertWithGeneratedId } from '@/src/lib/supabase/ids'
 import supabase from 'backend/config/dbConnect'
 
 export async function addCar(vehicles: Vehicles, email: string) {
@@ -15,7 +16,7 @@ export async function addCar(vehicles: Vehicles, email: string) {
         statusText: 'Member not found',
       })
     }
-    const { error } = await supabase.from('cars').upsert([
+    const { error } = await insertWithGeneratedId('cars', [
       {
         member_id: memberId,
         car_model_id: vehicles.model,
@@ -216,7 +217,7 @@ async function recordCarInMuseum(car: Car, memberId: number, reason: string) {
           ) {
             const idModel = responses[2].data[0].id
 
-            const { data, error } = await supabase.from('museum').upsert([
+            const { error } = await insertWithGeneratedId('museum', [
               {
                 member_id: memberId,
                 car_model_id: idModel,
