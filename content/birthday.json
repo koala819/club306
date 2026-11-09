@@ -1,4 +1,15 @@
 {
+  "_aide": {
+    "enabled": "true = la tache envoie les mails. false = elle ne fait rien du tout.",
+    "dryRun": "true = SIMULATION. La tache liste les destinataires dans les logs sans envoyer aucun mail. Mets false quand tu es pret a envoyer pour de vrai.",
+    "audience": "Qui recoit les voeux : 'paid' = uniquement les membres a jour de cotisation, 'unpaid' = uniquement ceux qui n'ont pas paye, 'all' = tout le monde.",
+    "subject": "Objet du mail, visible dans la boite de reception.",
+    "title": "Grand titre affiche en haut du mail, dans le corps du message.",
+    "greeting": "Ligne de salutation, juste avant le texte.",
+    "body": "Le texte du mail. Une entree = un paragraphe.",
+    "signature": "Signe en bas du message.",
+    "jetons": "{{firstName}} est remplace par le prenom, {{lastName}} par le nom, {{email}} par l'adresse."
+  },
   "enabled": true,
   "dryRun": true,
   "audience": "paid",
