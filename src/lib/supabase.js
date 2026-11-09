@@ -1,23 +1,21 @@
 import supabase from 'backend/config/dbConnect'
+import { insertWithGeneratedId } from '@/src/lib/supabase/ids'
 import bcrypt from 'bcryptjs'
 
 async function addNewYearCalendar(nextYear) {
   try {
-    let hasErrorOccurred = false
+    const months = Array.from({ length: 12 }, (_, index) => ({
+      year: nextYear,
+      month: index + 1,
+    }))
 
-    for (let month = 1; month <= 12; month++) {
-      const { error } = await supabase
-        .from('event')
-        .insert({ year: nextYear, month: month })
+    const { error } = await insertWithGeneratedId('event', months)
 
-      if (error) {
-        console.error('Error inserting month:', month, 'Error:', error.message)
-        hasErrorOccurred = true
-        break
-      }
-    }
-
-    if (hasErrorOccurred) {
+    if (error) {
+      console.error(
+        'Error inserting calendar months:',
+        error.message || error,
+      )
       return new Response(
         JSON.stringify({ message: 'Error with Supabase request' }),
         {

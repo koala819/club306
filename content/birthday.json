@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "dryRun": true,
+  "audience": "paid",
+  "text": {
+    "subject": "Joyeux anniversaire {{firstName}}",
+    "title": "Joyeux anniversaire {{firstName}} !",
+    "greeting": "Salut {{firstName}},",
+    "body": [
+      "Aujourd'hui c'est ton anniversaire, et on ne pouvait pas laisser passer ça.",
+      "Toute l'équipe du Club 306 te souhaite une très belle journée, entouré de ceux qui comptent pour toi.",
+      "On espère que cette nouvelle année te réserve de belles routes, de bons moments et quelques rassos avec nous.",
+      "Prends soin de toi, et à très vite."
+    ],
+    "signature": "L'équipe du Club 306"
+  }
+}

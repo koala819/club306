@@ -242,6 +242,18 @@ export async function POST(req: Request): Promise<Response> {
         }
         break
       }
+      case 'birthday': {
+        // Envoi des voeux : le contenu vient de content/birthday.json et
+        // le HTML du gabarit dédié. Ici on ne fait que poster le message.
+        mailOptions = {
+          from: 'contact@club306.fr',
+          to: body.to,
+          subject: body.subject,
+          text: body.text,
+          html: body.html,
+        }
+        break
+      }
       default:
         mailOptions = {
           from: 'bigBrother.watchingYou@club306.fr',

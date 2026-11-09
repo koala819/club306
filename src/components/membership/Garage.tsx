@@ -186,7 +186,7 @@ export const Garage = ({ setStep }: any) => {
           <div className="col-span-6 sm:col-span-3 relative z-0 mt-8">
             <Input
               {...register('immatriculation')}
-              value={watch('immatriculation')}
+              value={watch('immatriculation') ?? ''}
               radius="none"
               type="text"
               color="primary"
@@ -205,7 +205,7 @@ export const Garage = ({ setStep }: any) => {
           <div className="col-span-6 sm:col-span-3 relative z-0">
             <Input
               {...register('mine')}
-              value={watch('mine')}
+              value={watch('mine') ?? ''}
               radius="none"
               type="text"
               color="primary"
