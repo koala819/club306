@@ -3,16 +3,16 @@ import supabase from 'backend/config/dbConnect'
 type IdTable = 'members' | 'cars' | 'museum' | 'event_with_members'
 
 /**
- * Le schéma du projet n'a pas toujours de valeur par défaut correcte sur
- * les colonnes `id` :
- *  - `cars` / `museum` : aucune valeur par défaut (erreur 23502) ;
- *  - `members` : séquence présente mais désynchronisée du max(id), ce qui
- *    produit une violation de clé primaire (erreur 23505).
+ * Le schéma du projet n'a pas toujours une génération d'id exploitable :
+ *  - certaines tables n'ont aucun défaut sur `id` (erreur 23502) ;
+ *  - d'autres ont une colonne identity dont la séquence n'a pas été
+ *    avancée jusqu'au max(id) existant, ce qui provoque une violation de
+ *    clé primaire (erreur 23505).
  *
  * On tente donc d'abord une insertion normale (id généré par la base).
- * Si la base refuse (23502 / 23505), on calcule l'identifiant suivant et
- * on réessaie explicitement. Le code fonctionne ainsi avec les deux types
- * de schéma, avant et après correction côté base.
+ * Si la base refuse, on calcule l'identifiant suivant et on réessaie
+ * explicitement. Le code fonctionne ainsi quel que soit l'état du schéma,
+ * et reste correct si les séquences sont réparées plus tard en base.
  */
 const RETRYABLE_ID_ERRORS = new Set(['23502', '23505'])
 
