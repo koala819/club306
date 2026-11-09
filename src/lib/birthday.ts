@@ -109,6 +109,49 @@ async function sendViaMailApi(payload: {
 }
 
 /**
+ * Vérifie si ce membre a déjà reçu ses voeux à cette date.
+ * En cas d'erreur (table absente), on laisse passer : mieux vaut un
+ * éventuel doublon qu'un anniversaire oublié.
+ */
+async function alreadySent(memberId: number, day: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('birthday_log')
+    .select('id')
+    .eq('member_id', memberId)
+    .eq('sent_on', day)
+    .limit(1)
+
+  if (error) {
+    console.warn(
+      '[birthday] journal indisponible, envoi sans garde anti-doublon :',
+      error.message,
+    )
+    return false
+  }
+
+  return (data?.length ?? 0) > 0
+}
+
+/** Note l'envoi pour ne plus le refaire le même jour. */
+async function markAsSent(
+  memberId: number,
+  day: string,
+  email: string,
+): Promise<void> {
+  const { error } = await supabase.from('birthday_log').insert({
+    member_id: memberId,
+    sent_on: day,
+    email,
+  })
+
+  // 23505 = doublon : un autre appel a noté l'envoi entre-temps, c'est
+  // exactement ce que la garde cherche à éviter.
+  if (error && String(error.code) !== '23505') {
+    console.error('[birthday] journal non mis à jour :', error.message)
+  }
+}
+
+/**
  * Envoie les voeux d'anniversaire aux membres concernés.
  *
  * @param reference date de référence (permet de rejouer un jour donné)
@@ -125,6 +168,11 @@ export async function sendBirthdayEmails(
   if (!cfg.enabled) {
     return { config: cfg, candidates: [], results: [] }
   }
+
+  // Jour au format AAAA-MM-JJ, en heure locale : c'est la clé du journal.
+  const day = `${reference.getFullYear()}-${String(
+    reference.getMonth() + 1,
+  ).padStart(2, '0')}-${String(reference.getDate()).padStart(2, '0')}`
 
   const { data, error } = await supabase
     .from('members')
@@ -158,6 +206,17 @@ export async function sendBirthdayEmails(
       continue
     }
 
+    if (await alreadySent(member.id, day)) {
+      results.push({
+        memberId: member.id,
+        email,
+        firstName,
+        status: 'skipped',
+        reason: 'déjà envoyé aujourd’hui',
+      })
+      continue
+    }
+
     const html = birthdayEmail({
       firstName,
       title: renderText(cfg.text.title, member),
@@ -180,6 +239,10 @@ export async function sendBirthdayEmails(
       html,
       text,
     })
+
+    if (sendResult.ok) {
+      await markAsSent(member.id, day, email)
+    }
 
     results.push({
       memberId: member.id,

@@ -89,7 +89,23 @@ check(
   renderText('Salut {{firstName}} !', { first_name: null }) === 'Salut  !',
 )
 
-console.log('\n4. Structure du fichier de configuration')
+console.log('\n4. Cle de jour utilisee par le journal anti-doublon')
+const dayKey = (d) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate(),
+  ).padStart(2, '0')}`
+check('cle du 9 novembre 2026', dayKey(REF) === '2026-11-09', dayKey(REF))
+check(
+  'mois sur deux chiffres',
+  dayKey(new Date(2026, 0, 5)) === '2026-01-05',
+  dayKey(new Date(2026, 0, 5)),
+)
+check(
+  'deux dates du meme jour donnent la meme cle',
+  dayKey(new Date(2026, 10, 9, 8, 30)) === dayKey(new Date(2026, 10, 9, 23, 15)),
+)
+
+console.log('\n5. Structure du fichier de configuration')
 check('enabled est un booleen', typeof config.enabled === 'boolean')
 check('dryRun est un booleen', typeof config.dryRun === 'boolean')
 check(
