@@ -51,10 +51,11 @@ const birthdayEmail = ({
                   <td align="center" style="padding:24px 24px 8px 24px;background-color:#ffffff;">
                     <a href="https://www.club306.fr" target="_blank" style="text-decoration:none;">
                       <img
-                        alt="Club 306"
-                        src="https://www.club306.fr/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FlogoClub306.3a02f592.png&w=256&q=75"
+                        alt="Club 306 - L'aventure Peugeot 306"
+                        src="https://www.club306.fr/images/logoClub306.png"
                         width="180"
-                        style="display:block;border:0;outline:none;max-width:180px;height:auto;"
+                        height="66"
+                        style="display:block;border:0;outline:none;text-decoration:none;width:180px;max-width:180px;height:auto;"
                       >
                     </a>
                   </td>
