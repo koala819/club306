@@ -1,6 +1,11 @@
 import supabase from 'backend/config/dbConnect'
 
-type IdTable = 'members' | 'cars' | 'museum' | 'event_with_members'
+type IdTable =
+  | 'members'
+  | 'cars'
+  | 'museum'
+  | 'event_with_members'
+  | 'event'
 
 /**
  * Le schéma du projet n'a pas toujours une génération d'id exploitable :
