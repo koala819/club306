@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test:db": "node scripts/test-record-db.mjs",
+    "test:birthday": "node scripts/test-birthday.mjs",
     "slicemachine": "start-slicemachine",
     "prepare": "husky"
   },
