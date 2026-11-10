@@ -20,15 +20,6 @@ Tout se règle dans **`content/birthday.json`**. Aucun code à modifier.
 | `true` | **Simulation.** La tâche détecte les anniversaires, les liste dans la réponse et les logs, mais **n'envoie aucun mail**. |
 | `false` | **Envoi réel.** Les mails partent pour de vrai. |
 
-**Laisse `dryRun: true` tant que tu n'as pas vérifié que la liste des destinataires est la bonne.**
-
-Pour tester sans risque, appelle la route avec une date :
-
-```
-https://club306.fr/api/cron/birthday?date=2026-11-09
-```
-
-La réponse affiche `candidates` (qui recevrait le mail) et `results` (ce qui s'est passé).
 
 ### `audience` — qui reçoit
 
@@ -44,9 +35,7 @@ Un membre dont la cotisation est inconnue (`null`) est traité comme **non payé
 
 ---
 
-## `subject` vs `title` — la différence
-
-Les deux sont des textes, mais ils ne s'affichent **pas au même endroit** :
+## `subject` vs `title`
 
 | Champ | Où ça apparaît |
 |---|---|
@@ -67,8 +56,6 @@ Boîte mail :  Joyeux anniversaire Xavier          ← ceci est "subject"
 └─────────────────────────────────┘
 ```
 
-Tu peux mettre la même chose dans les deux, ou varier : un objet court et un titre plus chaleureux, par exemple.
-
 ---
 
 ## Les jetons remplaçables
@@ -82,7 +69,6 @@ Dans **n'importe quel champ texte** (`subject`, `title`, `greeting`, `body`, `si
 | `{{email}}` | L'adresse e-mail |
 
 **Attention** : si le prénom est vide en base, le jeton est remplacé par du vide (`Salut ,`).
-Vérifie que tes membres ont bien un prénom.
 
 ---
 
@@ -114,21 +100,40 @@ La clé `_aide` en haut du fichier est **pure documentation**. Elle est ignorée
 
 ---
 
-## Procédure recommandée
+## `CRON_SECRET` — comment appeler la route à la main
 
-1. Modifier le texte dans `content/birthday.json`
-2. Laisser `dryRun: true`
-3. Tester : `https://club306.fr/api/cron/birthday?date=AAAA-MM-JJ`
-4. Vérifier que `candidates` contient les bonnes personnes
-5. Passer `dryRun: false`
-6. Commit + déploiement
+Si la variable d'environnement `CRON_SECRET` est définie sur Vercel, la route
+refuse tout appel sans le bon en-tête.
+
+### Comment tester toi-même
+
+**PowerShell (Windows)** :
+
+```powershell
+Invoke-RestMethod -Uri "https://www.club306.fr/api/cron/birthday?date=2026-11-09" -Headers @{ Authorization = "Bearer TA_VALEUR_CRON_SECRET" }
+```
+
+**Invite de commandes (cmd)** :
+
+```cmd
+curl.exe -H "Authorization: Bearer TA_VALEUR_CRON_SECRET" "https://www.club306.fr/api/cron/birthday?date=2026-11-09"
+```
+
+### Où définir le secret
+
+1. Génère une valeur : `openssl rand -hex 32`
+2. Vercel → ton projet → **Settings** → **Environment Variables**
+3. Name : `CRON_SECRET` — Value : la chaîne générée
+4. Environments : Production
+
+Si `CRON_SECRET` n'est **pas** défini, la route reste ouverte (aucun contrôle).
 
 ---
 
 ## Quand est-ce envoyé ?
 
 Tous les jours à **8h** (heure serveur), via la tâche planifiée définie dans `vercel.json`.
-Sur le plan gratuit Vercel, l'exécution se fait entre 8h00 et 8h59.
+Sur le plan gratuit Vercel (Hobby), l'exécution se fait entre 8h00 et 8h59.
 
 ---
 
